@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Placeholder sitemap for this MVP build. Replace the placeholder domain and regenerate
+     dynamically from the CMS/data source (locations, blog posts) before production launch. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://sleepy1.example/</loc></url>
+  <url><loc>https://sleepy1.example/locations</loc></url>
+  <url><loc>https://sleepy1.example/locations/mumbai-international-airport</loc></url>
+  <url><loc>https://sleepy1.example/locations/delhi-international-airport</loc></url>
+  <url><loc>https://sleepy1.example/locations/bengaluru-international-airport</loc></url>
+  <url><loc>https://sleepy1.example/locations/chennai-international-airport</loc></url>
+  <url><loc>https://sleepy1.example/locations/hyderabad-international-airport</loc></url>
+  <url><loc>https://sleepy1.example/locations/pune-railway-station</loc></url>
+  <url><loc>https://sleepy1.example/pod-experience</loc></url>
+  <url><loc>https://sleepy1.example/how-it-works</loc></url>
+  <url><loc>https://sleepy1.example/membership</loc></url>
+  <url><loc>https://sleepy1.example/about</loc></url>
+  <url><loc>https://sleepy1.example/faq</loc></url>
+  <url><loc>https://sleepy1.example/contact</loc></url>
+  <url><loc>https://sleepy1.example/blog</loc></url>
+  <url><loc>https://sleepy1.example/blog/beat-jet-lag-on-long-layovers</loc></url>
+  <url><loc>https://sleepy1.example/blog/working-from-the-airport-without-losing-focus</loc></url>
+  <url><loc>https://sleepy1.example/blog/the-hidden-cost-of-a-bad-layover</loc></url>
+  <url><loc>https://sleepy1.example/blog/inside-the-design-of-a-sleepy1-pod</loc></url>
+  <url><loc>https://sleepy1.example/corporate</loc></url>
+  <url><loc>https://sleepy1.example/offers</loc></url>
+  <url><loc>https://sleepy1.example/careers</loc></url>
+  <url><loc>https://sleepy1.example/press</loc></url>
+  <url><loc>https://sleepy1.example/refer</loc></url>
+  <url><loc>https://sleepy1.example/gift-credits</loc></url>
+  <url><loc>https://sleepy1.example/legal/privacy-policy</loc></url>
+  <url><loc>https://sleepy1.example/legal/terms</loc></url>
+  <url><loc>https://sleepy1.example/legal/cancellation-policy</loc></url>
+  <url><loc>https://sleepy1.example/legal/refund-policy</loc></url>
+  <url><loc>https://sleepy1.example/legal/cookie-policy</loc></url>
+</urlset>

@@ -1,0 +1,19 @@
+# Frontend
+sleepy1-frontend/node_modules/
+sleepy1-frontend/dist/
+sleepy1-frontend/.env.local
+sleepy1-frontend/.env.*.local
+
+# Backend
+sleepy1-backend/target/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Logs
+*.log
+npm-debug.log*

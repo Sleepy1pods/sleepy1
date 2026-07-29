@@ -1,0 +1,29 @@
+# Placeholder application configuration for the future Sleepy1 backend.
+# No real database or secrets are configured — values below are illustrative only.
+
+spring:
+  application:
+    name: sleepy1-backend
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sleepy1
+    username: sleepy1
+    password: changeme
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+  flyway:
+    enabled: false # Enable once db/migration scripts are authored
+    locations: classpath:db/migration
+
+server:
+  port: 8080
+
+# Placeholder — replace with a real secrets-managed value before implementing auth
+sleepy1:
+  security:
+    jwt-secret: CHANGE_ME_BEFORE_ANY_REAL_DEPLOYMENT
+    jwt-expiry-minutes: 60

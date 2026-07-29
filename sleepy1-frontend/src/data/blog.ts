@@ -1,0 +1,68 @@
+import type { BlogPost } from '@/types/common'
+
+export const blogPosts: BlogPost[] = [
+  {
+    id: 'b1',
+    slug: 'beat-jet-lag-on-long-layovers',
+    title: 'How to Beat Jet Lag on Long Layovers',
+    excerpt: 'A short private sleep window at the right point in your journey can reset your body clock more effectively than caffeine ever will.',
+    content: [
+      'Jet lag is less about how long you slept and more about when you sleep relative to your destination time zone. A well-timed 90-minute rest during a long layover can do more for your body clock than an extra coffee or a bright terminal walk.',
+      'The key is matching your rest window to your destination\'s night, not your origin\'s. If you\'re heading somewhere several hours ahead, a private, dark, quiet pod during your layover lets you front-load recovery before you even land.',
+      'Sleepy1 pods are designed around this principle — blackout ambient lighting and acoustic isolation mean a 60–90 minute booking can function as a genuine sleep cycle, not just a doze in a lounge chair.',
+    ],
+    category: 'Travel Wellness',
+    author: 'Sleepy1 Editorial',
+    publishedAt: '2026-06-18',
+    readMinutes: 6,
+    coverImage: 'blog-jetlag',
+  },
+  {
+    id: 'b2',
+    slug: 'working-from-the-airport-without-losing-focus',
+    title: 'Why a Real Nap Beats Another Coffee on a Long Layover',
+    excerpt: 'Open seating areas are built for waiting, not resting. Here is why frequent flyers are starting to book a private pod instead of another espresso.',
+    content: [
+      'Open seating areas are built for waiting, not resting. Between announcements, foot traffic, and bright terminal lighting, it is nearly impossible to get real rest between flights.',
+      'Frequent flyers increasingly treat a private rest pod as part of their travel kit — a dark, quiet, closed door turns a two-hour layover into genuine recovery time instead of another round of caffeine.',
+      'If your itinerary includes an early departure or a long connection, booking a Sleepy1 pod ahead of time means you walk straight from your gate to a ready place to rest.',
+    ],
+    category: 'Travel Wellness',
+    author: 'Sleepy1 Editorial',
+    publishedAt: '2026-05-30',
+    readMinutes: 5,
+    coverImage: 'blog-work',
+  },
+  {
+    id: 'b3',
+    slug: 'the-hidden-cost-of-a-bad-layover',
+    title: 'The Hidden Cost of a Bad Layover',
+    excerpt: 'Poor rest before an important meeting has a measurable cost. We break down why private recovery spaces are becoming a business travel essential.',
+    content: [
+      'Business travellers routinely land straight into high-stakes meetings after overnight flights. The cost of that fatigue rarely shows up on an expense report, but it shows up in decision quality.',
+      'A growing number of corporate travel policies now budget for rest infrastructure — private pods and shower access — as a wellbeing investment, not a luxury line item.',
+      'Sleepy1\'s Corporate Solutions program is built around this shift, letting teams allocate credits for employees to rest or refresh before walking into the next commitment.',
+    ],
+    category: 'Business Travel',
+    author: 'Sleepy1 Editorial',
+    publishedAt: '2026-04-22',
+    readMinutes: 7,
+    coverImage: 'blog-business',
+  },
+  {
+    id: 'b4',
+    slug: 'inside-the-design-of-a-sleepy1-pod',
+    title: 'Inside the Design of a Sleepy1 Pod',
+    excerpt: 'From acoustic isolation to circadian lighting — a look at the engineering decisions behind every Sleepy1 pod.',
+    content: [
+      'Every Sleepy1 pod starts from a single design brief: it should feel like a hotel room, compressed into a few square metres, without losing any of the comfort.',
+      'Acoustic panelling mutes terminal noise, circadian lighting gently dims from daylight tones to sleep-amber, and the mattress is chosen specifically for short, deep-rest cycles rather than all-night comfort.',
+      'On the technology side, QR-based smart locks remove the need for staff handovers entirely — the same standard we\'re now extending from airports toward other high-footfall locations.',
+    ],
+    category: 'Design',
+    author: 'Sleepy1 Product Team',
+    publishedAt: '2026-03-11',
+    readMinutes: 8,
+    coverImage: 'blog-design',
+  },
+]
