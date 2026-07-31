@@ -4,13 +4,10 @@ import HomeHero from '@/components/home/HomeHero.vue'
 import HomeTrustedStrip from '@/components/home/HomeTrustedStrip.vue'
 import HomeWhySleepy1 from '@/components/home/HomeWhySleepy1.vue'
 import HomePromoVideo from '@/components/home/HomePromoVideo.vue'
-import HomePodExperience from '@/components/home/HomePodExperience.vue'
 import HomeUseCases from '@/components/home/HomeUseCases.vue'
-import HomeAmenities from '@/components/home/HomeAmenities.vue'
+import HomePodExperience from '@/components/home/HomePodExperience.vue'
 import HomeHowItWorks from '@/components/home/HomeHowItWorks.vue'
-import HomeLocationCategories from '@/components/home/HomeLocationCategories.vue'
 import HomeLocationsPreview from '@/components/home/HomeLocationsPreview.vue'
-import HomeFeaturedLocation from '@/components/home/HomeFeaturedLocation.vue'
 import HomeBookingDemo from '@/components/home/HomeBookingDemo.vue'
 import HomeMembershipCredits from '@/components/home/HomeMembershipCredits.vue'
 import HomeTestimonials from '@/components/home/HomeTestimonials.vue'
@@ -35,11 +32,8 @@ usePageMeta({
     <HomePromoVideo />
     <HomeUseCases />
     <HomePodExperience />
-    <HomeAmenities />
     <HomeHowItWorks />
-    <HomeLocationCategories />
     <HomeLocationsPreview />
-    <HomeFeaturedLocation />
     <HomeBookingDemo />
     <HomeMembershipCredits />
     <HomeTestimonials />

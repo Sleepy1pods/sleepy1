@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { podTypes, podFeatureComparison } from '@/data/pods'
-import { getAmenitiesByIds, amenities } from '@/data/amenities'
+import { getAmenitiesByIds } from '@/data/amenities'
 import { usePageMeta } from '@/composables/usePageMeta'
 import SectionHeading from '@/components/common/SectionHeading.vue'
 import PodVisual from '@/components/common/PodVisual.vue'
@@ -9,6 +9,7 @@ import FeatureComparison from '@/components/common/FeatureComparison.vue'
 import ImageGallery from '@/components/common/ImageGallery.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import DreamBackground from '@/components/atmosphere/DreamBackground.vue'
+import PodFeatureAnatomy from '@/components/pod/PodFeatureAnatomy.vue'
 import type { GalleryImage } from '@/types/common'
 
 usePageMeta({
@@ -82,14 +83,7 @@ const gallery: GalleryImage[] = [
       </div>
     </section>
 
-    <section id="twin-lounge" class="section-pad bg-ink-900/40">
-      <div class="container-page">
-        <SectionHeading eyebrow="All Amenities" title="What's included in every pod" align="center" class="mx-auto" />
-        <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <AmenityItem v-for="a in amenities" :key="a.id" :amenity="a" compact />
-        </div>
-      </div>
-    </section>
+    <PodFeatureAnatomy id="all-amenities" />
 
     <section id="premium-suite" class="section-pad">
       <div class="container-page">

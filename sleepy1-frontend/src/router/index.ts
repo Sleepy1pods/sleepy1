@@ -33,6 +33,7 @@ const router = createRouter({
     { path: '/bookings/:id', name: 'booking-detail', component: () => import('@/views/BookingDetailView.vue'), meta: { requiresAuth: true } },
 
     { path: '/wallet', name: 'wallet', component: () => import('@/views/CreditsWalletView.vue'), meta: { requiresAuth: true } },
+    { path: '/credits', name: 'credits-guide', component: () => import('@/views/CreditsGuideView.vue') },
     { path: '/membership', name: 'membership', component: () => import('@/views/MembershipView.vue') },
 
     { path: '/corporate', name: 'corporate', component: () => import('@/views/CorporateView.vue') },
