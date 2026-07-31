@@ -43,8 +43,8 @@ export default {
         },
       },
       fontFamily: {
-        display: ['"Fraunces"', 'ui-serif', 'Georgia', 'serif'],
-        sans: ['"General Sans"', '"Inter"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['"Comfortaa"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['"Comfortaa"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       boxShadow: {
