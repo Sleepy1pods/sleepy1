@@ -2,7 +2,7 @@
 import { heroStats } from '@/data/statistics'
 import { useCountUp } from '@/composables/useCountUp'
 import { useParallax } from '@/composables/useParallax'
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import SecondaryButton from '@/components/common/SecondaryButton.vue'
 import PodVisual from '@/components/common/PodVisual.vue'
@@ -12,6 +12,50 @@ const statDisplays = heroStats.map((stat) => useCountUp(stat.value))
 
 const visualEl = ref<HTMLElement | null>(null)
 useParallax(visualEl, 8)
+
+// ---------------------------------------------------------------------------
+// High-Tech Luxury Typing Animation for "Rest. Recharge. Rise Again."
+// ---------------------------------------------------------------------------
+const fullLine1 = 'Rest. Recharge.'
+const fullLine2 = 'Rise Again.'
+
+const typedLine1 = ref('')
+const typedLine2 = ref('')
+const currentTypingLine = ref<1 | 2>(1)
+const isTypingDone = ref(false)
+
+let typeTimer: ReturnType<typeof setTimeout> | null = null
+
+function typeNextChar() {
+  if (currentTypingLine.value === 1) {
+    if (typedLine1.value.length < fullLine1.length) {
+      typedLine1.value += fullLine1[typedLine1.value.length]
+      typeTimer = setTimeout(typeNextChar, 55)
+    } else {
+      // Pause briefly before typing line 2
+      typeTimer = setTimeout(() => {
+        currentTypingLine.value = 2
+        typeNextChar()
+      }, 250)
+    }
+  } else if (currentTypingLine.value === 2) {
+    if (typedLine2.value.length < fullLine2.length) {
+      typedLine2.value += fullLine2[typedLine2.value.length]
+      typeTimer = setTimeout(typeNextChar, 65)
+    } else {
+      isTypingDone.value = true
+    }
+  }
+}
+
+onMounted(() => {
+  // Start typing after a short initial delay for visual punch
+  typeTimer = setTimeout(typeNextChar, 300)
+})
+
+onUnmounted(() => {
+  if (typeTimer) clearTimeout(typeTimer)
+})
 </script>
 
 <template>
@@ -21,11 +65,28 @@ useParallax(visualEl, 8)
     <div class="container-page relative grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-8">
       <div class="animate-fade-up">
         <p class="eyebrow mb-6">Premium Rest, On Demand</p>
-        <h1 class="text-balance text-4xl font-semibold leading-[1.05] text-ivory-50 sm:text-5xl lg:text-6xl">
-          Rest. Recharge.
+        
+        <!-- Typed Title with stable min-height to prevent layout shift -->
+        <h1 class="text-balance text-4xl font-semibold leading-[1.1] text-ivory-50 sm:text-5xl lg:text-6xl min-h-[2.3em]">
+          <!-- Line 1: Rest. Recharge. -->
+          <span class="inline-block">
+            {{ typedLine1 }}
+            <span
+              v-if="currentTypingLine === 1"
+              class="inline-block w-[3px] h-[0.88em] ml-1 align-middle bg-brand-300 animate-pulse shadow-[0_0_10px_#f6c98b]"
+            />
+          </span>
           <br />
-          <span class="bg-gradient-to-r from-brand-300 via-moon-400 to-lavender-400 bg-clip-text text-transparent">Rise Again.</span>
+          <!-- Line 2: Rise Again. -->
+          <span class="inline-block bg-gradient-to-r from-brand-300 via-moon-400 to-lavender-400 bg-clip-text text-transparent">
+            {{ typedLine2 }}
+          </span>
+          <span
+            v-if="currentTypingLine === 2 || isTypingDone"
+            class="inline-block w-[3px] h-[0.88em] ml-1 align-middle bg-lavender-400 animate-pulse shadow-[0_0_10px_#c084fc]"
+          />
         </h1>
+
         <p class="mt-6 max-w-lg text-base leading-relaxed text-ivory-100/65 sm:text-lg">
           Sleepy1 places private, hotel-grade sleep pods in the places life makes you wait — so you can rest,
           freshen up, or simply escape the crowd, on your own schedule.

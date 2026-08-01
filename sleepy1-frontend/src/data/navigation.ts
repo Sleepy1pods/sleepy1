@@ -6,6 +6,7 @@ export const primaryNav: NavItem[] = [
   { label: 'How It Works', to: '/how-it-works' },
   { label: 'For Partners', to: '/corporate' },
   { label: 'Membership', to: '/membership' },
+  { label: 'Credits', to: '/credits' },
   { label: 'About', to: '/about' },
   { label: 'Support', to: '/contact' },
 ]
@@ -33,6 +34,7 @@ export const footerColumns: { title: string; items: NavItem[] }[] = [
       { label: 'The Sleep Pod', to: '/pod-experience' },
       { label: 'How Booking Works', to: '/how-it-works' },
       { label: 'Membership Plans', to: '/membership' },
+      { label: 'Sleepy1 Credits Guide', to: '/credits' },
       { label: 'Gift Sleep Credits', to: '/gift-credits' },
     ],
   },
