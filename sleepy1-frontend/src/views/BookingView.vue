@@ -4,13 +4,9 @@ import { useRoute } from 'vue-router'
 import { useBookingFlowStore } from '@/stores/bookingFlow'
 import { usePageMeta } from '@/composables/usePageMeta'
 import BookingStepper from '@/components/booking/BookingStepper.vue'
-import BookingStepLocation from '@/components/booking/BookingStepLocation.vue'
-import BookingStepPod from '@/components/booking/BookingStepPod.vue'
-import BookingStepSchedule from '@/components/booking/BookingStepSchedule.vue'
-import BookingStepExtras from '@/components/booking/BookingStepExtras.vue'
-import BookingStepGuest from '@/components/booking/BookingStepGuest.vue'
-import BookingStepSummary from '@/components/booking/BookingStepSummary.vue'
-import BookingStepPayment from '@/components/booking/BookingStepPayment.vue'
+import BookingStepSelect from '@/components/booking/BookingStepSelect.vue'
+import BookingStepCustomize from '@/components/booking/BookingStepCustomize.vue'
+import BookingStepCheckout from '@/components/booking/BookingStepCheckout.vue'
 import BookingStepConfirmation from '@/components/booking/BookingStepConfirmation.vue'
 
 usePageMeta({
@@ -22,24 +18,15 @@ const route = useRoute()
 const flow = useBookingFlowStore()
 
 const steps = [
-  { key: 'location', label: 'Location' },
-  { key: 'pod', label: 'Pod' },
-  { key: 'schedule', label: 'Schedule' },
-  { key: 'extras', label: 'Extras' },
-  { key: 'guest', label: 'Guest Info' },
-  { key: 'summary', label: 'Summary' },
-  { key: 'payment', label: 'Payment' },
-  { key: 'confirmation', label: 'Confirmation' },
+  { key: 'select', label: '1. Pod & Schedule' },
+  { key: 'customize', label: '2. Guest & Extras' },
+  { key: 'checkout', label: '3. Review & Pay' },
 ]
 
 const stepComponents = {
-  location: BookingStepLocation,
-  pod: BookingStepPod,
-  schedule: BookingStepSchedule,
-  extras: BookingStepExtras,
-  guest: BookingStepGuest,
-  summary: BookingStepSummary,
-  payment: BookingStepPayment,
+  select: BookingStepSelect,
+  customize: BookingStepCustomize,
+  checkout: BookingStepCheckout,
   confirmation: BookingStepConfirmation,
 } as const
 
@@ -52,9 +39,25 @@ onMounted(() => {
   const locationSlug = route.query.location as string | undefined
   const podId = route.query.pod as string | undefined
   const hours = route.query.hours as string | undefined
-  if (locationSlug) flow.setLocation(locationSlug)
-  if (podId) flow.setPod(podId)
-  if (hours) flow.draft.durationHours = Number(hours) || 2
+  if (locationSlug) {
+    flow.setLocation(locationSlug)
+  } else if (!flow.draft.locationId) {
+    flow.setLocation('delhi-international-airport')
+  }
+  if (podId) {
+    flow.setPod(podId)
+  } else if (!flow.draft.podTypeId) {
+    flow.setPod('pod-solo-rest')
+  }
+  if (hours) {
+    flow.draft.durationHours = Number(hours) || 2
+  }
+  if (!flow.draft.date) {
+    flow.draft.date = new Date().toISOString().slice(0, 10)
+  }
+  if (!flow.draft.checkIn) {
+    flow.draft.checkIn = '14:00'
+  }
 })
 </script>
 
@@ -64,7 +67,7 @@ onMounted(() => {
       <h1 class="text-2xl font-semibold text-ivory-50 sm:text-3xl">Book Your Sleepy1 Pod</h1>
       <p class="mt-1 text-sm text-ivory-100/55">A guided, hospitality-grade booking experience — all data shown is for demo purposes.</p>
       <div class="mt-6">
-        <BookingStepper :steps="steps" :current-index="flow.currentStepIndex" />
+        <BookingStepper :steps="steps" :current-index="flow.currentStepIndex" @step-click="flow.currentStepIndex = $event" />
       </div>
     </div>
 

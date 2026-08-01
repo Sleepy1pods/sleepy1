@@ -7,7 +7,7 @@ import { bookingExtras } from '@/data/bookings'
 import { bookingService } from '@/services/bookingService'
 import { calculatePricing } from '@/utils/pricing'
 
-const STEP_ORDER = ['location', 'pod', 'schedule', 'extras', 'guest', 'summary', 'payment', 'confirmation'] as const
+const STEP_ORDER = ['select', 'customize', 'checkout', 'confirmation'] as const
 export type BookingStep = (typeof STEP_ORDER)[number]
 
 function emptyGuest(): GuestInfo {
@@ -106,6 +106,36 @@ export const useBookingFlowStore = defineStore('bookingFlow', () => {
     draft.value.creditsToApply = Math.max(0, amount)
   }
 
+  function applyQuickPreset(preset: 'nap' | 'overnight' | 'duo' | 'work') {
+    if (!draft.value.locationId) {
+      draft.value.locationId = 'delhi-international-airport'
+    }
+    const today = new Date().toISOString().slice(0, 10)
+    draft.value.date = draft.value.date || today
+    switch (preset) {
+      case 'nap':
+        draft.value.podTypeId = 'pod-solo-rest'
+        draft.value.durationHours = 2
+        draft.value.checkIn = '14:00'
+        break
+      case 'overnight':
+        draft.value.podTypeId = 'pod-solo-rest'
+        draft.value.durationHours = 6
+        draft.value.checkIn = '22:00'
+        break
+      case 'duo':
+        draft.value.podTypeId = 'pod-twin-lounge'
+        draft.value.durationHours = 3
+        draft.value.checkIn = '18:00'
+        break
+      case 'work':
+        draft.value.podTypeId = 'pod-solo-work'
+        draft.value.durationHours = 4
+        draft.value.checkIn = '10:00'
+        break
+    }
+  }
+
   async function confirmBooking() {
     isSubmitting.value = true
     try {
@@ -158,6 +188,7 @@ export const useBookingFlowStore = defineStore('bookingFlow', () => {
     setCoupon,
     setPaymentMethod,
     setCreditsToApply,
+    applyQuickPreset,
     confirmBooking,
     reset,
   }

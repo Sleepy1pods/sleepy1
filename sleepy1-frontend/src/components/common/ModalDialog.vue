@@ -43,15 +43,15 @@ function onKeydown(event: KeyboardEvent) {
           role="dialog"
           aria-modal="true"
           :aria-label="title"
-          class="relative w-full card-surface p-6 sm:p-8 shadow-premium animate-fade-up"
+          class="relative w-full max-h-[85vh] flex flex-col card-surface p-5 sm:p-7 shadow-premium animate-fade-up"
           :class="maxWidth"
         >
-          <div class="mb-5 flex items-start justify-between gap-4">
+          <div class="mb-4 flex shrink-0 items-start justify-between gap-4 border-b border-white/10 pb-3">
             <h2 class="text-xl font-semibold text-ivory-50">{{ title }}</h2>
             <button
               type="button"
               aria-label="Close dialog"
-              class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-ivory-100/60 transition-colors hover:bg-white/10 hover:text-ivory-100"
+              class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-ivory-100/60 transition-colors hover:bg-white/10 hover:text-ivory-100"
               @click="emit('close')"
             >
               <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -59,7 +59,9 @@ function onKeydown(event: KeyboardEvent) {
               </svg>
             </button>
           </div>
-          <slot />
+          <div class="no-scrollbar flex-1 overflow-y-auto pr-1">
+            <slot />
+          </div>
         </div>
       </div>
     </Transition>

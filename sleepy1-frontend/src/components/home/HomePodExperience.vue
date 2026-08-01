@@ -15,7 +15,7 @@ const router = useRouter()
         <SectionHeading eyebrow="Our Pods" title="The Sanctuary Experience" description="Every Sleepy1 pod is a marvel of engineering — a peaceful oasis amid outside chaos, designed for comfort, privacy, and deep relaxation." />
         <SecondaryButton as="RouterLink" to="/pod-experience" class="w-fit shrink-0">Explore The Pod →</SecondaryButton>
       </div>
-      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <PodCard
           v-for="pod in podTypes"
           :key="pod.id"
