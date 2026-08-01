@@ -30,7 +30,7 @@ function select(slug: string) {
     <p class="mt-1 text-sm text-ivory-100/55">Search by city or pick from our most popular hubs.</p>
 
     <div class="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center">
-      <SearchInput :model-value="store.searchQuery" placeholder="Search by airport or city..." class="sm:max-w-xs" @update:model-value="store.setSearchQuery($event)" />
+      <SearchInput :model-value="store.searchQuery" placeholder="Search by location or city..." class="sm:max-w-xs" @update:model-value="store.setSearchQuery($event)" />
       <FilterChips :options="store.cities" :model-value="store.selectedCity" @update:model-value="store.setCity($event)" />
     </div>
 

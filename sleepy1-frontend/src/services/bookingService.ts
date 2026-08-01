@@ -43,8 +43,8 @@ export const bookingService = {
     const booking: Booking = {
       id: `bk-${Date.now()}`,
       reference: generateBookingReference(),
-      locationId: location?.id ?? 'loc-bom',
-      locationName: location?.name ?? 'Mumbai International Airport',
+      locationId: location?.id ?? 'loc-hubli-airport',
+      locationName: location?.name ?? 'Hubli Airport',
       terminal: location?.terminal,
       podTypeId: podType?.id ?? 'pod-solo-rest',
       podLabel: `Pod ${Math.floor(Math.random() * 20) + 1}`,

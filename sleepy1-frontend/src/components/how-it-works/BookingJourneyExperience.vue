@@ -86,9 +86,9 @@ onUnmounted(() => {
 // Step 1 Simulation State: Location & Pod
 // ---------------------------------------------------------------------------
 const simLocations = [
-  { id: 'mumbai', name: 'Mumbai T2', hub: 'airport' as const },
-  { id: 'delhi', name: 'Delhi T3', hub: 'airport' as const },
-  { id: 'bengaluru', name: 'Bengaluru T1', hub: 'airport' as const },
+  { id: 'hubli-airport', name: 'Hubli Airport', hub: 'airport' as const },
+  { id: 'bvb-campus-hubli', name: 'BVB Campus Hubli', hub: 'campus' as const },
+  { id: 'hubli-railway-station', name: 'Hubli Railway Station', hub: 'railway' as const },
 ]
 const selectedLocationIdx = ref(0)
 const selectedPodIdx = ref(0)

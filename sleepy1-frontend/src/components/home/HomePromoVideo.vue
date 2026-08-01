@@ -8,16 +8,16 @@ const isOpen = ref(false)
 </script>
 
 <template>
-  <section class="section-pad">
-    <div class="container-page">
+  <section class="section-pad flex min-h-screen items-center">
+    <div class="container-page flex min-h-[calc(100vh-10rem)] flex-col">
       <SectionHeading eyebrow="Experience Sleepy1" title="See a Sleepy1 pod, from arrival to rest" align="center" class="mx-auto" />
       <button
         type="button"
-        class="group relative mx-auto mt-12 block w-full max-w-4xl overflow-hidden rounded-3xl shadow-premium"
+        class="group relative mx-auto mt-12 block min-h-0 w-full flex-1 overflow-hidden rounded-3xl shadow-premium"
         aria-haspopup="dialog"
         @click="isOpen = true"
       >
-        <div class="aspect-video w-full">
+        <div class="h-full min-h-[28rem] w-full">
           <PodVisual id="pod-detail-1" variant="detail" class="h-full w-full" rounded="rounded-3xl" />
         </div>
         <div class="absolute inset-0 flex items-center justify-center bg-ink-950/30 transition-colors group-hover:bg-ink-950/40">

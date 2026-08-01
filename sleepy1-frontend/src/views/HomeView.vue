@@ -20,7 +20,7 @@ import HomeFinalCta from '@/components/home/HomeFinalCta.vue'
 
 usePageMeta({
   title: 'Premium Sleep Pods For Rest, Wherever You Wait',
-  description: 'Sleepy1 places private, hotel-grade sleep pods inside airports today, with a growing network planned for stations, hospitals, campuses, and other high-footfall locations. Book by the hour to rest and recharge.',
+  description: 'Sleepy1 places private, hotel-grade sleep pods across Hubli and Dharwad locations including campuses, the railway station, and Hubli Airport. Book by the hour to rest and recharge.',
 })
 </script>
 

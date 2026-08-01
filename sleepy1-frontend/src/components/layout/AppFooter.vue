@@ -26,7 +26,7 @@ function subscribe() {
             SLEEPY1
           </router-link>
           <p class="mt-4 max-w-xs text-sm leading-relaxed text-ivory-100/55">
-            Premium private sleep pods for travellers — inside airports today, with a growing network planned for other high-footfall locations across India.
+            Premium private sleep pods across Hubli and Dharwad, including campuses, Hubli Railway Station, and Hubli Airport.
           </p>
           <form class="mt-6 flex max-w-xs gap-2" @submit.prevent="subscribe">
             <label for="footer-email" class="sr-only">Email address</label>

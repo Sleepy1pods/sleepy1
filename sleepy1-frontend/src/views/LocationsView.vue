@@ -18,7 +18,7 @@ import { useRouter } from 'vue-router'
 
 usePageMeta({
   title: 'Locations',
-  description: 'Find Sleepy1 private rest pods across major Indian airports today, with planned expansion into stations and other high-footfall locations. Search, filter by city, and book instantly.',
+  description: 'Find Sleepy1 private rest pods across Hubli and Dharwad locations. Search by city, browse the map, and book instantly.',
 })
 
 const store = useLocationsStore()
@@ -30,8 +30,7 @@ function handleMapSelect(slug: string) {
   router.push(`/locations/${slug}`)
 }
 
-const availableNow = computed(() => store.filtered.filter((loc) => loc.hubType === 'airport'))
-const comingSoon = computed(() => store.filtered.filter((loc) => loc.hubType !== 'airport'))
+const availableLocations = computed(() => store.filtered)
 </script>
 
 <template>
@@ -49,7 +48,7 @@ const comingSoon = computed(() => store.filtered.filter((loc) => loc.hubType !==
     <div class="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <SearchInput
         :model-value="store.searchQuery"
-        placeholder="Search by airport or city..."
+        placeholder="Search by location or city..."
         class="sm:max-w-sm"
         @update:model-value="store.setSearchQuery($event)"
       />
@@ -71,26 +70,18 @@ const comingSoon = computed(() => store.filtered.filter((loc) => loc.hubType !==
         @action="store.clearFilters()"
       />
       <template v-else>
-        <section v-if="availableNow.length > 0">
-          <h2 class="text-lg font-semibold text-ivory-50">Available Now</h2>
-          <p class="mt-1 text-sm text-ivory-100/55">Live Sleepy1 pod clusters you can book today.</p>
+        <section v-if="availableLocations.length > 0">
+          <h2 class="text-lg font-semibold text-ivory-50">Locations</h2>
+          <p class="mt-1 text-sm text-ivory-100/55">Sleepy1 pod locations across Hubli and Dharwad.</p>
           <div class="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <LocationCard v-for="loc in availableNow" :key="loc.id" :location="loc" />
-          </div>
-        </section>
-
-        <section v-if="comingSoon.length > 0" class="mt-14">
-          <h2 class="text-lg font-semibold text-ivory-50">Coming Soon</h2>
-          <p class="mt-1 text-sm text-ivory-100/55">Planned expansion locations — shown as illustrative preview content, not yet operational.</p>
-          <div class="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <LocationCard v-for="loc in comingSoon" :key="loc.id" :location="loc" />
+            <LocationCard v-for="loc in availableLocations" :key="loc.id" :location="loc" />
           </div>
         </section>
       </template>
     </div>
 
     <section class="mt-20">
-      <SectionHeading eyebrow="Building the Network" title="Environments where Sleepy1 can operate" description="Beyond airports, these are the kinds of high-footfall spaces Sleepy1 is designed to fit — some already confirmed, most still ahead of us." />
+      <SectionHeading eyebrow="Building the Network" title="Environments where Sleepy1 can operate" description="Sleepy1 is designed for high-footfall spaces like campuses, stations, airports, and other places where people wait or work long hours." />
       <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         <LocationEnvironmentCard v-for="env in locationEnvironments" :key="env.id" :environment="env" />
       </div>

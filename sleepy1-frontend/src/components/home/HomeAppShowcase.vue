@@ -31,7 +31,7 @@ function notifyComingSoon(platform: string) {
         <div class="relative aspect-[9/18] overflow-hidden rounded-[2.5rem] border-4 border-ink-700 bg-ink-800 shadow-premium">
           <div class="flex h-full flex-col gap-3 p-4 pt-8">
             <div class="rounded-2xl bg-gradient-to-br from-brand-600/40 to-lavender-500/30 p-4">
-              <p class="text-xs text-ivory-100/60">Pod 4 · Mumbai T2</p>
+              <p class="text-xs text-ivory-100/60">Pod 4 · Hubli Airport</p>
               <p class="mt-1 text-sm font-semibold text-ivory-50">Check-in in 12 minutes</p>
             </div>
             <div class="grid grid-cols-3 gap-2">

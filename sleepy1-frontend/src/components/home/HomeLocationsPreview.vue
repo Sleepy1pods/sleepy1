@@ -19,7 +19,7 @@ function handleSelect(slug: string) {
   <section class="section-pad bg-ink-900/40">
     <div class="container-page">
       <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-        <SectionHeading eyebrow="Pod Locations" title="Find Sleepy1 near your gate" description="Currently live across major Indian airports, with railway and metro hubs expanding soon." />
+        <SectionHeading eyebrow="Pod Locations" title="Find Sleepy1 near you" description="Browse Sleepy1 locations across Hubli and Dharwad, including campuses, Hubli Railway Station, and Hubli Airport." />
         <SecondaryButton as="RouterLink" to="/locations" class="w-fit shrink-0">View All Locations →</SecondaryButton>
       </div>
 

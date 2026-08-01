@@ -2,8 +2,8 @@
 import { computed, ref } from 'vue'
 import { locations } from '@/data/locations'
 
-const airportLocations = locations.filter((location) => location.hubType === 'airport')
-const marqueeSets = computed(() => [airportLocations, airportLocations, airportLocations])
+const marqueeLocations = locations
+const marqueeSets = computed(() => [marqueeLocations, marqueeLocations, marqueeLocations])
 
 const marqueeOffset = ref(0)
 const isDragging = ref(false)
@@ -40,7 +40,7 @@ function handlePointerEnd(event: PointerEvent) {
     </div>
     <div
       class="marquee-mask no-scrollbar overflow-hidden"
-      aria-label="Sleepy1 airport locations"
+      aria-label="Sleepy1 locations"
       @pointerdown="handlePointerDown"
       @pointermove="handlePointerMove"
       @pointerup="handlePointerEnd"

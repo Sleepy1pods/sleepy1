@@ -6,7 +6,7 @@ import type { Stat } from '@/types/common'
  * replaced with confirmed business figures before production launch.
  */
 export const heroStats: Stat[] = [
-  { id: 's1', value: '5+', label: 'Airport Locations', isVerified: true },
+  { id: 's1', value: '5', label: 'Hubli-Dharwad Locations', isVerified: true },
   { id: 's2', value: '24/7', label: 'Accessibility', isVerified: true },
   { id: 's3', value: '₹499', label: 'Starting Price / Hour', isVerified: true },
   { id: 's4', value: '100%', label: 'Privacy Focused', isVerified: true },
@@ -20,8 +20,8 @@ export const impactStats: Stat[] = [
 ]
 
 export const milestones: { year: string; title: string; description: string }[] = [
-  { year: '2024', title: 'Sleepy1 founded', description: 'Started with a single observation: travellers deserve better than airport chairs.' },
-  { year: '2025', title: 'First pods installed', description: 'Pilot pods launched at two Indian metro airports.' },
-  { year: '2026', title: 'Network expansion', description: 'Expanded to 5+ airport hubs with credit-based membership launched.' },
-  { year: 'Ahead', title: 'Beyond airports', description: 'Working to expand into railway stations, hospitals, campuses, and other high-footfall locations.' },
+  { year: '2024', title: 'Sleepy1 founded', description: 'Started with a single observation: people deserve better rest in busy public spaces.' },
+  { year: '2025', title: 'First pods installed', description: 'Pilot pods launched for high-footfall travel and campus environments.' },
+  { year: '2026', title: 'Hubli-Dharwad network', description: 'Focused the network around five key Hubli and Dharwad locations with credit-based membership launched.' },
+  { year: 'Ahead', title: 'Local growth', description: 'Working to improve access across campuses, stations, airports, and other high-footfall hubs.' },
 ]

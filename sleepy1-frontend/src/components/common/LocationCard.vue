@@ -10,6 +10,10 @@ import SecondaryButton from './SecondaryButton.vue'
 const props = defineProps<{ location: Location }>()
 
 const previewAmenities = computed(() => getAmenitiesByIds(props.location.amenityIds).slice(0, 3))
+const mapUrl = computed(() => {
+  const { lat, lng } = props.location.geo
+  return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`
+})
 </script>
 
 <template>
@@ -44,11 +48,14 @@ const previewAmenities = computed(() => getAmenitiesByIds(props.location.amenity
         </span>
       </div>
 
-      <div class="mt-6 flex gap-3">
-        <SecondaryButton as="RouterLink" :to="`/locations/${location.slug}`" size="sm" class="flex-1 justify-center">
+      <div class="mt-6 grid grid-cols-2 gap-3">
+        <SecondaryButton as="RouterLink" :to="`/locations/${location.slug}`" size="sm" class="justify-center">
+          View Details
+        </SecondaryButton>
+        <SecondaryButton as="a" :href="mapUrl" size="sm" class="justify-center">
           View Location
         </SecondaryButton>
-        <PrimaryButton as="RouterLink" :to="`/book?location=${location.slug}`" size="sm" class="flex-1 justify-center">
+        <PrimaryButton as="RouterLink" :to="`/book?location=${location.slug}`" size="sm" class="col-span-2 justify-center">
           Book Now
         </PrimaryButton>
       </div>

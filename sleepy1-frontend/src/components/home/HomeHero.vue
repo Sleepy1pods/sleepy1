@@ -96,7 +96,7 @@ onUnmounted(() => {
           <SecondaryButton as="RouterLink" to="/pod-experience" size="lg">Explore the Experience</SecondaryButton>
         </div>
         <p class="mt-5 text-sm text-ivory-100/45">
-          Live in major airports today — building toward stations, hospitals, campuses, and more high-footfall locations.
+          Available across selected Hubli and Dharwad hubs, from campuses to the railway station and Hubli Airport.
         </p>
 
         <dl class="mt-12 grid grid-cols-2 gap-6 border-t border-white/8 pt-8 sm:grid-cols-4">
