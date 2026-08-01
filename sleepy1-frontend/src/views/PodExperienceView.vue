@@ -10,6 +10,8 @@ import ImageGallery from '@/components/common/ImageGallery.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import DreamBackground from '@/components/atmosphere/DreamBackground.vue'
 import PodFeatureAnatomy from '@/components/pod/PodFeatureAnatomy.vue'
+import PodInteriorViews from '@/components/pod/PodInteriorViews.vue'
+import PodCeilingExperience from '@/components/pod/PodCeilingExperience.vue'
 import type { GalleryImage } from '@/types/common'
 
 usePageMeta({
@@ -82,6 +84,10 @@ const gallery: GalleryImage[] = [
         </div>
       </div>
     </section>
+
+    <PodInteriorViews />
+
+    <PodCeilingExperience />
 
     <PodFeatureAnatomy id="all-amenities" />
 
