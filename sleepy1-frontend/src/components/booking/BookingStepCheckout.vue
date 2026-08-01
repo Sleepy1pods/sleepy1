@@ -17,20 +17,40 @@ const ui = useUiStore()
 const isPaying = ref(false)
 const couponInput = ref(flow.draft.couponCode ?? '')
 
-onMounted(() => credits.fetchWallet())
+function loadRazorpayScript(): Promise<boolean> {
+  return new Promise((resolve) => {
+    if ((window as any).Razorpay) {
+      resolve(true)
+      return
+    }
+    const script = document.createElement('script')
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js'
+    script.onload = () => resolve(true)
+    script.onerror = () => resolve(false)
+    document.body.appendChild(script)
+  })
+}
+
+onMounted(() => {
+  credits.fetchWallet()
+  if (!flow.draft.paymentMethod || flow.draft.paymentMethod === 'direct') {
+    flow.setPaymentMethod('razorpay')
+  }
+})
 
 const walletBalance = computed(() => credits.wallet?.balance ?? 0)
 const balanceAfterRedemption = computed(() => walletBalance.value - flow.draft.creditsToApply)
 
-const methods: { id: PaymentMethod; label: string; description: string }[] = [
-  { id: 'direct', label: 'Direct Payment', description: 'Simulated card / UPI payment — instant confirmation.' },
+const methods: { id: PaymentMethod; label: string; description: string; badge?: string }[] = [
+  { id: 'razorpay', label: 'Razorpay (UPI, GPay, PhonePe, Cards, NetBanking)', description: 'Real Razorpay Checkout · Supports Google Pay, PhonePe, Paytm, RuPay, Visa.', badge: 'Recommended' },
+  { id: 'direct', label: 'Direct Card / UPI Simulation', description: 'Simulated sandbox test payment — instant confirmation.' },
   { id: 'credits', label: 'Sleepy1 Credits', description: 'Pay fully using your wallet balance.' },
-  { id: 'hybrid', label: 'Credits + Payment', description: 'Apply available credits, pay remaining balance directly.' },
+  { id: 'hybrid', label: 'Credits + Razorpay', description: 'Apply available credits, pay remaining balance via Razorpay.' },
 ]
 
 function selectMethod(method: PaymentMethod) {
   flow.setPaymentMethod(method)
-  if (method === 'direct') flow.setCreditsToApply(0)
+  if (method === 'direct' || method === 'razorpay') flow.setCreditsToApply(0)
   if (method === 'credits') flow.setCreditsToApply(walletBalance.value)
   if (method === 'hybrid' && flow.draft.creditsToApply === 0) {
     flow.setCreditsToApply(Math.min(walletBalance.value, Math.round(flow.pricing.totalPayable / 2)))
@@ -58,13 +78,98 @@ function removeCoupon() {
 }
 
 async function payNow() {
+  if (flow.draft.paymentMethod === 'razorpay' || flow.draft.paymentMethod === 'hybrid' || flow.draft.paymentMethod === 'direct') {
+    isPaying.value = true
+    const loaded = await loadRazorpayScript()
+    if (!loaded) {
+      isPaying.value = false
+      ui.pushToast({
+        type: 'error',
+        title: 'Razorpay SDK Error',
+        description: 'Could not load Razorpay Checkout script. Please check your internet connection.',
+      })
+      return
+    }
+
+    const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY_ID
+    if (!razorpayKey) {
+      isPaying.value = false
+      ui.pushToast({
+        type: 'error',
+        title: 'Razorpay Key Missing',
+        description: 'Please set VITE_RAZORPAY_KEY_ID in your .env file with your Razorpay Test Key ID from dashboard.razorpay.com',
+      })
+      return
+    }
+
+    const options = {
+      key: razorpayKey,
+      amount: Math.round(flow.pricing.totalPayable * 100),
+      currency: 'INR',
+      name: 'Sleepy1 Airport Pods',
+      description: `${flow.selectedPod?.name || 'Solo Rest Pod'} · ${flow.selectedLocation?.name || 'Airport Hotel'}`,
+      image: 'https://cdn-icons-png.flaticon.com/512/3003/3003984.png',
+      handler: function (response: any) {
+        console.log('Razorpay Payment Success:', response)
+        executePaymentConfirm(response.razorpay_payment_id || `pay_${Date.now()}`)
+      },
+      prefill: {
+        name: flow.draft.guest?.fullName || 'Guest',
+        email: flow.draft.guest?.email || 'guest@sleepy1.com',
+        contact: flow.draft.guest?.phone || '9876543210',
+      },
+      notes: {
+        booking_ref: 'SLPY-91824',
+      },
+      theme: {
+        color: '#3B82F6',
+      },
+      modal: {
+        ondismiss: function () {
+          isPaying.value = false
+        },
+      },
+    }
+
+    try {
+      const rzp = new (window as any).Razorpay(options)
+      rzp.on('payment.failed', function (resp: any) {
+        console.error('Payment Failed:', resp.error)
+        ui.pushToast({
+          type: 'error',
+          title: 'Payment Failed',
+          description: resp.error?.description || 'Your transaction was not completed.',
+        })
+        isPaying.value = false
+      })
+      rzp.open()
+    } catch (e: any) {
+      isPaying.value = false
+      ui.pushToast({
+        type: 'error',
+        title: 'Razorpay Error',
+        description: e?.message || 'Failed to initialize Razorpay checkout.',
+      })
+    }
+    return
+  }
+  await executePaymentConfirm()
+}
+
+async function executePaymentConfirm(razorpayId?: string) {
   isPaying.value = true
   try {
     if (flow.draft.creditsToApply > 0) {
       await credits.redeemCredits(flow.draft.creditsToApply, `Redeemed for ${flow.selectedLocation?.name ?? 'Sleepy1 booking'}`)
     }
     await flow.confirmBooking()
-    ui.pushToast({ type: 'success', title: 'Booking confirmed', description: 'Your pod is reserved. Simulated payment complete.' })
+    ui.pushToast({
+      type: 'success',
+      title: razorpayId ? 'Payment Complete via Razorpay!' : 'Booking confirmed',
+      description: razorpayId
+        ? `Your pod is reserved. Razorpay Payment ID: ${razorpayId}`
+        : 'Your pod is reserved. Simulated payment complete.',
+    })
   } finally {
     isPaying.value = false
   }
@@ -173,20 +278,34 @@ async function payNow() {
             :key="method.id"
             type="button"
             class="card-surface flex w-full items-start gap-3.5 p-4 text-left transition-all hover:border-white/25"
-            :class="flow.draft.paymentMethod === method.id ? 'border-brand-400 ring-2 ring-brand-400/30 bg-brand-950/20' : ''"
+            :class="flow.draft.paymentMethod === method.id ? 'border-blue-400/80 ring-2 ring-blue-500/30 bg-blue-950/20' : ''"
             :aria-pressed="flow.draft.paymentMethod === method.id"
             @click="selectMethod(method.id)"
           >
-            <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border mt-0.5" :class="flow.draft.paymentMethod === method.id ? 'border-brand-400 bg-brand-400' : 'border-white/25'">
-              <span v-if="flow.draft.paymentMethod === method.id" class="h-2 w-2 rounded-full bg-ink-950" />
+            <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border mt-0.5" :class="flow.draft.paymentMethod === method.id ? 'border-blue-400 bg-blue-500' : 'border-white/25'">
+              <span v-if="flow.draft.paymentMethod === method.id" class="h-2 w-2 rounded-full bg-white" />
             </span>
-            <div>
-              <p class="text-sm font-semibold text-ivory-50">{{ method.label }}</p>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <p class="text-sm font-semibold text-ivory-50">{{ method.label }}</p>
+                <span v-if="method.badge" class="rounded bg-emerald-400/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-300 border border-emerald-400/30">
+                  {{ method.badge }}
+                </span>
+              </div>
               <p class="mt-0.5 text-xs text-ivory-100/50">{{ method.description }}</p>
             </div>
           </button>
 
-          <div v-if="flow.draft.paymentMethod !== 'direct'" class="card-surface p-5">
+          <!-- Razorpay Security Banner -->
+          <div class="mt-3 flex items-center justify-between rounded-xl border border-blue-500/30 bg-blue-950/30 p-3 text-xs text-blue-300">
+            <div class="flex items-center gap-2">
+              <span class="flex h-5 w-5 items-center justify-center rounded bg-blue-600 font-bold text-white text-[10px]">R₹</span>
+              <span>Secured by <strong>Razorpay</strong> · Supports GPay, PhonePe, Paytm, Cards & UPI</span>
+            </div>
+            <span class="rounded bg-blue-500/20 px-2 py-0.5 font-bold">128-bit SSL</span>
+          </div>
+
+          <div v-if="flow.draft.paymentMethod !== 'direct' && flow.draft.paymentMethod !== 'razorpay'" class="card-surface p-5">
             <div class="flex items-center justify-between text-sm">
               <span class="text-ivory-100/60">Wallet balance</span>
               <span class="font-semibold text-ivory-50">{{ walletBalance.toLocaleString('en-IN') }} credits</span>
@@ -232,12 +351,20 @@ async function payNow() {
               full-width
               :loading="isPaying"
               class="h-14 text-base font-bold shadow-premium"
+              :class="flow.draft.paymentMethod === 'razorpay' ? '!bg-gradient-to-r !from-blue-600 !via-blue-500 !to-brand-500 !text-white hover:!from-blue-500 hover:!to-brand-400' : ''"
               @click="payNow"
             >
-              Confirm & Book Pod ({{ formatInr(flow.pricing.totalPayable) }}) →
+              <span v-if="flow.draft.paymentMethod === 'razorpay'" class="flex items-center justify-center gap-2">
+                <span>Proceed to Pay with Razorpay ({{ formatInr(flow.pricing.totalPayable) }})</span>
+                <span class="text-xs uppercase bg-white/20 px-1.5 py-0.5 rounded font-black">UPI / Cards</span>
+              </span>
+              <span v-else>Confirm & Book Pod ({{ formatInr(flow.pricing.totalPayable) }}) →</span>
             </PrimaryButton>
-            <p class="mt-3 text-center text-xs text-ivory-100/50">
-              🔒 Simulated checkout for demonstration · Instant QR access
+            <p class="mt-3 text-center text-xs text-ivory-100/60">
+              <span v-if="flow.draft.paymentMethod === 'razorpay'" class="font-semibold text-blue-300">
+                🔒 Powered by Razorpay · Instant UPI QR, Cards & NetBanking Checkout
+              </span>
+              <span v-else>🔒 Simulated checkout for demonstration · Instant QR access</span>
             </p>
           </div>
 
@@ -248,4 +375,6 @@ async function payNow() {
       </div>
     </div>
   </div>
+
 </template>
+

@@ -133,7 +133,7 @@ const slotTabs = [
   { id: 'morning' as const, label: 'Morning' },
   { id: 'afternoon' as const, label: 'Afternoon' },
   { id: 'evening' as const, label: 'Evening' },
-  { id: 'night' as const, label: 'Red-Eye' },
+  { id: 'night' as const, label: 'Night' },
 ]
 
 function formatTime12h(timeStr: string): string {

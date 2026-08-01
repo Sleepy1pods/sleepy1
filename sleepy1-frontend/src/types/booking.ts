@@ -22,7 +22,7 @@ export interface GuestInfo {
   specialRequests: string
 }
 
-export type PaymentMethod = 'direct' | 'credits' | 'hybrid'
+export type PaymentMethod = 'direct' | 'credits' | 'hybrid' | 'razorpay'
 
 export interface PriceBreakdown {
   basePrice: number
