@@ -20,7 +20,7 @@ const benefits = [
 
 const propertyPartnerTypes = [
   'Transit authorities',
-  'Airport & railway operators',
+  'Corporate & railway operators',
   'Hospitals & medical campuses',
   'Universities & campuses',
   'Shopping centres',

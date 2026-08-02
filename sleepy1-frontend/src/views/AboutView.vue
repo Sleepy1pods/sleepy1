@@ -9,14 +9,14 @@ import DreamBackground from '@/components/atmosphere/DreamBackground.vue'
 
 usePageMeta({
   title: 'About Sleepy1',
-  description: 'Sleepy1 is working to make safe, private rest more accessible in places where people travel, wait, and spend long hours — starting with airports, and expanding to more high-footfall locations.',
+  description: 'Sleepy1 is working to make safe, private rest more accessible in places where people travel, wait, and spend long hours — starting with campuses and hospitals, and expanding to more high-footfall locations.',
 })
 
 const values = [
   { title: 'Hospitality First', description: 'Every design decision starts with the question: would this feel like a five-star stay, however short?' },
   { title: 'Radical Privacy', description: 'No shared curtains, no cameras inside pods — your rest is genuinely your own.' },
   { title: 'Built For Speed', description: 'Travellers are time-constrained. Booking, check-in, and check-out are designed to take seconds, not minutes.' },
-  { title: 'Everywhere You Wait', description: 'Airports first, then railway stations, malls, and business districts — wherever people wait, we belong.' },
+  { title: 'Everywhere You Wait', description: 'Campuses first, then railway stations, malls, and business districts — wherever people wait, we belong.' },
 ]
 
 const beforeAfterRows = [
@@ -84,9 +84,9 @@ onUnmounted(() => {
             <h2 class="text-xl font-semibold text-brand-300">Our Story</h2>
             <p class="mt-4 leading-relaxed text-ivory-100/70">
               Sleepy1 was born from a simple observation: millions of travellers spend countless hours waiting in
-              airports without access to private, comfortable rest spaces. Whether it's a delayed flight, an overnight
+              hubs without access to private, comfortable rest spaces. Whether it's a delayed journey, an overnight
               layover, a business trip, or an early morning departure, travellers deserve a peaceful environment to
-              recharge. Our mission began with one idea — bring premium sleep pods directly into airports across
+              recharge. Our mission began with one idea — bring premium sleep pods directly into hubs across
               India, and eventually into every high-footfall public space travellers pass through.
             </p>
           </div>
@@ -129,7 +129,7 @@ onUnmounted(() => {
                   <span class="comparison-mark-line" />
                   <span class="comparison-mark-seat" />
                 </span>
-                <h3 class="mt-4 text-2xl font-semibold text-ivory-50">Airport Chair</h3>
+                <h3 class="mt-4 text-2xl font-semibold text-ivory-50">Waiting Chair</h3>
               </div>
 
               <ul class="mt-8 space-y-3">
@@ -244,7 +244,7 @@ onUnmounted(() => {
 
     <section class="section-pad">
       <div class="container-page grid gap-8 lg:grid-cols-2 lg:items-center">
-        <SectionHeading eyebrow="Design Philosophy" title="Where hospitality meets engineering" description="Every pod blends hotel-grade materials — memory foam, blackout finishes, acoustic panelling — with the technology of a smart hotel room: QR access, climate control, and an in-pod entertainment panel. As we expand beyond airports into stations, malls, and campuses, this same standard travels with us." />
+        <SectionHeading eyebrow="Design Philosophy" title="Where hospitality meets engineering" description="Every pod blends hotel-grade materials — memory foam, blackout finishes, acoustic panelling — with the technology of a smart hotel room: QR access, climate control, and an in-pod entertainment panel. As we expand into stations, malls, and campuses, this same standard travels with us." />
         <div class="overflow-hidden rounded-3xl shadow-premium">
           <PodVisual id="pod-detail-2" variant="detail" class="h-full min-h-[260px] w-full" rounded="rounded-3xl" />
         </div>

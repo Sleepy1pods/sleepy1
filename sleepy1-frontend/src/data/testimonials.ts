@@ -41,7 +41,7 @@ export const testimonials: Testimonial[] = [
     id: 't5',
     name: 'Sneha Iyer',
     role: 'Travel Blogger',
-    location: 'Hubli Airport',
+    location: 'IIT Bombay',
     quote: 'Booked with credits from a gifted pack. Redemption during checkout was seamless — didn\'t touch my card at all.',
     rating: 5,
     avatarInitials: 'SI',

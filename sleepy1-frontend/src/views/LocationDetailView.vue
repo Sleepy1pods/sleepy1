@@ -58,7 +58,7 @@ const amenities = computed(() => (location.value ? getAmenitiesByIds(location.va
 const gallery = computed<GalleryImage[]>(() =>
   (location.value?.galleryImages ?? []).map((src, i) => ({ id: `${src}-${i}`, src, alt: `${location.value?.name} pod gallery image ${i + 1}` })),
 )
-const airportFaqs = computed(() => getFaqsByCategory('airport').slice(0, 4))
+const facilitiesFaqs = computed(() => getFaqsByCategory('facilities').slice(0, 4))
 </script>
 
 <template>
@@ -114,7 +114,7 @@ const airportFaqs = computed(() => getFaqsByCategory('airport').slice(0, 4))
         <section>
           <h2 class="text-xl font-semibold text-ivory-50">Frequently Asked Questions</h2>
           <div class="mt-5">
-            <FAQAccordion :items="airportFaqs" />
+            <FAQAccordion :items="facilitiesFaqs" />
           </div>
         </section>
       </div>

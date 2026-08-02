@@ -11,7 +11,7 @@ import DreamBackground from '@/components/atmosphere/DreamBackground.vue'
 usePageMeta({
   title: 'Sleepy1 Credits Program — What Are Credits, How to Earn & How to Use',
   description:
-    'Learn about Sleepy1 Credits: the universal currency for airport sleep. 1 Credit = ₹1. Never expires, zero transaction fees, instant keyless pod entry, and loyalty cashbacks.',
+    'Learn about Sleepy1 Credits: the universal currency for pod sleep. 1 Credit = ₹1. Never expires, zero transaction fees, instant keyless pod entry, and loyalty cashbacks.',
 })
 
 // ---------------------------------------------------------------------------
@@ -40,7 +40,7 @@ const creditsFaqs = [
     category: 'payments' as const,
     question: 'Do Sleepy1 Credits expire over time?',
     answer:
-      'No, never! Your Sleepy1 Credits balance stays securely in your digital wallet indefinitely. You can recharge today and use them months or years later on your next airport transit.',
+      'No, never! Your Sleepy1 Credits balance stays securely in your digital wallet indefinitely. You can recharge today and use them months or years later on your next transit.',
   },
   {
     id: 'split',
@@ -87,13 +87,13 @@ const creditsFaqs = [
         <div class="max-w-3xl mx-auto text-center">
           <div class="inline-flex items-center gap-2 rounded-full border border-brand-400/40 bg-brand-500/10 px-4 py-1.5 text-xs font-black uppercase tracking-widest text-brand-300 shadow-[0_0_20px_rgba(246,201,139,0.25)] mb-6">
             <span class="h-2 w-2 rounded-full bg-brand-400 animate-pulse" />
-            <span>Universal Airport Sleep Currency</span>
+            <span>Universal Sleep Currency</span>
           </div>
           <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-ivory-50 tracking-tight leading-[1.1]">
             Sleepy1 Credits
           </h1>
           <p class="mt-6 text-lg sm:text-xl text-ivory-100/75 leading-relaxed max-w-2xl mx-auto">
-            The universal currency for effortless airport rest. 
+            The universal currency for effortless rest. 
             <strong class="text-brand-300">1 Credit = ₹1 INR.</strong> 
             Never expires, zero transaction fees, and 3-second keyless pod entry.
           </p>
@@ -138,8 +138,8 @@ const creditsFaqs = [
       <div class="container-page">
         <SectionHeading
           eyebrow="What Are Credits"
-          title="Designed for effortless airport transit"
-          description="Standard payment gateways require OTPs, bank redirects, and international card fees. Sleepy1 Credits give you instant, hassle-free airport rest."
+          title="Designed for effortless transit"
+          description="Standard payment gateways require OTPs, bank redirects, and international card fees. Sleepy1 Credits give you instant, hassle-free rest."
           align="center"
           class="mx-auto"
         />
@@ -261,7 +261,7 @@ const creditsFaqs = [
               </p>
             </div>
             <div class="mt-6 pt-4 border-t border-white/10 text-xs font-bold text-purple-300">
-              → Automated Airport Alert
+              → Automated Arrival Alert
             </div>
           </div>
 
@@ -291,7 +291,7 @@ const creditsFaqs = [
             </div>
             <h3 class="mt-6 text-xl font-extrabold text-ivory-50">Select Your Pod & Hours</h3>
             <p class="mt-3 text-sm text-ivory-100/75 leading-relaxed">
-              Choose your airport terminal, pod type, and sleep duration on our booking page or interactive map.
+              Choose your location, pod type, and sleep duration on our booking page or interactive map.
             </p>
           </div>
 
@@ -387,7 +387,7 @@ const creditsFaqs = [
             </div>
 
             <div class="sm:text-right">
-              <div class="text-xs text-ivory-100/60 font-semibold uppercase">Estimated Airport Rest</div>
+              <div class="text-xs text-ivory-100/60 font-semibold uppercase">Estimated Rest</div>
               <div class="mt-1 text-2xl sm:text-3xl font-black text-indigo-300">
                 ~{{ estimatedHours }} hrs
               </div>

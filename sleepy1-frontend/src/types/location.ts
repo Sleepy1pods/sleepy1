@@ -1,7 +1,8 @@
 import type { Amenity } from './common'
 
 export type HubType =
-  | 'airport'
+  | 'corporate'
+  | 'university'
   | 'railway'
   | 'metro'
   | 'bus-terminal'

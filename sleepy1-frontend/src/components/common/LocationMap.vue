@@ -13,22 +13,28 @@ const mapContainer = ref<HTMLElement | null>(null)
 let map: L.Map | null = null
 let markers: L.Marker[] = []
 
-// Leaflet's divIcon only accepts a raw HTML string, so these hex values can't reference Tailwind
-// classes — they mirror brand-400 (#8b9bfb), lavender-500 (#a08ce0), and ink-950 (#0b0d12) in tailwind.config.js.
-const podIcon = L.divIcon({
-  className: '',
-  html: `<div style="width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:linear-gradient(135deg,#8b9bfb,#a08ce0);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.4);">
-           <span style="transform:rotate(45deg);color:#0b0d12;font-weight:700;font-size:12px;">S</span>
-         </div>`,
-  iconSize: [30, 30],
-  iconAnchor: [15, 30],
-})
+function getPodIcon(hubType: string) {
+  let colors = ['#8b9bfb', '#a08ce0'];
+  if (hubType === 'university') colors = ['#60a5fa', '#2563eb']; // Blue
+  else if (hubType === 'hospital') colors = ['#4ade80', '#16a34a']; // Green
+  else if (hubType === 'corporate') colors = ['#9ca3af', '#4b5563']; // Grey
+  else if (hubType === 'railway') colors = ['#fb923c', '#ea580c']; // Orange
+  
+  return L.divIcon({
+    className: '',
+    html: `<div style="width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:linear-gradient(135deg,${colors[0]},${colors[1]});display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.4);">
+             <span style="transform:rotate(45deg);color:#ffffff;font-weight:700;font-size:12px;">S</span>
+           </div>`,
+    iconSize: [30, 30],
+    iconAnchor: [15, 30],
+  })
+}
 
 function renderMarkers() {
   if (!map) return
   markers.forEach((m) => m.remove())
   markers = props.locations.map((loc) => {
-    const marker = L.marker([loc.geo.lat, loc.geo.lng], { icon: podIcon }).addTo(map!)
+    const marker = L.marker([loc.geo.lat, loc.geo.lng], { icon: getPodIcon(loc.hubType) }).addTo(map!)
     marker.bindTooltip(`${loc.name}`, { direction: 'top', offset: [0, -30] })
     marker.on('click', () => emit('select', loc.slug))
     return marker

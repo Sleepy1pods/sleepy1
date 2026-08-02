@@ -81,7 +81,7 @@ const availableLocations = computed(() => store.filtered)
     </div>
 
     <section class="mt-20">
-      <SectionHeading eyebrow="Building the Network" title="Environments where Sleepy1 can operate" description="Sleepy1 is designed for high-footfall spaces like campuses, stations, airports, and other places where people wait or work long hours." />
+      <SectionHeading eyebrow="Building the Network" title="Environments where Sleepy1 can operate" description="Sleepy1 is designed for high-footfall spaces like campuses, stations, corporate parks, and other places where people wait or work long hours." />
       <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         <LocationEnvironmentCard v-for="env in locationEnvironments" :key="env.id" :environment="env" />
       </div>

@@ -25,8 +25,8 @@ export const mockBookings: Booking[] = [
   {
     id: 'bk-1',
     reference: 'SLPY-91824',
-    locationId: 'loc-hubli-airport',
-    locationName: 'Hubli Airport',
+    locationId: 'loc-ndls',
+    locationName: 'New Delhi Railway Station',
     terminal: 'Passenger Terminal',
     podTypeId: 'pod-solo-rest',
     podLabel: 'Pod 4',

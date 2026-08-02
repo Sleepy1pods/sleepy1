@@ -37,7 +37,7 @@ usePageMeta(() => ({
 }))
 
 const locationInstructions = () => {
-  const loc = locations.find((l) => l.id === booking.value?.locationId) ?? getLocationBySlug('hubli-airport')
+  const loc = locations.find((l) => l.id === booking.value?.locationId) ?? getLocationBySlug('new-delhi-railway-station')
   return loc?.instructions ?? []
 }
 

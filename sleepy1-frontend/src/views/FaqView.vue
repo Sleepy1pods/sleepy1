@@ -11,7 +11,7 @@ import EmptyState from '@/components/common/EmptyState.vue'
 
 usePageMeta({
   title: 'FAQs',
-  description: 'Answers to common Sleepy1 questions on booking, check-in, payments, cancellation, safety, hygiene, privacy, luggage, airport access, and pod facilities.',
+  description: 'Answers to common Sleepy1 questions on booking, check-in, payments, cancellation, safety, hygiene, privacy, luggage, location access, and pod facilities.',
 })
 
 useStructuredData(() => ({

@@ -21,13 +21,11 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 <template>
   <header
     class="sticky top-0 z-40 transition-colors duration-300"
-    :class="isScrolled ? 'border-b border-white/8 bg-ink-950/85 backdrop-blur-xl' : 'bg-transparent'"
+    :class="isScrolled ? 'border-b border-white/8 bg-ink-950' : 'bg-transparent'"
   >
     <div class="container-page flex h-18 items-center justify-between gap-4 py-4">
       <router-link to="/" class="flex items-center gap-2 text-lg font-semibold tracking-[0.15em] text-ivory-50">
-        <span class="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-lavender-500 text-ink-950">
-          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20 14.5A8.5 8.5 0 119.5 4a7 7 0 1010.5 10.5z" /></svg>
-        </span>
+        <img src="/Logo.png" alt="Sleepy1 Icon" class="h-9 w-9 object-contain" />
         SLEEPY1
       </router-link>
 

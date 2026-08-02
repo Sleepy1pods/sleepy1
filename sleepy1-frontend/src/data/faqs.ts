@@ -9,7 +9,6 @@ export const faqCategoryLabels: Record<FaqCategory, string> = {
   hygiene: 'Hygiene',
   privacy: 'Privacy',
   luggage: 'Luggage',
-  airport: 'Airport Access',
   facilities: 'Pod Facilities',
 }
 
@@ -33,8 +32,6 @@ export const faqs: Faq[] = [
   { id: 'f17', category: 'privacy', question: 'Is there a camera inside the pod?', answer: 'No. Sleepy1 pods never install cameras or microphones inside the sleeping or resting compartment.' },
   { id: 'f18', category: 'luggage', question: 'Can I bring luggage into the pod?', answer: 'Yes, most pods include space for one large suitcase and a carry-on. Larger group luggage may require the optional locker add-on.' },
   { id: 'f19', category: 'luggage', question: 'Is there a separate locker service?', answer: 'Select locations offer locker add-ons during checkout for additional secure storage outside the pod.' },
-  { id: 'f20', category: 'airport', question: 'Do I need to clear security before accessing a pod?', answer: 'This depends on location. Airside pods require completed security/immigration clearance; landside pods are accessible before check-in.' },
-  { id: 'f21', category: 'airport', question: 'Can international transit passengers use Sleepy1?', answer: 'Yes, at locations with transit-zone pods, international transit passengers can book without re-clearing immigration — see each location\'s instructions.' },
   { id: 'f22', category: 'facilities', question: 'What is included in every pod?', answer: 'Every pod includes ambient lighting, charging ports, high-speed WiFi, a smart lock, and fresh-air ventilation as standard.' },
   { id: 'f23', category: 'facilities', question: 'Are showers available?', answer: 'Shower access is available as a paid add-on at select locations — check the amenities list on each location page.' },
 ]

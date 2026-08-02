@@ -14,7 +14,6 @@ export type FaqCategory =
   | 'hygiene'
   | 'privacy'
   | 'luggage'
-  | 'airport'
   | 'facilities'
 
 export interface Testimonial {

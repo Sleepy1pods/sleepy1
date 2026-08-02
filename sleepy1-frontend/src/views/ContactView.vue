@@ -9,7 +9,7 @@ import DreamCard from '@/components/common/DreamCard.vue'
 
 usePageMeta({
   title: 'Contact & Support',
-  description: 'Get in touch with Sleepy1 support — booking help, airport assistance, and general enquiries. This is a frontend-only demo contact form.',
+  description: 'Get in touch with Sleepy1 support — booking help, location assistance, and general enquiries. This is a frontend-only demo contact form.',
 })
 
 const topics = [
@@ -56,7 +56,7 @@ async function submit() {
           level="h1"
           eyebrow="Support"
           title="We're here to help"
-          description="Reach out for booking assistance, airport access questions, or anything else. This form is a frontend-only demo — no message is transmitted."
+          description="Reach out for booking assistance, location access questions, or anything else. This form is a frontend-only demo — no message is transmitted."
         />
       </div>
 
@@ -121,7 +121,7 @@ async function submit() {
           </DreamCard>
 
           <DreamCard class="support-card p-6 sm:p-7">
-            <h3 class="text-sm font-semibold uppercase tracking-[0.18em] text-ivory-100/50">Airport Assistance</h3>
+            <h3 class="text-sm font-semibold uppercase tracking-[0.18em] text-ivory-100/50">Location Assistance</h3>
             <p class="mt-4 text-sm leading-relaxed text-ivory-100/65">
               Every Sleepy1 pod cluster has an on-site help point and in-app support button during operating hours — look for the Sleepy1 signage near your terminal's pod cluster.
             </p>

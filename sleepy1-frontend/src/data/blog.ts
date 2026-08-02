@@ -19,7 +19,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     id: 'b2',
-    slug: 'working-from-the-airport-without-losing-focus',
+    slug: 'working-from-the-hub-without-losing-focus',
     title: 'Why a Real Nap Beats Another Coffee on a Long Layover',
     excerpt: 'Open seating areas are built for waiting, not resting. Here is why frequent flyers are starting to book a private pod instead of another espresso.',
     content: [
@@ -57,7 +57,7 @@ export const blogPosts: BlogPost[] = [
     content: [
       'Every Sleepy1 pod starts from a single design brief: it should feel like a hotel room, compressed into a few square metres, without losing any of the comfort.',
       'Acoustic panelling mutes terminal noise, circadian lighting gently dims from daylight tones to sleep-amber, and the mattress is chosen specifically for short, deep-rest cycles rather than all-night comfort.',
-      'On the technology side, QR-based smart locks remove the need for staff handovers entirely — the same standard we\'re now extending from airports toward other high-footfall locations.',
+      'On the technology side, QR-based smart locks remove the need for staff handovers entirely — the same standard we\'re now extending toward other high-footfall locations.',
     ],
     category: 'Design',
     author: 'Sleepy1 Product Team',

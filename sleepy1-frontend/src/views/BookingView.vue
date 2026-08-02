@@ -42,7 +42,7 @@ onMounted(() => {
   if (locationSlug) {
     flow.setLocation(locationSlug)
   } else if (!flow.draft.locationId) {
-    flow.setLocation('delhi-international-airport')
+    flow.setLocation('iit-delhi')
   }
   if (podId) {
     flow.setPod(podId)

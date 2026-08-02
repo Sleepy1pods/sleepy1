@@ -10,7 +10,7 @@ const props = withDefaults(
     rounded?: string
   }>(),
   {
-    hubType: 'airport',
+    hubType: 'university',
     id: 'hub-1',
     rounded: 'rounded-2xl',
   },
@@ -22,7 +22,7 @@ const gradId = computed(() => `hub-grad-${props.id}`)
 
 const columnCount = computed(() => {
   switch (props.hubType) {
-    case 'airport': return 7
+    case 'corporate': return 7
     case 'railway': return 5
     case 'metro': return 6
     case 'bus-terminal': return 4
@@ -30,6 +30,7 @@ const columnCount = computed(() => {
     case 'business-district': return 5
     case 'hospital': return 3
     case 'pilgrimage': return 6
+    case 'university': return 5
     case 'campus': return 5
     case 'convention-centre': return 8
     case 'tourist': return 4

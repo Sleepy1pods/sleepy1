@@ -23,5 +23,5 @@ export const milestones: { year: string; title: string; description: string }[] 
   { year: '2024', title: 'Sleepy1 founded', description: 'Started with a single observation: people deserve better rest in busy public spaces.' },
   { year: '2025', title: 'First pods installed', description: 'Pilot pods launched for high-footfall travel and campus environments.' },
   { year: '2026', title: 'Hubli-Dharwad network', description: 'Focused the network around five key Hubli and Dharwad locations with credit-based membership launched.' },
-  { year: 'Ahead', title: 'Local growth', description: 'Working to improve access across campuses, stations, airports, and other high-footfall hubs.' },
+  { year: 'Ahead', title: 'Local growth', description: 'Working to improve access across campuses, stations, hospitals, and other high-footfall hubs.' },
 ]

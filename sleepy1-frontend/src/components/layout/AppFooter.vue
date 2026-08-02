@@ -20,9 +20,7 @@ function subscribe() {
       <div class="grid gap-12 lg:grid-cols-[1.3fr_repeat(4,1fr)]">
         <div>
           <router-link to="/" class="flex items-center gap-2 text-lg font-semibold tracking-[0.15em] text-ivory-50">
-            <span class="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-lavender-500 text-ink-950">
-              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20 14.5A8.5 8.5 0 119.5 4a7 7 0 1010.5 10.5z" /></svg>
-            </span>
+            <img src="/Logo.png" alt="Sleepy1 Icon" class="h-9 w-9 object-contain" />
             SLEEPY1
           </router-link>
           <p class="mt-4 max-w-xs text-sm leading-relaxed text-ivory-100/55">

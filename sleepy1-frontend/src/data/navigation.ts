@@ -1,14 +1,14 @@
 import type { NavItem } from '@/types/common'
 
 export const primaryNav: NavItem[] = [
-  { label: 'Locations', to: '/locations' },
-  { label: 'The Sleep Pod', to: '/pod-experience' },
-  { label: 'How It Works', to: '/how-it-works' },
-  { label: 'For Partners', to: '/corporate' },
-  { label: 'Membership', to: '/membership' },
-  { label: 'Credits', to: '/credits' },
+  { label: 'Home', to: '/' },
   { label: 'About', to: '/about' },
-  { label: 'Support', to: '/contact' },
+  { label: 'Locations', to: '/locations' },
+  { label: 'Features', to: '/pod-experience' },
+  { label: 'How it works', to: '/how-it-works' },
+  { label: 'Sleepy1 Credits', to: '/credits' },
+  { label: 'Membership', to: '/membership' },
+  { label: 'Contact', to: '/contact' },
 ]
 
 export const loggedInNav: NavItem[] = [

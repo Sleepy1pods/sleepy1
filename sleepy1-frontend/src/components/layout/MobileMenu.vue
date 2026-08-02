@@ -57,7 +57,10 @@ async function handleLogout() {
             </div>
             <div class="relative z-10 flex flex-1 flex-col">
               <div class="flex items-center justify-between">
-                <span class="text-lg font-semibold tracking-[0.15em] text-ivory-50">SLEEPY1</span>
+                <div class="flex items-center gap-2">
+                  <img src="/Logo.png" alt="Sleepy1 Icon" class="h-8 w-8 object-contain" />
+                  <span class="text-lg font-semibold tracking-[0.15em] text-ivory-50">SLEEPY1</span>
+                </div>
                 <button type="button" aria-label="Close menu" class="flex h-11 w-11 items-center justify-center rounded-full text-ivory-100 hover:bg-white/10" @click="ui.closeMobileMenu()">
                   <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
                 </button>
