@@ -16,6 +16,7 @@ import HomeAppShowcase from '@/components/home/HomeAppShowcase.vue'
 import HomePartnersGrid from '@/components/home/HomePartnersGrid.vue'
 import HomePartnerCta from '@/components/home/HomePartnerCta.vue'
 import HomeFaqPreview from '@/components/home/HomeFaqPreview.vue'
+import HomeNewsletter from '@/components/home/HomeNewsletter.vue'
 import HomeFinalCta from '@/components/home/HomeFinalCta.vue'
 
 usePageMeta({
@@ -42,6 +43,7 @@ usePageMeta({
     <HomePartnersGrid />
     <HomePartnerCta />
     <HomeFaqPreview />
+    <HomeNewsletter />
     <HomeFinalCta />
   </div>
 </template>

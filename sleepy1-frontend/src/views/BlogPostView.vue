@@ -9,6 +9,7 @@ import Breadcrumbs from '@/components/common/Breadcrumbs.vue'
 import PodVisual from '@/components/common/PodVisual.vue'
 import EmptyState from '@/components/common/EmptyState.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
+import HomeNewsletter from '@/components/home/HomeNewsletter.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -50,6 +51,8 @@ useStructuredData(() =>
     <div class="mt-12 border-t border-white/10 pt-8 text-center">
       <PrimaryButton as="RouterLink" to="/book">Book a Pod For Your Next Trip →</PrimaryButton>
     </div>
+
+    <HomeNewsletter class="mt-8" />
   </div>
   <EmptyState
     v-else

@@ -6,6 +6,7 @@ import SectionHeading from '@/components/common/SectionHeading.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import PodVisual from '@/components/common/PodVisual.vue'
 import DreamBackground from '@/components/atmosphere/DreamBackground.vue'
+import HomeNewsletter from '@/components/home/HomeNewsletter.vue'
 
 usePageMeta({
   title: 'About Sleepy1',
@@ -250,6 +251,8 @@ onUnmounted(() => {
         </div>
       </div>
     </section>
+
+    <HomeNewsletter />
 
     <section class="relative overflow-hidden py-24 text-center">
       <div class="container-page relative">

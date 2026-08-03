@@ -54,6 +54,7 @@ export const footerColumns: { title: string; items: NavItem[] }[] = [
     items: [
       { label: 'FAQs', to: '/faq' },
       { label: 'Travel Blog', to: '/blog' },
+      { label: 'Newsletter Club', to: '/#newsletter' },
       { label: 'Privacy Policy', to: '/legal/privacy-policy' },
       { label: 'Terms & Conditions', to: '/legal/terms' },
       { label: 'Cancellation Policy', to: '/legal/cancellation-policy' },

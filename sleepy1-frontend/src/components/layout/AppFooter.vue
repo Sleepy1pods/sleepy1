@@ -7,8 +7,15 @@ const ui = useUiStore()
 const email = ref('')
 
 function subscribe() {
-  if (!email.value.trim()) return
-  ui.pushToast({ type: 'success', title: 'Subscribed', description: 'You will hear from us with layover tips and offers.' })
+  if (!email.value.trim() || !email.value.includes('@')) {
+    ui.pushToast({ type: 'error', title: 'Valid Email Required', description: 'Please enter a valid email address.' })
+    return
+  }
+  ui.pushToast({
+    type: 'success',
+    title: 'Welcome to the Insider Club!',
+    description: 'Use code WELCOME-REST100 at checkout for 100 free sleep credits.',
+  })
   email.value = ''
 }
 </script>
