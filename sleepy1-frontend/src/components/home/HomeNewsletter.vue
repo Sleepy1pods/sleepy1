@@ -157,7 +157,7 @@ function resetForm() {
             >
               <div class="flex items-center justify-between">
                 <h3 class="text-lg font-semibold text-ivory-50">Claim Your Welcome Gift</h3>
-                <span class="rounded-full bg-emerald-400/10 px-2.5 py-0.5 text-xs font-semibold text-emerald-300">
+                <span class="rounded-full bg-emerald-400/10 px-2.5 py-0.5 text-[10px] font-semibold text-emerald-300">
                   FREE 100 CREDITS
                 </span>
               </div>
