@@ -6,8 +6,8 @@ import type { AmenityIcon as AmenityIconType } from '@/types/common'
 
 // ---------------------------------------------------------------------------
 // Center Pod Anatomy — All Features Revealed At Once (No Scroll Trapping)
-// Displays The Sleep Pod in the center with 3 minimal feature cards on the LEFT
-// and 3 minimal feature cards on the RIGHT, all connected simultaneously by
+// Displays The Sleep Pod in the center with 5 minimal feature cards on the LEFT
+// and 5 minimal feature cards on the RIGHT, all connected simultaneously by
 // high-tech angled SVG circuit lines.
 // ---------------------------------------------------------------------------
 
@@ -18,7 +18,7 @@ interface PodFeatureNode {
   description: string
   icon: AmenityIconType
   side: 'left' | 'right'
-  // Coordinates on a 1200x750 viewBox where the Center Pod is at X=380..820, Y=140..590
+  // Coordinates on a 1200x900 viewBox where the Center Pod is at X=380..820, Y=225..675
   dotX: number
   dotY: number
   // Target Y coordinate where the line meets the card edge (left edge at X=320 or right edge at X=880)
@@ -26,74 +26,118 @@ interface PodFeatureNode {
 }
 
 const features: PodFeatureNode[] = [
-  // 3 LEFT-SIDE FEATURES (Cards at left=0..320)
-  {
-    id: 'lighting',
-    number: '01',
-    name: 'Circadian LED Lighting',
-    description: 'Automated warm amber lighting that mimics natural twilight to promote effortless sleep.',
-    icon: 'lighting',
-    side: 'left',
-    dotX: 520,
-    dotY: 200,
-    cardY: 125,
-  },
+  // 5 LEFT-SIDE FEATURES (Cards exactly at Y=135, 255, 375, 495, 615)
   {
     id: 'noise',
-    number: '02',
-    name: 'Acoustic Isolation Shell',
-    description: 'Multi-layered acoustic damping panels and whisper-quiet door seals mute terminal noise outside.',
+    number: '01',
+    name: 'Noise Insulation',
+    description: 'Acoustic damping panels and door seals mute terminal noise outside.',
     icon: 'noise',
     side: 'left',
-    dotX: 440,
-    dotY: 360,
-    cardY: 350,
+    dotX: 470,
+    dotY: 210,
+    cardY: 135,
   },
   {
-    id: 'lock',
-    number: '03',
-    name: 'Keyless QR Access Lock',
-    description: 'Hold your dynamic mobile QR code at the scanner to unlock your pod instantly.',
-    icon: 'lock',
+    id: 'climate',
+    number: '02',
+    name: 'Smart Climate Control',
+    description: 'Active laminar airflow circulates temperature-regulated air.',
+    icon: 'climate',
     side: 'left',
-    dotX: 460,
-    dotY: 510,
-    cardY: 575,
+    dotX: 410,
+    dotY: 300,
+    cardY: 255,
+  },
+  {
+    id: 'lighting',
+    number: '03',
+    name: 'Ambient Lighting',
+    description: 'Automated warm amber lighting mimics natural twilight.',
+    icon: 'lighting',
+    side: 'left',
+    dotX: 490,
+    dotY: 390,
+    cardY: 375,
+  },
+  {
+    id: 'entertainment',
+    number: '04',
+    name: 'Entertainment',
+    description: 'Immersive display system for streaming your favorite content.',
+    icon: 'display',
+    side: 'left',
+    dotX: 430,
+    dotY: 480,
+    cardY: 495,
+  },
+  {
+    id: 'charging',
+    number: '05',
+    name: 'Power Charging',
+    description: 'Universal power outlets and fast-charging USB ports.',
+    icon: 'charging',
+    side: 'left',
+    dotX: 510,
+    dotY: 560,
+    cardY: 615,
   },
 
-  // 3 RIGHT-SIDE FEATURES (Cards at left=880..1200)
+  // 5 RIGHT-SIDE FEATURES (Cards perfectly mirrored at Y=135, 255, 375, 495, 615)
   {
-    id: 'ventilation',
-    number: '04',
-    name: 'Fresh-Air HEPA Ventilation',
-    description: 'Active laminar airflow circulates fresh, temperature-regulated air every 90 seconds.',
-    icon: 'ventilation',
+    id: 'starview',
+    number: '06',
+    name: 'Starview & Moonview',
+    description: 'Experience the night sky from the comfort of your pod.',
+    icon: 'lighting',
     side: 'right',
-    dotX: 680,
+    dotX: 630,
     dotY: 210,
-    cardY: 125,
+    cardY: 135,
   },
   {
-    id: 'wifi',
-    number: '05',
-    name: 'High-Speed WiFi',
-    description: 'Ultra-fast dedicated fiber WiFi inside every pod for seamless work and streaming.',
-    icon: 'wifi',
+    id: 'air-quality',
+    number: '07',
+    name: 'Air Quality Monitoring',
+    description: 'Continuous HEPA monitoring ensures a pure breathing environment.',
+    icon: 'ventilation',
     side: 'right',
-    dotX: 740,
-    dotY: 360,
-    cardY: 350,
+    dotX: 690,
+    dotY: 300,
+    cardY: 255,
   },
   {
     id: 'mattress',
-    number: '06',
-    name: 'Zero-G Memory Mattress',
-    description: 'Ergonomic memory-foam mattress with organic cotton sheets, freshly sanitized after every stay.',
+    number: '08',
+    name: 'Comfort Mattress',
+    description: 'Ergonomic memory-foam mattress with organic cotton sheets.',
     icon: 'mattress',
     side: 'right',
-    dotX: 720,
-    dotY: 500,
-    cardY: 575,
+    dotX: 730,
+    dotY: 390,
+    cardY: 375,
+  },
+  {
+    id: 'lock',
+    number: '09',
+    name: 'Secure Locking',
+    description: 'Hold your dynamic mobile QR code at the scanner to unlock.',
+    icon: 'lock',
+    side: 'right',
+    dotX: 750,
+    dotY: 480,
+    cardY: 495,
+  },
+  {
+    id: 'nfc',
+    number: '10',
+    name: 'NFC card lock',
+    description: 'Tap-and-go NFC card access for a keyless entry experience.',
+    icon: 'lock',
+    side: 'right',
+    dotX: 650,
+    dotY: 560,
+    cardY: 615,
   },
 ]
 
@@ -143,12 +187,12 @@ const activeHoverId = ref<string | null>(null)
           What's included in every pod
         </h2>
         <p class="mt-3 text-sm sm:text-base text-ivory-100/65">
-          Designed from the inside out for genuine uninterrupted rest, high-speed productivity, and complete privacy.
+          Designed from the inside out for genuine uninterrupted rest, high-speed productivity, and airport privacy.
         </p>
       </div>
 
       <!-- ----------------------------------------------------------------- -->
-      <!-- DESKTOP VIEW: Center Pod + 3 Left Cards + 3 Right Cards At Once -->
+      <!-- DESKTOP VIEW: Center Pod + 5 Left Cards + 5 Right Cards At Once -->
       <!-- ----------------------------------------------------------------- -->
       <div class="relative w-full max-w-7xl mx-auto aspect-[16/10] max-h-[780px] hidden lg:block">
         
@@ -165,14 +209,14 @@ const activeHoverId = ref<string | null>(null)
           </div>
         </div>
 
-        <!-- 2. SVG OVERLAY: 6 ANGLED CONNECTING LINES & PULSING BEACON DOTS -->
+        <!-- 2. SVG OVERLAY: 10 ANGLED CONNECTING LINES & PULSING BEACON DOTS -->
         <svg
           class="absolute inset-0 h-full w-full pointer-events-none z-20"
           viewBox="0 0 1200 750"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <!-- Draw All 6 Connecting Lines -->
+          <!-- Draw All Connecting Lines -->
           <g v-for="feat in features" :key="feat.id">
             <!-- Angled Line -->
             <path
@@ -203,46 +247,57 @@ const activeHoverId = ref<string | null>(null)
           </g>
         </svg>
 
-        <!-- 3. THE 6 MINIMAL FEATURE CARDS (3 Left, 3 Right) -->
+        <!-- 3. THE 10 MINIMAL FEATURE CARDS (5 Left, 5 Right) -->
         <div
           v-for="feat in features"
           :key="feat.id"
           @mouseenter="activeHoverId = feat.id"
           @mouseleave="activeHoverId = null"
-          class="absolute w-[310px] z-30 transition-all duration-300 cursor-pointer"
+          class="absolute w-[290px] z-30 cursor-pointer"
           :style="{
-            left: feat.side === 'left' ? '5px' : '885px',
-            top: `${feat.cardY - 65}px`
+            left: feat.side === 'left' ? '30px' : '885px',
+            top: `${feat.cardY - 28}px`
           }"
-          :class="
-            activeHoverId && activeHoverId !== feat.id
-              ? 'opacity-55 scale-[0.98]'
-              : 'opacity-100 scale-100'
-          "
         >
+          <!-- Main Box -->
           <div
-            class="rounded-2xl border bg-ink-900/95 p-4 sm:p-5 text-left transition-colors duration-300"
-            :class="activeHoverId === feat.id ? 'border-brand-400/70' : 'border-white/15 hover:border-white/30'"
+            class="relative z-30 rounded-xl border bg-ink-900/95 p-3 flex items-center gap-3 transition-all duration-300"
+            :class="
+              activeHoverId && activeHoverId !== feat.id
+                ? 'opacity-55 scale-[0.98] border-white/10'
+                : activeHoverId === feat.id 
+                  ? 'border-brand-400/70 shadow-[0_0_15px_rgba(139,155,251,0.15)] opacity-100 scale-100'
+                  : 'border-white/10 hover:border-white/20 opacity-100 scale-100'
+            "
           >
-            <!-- Header Row: Icon + Badge -->
-            <div class="flex items-center justify-between">
-              <div class="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-brand-300">
-                <AmenityIcon :icon="feat.icon" size="h-5 w-5" />
-              </div>
-              <span class="rounded-full bg-white/5 border border-white/10 px-2.5 py-0.5 text-[11px] font-semibold tracking-wider text-ivory-100/60">
-                {{ feat.number }}
-              </span>
+            <!-- Icon -->
+            <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-brand-300 transition-colors duration-300"
+                 :class="activeHoverId === feat.id ? 'bg-brand-400/10' : ''">
+              <AmenityIcon :icon="feat.icon" size="h-4 w-4" />
             </div>
+            <!-- Title -->
+            <div class="flex-1">
+              <h3 class="text-[15px] font-display font-medium tracking-wide text-ivory-50 leading-tight pt-0.5">
+                {{ feat.name }}
+              </h3>
+            </div>
+            <!-- Badge -->
+            <span class="rounded-full bg-white/5 border border-white/10 px-2 py-0.5 text-[10px] font-medium text-ivory-100/60 transition-colors duration-300"
+                  :class="activeHoverId === feat.id ? 'border-brand-400/30 text-brand-200' : ''">
+              {{ feat.number }}
+            </span>
+          </div>
 
-            <!-- Minimal Bold Title -->
-            <h3 class="mt-2.5 text-base sm:text-lg font-semibold text-ivory-50">
-              {{ feat.name }}
-            </h3>
-
-            <!-- 1-Sentence Description -->
-            <p class="mt-1 text-xs sm:text-sm text-ivory-100/65 leading-relaxed">
-              {{ feat.description }}
-            </p>
+          <!-- Hover Tooltip (Not in the box) -->
+          <div
+            class="absolute left-0 top-full mt-2 w-[290px] z-40 pointer-events-none transition-all duration-300 ease-out"
+            :class="activeHoverId === feat.id ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-2 invisible'"
+          >
+            <div class="rounded-xl border border-brand-400/30 bg-ink-950/98 p-3 shadow-xl backdrop-blur-md">
+              <p class="text-xs text-ivory-100/75 leading-relaxed">
+                {{ feat.description }}
+              </p>
+            </div>
           </div>
         </div>
 
@@ -253,18 +308,18 @@ const activeHoverId = ref<string | null>(null)
       <!-- ----------------------------------------------------------------- -->
       <div class="lg:hidden flex flex-col gap-8">
         
-        <!-- Pod Image with all 6 Beacon Dots -->
+        <!-- Pod Image with all Beacon Dots -->
         <div class="relative w-full max-w-md mx-auto aspect-square rounded-3xl overflow-hidden border border-white/15 bg-ink-900">
           <PodVisual id="pod-interior-1" variant="interior" class="h-full w-full object-cover" />
           <div class="absolute inset-0 bg-gradient-to-t from-ink-950/80 via-transparent to-transparent pointer-events-none" />
 
-          <!-- All 6 Dots on Mobile Pod -->
+          <!-- All Dots on Mobile Pod -->
           <div
             v-for="feat in features"
             :key="feat.id"
             class="absolute -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
             :style="{
-              top: `${(feat.dotY / 750) * 100}%`,
+              top: `${((feat.dotY - 140) / 450) * 100}%`,
               left: `${((feat.dotX - 380) / 440) * 100}%`
             }"
           >
@@ -278,29 +333,27 @@ const activeHoverId = ref<string | null>(null)
           </div>
         </div>
 
-        <!-- 6 Minimal Cards Grid (2 columns on sm, 1 column on xs) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl mx-auto">
+        <!-- 10 Minimal Cards Grid (2 columns on sm, 1 column on xs) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-2xl mx-auto">
           <div
             v-for="feat in features"
             :key="feat.id"
-            class="rounded-2xl border border-white/15 bg-ink-900/95 p-4 sm:p-5 text-left flex flex-col justify-between"
+            class="rounded-xl border border-white/10 bg-ink-900/95 p-3 flex items-center gap-3 text-left transition-colors duration-300 hover:border-brand-400/50"
           >
-            <div>
-              <div class="flex items-center justify-between">
-                <div class="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-brand-300">
-                  <AmenityIcon :icon="feat.icon" size="h-5 w-5" />
-                </div>
-                <span class="rounded-full bg-white/5 border border-white/10 px-2.5 py-0.5 text-[11px] font-semibold text-ivory-100/60">
-                  {{ feat.number }}
-                </span>
-              </div>
-              <h3 class="mt-2.5 text-base sm:text-lg font-semibold text-ivory-50">
+            <!-- Icon -->
+            <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-brand-300">
+              <AmenityIcon :icon="feat.icon" size="h-4 w-4" />
+            </div>
+            <!-- Title -->
+            <div class="flex-1">
+              <h3 class="text-sm font-medium text-ivory-50 leading-tight">
                 {{ feat.name }}
               </h3>
-              <p class="mt-1 text-xs sm:text-sm text-ivory-100/65 leading-relaxed">
-                {{ feat.description }}
-              </p>
             </div>
+            <!-- Badge -->
+            <span class="rounded-full bg-white/5 border border-white/10 px-2 py-0.5 text-[10px] font-medium text-ivory-100/60">
+              {{ feat.number }}
+            </span>
           </div>
         </div>
 
