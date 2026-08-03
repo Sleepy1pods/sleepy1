@@ -51,6 +51,21 @@ function subscribe() {
             <button type="submit" class="btn-base shrink-0 bg-ivory-50 px-4 py-2.5 text-sm text-ink-950 hover:bg-ivory-100">Join</button>
           </form>
 
+          <div class="mt-4">
+            <router-link
+              to="/newsletter"
+              class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-medium text-ivory-100/90 transition-all hover:border-brand-400/60 hover:bg-white/10 hover:text-ivory-50"
+            >
+              <svg class="h-3.5 w-3.5 text-brand-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+              </svg>
+              <span>Read Newsletter & Promos</span>
+              <svg class="h-3.5 w-3.5 text-brand-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </router-link>
+          </div>
+
           <div class="mt-6 flex items-center gap-3">
             <a
               v-for="social in socialLinks"

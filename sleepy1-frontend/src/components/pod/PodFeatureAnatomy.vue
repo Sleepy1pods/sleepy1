@@ -253,50 +253,54 @@ const activeHoverId = ref<string | null>(null)
           :key="feat.id"
           @mouseenter="activeHoverId = feat.id"
           @mouseleave="activeHoverId = null"
-          class="absolute w-[290px] z-30 cursor-pointer"
+          class="absolute w-[290px] cursor-pointer transition-all duration-300"
+          :class="activeHoverId === feat.id ? 'z-50' : 'z-30'"
           :style="{
             left: feat.side === 'left' ? '30px' : '885px',
             top: `${feat.cardY - 28}px`
           }"
         >
-          <!-- Main Box -->
+          <!-- Main Box (Expands on hover to show description) -->
           <div
-            class="relative z-30 rounded-xl border bg-ink-900/95 p-3 flex items-center gap-3 transition-all duration-300"
+            class="relative z-30 rounded-xl border bg-ink-900/98 p-3 transition-all duration-300 overflow-hidden shadow-lg"
             :class="
               activeHoverId && activeHoverId !== feat.id
                 ? 'opacity-55 scale-[0.98] border-white/10'
                 : activeHoverId === feat.id 
-                  ? 'border-brand-400/70 shadow-[0_0_15px_rgba(139,155,251,0.15)] opacity-100 scale-100'
+                  ? 'border-brand-400/70 shadow-[0_0_20px_rgba(139,155,251,0.25)] opacity-100 scale-100 bg-ink-950'
                   : 'border-white/10 hover:border-white/20 opacity-100 scale-100'
             "
           >
-            <!-- Icon -->
-            <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-brand-300 transition-colors duration-300"
-                 :class="activeHoverId === feat.id ? 'bg-brand-400/10' : ''">
-              <AmenityIcon :icon="feat.icon" size="h-4 w-4" />
+            <!-- Header Row -->
+            <div class="flex items-center gap-3">
+              <!-- Icon -->
+              <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-brand-300 transition-colors duration-300"
+                   :class="activeHoverId === feat.id ? 'bg-brand-400/10 border-brand-400/30' : ''">
+                <AmenityIcon :icon="feat.icon" size="h-4 w-4" />
+              </div>
+              <!-- Title -->
+              <div class="flex-1">
+                <h3 class="text-[15px] font-display font-medium tracking-wide text-ivory-50 leading-tight pt-0.5">
+                  {{ feat.name }}
+                </h3>
+              </div>
+              <!-- Badge -->
+              <span class="rounded-full bg-white/5 border border-white/10 px-2 py-0.5 text-[10px] font-medium text-ivory-100/60 transition-colors duration-300"
+                    :class="activeHoverId === feat.id ? 'border-brand-400/30 text-brand-200 bg-brand-400/10' : ''">
+                {{ feat.number }}
+              </span>
             </div>
-            <!-- Title -->
-            <div class="flex-1">
-              <h3 class="text-[15px] font-display font-medium tracking-wide text-ivory-50 leading-tight pt-0.5">
-                {{ feat.name }}
-              </h3>
-            </div>
-            <!-- Badge -->
-            <span class="rounded-full bg-white/5 border border-white/10 px-2 py-0.5 text-[10px] font-medium text-ivory-100/60 transition-colors duration-300"
-                  :class="activeHoverId === feat.id ? 'border-brand-400/30 text-brand-200' : ''">
-              {{ feat.number }}
-            </span>
-          </div>
 
-          <!-- Hover Tooltip (Not in the box) -->
-          <div
-            class="absolute left-0 top-full mt-2 w-[290px] z-40 pointer-events-none transition-all duration-300 ease-out"
-            :class="activeHoverId === feat.id ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-2 invisible'"
-          >
-            <div class="rounded-xl border border-brand-400/30 bg-ink-950/98 p-3 shadow-xl backdrop-blur-md">
-              <p class="text-xs text-ivory-100/75 leading-relaxed">
-                {{ feat.description }}
-              </p>
+            <!-- Expanded Description Area inside the same card -->
+            <div
+              class="grid transition-all duration-300 ease-in-out"
+              :class="activeHoverId === feat.id ? 'grid-rows-[1fr] mt-2.5 pt-2.5 border-t border-white/10 opacity-100' : 'grid-rows-[0fr] mt-0 pt-0 border-t border-transparent opacity-0'"
+            >
+              <div class="overflow-hidden">
+                <p class="text-xs text-ivory-100/80 leading-relaxed">
+                  {{ feat.description }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -338,22 +342,47 @@ const activeHoverId = ref<string | null>(null)
           <div
             v-for="feat in features"
             :key="feat.id"
-            class="rounded-xl border border-white/10 bg-ink-900/95 p-3 flex items-center gap-3 text-left transition-colors duration-300 hover:border-brand-400/50"
+            @mouseenter="activeHoverId = feat.id"
+            @mouseleave="activeHoverId = null"
+            @click="activeHoverId = activeHoverId === feat.id ? null : feat.id"
+            class="rounded-xl border bg-ink-900/98 p-3 text-left transition-all duration-300 cursor-pointer overflow-hidden"
+            :class="
+              activeHoverId === feat.id
+                ? 'border-brand-400/70 shadow-[0_0_15px_rgba(139,155,251,0.15)] bg-ink-950'
+                : 'border-white/10 hover:border-white/20'
+            "
           >
-            <!-- Icon -->
-            <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-brand-300">
-              <AmenityIcon :icon="feat.icon" size="h-4 w-4" />
+            <!-- Header Row -->
+            <div class="flex items-center gap-3">
+              <!-- Icon -->
+              <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-brand-300 transition-colors duration-300"
+                   :class="activeHoverId === feat.id ? 'bg-brand-400/10 border-brand-400/30' : ''">
+                <AmenityIcon :icon="feat.icon" size="h-4 w-4" />
+              </div>
+              <!-- Title -->
+              <div class="flex-1">
+                <h3 class="text-sm font-medium text-ivory-50 leading-tight">
+                  {{ feat.name }}
+                </h3>
+              </div>
+              <!-- Badge -->
+              <span class="rounded-full bg-white/5 border border-white/10 px-2 py-0.5 text-[10px] font-medium text-ivory-100/60 transition-colors duration-300"
+                    :class="activeHoverId === feat.id ? 'border-brand-400/30 text-brand-200 bg-brand-400/10' : ''">
+                {{ feat.number }}
+              </span>
             </div>
-            <!-- Title -->
-            <div class="flex-1">
-              <h3 class="text-sm font-medium text-ivory-50 leading-tight">
-                {{ feat.name }}
-              </h3>
+
+            <!-- Expanded Description Area inside the same card -->
+            <div
+              class="grid transition-all duration-300 ease-in-out"
+              :class="activeHoverId === feat.id ? 'grid-rows-[1fr] mt-2.5 pt-2.5 border-t border-white/10 opacity-100' : 'grid-rows-[0fr] mt-0 pt-0 border-t border-transparent opacity-0'"
+            >
+              <div class="overflow-hidden">
+                <p class="text-xs text-ivory-100/80 leading-relaxed">
+                  {{ feat.description }}
+                </p>
+              </div>
             </div>
-            <!-- Badge -->
-            <span class="rounded-full bg-white/5 border border-white/10 px-2 py-0.5 text-[10px] font-medium text-ivory-100/60">
-              {{ feat.number }}
-            </span>
           </div>
         </div>
 

@@ -39,6 +39,7 @@ const router = createRouter({
     { path: '/corporate', name: 'corporate', component: () => import('@/views/CorporateView.vue') },
     { path: '/gift-credits', name: 'gift-credits', component: () => import('@/views/GiftCreditsView.vue') },
     { path: '/offers', name: 'offers', component: () => import('@/views/OffersView.vue') },
+    { path: '/newsletter', name: 'newsletter', component: () => import('@/views/NewsletterView.vue') },
     { path: '/refer', name: 'refer', component: () => import('@/views/ReferEarnView.vue') },
     { path: '/blog', name: 'blog', component: () => import('@/views/BlogView.vue') },
     { path: '/blog/:slug', name: 'blog-post', component: () => import('@/views/BlogPostView.vue') },
