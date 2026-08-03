@@ -1,27 +1,18 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
-import { podTypes } from '@/data/pods'
 import SectionHeading from '@/components/common/SectionHeading.vue'
-import PodCard from '@/components/common/PodCard.vue'
 import SecondaryButton from '@/components/common/SecondaryButton.vue'
-
-const router = useRouter()
+import PodVisual from '@/components/common/PodVisual.vue'
 </script>
 
 <template>
   <section class="section-pad">
-    <div class="container-page">
-      <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-        <SectionHeading eyebrow="Our Pods" title="The Sanctuary Experience" description="Every Sleepy1 pod is a marvel of engineering — a peaceful oasis amid outside chaos, designed for comfort, privacy, and deep relaxation." />
-        <SecondaryButton as="RouterLink" to="/pod-experience" class="w-fit shrink-0">Explore The Pod →</SecondaryButton>
+    <div class="container-page grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+      <div class="order-2 aspect-[4/3] overflow-hidden rounded-3xl lg:order-1">
+        <PodVisual id="pod-exterior-1" variant="exterior" class="h-full w-full" rounded="rounded-3xl" />
       </div>
-      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <PodCard
-          v-for="pod in podTypes"
-          :key="pod.id"
-          :pod="pod"
-          @select="router.push(`/pod-experience#${pod.type}`)"
-        />
+      <div class="order-1 lg:order-2">
+        <SectionHeading eyebrow="The Pod" title="Step inside, and the world outside goes quiet." description="Sealed, silent, and yours alone — every detail is built for one purpose: real rest, on your schedule." />
+        <SecondaryButton as="RouterLink" to="/pod-experience" class="mt-8 w-fit">Explore the pod →</SecondaryButton>
       </div>
     </div>
   </section>

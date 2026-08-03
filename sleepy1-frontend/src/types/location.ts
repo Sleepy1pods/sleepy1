@@ -3,6 +3,7 @@ import type { Amenity } from './common'
 export type HubType =
   | 'corporate'
   | 'university'
+  | 'airport'
   | 'railway'
   | 'metro'
   | 'bus-terminal'

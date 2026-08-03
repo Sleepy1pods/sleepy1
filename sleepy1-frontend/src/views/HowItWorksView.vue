@@ -3,7 +3,6 @@ import { usePageMeta } from '@/composables/usePageMeta'
 import SectionHeading from '@/components/common/SectionHeading.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import AmenityItem from '@/components/common/AmenityItem.vue'
-import DreamBackground from '@/components/atmosphere/DreamBackground.vue'
 import BookingJourneyExperience from '@/components/how-it-works/BookingJourneyExperience.vue'
 import { getAmenitiesByIds } from '@/data/amenities'
 
@@ -15,11 +14,8 @@ usePageMeta({
 
 <template>
   <div>
-    <section class="relative overflow-hidden section-pad">
-      <div class="absolute inset-0 z-0">
-        <DreamBackground tone="depth" density="medium" />
-      </div>
-      <div class="container-page relative z-10 text-center">
+    <section class="section-pad">
+      <div class="container-page text-center">
         <SectionHeading level="h1" eyebrow="How It Works" title="The full Sleepy1 booking journey" align="center" class="mx-auto" description="From search to check-in, every step is designed to take seconds, not minutes." />
       </div>
     </section>

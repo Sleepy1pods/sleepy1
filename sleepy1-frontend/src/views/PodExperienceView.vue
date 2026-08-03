@@ -8,7 +8,6 @@ import AmenityItem from '@/components/common/AmenityItem.vue'
 import FeatureComparison from '@/components/common/FeatureComparison.vue'
 import ImageGallery from '@/components/common/ImageGallery.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
-import DreamBackground from '@/components/atmosphere/DreamBackground.vue'
 import PodFeatureAnatomy from '@/components/pod/PodFeatureAnatomy.vue'
 import PodInteriorViews from '@/components/pod/PodInteriorViews.vue'
 import PodCeilingExperience from '@/components/pod/PodCeilingExperience.vue'
@@ -29,11 +28,8 @@ const gallery: GalleryImage[] = [
 
 <template>
   <div>
-    <section class="relative overflow-hidden py-20 sm:py-28">
-      <div class="absolute inset-0 z-0">
-        <DreamBackground tone="depth" density="medium" />
-      </div>
-      <div class="container-page relative z-10 grid gap-10 lg:grid-cols-2 lg:items-center">
+    <section class="py-20 sm:py-28">
+      <div class="container-page grid gap-10 lg:grid-cols-2 lg:items-center">
         <div>
           <p class="eyebrow mb-4">The Sleep Pod</p>
           <h1 class="text-balance text-4xl font-semibold text-ivory-50 sm:text-5xl">Engineered for real rest, wherever you are.</h1>

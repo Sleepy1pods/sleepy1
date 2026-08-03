@@ -59,7 +59,7 @@ async function handleLogout() {
       aria-controls="user-menu-dropdown"
       @click="toggleOpen"
     >
-      <span class="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-lavender-500 text-xs font-semibold text-ink-950">
+      <span class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-400 text-xs font-semibold text-ink-950">
         {{ auth.user?.avatarInitials }}
       </span>
       {{ auth.user?.fullName.split(' ')[0] }}

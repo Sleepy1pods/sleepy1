@@ -1,13 +1,9 @@
 import type { NavItem } from '@/types/common'
 
 export const primaryNav: NavItem[] = [
-  { label: 'Home', to: '/' },
-  { label: 'About', to: '/about' },
   { label: 'Locations', to: '/locations' },
-  { label: 'Features', to: '/pod-experience' },
-  { label: 'How it works', to: '/how-it-works' },
-  { label: 'Sleepy1 Credits', to: '/credits' },
-  { label: 'Membership', to: '/membership' },
+  { label: 'How it Works', to: '/how-it-works' },
+  { label: 'About', to: '/about' },
   { label: 'Contact', to: '/contact' },
 ]
 

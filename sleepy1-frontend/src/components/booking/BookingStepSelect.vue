@@ -255,7 +255,7 @@ function proceed() {
 <template>
   <div class="space-y-12">
     <!-- Quick Express Presets Banner (WOW mechanism!) -->
-    <div class="rounded-2xl border border-brand-400/30 bg-gradient-to-r from-brand-950/40 via-ink-900/60 to-lavender-950/40 p-5 shadow-premium sm:p-6">
+    <div class="rounded-2xl border border-brand-400/30 bg-ink-900/60 p-5 shadow-premium sm:p-6">
       <div class="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
         <div>
           <span class="inline-flex items-center gap-1.5 rounded-full bg-brand-400/15 px-3 py-1 text-xs font-semibold text-brand-300">

@@ -5,13 +5,6 @@ import type { Stat } from '@/types/common'
  * `isVerified: false` values are illustrative MVP placeholders and must be
  * replaced with confirmed business figures before production launch.
  */
-export const heroStats: Stat[] = [
-  { id: 's1', value: '5', label: 'Hubli-Dharwad Locations', isVerified: true },
-  { id: 's2', value: '24/7', label: 'Accessibility', isVerified: true },
-  { id: 's3', value: '₹499', label: 'Starting Price / Hour', isVerified: true },
-  { id: 's4', value: '100%', label: 'Privacy Focused', isVerified: true },
-]
-
 export const impactStats: Stat[] = [
   { id: 'i1', value: '40,000+', label: 'Rest hours booked', isVerified: false },
   { id: 'i2', value: '12,000+', label: 'Travellers served', isVerified: false },

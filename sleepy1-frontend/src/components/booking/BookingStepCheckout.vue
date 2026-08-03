@@ -351,7 +351,7 @@ async function executePaymentConfirm(razorpayId?: string) {
               full-width
               :loading="isPaying"
               class="h-14 text-base font-bold shadow-premium"
-              :class="flow.draft.paymentMethod === 'razorpay' ? '!bg-gradient-to-r !from-blue-600 !via-blue-500 !to-brand-500 !text-white hover:!from-blue-500 hover:!to-brand-400' : ''"
+              :class="flow.draft.paymentMethod === 'razorpay' ? '!bg-blue-600 !text-white hover:!bg-blue-500' : ''"
               @click="payNow"
             >
               <span v-if="flow.draft.paymentMethod === 'razorpay'" class="flex items-center justify-center gap-2">

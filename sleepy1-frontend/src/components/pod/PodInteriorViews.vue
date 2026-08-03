@@ -26,20 +26,11 @@ const viewMeta = computed(() => {
 
 <template>
   <section id="pod-interior-views" class="section-pad relative overflow-hidden">
-    <!-- Subtle animated background layer -->
+    <!-- Subtle background shift between ambient modes -->
     <div class="absolute inset-0 z-0 overflow-hidden">
       <div
-        class="absolute inset-0 transition-all duration-[1200ms] ease-in-out"
-        :class="activeView === 'star' ? 'bg-gradient-to-br from-[#0d0f17] via-[#14111f] to-[#1a1428]' : 'bg-gradient-to-br from-[#0a0e1a] via-[#0f1525] to-[#111827]'"
-      />
-      <!-- Floating orbs -->
-      <div
-        class="absolute h-[500px] w-[500px] rounded-full blur-[120px] transition-all duration-[1500ms]"
-        :class="activeView === 'star' ? 'top-[-80px] right-[-100px] bg-amber-500/8' : 'top-[-80px] right-[-100px] bg-blue-400/8'"
-      />
-      <div
-        class="absolute h-[400px] w-[400px] rounded-full blur-[100px] transition-all duration-[1500ms]"
-        :class="activeView === 'star' ? 'bottom-[-60px] left-[-80px] bg-violet-500/8' : 'bottom-[-60px] left-[-80px] bg-indigo-500/8'"
+        class="absolute inset-0 transition-colors duration-[1200ms] ease-in-out"
+        :class="activeView === 'star' ? 'bg-ink-900' : 'bg-ink-950'"
       />
     </div>
 
@@ -257,7 +248,7 @@ const viewMeta = computed(() => {
           type="button"
           class="flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-all duration-300"
           :class="activeView === 'star'
-            ? 'bg-amber-400/20 text-amber-200 border border-amber-400/30 shadow-[0_0_15px_rgba(245,158,11,0.15)]'
+            ? 'bg-amber-400/15 text-amber-200 border border-amber-400/30'
             : 'bg-white/5 text-ivory-100/50 border border-white/10 hover:bg-white/10 hover:text-ivory-100/80'"
           @click="activeView = 'star'"
         >
@@ -268,7 +259,7 @@ const viewMeta = computed(() => {
           type="button"
           class="flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-all duration-300"
           :class="activeView === 'moon'
-            ? 'bg-blue-400/20 text-blue-200 border border-blue-400/30 shadow-[0_0_15px_rgba(59,130,246,0.15)]'
+            ? 'bg-blue-400/15 text-blue-200 border border-blue-400/30'
             : 'bg-white/5 text-ivory-100/50 border border-white/10 hover:bg-white/10 hover:text-ivory-100/80'"
           @click="activeView = 'moon'"
         >

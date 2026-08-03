@@ -4,7 +4,6 @@ import { usePageMeta } from '@/composables/usePageMeta'
 import SectionHeading from '@/components/common/SectionHeading.vue'
 import FormField from '@/components/common/FormField.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
-import DreamBackground from '@/components/atmosphere/DreamBackground.vue'
 import DreamCard from '@/components/common/DreamCard.vue'
 
 usePageMeta({
@@ -45,12 +44,8 @@ async function submit() {
 </script>
 
 <template>
-  <div class="contact-page relative overflow-hidden">
-    <div class="absolute inset-0 z-0">
-      <DreamBackground tone="dusk" density="low" :shooting-stars="false" />
-    </div>
-
-    <div class="relative z-10 container-page max-w-6xl py-16 sm:py-20 lg:py-24">
+  <div class="contact-page">
+    <div class="container-page max-w-6xl py-16 sm:py-20 lg:py-24">
       <div class="max-w-2xl">
         <SectionHeading
           level="h1"

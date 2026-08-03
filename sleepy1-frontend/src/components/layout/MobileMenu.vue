@@ -6,7 +6,6 @@ import { useAuthStore } from '@/stores/auth'
 import { primaryNav, loggedInNav } from '@/data/navigation'
 import { useFocusTrap } from '@/composables/useFocusTrap'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
-import DreamBackground from '@/components/atmosphere/DreamBackground.vue'
 
 const ui = useUiStore()
 const auth = useAuthStore()
@@ -52,10 +51,7 @@ async function handleLogout() {
             aria-label="Mobile"
             class="absolute inset-y-0 right-0 flex w-full max-w-sm flex-col overflow-hidden bg-ink-900 p-6 shadow-premium"
           >
-            <div class="absolute inset-0 z-0">
-              <DreamBackground tone="depth" density="low" :shooting-stars="false" />
-            </div>
-            <div class="relative z-10 flex flex-1 flex-col">
+            <div class="flex flex-1 flex-col">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
                   <img src="/Logo.png" alt="Sleepy1 Icon" class="h-8 w-8 object-contain" />
@@ -67,7 +63,7 @@ async function handleLogout() {
               </div>
 
               <div v-if="auth.isAuthenticated" class="mt-6 flex items-center gap-3 rounded-2xl bg-white/5 p-4">
-                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-lavender-500 text-sm font-semibold text-ink-950">
+                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-brand-400 text-sm font-semibold text-ink-950">
                   {{ auth.user?.avatarInitials }}
                 </span>
                 <div>

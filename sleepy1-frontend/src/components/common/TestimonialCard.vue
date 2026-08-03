@@ -13,7 +13,7 @@ defineProps<{ testimonial: Testimonial }>()
     </div>
     <blockquote class="flex-1 text-[15px] leading-relaxed text-ivory-100/80">"{{ testimonial.quote }}"</blockquote>
     <figcaption class="mt-6 flex items-center gap-3">
-      <span class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-lavender-500 text-sm font-semibold text-ink-950">
+      <span class="flex h-10 w-10 items-center justify-center rounded-full bg-brand-400 text-sm font-semibold text-ink-950">
         {{ testimonial.avatarInitials }}
       </span>
       <div>

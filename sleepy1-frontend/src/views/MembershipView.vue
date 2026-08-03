@@ -6,7 +6,6 @@ import { usePageMeta } from '@/composables/usePageMeta'
 import SectionHeading from '@/components/common/SectionHeading.vue'
 import MembershipCard from '@/components/credits/MembershipCard.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
-import DreamBackground from '@/components/atmosphere/DreamBackground.vue'
 
 usePageMeta({
   title: 'Membership Plans',
@@ -19,11 +18,8 @@ onMounted(() => credits.fetchWallet())
 
 <template>
   <div>
-    <section class="relative overflow-hidden section-pad">
-      <div class="absolute inset-0 z-0">
-        <DreamBackground tone="depth" density="medium" />
-      </div>
-      <div class="container-page relative z-10">
+    <section class="section-pad">
+      <div class="container-page">
         <SectionHeading level="h1" eyebrow="Membership" title="Loyalty that grows with how you travel" align="center" class="mx-auto" description="Membership tiers are earned automatically from your lifetime Sleepy1 Credits — no separate subscription required." />
         <div v-if="credits.wallet" class="mx-auto mt-8 w-fit rounded-full border border-brand-400/30 bg-brand-400/10 px-5 py-2 text-sm font-medium text-brand-200">
           You're currently on the <strong>{{ credits.currentTier.name }}</strong> tier

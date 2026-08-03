@@ -37,7 +37,7 @@ const sizeClasses: Record<string, string> = {
     :type="as === 'button' ? type : undefined"
     :disabled="as === 'button' ? disabled || loading : undefined"
     :class="[
-      'btn-sheen btn-base bg-gradient-to-b from-brand-400 to-brand-600 text-ink-950 shadow-glow hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0 active:brightness-95',
+      'btn-base bg-brand-400 text-ink-950 shadow-soft transition-[background-color,box-shadow,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-brand-300 hover:shadow-glow hover:-translate-y-px active:translate-y-0 active:bg-brand-500',
       sizeClasses[size],
       fullWidth ? 'w-full' : '',
     ]"

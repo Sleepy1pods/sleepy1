@@ -23,6 +23,7 @@ const gradId = computed(() => `hub-grad-${props.id}`)
 const columnCount = computed(() => {
   switch (props.hubType) {
     case 'corporate': return 7
+    case 'airport': return 8
     case 'railway': return 5
     case 'metro': return 6
     case 'bus-terminal': return 4
@@ -44,7 +45,7 @@ const columns = computed(() =>
 )
 
 const archHeight = computed(() =>
-  props.hubType === 'mall' || props.hubType === 'pilgrimage' || props.hubType === 'convention-centre' ? 90 : 60,
+  props.hubType === 'mall' || props.hubType === 'pilgrimage' || props.hubType === 'convention-centre' || props.hubType === 'airport' ? 90 : 60,
 )
 </script>
 
@@ -68,26 +69,26 @@ const archHeight = computed(() =>
       <path
         :d="`M20 ${170 - archHeight} Q200 ${170 - archHeight - 60} 380 ${170 - archHeight}`"
         fill="none"
-        stroke="#a08ce0"
-        stroke-opacity="0.45"
-        stroke-width="3"
+        stroke="#faf6ef"
+        stroke-opacity="0.25"
+        stroke-width="2"
       />
 
       <!-- Columns / structural rhythm -->
       <g v-for="(x, i) in columns" :key="i">
-        <rect :x="x - 3" y="170" width="6" height="70" fill="#e9e4da" opacity="0.28" />
-        <circle :cx="x" cy="168" r="4" fill="#f6c98b" opacity="0.6" />
+        <rect :x="x - 3" y="170" width="6" height="70" fill="#faf6ef" opacity="0.2" />
+        <circle :cx="x" cy="168" r="3.5" fill="#7182f0" opacity="0.5" />
       </g>
 
       <!-- Ground line -->
-      <rect x="0" y="240" width="400" height="2" fill="#e9e4da" opacity="0.15" />
+      <rect x="0" y="240" width="400" height="2" fill="#faf6ef" opacity="0.12" />
 
       <!-- Distant figures for scale/life -->
-      <g opacity="0.5">
+      <g opacity="0.4">
         <circle cx="140" cy="228" r="5" fill="#7182f0" />
         <rect x="136" y="233" width="8" height="14" rx="3" fill="#7182f0" />
-        <circle cx="260" cy="230" r="5" fill="#a08ce0" />
-        <rect x="256" y="235" width="8" height="12" rx="3" fill="#a08ce0" />
+        <circle cx="260" cy="230" r="5" fill="#7182f0" opacity="0.6" />
+        <rect x="256" y="235" width="8" height="12" rx="3" fill="#7182f0" opacity="0.6" />
       </g>
     </svg>
   </div>

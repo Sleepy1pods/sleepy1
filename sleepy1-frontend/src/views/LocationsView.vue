@@ -11,7 +11,6 @@ import LocationMap from '@/components/common/LocationMap.vue'
 import LocationEnvironmentCard from '@/components/common/LocationEnvironmentCard.vue'
 import EmptyState from '@/components/common/EmptyState.vue'
 import LoadingSkeleton from '@/components/common/LoadingSkeleton.vue'
-import DreamBackground from '@/components/atmosphere/DreamBackground.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import SecondaryButton from '@/components/common/SecondaryButton.vue'
 import { useRouter } from 'vue-router'
@@ -35,11 +34,8 @@ const availableLocations = computed(() => store.filtered)
 
 <template>
   <div>
-    <section class="relative overflow-hidden pb-4 pt-16">
-      <div class="absolute inset-0 z-0">
-        <DreamBackground tone="depth" density="medium" />
-      </div>
-      <div class="container-page relative z-10">
+    <section class="pb-4 pt-16">
+      <div class="container-page">
         <SectionHeading level="h1" eyebrow="Pod Locations" title="Sleepy1 Rest Pod Locations" description="Search by city or browse the map to find your nearest Sleepy1 pod. Availability updates in real time once connected to live inventory." />
       </div>
     </section>

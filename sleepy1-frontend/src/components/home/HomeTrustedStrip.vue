@@ -34,9 +34,10 @@ function handlePointerEnd(event: PointerEvent) {
 </script>
 
 <template>
-  <section class="border-y border-white/8 bg-ink-900/60 py-8">
-    <div class="container-page mb-4 flex items-center justify-end">
-      <router-link to="/locations" class="text-xs font-medium text-brand-300 hover:text-brand-200">View all locations →</router-link>
+  <section class="border-y border-white/8 py-10">
+    <div class="container-page mb-5 flex items-center justify-between">
+      <p class="eyebrow">Currently at</p>
+      <router-link to="/locations" class="link-underline text-xs font-medium text-ivory-100/60 hover:text-ivory-50">View all locations →</router-link>
     </div>
     <div
       class="marquee-mask no-scrollbar overflow-hidden"

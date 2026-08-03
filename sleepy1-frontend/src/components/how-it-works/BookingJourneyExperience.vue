@@ -210,7 +210,7 @@ function simulateQRScan() {
 
         <!-- Gradually Filling Gold Connecting Line behind cards (z-0 pointer-events-none) -->
         <div
-          class="absolute top-1/2 left-0 h-0.5 bg-gradient-to-r from-brand-400 via-brand-300 to-lavender-400 -translate-y-1/2 transition-all duration-300 ease-out shadow-[0_0_15px_rgba(246,201,139,0.8)] z-0 pointer-events-none"
+          class="absolute top-1/2 left-0 h-0.5 bg-brand-400 -translate-y-1/2 transition-all duration-300 ease-out z-0 pointer-events-none"
           :style="{ width: `${Math.min(100, scrollProgress * 100)}%` }"
         />
 
@@ -241,14 +241,14 @@ function simulateQRScan() {
               class="card-surface relative z-20 overflow-hidden rounded-3xl border p-5 sm:p-6 transition-all duration-500"
               :class="
                 activeStepIndex === 0
-                  ? 'border-brand-400/90 bg-[#101422] shadow-[0_0_40px_rgba(246,201,139,0.22)] ring-1 ring-brand-400/30'
+                  ? 'border-brand-400/70 bg-[#101422]'
                   : 'border-white/10 bg-[#0b0e17]'
               "
             >
               <!-- Node Badge & Title -->
               <div class="flex items-center justify-between">
                 <span class="eyebrow text-xs">01 • LOCATION</span>
-                <span class="h-2.5 w-2.5 rounded-full bg-brand-400 shadow-[0_0_10px_#f6c98b]" />
+                <span class="h-2.5 w-2.5 rounded-full bg-brand-400" />
               </div>
 
               <h3 class="mt-2 text-xl font-extrabold text-ivory-50">
@@ -349,13 +349,13 @@ function simulateQRScan() {
               class="card-surface relative z-20 overflow-hidden rounded-3xl border p-5 sm:p-6 transition-all duration-500"
               :class="
                 activeStepIndex === 1
-                  ? 'border-brand-400/90 bg-[#101422] shadow-[0_0_40px_rgba(246,201,139,0.22)] ring-1 ring-brand-400/30'
+                  ? 'border-brand-400/70 bg-[#101422]'
                   : 'border-white/10 bg-[#0b0e17]'
               "
             >
               <div class="flex items-center justify-between">
                 <span class="eyebrow text-xs">02 • DATE & TIME</span>
-                <span class="h-2.5 w-2.5 rounded-full bg-brand-400 shadow-[0_0_10px_#f6c98b]" />
+                <span class="h-2.5 w-2.5 rounded-full bg-brand-400" />
               </div>
 
               <h3 class="mt-2 text-xl font-extrabold text-ivory-50">
@@ -424,7 +424,7 @@ function simulateQRScan() {
                   </div>
                   <div class="mt-2 relative h-6 w-full overflow-hidden rounded bg-white/5">
                     <div
-                      class="absolute top-0 bottom-0 rounded bg-gradient-to-r from-brand-400 to-lavender-400 flex items-center justify-center text-[10px] font-bold text-ink-950 transition-all duration-300"
+                      class="absolute top-0 bottom-0 rounded bg-brand-400 flex items-center justify-center text-[10px] font-bold text-ink-950 transition-all duration-300"
                       :style="{
                         left: `${(parseInt(simCheckinTime, 10) / 24) * 100}%`,
                         width: `${Math.min(100 - (parseInt(simCheckinTime, 10) / 24) * 100, (simDurationHours / 24) * 100)}%`,
@@ -459,13 +459,13 @@ function simulateQRScan() {
               class="card-surface relative z-20 overflow-hidden rounded-3xl border p-5 sm:p-6 transition-all duration-500"
               :class="
                 activeStepIndex === 2
-                  ? 'border-brand-400/90 bg-[#101422] shadow-[0_0_40px_rgba(246,201,139,0.22)] ring-1 ring-brand-400/30'
+                  ? 'border-brand-400/70 bg-[#101422]'
                   : 'border-white/10 bg-[#0b0e17]'
               "
             >
               <div class="flex items-center justify-between">
                 <span class="eyebrow text-xs">03 • COMFORT EXTRAS</span>
-                <span class="h-2.5 w-2.5 rounded-full bg-brand-400 shadow-[0_0_10px_#f6c98b]" />
+                <span class="h-2.5 w-2.5 rounded-full bg-brand-400" />
               </div>
 
               <h3 class="mt-2 text-xl font-extrabold text-ivory-50">
@@ -542,13 +542,13 @@ function simulateQRScan() {
               class="card-surface relative z-20 overflow-hidden rounded-3xl border p-5 sm:p-6 transition-all duration-500"
               :class="
                 activeStepIndex === 3
-                  ? 'border-brand-400/90 bg-[#101422] shadow-[0_0_40px_rgba(246,201,139,0.22)] ring-1 ring-brand-400/30'
+                  ? 'border-brand-400/70 bg-[#101422]'
                   : 'border-white/10 bg-[#0b0e17]'
               "
             >
               <div class="flex items-center justify-between">
                 <span class="eyebrow text-xs">04 • PAYMENT</span>
-                <span class="h-2.5 w-2.5 rounded-full bg-brand-400 shadow-[0_0_10px_#f6c98b]" />
+                <span class="h-2.5 w-2.5 rounded-full bg-brand-400" />
               </div>
 
               <h3 class="mt-2 text-xl font-extrabold text-ivory-50">
@@ -661,13 +661,13 @@ function simulateQRScan() {
               class="card-surface relative z-20 overflow-hidden rounded-3xl border p-5 sm:p-6 transition-all duration-500"
               :class="
                 activeStepIndex === 4
-                  ? 'border-brand-400/90 bg-[#101422] shadow-[0_0_40px_rgba(246,201,139,0.22)] ring-1 ring-brand-400/30'
+                  ? 'border-brand-400/70 bg-[#101422]'
                   : 'border-white/10 bg-[#0b0e17]'
               "
             >
               <div class="flex items-center justify-between">
                 <span class="eyebrow text-xs">05 • CHECK-IN</span>
-                <span class="h-2.5 w-2.5 rounded-full bg-brand-400 shadow-[0_0_10px_#f6c98b]" />
+                <span class="h-2.5 w-2.5 rounded-full bg-brand-400" />
               </div>
 
               <h3 class="mt-2 text-xl font-extrabold text-ivory-50">
@@ -688,7 +688,7 @@ function simulateQRScan() {
                   <!-- Laser scan bar -->
                   <div
                     v-if="simScanInProgress"
-                    class="absolute left-0 right-0 h-0.5 bg-brand-400 shadow-[0_0_12px_#f6c98b] animate-bounce z-20"
+                    class="absolute left-0 right-0 h-0.5 bg-brand-400 animate-bounce z-20"
                     style="top: 50%"
                   />
 

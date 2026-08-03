@@ -21,8 +21,7 @@ function subscribe() {
 </script>
 
 <template>
-  <footer class="relative border-t border-white/8 bg-ink-950">
-    <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-400/40 to-transparent" aria-hidden="true" />
+  <footer class="border-t border-white/8 bg-ink-950">
     <div class="container-page py-16">
       <div class="grid gap-12 lg:grid-cols-[1.3fr_repeat(4,1fr)]">
         <div>

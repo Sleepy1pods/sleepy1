@@ -29,7 +29,7 @@ const sizeClasses: Record<string, string> = {
 }
 
 const variantClasses: Record<string, string> = {
-  default: 'btn-sheen border border-white/20 text-ivory-100 hover:border-white/40 hover:bg-white/5 active:bg-white/10',
+  default: 'border border-white/20 text-ivory-100 hover:border-white/40 hover:bg-white/5 active:bg-white/10',
   danger: 'border border-rose-400/40 text-rose-300 hover:bg-rose-400/10 active:bg-rose-400/15',
 }
 </script>
