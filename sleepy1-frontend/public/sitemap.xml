@@ -4,22 +4,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://sleepy1.example/</loc></url>
   <url><loc>https://sleepy1.example/locations</loc></url>
-  <url><loc>https://sleepy1.example/locations/mumbai-international-airport</loc></url>
-  <url><loc>https://sleepy1.example/locations/delhi-international-airport</loc></url>
-  <url><loc>https://sleepy1.example/locations/bengaluru-international-airport</loc></url>
-  <url><loc>https://sleepy1.example/locations/chennai-international-airport</loc></url>
-  <url><loc>https://sleepy1.example/locations/hyderabad-international-airport</loc></url>
-  <url><loc>https://sleepy1.example/locations/pune-railway-station</loc></url>
+  <url><loc>https://sleepy1.example/locations/iit-bombay</loc></url>
+  <url><loc>https://sleepy1.example/locations/iit-delhi</loc></url>
+  <url><loc>https://sleepy1.example/locations/iit-madras</loc></url>
+  <url><loc>https://sleepy1.example/locations/iisc-bangalore</loc></url>
+  <url><loc>https://sleepy1.example/locations/nit-trichy</loc></url>
+  <url><loc>https://sleepy1.example/locations/tech-park-blr</loc></url>
+  <url><loc>https://sleepy1.example/locations/business-park-mum</loc></url>
+  <url><loc>https://sleepy1.example/locations/apollo-hospitals</loc></url>
+  <url><loc>https://sleepy1.example/locations/aiims</loc></url>
+  <url><loc>https://sleepy1.example/locations/new-delhi-railway-station</loc></url>
+  <url><loc>https://sleepy1.example/locations/mumbai-central</loc></url>
+  <url><loc>https://sleepy1.example/locations/bengaluru-city-junction</loc></url>
+  <url><loc>https://sleepy1.example/locations/chennai-central</loc></url>
   <url><loc>https://sleepy1.example/pod-experience</loc></url>
   <url><loc>https://sleepy1.example/how-it-works</loc></url>
   <url><loc>https://sleepy1.example/membership</loc></url>
+  <url><loc>https://sleepy1.example/credits</loc></url>
   <url><loc>https://sleepy1.example/about</loc></url>
   <url><loc>https://sleepy1.example/faq</loc></url>
   <url><loc>https://sleepy1.example/contact</loc></url>
   <url><loc>https://sleepy1.example/blog</loc></url>
-  <url><loc>https://sleepy1.example/blog/beat-jet-lag-on-long-layovers</loc></url>
-  <url><loc>https://sleepy1.example/blog/working-from-the-airport-without-losing-focus</loc></url>
-  <url><loc>https://sleepy1.example/blog/the-hidden-cost-of-a-bad-layover</loc></url>
+  <url><loc>https://sleepy1.example/blog/how-to-reset-during-a-long-day</loc></url>
+  <url><loc>https://sleepy1.example/blog/why-a-real-nap-beats-another-coffee</loc></url>
+  <url><loc>https://sleepy1.example/blog/the-hidden-cost-of-poor-rest</loc></url>
   <url><loc>https://sleepy1.example/blog/inside-the-design-of-a-sleepy1-pod</loc></url>
   <url><loc>https://sleepy1.example/corporate</loc></url>
   <url><loc>https://sleepy1.example/offers</loc></url>

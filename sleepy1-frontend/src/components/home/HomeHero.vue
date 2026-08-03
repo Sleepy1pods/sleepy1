@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
+import SecondaryButton from '@/components/common/SecondaryButton.vue'
 import PodVisual from '@/components/common/PodVisual.vue'
 import HeroAtmosphere from '@/components/home/HeroAtmosphere.vue'
 </script>
@@ -10,16 +11,20 @@ import HeroAtmosphere from '@/components/home/HeroAtmosphere.vue'
 
     <div class="container-page relative grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-20">
       <div class="reveal pb-20 sm:pb-28 lg:pb-36">
-        <p class="eyebrow mb-7">Premium Rest, On Demand</p>
-        <h1 class="text-balance font-display text-5xl font-medium leading-[1.08] text-ivory-50 sm:text-6xl lg:text-[4.25rem]">
+        <p class="eyebrow mb-7">Your Pod, Your Mode</p>
+        <h1 class="text-balance font-display text-5xl font-bold leading-[1.08] text-ivory-50 sm:text-6xl lg:text-[4.25rem]">
           A quiet place to rest, right where you already are.
         </h1>
         <p class="mt-7 max-w-md text-lg leading-relaxed text-ivory-100/55">
-          Private, hotel-grade sleep pods in the places life makes you wait.
+          Smart, private rest pods across universities, corporate parks, hospitals, and railway stations.
         </p>
-        <div class="mt-11">
-          <PrimaryButton as="RouterLink" to="/book" size="lg">Find a Sleep Pod</PrimaryButton>
+        <div class="mt-11 flex flex-col gap-3 sm:flex-row">
+          <PrimaryButton as="RouterLink" to="/book" size="lg">Book Now</PrimaryButton>
+          <SecondaryButton as="RouterLink" to="/locations" size="lg">Find a Pod</SecondaryButton>
         </div>
+        <p class="mt-8 text-xs font-medium uppercase tracking-[0.14em] text-ivory-100/35">
+          13+ locations · Universities · Hospitals · Corporate Parks · Railway Stations
+        </p>
       </div>
 
       <div class="reveal pb-20 [animation-delay:120ms] sm:pb-28 lg:pb-36">

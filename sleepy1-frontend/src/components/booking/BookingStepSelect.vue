@@ -21,7 +21,7 @@ const ui = useUiStore()
 onMounted(() => {
   store.fetchAll()
   if (!flow.draft.locationId) {
-    flow.setLocation('delhi-international-airport')
+    flow.setLocation('new-delhi-railway-station')
   }
   if (!flow.draft.podTypeId) {
     flow.setPod(podTypes[0].id)
@@ -40,7 +40,7 @@ const isLoading = ref(true)
 
 watchEffect(async () => {
   isLoading.value = true
-  slots.value = await bookingService.getAvailability(flow.draft.locationId ?? 'delhi-international-airport', selectedDate.value)
+  slots.value = await bookingService.getAvailability(flow.draft.locationId ?? 'new-delhi-railway-station', selectedDate.value)
   isLoading.value = false
   if (!selectedTime.value && slots.value.length > 0) {
     const firstAvailable = slots.value.find((s) => s.available)
@@ -226,7 +226,7 @@ const presets = [
     title: '6-Hr Overnight',
     desc: 'Solo Rest Pod · 6 hrs',
     time: '22:00',
-    badge: 'Long Layover',
+    badge: 'Extended Stay',
     price: 2994,
   },
 ]
@@ -303,11 +303,11 @@ function proceed() {
       <div class="flex flex-col justify-between gap-2 sm:flex-row sm:items-end">
         <div>
           <h2 class="text-xl font-semibold text-ivory-50">1. Select Hub Location</h2>
-          <p class="text-sm text-ivory-100/55">Choose your airport or city rest terminal.</p>
+          <p class="text-sm text-ivory-100/55">Choose a university, corporate park, hospital, or railway station.</p>
         </div>
         <div class="flex items-center gap-2 text-xs text-ivory-100/50">
           <span>Active:</span>
-          <span class="font-semibold text-brand-300">{{ flow.selectedLocation?.name || 'Delhi T3' }}</span>
+          <span class="font-semibold text-brand-300">{{ flow.selectedLocation?.name || 'New Delhi Railway Station' }}</span>
         </div>
       </div>
 
@@ -375,7 +375,7 @@ function proceed() {
         </div>
       </div>
 
-      <!-- Boarding-Pass Style "FROM -> TO" Live Booking Summary Card -->
+      <!-- Ticket-Style "FROM -> TO" Live Booking Summary Card -->
       <div class="mt-5 rounded-2xl border border-brand-400/40 bg-gradient-to-r from-ink-900/95 via-ink-950 to-ink-900/95 p-5 shadow-premium">
         <div class="flex flex-col items-center justify-between gap-4 md:flex-row md:gap-6">
           <!-- Check-In (FROM) -->

@@ -28,8 +28,8 @@ function handleSelectFromModal() {
 
 <template>
   <div
-    class="card-surface group relative flex w-full flex-col overflow-hidden text-left transition-all duration-300 hover:-translate-y-1"
-    :class="selected ? 'border-brand-400 ring-2 ring-brand-400/40 bg-brand-950/20' : ''"
+    class="card-surface group relative flex w-full flex-col overflow-hidden text-left transition-all duration-300 hover:scale-[1.02]"
+    :class="selected ? 'border-brand-400 ring-2 ring-brand-400/40 bg-brand-900/20' : ''"
   >
     <!-- Compact Image Header (h-28 = 112px) -->
     <div class="relative h-28 overflow-hidden cursor-pointer" @click="$emit('select')">

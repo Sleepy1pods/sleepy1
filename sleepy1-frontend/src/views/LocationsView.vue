@@ -17,7 +17,7 @@ import { useRouter } from 'vue-router'
 
 usePageMeta({
   title: 'Locations',
-  description: 'Find Sleepy1 private rest pods across Hubli and Dharwad locations. Search by city, browse the map, and book instantly.',
+  description: 'Find Sleepy1 private rest pods across universities, corporate parks, hospitals, and railway stations nationwide. Search by city, browse the map, and book instantly.',
 })
 
 const store = useLocationsStore()
@@ -68,7 +68,7 @@ const availableLocations = computed(() => store.filtered)
       <template v-else>
         <section v-if="availableLocations.length > 0">
           <h2 class="text-lg font-semibold text-ivory-50">Locations</h2>
-          <p class="mt-1 text-sm text-ivory-100/55">Sleepy1 pod locations across Hubli and Dharwad.</p>
+          <p class="mt-1 text-sm text-ivory-100/55">Sleepy1 pod locations across universities, corporate parks, hospitals, and railway stations.</p>
           <div class="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <LocationCard v-for="loc in availableLocations" :key="loc.id" :location="loc" />
           </div>

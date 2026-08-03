@@ -36,15 +36,21 @@ export default {
           300: '#c9bdf5',
           400: '#b3a3ef',
         },
+        gold: {
+          200: '#e9d9ae',
+          300: '#dcc088',
+          400: '#c9a35f',
+        },
       },
       fontFamily: {
-        display: ['"Fraunces"', 'ui-serif', 'Georgia', 'serif'],
-        sans: ['"Inter"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['"Nunito"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['"Nunito"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         soft: '0 2px 24px -4px rgba(0,0,0,0.25)',
         premium: '0 24px 64px -24px rgba(20,20,40,0.35)',
         glow: '0 8px 32px -8px rgba(139,155,251,0.35)',
+        golden: '0 8px 28px -8px rgba(201,163,95,0.35)',
       },
       animation: {
         'fade-up': 'fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) both',

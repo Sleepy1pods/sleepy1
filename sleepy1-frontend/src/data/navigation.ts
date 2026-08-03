@@ -1,9 +1,11 @@
 import type { NavItem } from '@/types/common'
 
 export const primaryNav: NavItem[] = [
-  { label: 'Locations', to: '/locations' },
-  { label: 'How it Works', to: '/how-it-works' },
+  { label: 'Home', to: '/' },
   { label: 'About', to: '/about' },
+  { label: 'Locations', to: '/locations' },
+  { label: 'Features', to: '/pod-experience' },
+  { label: 'Sleepy1 Credits', to: '/credits' },
   { label: 'Contact', to: '/contact' },
 ]
 
@@ -14,43 +16,19 @@ export const loggedInNav: NavItem[] = [
 
 export const footerColumns: { title: string; items: NavItem[] }[] = [
   {
-    title: 'Company',
+    title: 'Quick Links',
     items: [
-      { label: 'About Sleepy1', to: '/about' },
-      { label: 'Careers', to: '/careers' },
-      { label: 'Press & Media', to: '/press' },
-      { label: 'Corporate Solutions', to: '/corporate' },
-      { label: 'Contact & Support', to: '/contact' },
+      { label: 'About', to: '/about' },
+      { label: 'Locations', to: '/locations' },
+      { label: 'Features', to: '/pod-experience' },
+      { label: 'How it Works', to: '/how-it-works' },
+      { label: 'Sleepy1 Credits', to: '/credits' },
+      { label: 'Contact', to: '/contact' },
     ],
   },
   {
-    title: 'Experience',
+    title: 'Legal',
     items: [
-      { label: 'Explore Locations', to: '/locations' },
-      { label: 'The Sleep Pod', to: '/pod-experience' },
-      { label: 'How Booking Works', to: '/how-it-works' },
-      { label: 'Membership Plans', to: '/membership' },
-      { label: 'Sleepy1 Credits Guide', to: '/credits' },
-      { label: 'Gift Sleep Credits', to: '/gift-credits' },
-    ],
-  },
-  {
-    title: 'Account',
-    items: [
-      { label: 'Login', to: '/login' },
-      { label: 'Create Account', to: '/register' },
-      { label: 'My Bookings', to: '/bookings' },
-      { label: 'Credits Wallet', to: '/wallet' },
-      { label: 'Offers & Promotions', to: '/offers' },
-      { label: 'Refer & Earn', to: '/refer' },
-    ],
-  },
-  {
-    title: 'Resources',
-    items: [
-      { label: 'FAQs', to: '/faq' },
-      { label: 'Travel Blog', to: '/blog' },
-      { label: 'Newsletter Club', to: '/#newsletter' },
       { label: 'Privacy Policy', to: '/legal/privacy-policy' },
       { label: 'Terms & Conditions', to: '/legal/terms' },
       { label: 'Cancellation Policy', to: '/legal/cancellation-policy' },
@@ -58,4 +36,27 @@ export const footerColumns: { title: string; items: NavItem[] }[] = [
       { label: 'Cookie Policy', to: '/legal/cookie-policy' },
     ],
   },
+]
+
+/** Secondary, lower-emphasis links kept discoverable in a compact footer row. */
+export const footerMoreLinks: NavItem[] = [
+  { label: 'Login', to: '/login' },
+  { label: 'Create Account', to: '/register' },
+  { label: 'My Bookings', to: '/bookings' },
+  { label: 'Credits Wallet', to: '/wallet' },
+  { label: 'Membership', to: '/membership' },
+  { label: 'Gift Sleep Credits', to: '/gift-credits' },
+  { label: 'Offers & Promotions', to: '/offers' },
+  { label: 'Refer & Earn', to: '/refer' },
+  { label: 'FAQs', to: '/faq' },
+  { label: 'Journal', to: '/blog' },
+  { label: 'Careers', to: '/careers' },
+  { label: 'Press & Media', to: '/press' },
+  { label: 'Corporate Solutions', to: '/corporate' },
+]
+
+export const socialLinks: { label: string; href: string; icon: 'instagram' | 'linkedin' | 'x' }[] = [
+  { label: 'Instagram', href: '#', icon: 'instagram' },
+  { label: 'LinkedIn', href: '#', icon: 'linkedin' },
+  { label: 'X (Twitter)', href: '#', icon: 'x' },
 ]

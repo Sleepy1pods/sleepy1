@@ -5,13 +5,13 @@ export const podTypes: PodTypeDefinition[] = [
     id: 'pod-solo-rest',
     type: 'solo-rest',
     name: 'Solo Rest Pod',
-    tagline: 'Deep, private sleep between flights.',
-    description: 'A fully enclosed single-occupancy pod engineered for uninterrupted sleep — ergonomic mattress, blackout lighting, and acoustic isolation from the terminal outside.',
+    tagline: 'Deep, private sleep, whenever you need it.',
+    description: 'A fully enclosed single-occupancy pod engineered for uninterrupted sleep — ergonomic mattress, blackout lighting, and acoustic isolation from the world outside.',
     image: 'pod-interior-1',
     occupancy: 1,
     pricePerHour: 499,
     amenityIds: ['mattress', 'lighting', 'noise', 'lock', 'ventilation', 'charging'],
-    bestFor: ['Overnight layovers', 'Red-eye connections', 'Jet lag recovery'],
+    bestFor: ['Long shifts', 'Late-night stays', 'Recovery between commitments'],
   },
   {
     id: 'pod-solo-work',
@@ -23,7 +23,7 @@ export const podTypes: PodTypeDefinition[] = [
     occupancy: 1,
     pricePerHour: 549,
     amenityIds: ['mattress', 'display', 'wifi', 'charging', 'climate', 'lock'],
-    bestFor: ['Longer rest sessions', 'Extended layovers', 'Unwinding before a flight'],
+    bestFor: ['Longer rest sessions', 'Back-to-back meetings', 'Unwinding after a long day'],
   },
   {
     id: 'pod-twin-lounge',
@@ -35,7 +35,7 @@ export const podTypes: PodTypeDefinition[] = [
     occupancy: 2,
     pricePerHour: 799,
     amenityIds: ['mattress', 'wifi', 'charging', 'ventilation', 'lighting', 'lock'],
-    bestFor: ['Travelling pairs', 'Family layovers', 'Colleague travel'],
+    bestFor: ['Travelling pairs', 'Family visits', 'Colleague breaks'],
   },
   {
     id: 'pod-premium-suite',
@@ -47,7 +47,7 @@ export const podTypes: PodTypeDefinition[] = [
     occupancy: 1,
     pricePerHour: 999,
     amenityIds: ['mattress', 'display', 'shower', 'climate', 'housekeeping', 'lock', 'wifi'],
-    bestFor: ['Long layovers', 'Business travellers', 'Special occasions'],
+    bestFor: ['Extended stays', 'Business professionals', 'Special occasions'],
   },
 ]
 

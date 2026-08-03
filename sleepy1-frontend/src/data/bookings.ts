@@ -61,9 +61,9 @@ export const mockBookings: Booking[] = [
   {
     id: 'bk-2',
     reference: 'SLPY-77042',
-    locationId: 'loc-bvb-campus-hubli',
-    locationName: 'BVB Campus Hubli',
-    terminal: 'Campus Hub',
+    locationId: 'loc-iit-bombay',
+    locationName: 'IIT Bombay',
+    terminal: 'Main Campus',
     podTypeId: 'pod-solo-work',
     podLabel: 'Pod 8',
     podImage: 'pod-desk-2',

@@ -46,9 +46,9 @@ const milestoneDetails = milestones.map((milestone, index) => ({
         <div>
           <h2 class="text-xl font-semibold text-ivory-50">Our story</h2>
           <p class="mt-4 leading-relaxed text-ivory-100/65">
-            Sleepy1 started with a simple observation: people spend countless hours waiting in transit hubs
-            with no access to private, comfortable rest. We began with campuses across Hubli and Dharwad, and
-            we're building toward every high-footfall place travellers pass through.
+            Sleepy1 started with a simple observation: people spend countless hours in high-footfall places
+            with no access to private, comfortable rest. We began with universities and are building toward
+            every campus, corporate park, hospital, and railway station where people need real rest.
           </p>
         </div>
         <div class="overflow-hidden rounded-3xl">

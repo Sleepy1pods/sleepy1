@@ -108,7 +108,7 @@ export const useBookingFlowStore = defineStore('bookingFlow', () => {
 
   function applyQuickPreset(preset: 'nap' | 'overnight' | 'duo' | 'work') {
     if (!draft.value.locationId) {
-      draft.value.locationId = 'delhi-international-airport'
+      draft.value.locationId = 'new-delhi-railway-station'
     }
     const today = new Date().toISOString().slice(0, 10)
     draft.value.date = draft.value.date || today

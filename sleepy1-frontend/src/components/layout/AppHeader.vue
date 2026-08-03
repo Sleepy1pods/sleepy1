@@ -29,7 +29,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
         SLEEPY1
       </router-link>
 
-      <nav class="hidden items-center gap-10 lg:flex" aria-label="Primary">
+      <nav class="hidden items-center gap-7 xl:gap-9 lg:flex" aria-label="Primary">
         <router-link
           v-for="item in primaryNav"
           :key="item.to"
@@ -53,7 +53,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
             <path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 21c0-4 3.5-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </router-link>
-        <PrimaryButton as="RouterLink" to="/book" size="sm">Book a Pod</PrimaryButton>
+        <PrimaryButton as="RouterLink" to="/book" size="sm">Book Now</PrimaryButton>
       </div>
 
       <button

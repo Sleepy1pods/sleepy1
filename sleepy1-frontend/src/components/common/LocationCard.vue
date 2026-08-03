@@ -17,7 +17,7 @@ const mapUrl = computed(() => {
 </script>
 
 <template>
-  <article class="card-surface group flex flex-col overflow-hidden transition-transform duration-300 hover:-translate-y-1">
+  <article class="card-surface group flex flex-col overflow-hidden transition-transform duration-300 hover:scale-[1.02]">
     <div class="relative h-44 overflow-hidden">
       <HubVisual :hub-type="location.hubType" :id="location.heroImage" class="h-full w-full transition-transform duration-700 group-hover:scale-105" />
       <div class="absolute left-3 top-3">

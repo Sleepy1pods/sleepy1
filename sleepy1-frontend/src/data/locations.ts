@@ -272,7 +272,7 @@ export const locations: Location[] = [
     geo: { lat: 18.9713, lng: 72.8197 },
     instructions: ['Access near main waiting room.'],
     nearbyFacilities: [{ label: 'Waiting Room', distanceMeters: 30, type: 'lounge' }],
-    description: 'Rest during layovers at Mumbai Central.',
+    description: 'Rest between train journeys at Mumbai Central.',
     featured: false,
   },
   {

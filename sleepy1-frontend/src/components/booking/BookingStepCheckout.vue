@@ -106,8 +106,8 @@ async function payNow() {
       key: razorpayKey,
       amount: Math.round(flow.pricing.totalPayable * 100),
       currency: 'INR',
-      name: 'Sleepy1 Airport Pods',
-      description: `${flow.selectedPod?.name || 'Solo Rest Pod'} · ${flow.selectedLocation?.name || 'Airport Hotel'}`,
+      name: 'Sleepy1',
+      description: `${flow.selectedPod?.name || 'Solo Rest Pod'} · ${flow.selectedLocation?.name || 'New Delhi Railway Station'}`,
       image: 'https://cdn-icons-png.flaticon.com/512/3003/3003984.png',
       handler: function (response: any) {
         console.log('Razorpay Payment Success:', response)
@@ -200,15 +200,15 @@ async function executePaymentConfirm(razorpayId?: string) {
             <div class="flex items-center gap-4">
               <div class="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl">
                 <HubVisual
-                  :hub-type="flow.selectedLocation?.hubType || 'airport'"
-                  :id="flow.selectedLocation?.heroImage || 'airport-terminal-1'"
+                  :hub-type="flow.selectedLocation?.hubType || 'railway'"
+                  :id="flow.selectedLocation?.heroImage || 'railway-hub-1'"
                   class="h-full w-full"
                   rounded="rounded-xl"
                 />
               </div>
               <div>
-                <p class="text-base font-semibold text-ivory-50">{{ flow.selectedLocation?.name || 'Delhi International Airport' }}</p>
-                <p class="text-xs text-ivory-100/60">{{ flow.selectedLocation?.terminal || 'Terminal 3' }} · {{ flow.selectedLocation?.city || 'New Delhi' }}</p>
+                <p class="text-base font-semibold text-ivory-50">{{ flow.selectedLocation?.name || 'New Delhi Railway Station' }}</p>
+                <p class="text-xs text-ivory-100/60">{{ flow.selectedLocation?.terminal || 'Platform 1' }} · {{ flow.selectedLocation?.city || 'New Delhi' }}</p>
               </div>
             </div>
 

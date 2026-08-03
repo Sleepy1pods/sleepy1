@@ -7,21 +7,21 @@ import PodVisual from '@/components/common/PodVisual.vue'
 import HomeNewsletter from '@/components/home/HomeNewsletter.vue'
 
 usePageMeta({
-  title: 'Travel Blog',
-  description: 'Sleepy1 travel tips — jet lag recovery, working from airports, and the design thinking behind our rest pods.',
+  title: 'Journal',
+  description: 'Sleepy1 rest tips — recovery science, working between long shifts, and the design thinking behind our smart rest pods.',
 })
 </script>
 
 <template>
   <div>
     <div class="container-page py-16">
-      <SectionHeading level="h1" eyebrow="Travel Tips" title="The Sleepy1 Blog" align="center" class="mx-auto" />
+      <SectionHeading level="h1" eyebrow="Journal" title="The Sleepy1 Journal" align="center" class="mx-auto" />
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
         <router-link
           v-for="post in blogPosts"
           :key="post.id"
           :to="`/blog/${post.slug}`"
-          class="card-surface group flex flex-col overflow-hidden transition-transform duration-300 hover:-translate-y-1"
+          class="card-surface group flex flex-col overflow-hidden transition-transform duration-300 hover:scale-[1.02]"
         >
           <div class="h-48 overflow-hidden">
             <PodVisual :id="post.coverImage" class="h-full w-full transition-transform duration-700 group-hover:scale-105" rounded="rounded-none" />

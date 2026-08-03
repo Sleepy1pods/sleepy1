@@ -13,6 +13,6 @@ withDefaults(defineProps<{ glow?: boolean }>(), { glow: true })
   transition: transform 0.25s ease, border-color 0.25s ease;
 }
 .dream-card:hover {
-  transform: translateY(-2px);
+  transform: scale(1.02);
 }
 </style>

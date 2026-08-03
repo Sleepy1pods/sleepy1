@@ -11,9 +11,9 @@ const isLoading = ref(false)
 const copied = ref(false)
 
 const topics = ref([
-  { id: 'transit', label: 'Airport & transit layover hacks', selected: true },
+  { id: 'transit', label: 'Rest tips for busy days', selected: true },
   { id: 'promos', label: 'Free credits & promo drops', selected: true },
-  { id: 'locations', label: 'New Hubli & Dharwad pod hubs', selected: false },
+  { id: 'locations', label: 'New pod hubs near you', selected: false },
   { id: 'science', label: 'Sleep & circadian recovery', selected: false },
 ])
 
@@ -76,7 +76,7 @@ function resetForm() {
             </h2>
 
             <p class="mt-4 max-w-xl text-base leading-relaxed text-ivory-100/65">
-              Layover tips, sleep science, and member-only promo codes — occasionally, not spam.
+              Rest tips, sleep science, and member-only promo codes — occasionally, not spam.
             </p>
 
             <div class="mt-7">

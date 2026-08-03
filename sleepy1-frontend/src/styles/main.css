@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -31,7 +31,7 @@
   }
 
   h1, h2, h3, h4 {
-    @apply font-display tracking-tight;
+    @apply font-display font-bold;
   }
 
   ::selection {
@@ -70,7 +70,7 @@
   }
 
   .btn-base {
-    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 ease-out select-none whitespace-nowrap disabled:opacity-50 disabled:pointer-events-none min-h-[44px];
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 ease-out select-none whitespace-nowrap disabled:opacity-50 disabled:pointer-events-none min-h-[48px];
   }
 }
 

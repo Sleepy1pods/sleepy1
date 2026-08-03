@@ -23,16 +23,12 @@ const gradId = computed(() => `hub-grad-${props.id}`)
 const columnCount = computed(() => {
   switch (props.hubType) {
     case 'corporate': return 7
-    case 'airport': return 8
     case 'railway': return 5
-    case 'metro': return 6
     case 'bus-terminal': return 4
     case 'mall': return 8
     case 'business-district': return 5
     case 'hospital': return 3
-    case 'pilgrimage': return 6
     case 'university': return 5
-    case 'campus': return 5
     case 'convention-centre': return 8
     case 'tourist': return 4
     case 'highway-rest-stop': return 3
@@ -45,7 +41,7 @@ const columns = computed(() =>
 )
 
 const archHeight = computed(() =>
-  props.hubType === 'mall' || props.hubType === 'pilgrimage' || props.hubType === 'convention-centre' || props.hubType === 'airport' ? 90 : 60,
+  props.hubType === 'mall' || props.hubType === 'convention-centre' ? 90 : 60,
 )
 </script>
 

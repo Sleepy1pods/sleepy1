@@ -15,7 +15,7 @@ const benefits = [
   { title: 'Bulk Credit Programs', description: 'Allocate Sleepy1 Credits across your travelling workforce with centralised billing.' },
   { title: 'Priority Booking', description: 'Reserved pod availability for employees during peak travel hours.' },
   { title: 'Usage Dashboards', description: 'Track team usage and spend once backend reporting is connected.' },
-  { title: 'Dedicated Support', description: 'A dedicated account contact for onboarding and travel-desk coordination.' },
+  { title: 'Dedicated Support', description: 'A dedicated account contact for onboarding and on-site coordination.' },
 ]
 
 const propertyPartnerTypes = [

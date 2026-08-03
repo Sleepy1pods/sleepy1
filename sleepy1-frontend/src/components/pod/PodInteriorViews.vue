@@ -18,7 +18,7 @@ const viewMeta = computed(() => {
     label: 'Moon View',
     tagline: 'Rest in the glow of soft moonlight',
     description:
-      'A serene crescent moon bathes the pod interior in cool silver-blue light, evoking the calm of a cloudless night sky. Ideal for winding down before a flight or transit.',
+      'A serene crescent moon bathes the pod interior in cool silver-blue light, evoking the calm of a cloudless night sky. Ideal for winding down before your next commitment.',
     features: ['Crescent moonlight projection', 'Cool silver-blue ambience', 'Night sky gradient walls', 'Ultra-quiet atmosphere'],
   }
 })

@@ -144,7 +144,7 @@ const creditsFaqs = [
         <SectionHeading
           eyebrow="How To Earn"
           title="Four ways to earn Credits"
-          description="Beyond buying credits, earn free bonus balance through loyalty, referrals, and flight assurance."
+          description="Beyond buying credits, earn free bonus balance through loyalty, referrals, and plan-change assurance."
           align="center"
           class="mx-auto"
         />
@@ -177,10 +177,10 @@ const creditsFaqs = [
           <DreamCard :glow="false" class="flex flex-col justify-between p-7">
             <div>
               <p class="text-xs font-semibold uppercase tracking-wide text-brand-300">+₹200 protection</p>
-              <h3 class="mt-4 text-lg font-semibold text-ivory-50">Flight delay assurance</h3>
-              <p class="mt-2 text-sm leading-relaxed text-ivory-100/65">Connect your PNR — a delay over 45 minutes earns 200 emergency credits.</p>
+              <h3 class="mt-4 text-lg font-semibold text-ivory-50">Plan-change assurance</h3>
+              <p class="mt-2 text-sm leading-relaxed text-ivory-100/65">Connect your booking reference — a delay or reschedule over 45 minutes earns 200 emergency credits.</p>
             </div>
-            <p class="mt-6 border-t border-white/10 pt-4 text-xs font-medium text-ivory-100/45">Automated arrival alert</p>
+            <p class="mt-6 border-t border-white/10 pt-4 text-xs font-medium text-ivory-100/45">Automated delay alert</p>
           </DreamCard>
         </div>
       </div>
