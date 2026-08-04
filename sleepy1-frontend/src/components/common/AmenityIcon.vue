@@ -15,6 +15,9 @@ const paths: Record<AmenityIcon, string> = {
   climate: 'M12 2v20M5 7l14 10M19 7L5 17M12 12a2 2 0 100 .01',
   housekeeping: 'M5 4l14 14M8 4h8l2 5H6l2-5zM4 12h16l-1.5 8h-13L4 12z',
   display: 'M3 4h18v13H3V4zM8 21h8M12 17v4',
+  star: 'M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z',
+  smart: 'M4 21v-7m0-4V3m8 18v-9m0-4V3m8 18v-5m0-4V3M1 14h6m2-6h6m2 8h6',
+  mobility: 'M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16zM3.27 6.96L12 12.01l8.73-5.05M12 22.08V12',
 }
 </script>
 

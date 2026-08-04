@@ -45,6 +45,9 @@ export type AmenityIcon =
   | 'climate'
   | 'housekeeping'
   | 'display'
+  | 'star'
+  | 'smart'
+  | 'mobility'
 
 export interface Stat {
   id: string

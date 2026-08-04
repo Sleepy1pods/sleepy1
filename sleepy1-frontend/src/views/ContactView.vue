@@ -109,16 +109,17 @@ async function submit() {
           <DreamCard class="support-card p-6 sm:p-7">
             <h3 class="text-sm font-semibold uppercase tracking-[0.18em] text-ivory-100/50">Direct Contact</h3>
             <div class="mt-4 space-y-2 text-sm leading-relaxed text-ivory-100/72">
-              <p>Email: <a href="mailto:support@sleepy1.example" class="text-brand-300 transition-colors hover:text-brand-200">support@sleepy1.example</a></p>
+              <p>Email: <a href="mailto:sleepy1.pods@gmail.com" class="text-brand-300 transition-colors hover:text-brand-200">sleepy1.pods@gmail.com</a></p>
+              <p>Location: <span class="font-semibold text-ivory-50">IIIT Dharwad</span></p>
               <p>Phone: <a href="tel:+911800123456" class="text-brand-300 transition-colors hover:text-brand-200">+91 1800-123-4567</a></p>
-              <p>Hours: 24/7 for airside locations, 6 AM – Midnight elsewhere</p>
+              <p>Hours: 24/7 on campus and airside locations</p>
             </div>
           </DreamCard>
 
           <DreamCard class="support-card p-6 sm:p-7">
             <h3 class="text-sm font-semibold uppercase tracking-[0.18em] text-ivory-100/50">Location Assistance</h3>
             <p class="mt-4 text-sm leading-relaxed text-ivory-100/65">
-              Every Sleepy1 pod cluster has an on-site help point and in-app support button during operating hours — look for the Sleepy1 signage near your terminal's pod cluster.
+              Sleepy1 pods are located at <strong class="text-ivory-50">IIIT Dharwad</strong>. For on-site assistance or access guidance, visit our campus pod cluster help point or email <a href="mailto:sleepy1.pods@gmail.com" class="text-brand-300 hover:underline">sleepy1.pods@gmail.com</a>.
             </p>
           </DreamCard>
 

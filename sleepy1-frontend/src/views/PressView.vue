@@ -24,7 +24,7 @@ usePageMeta({
     <div class="mt-10 rounded-2xl border border-white/10 bg-white/[0.02] p-6 text-center">
       <h3 class="text-sm font-semibold uppercase tracking-wide text-ivory-100/50">Media Enquiries</h3>
       <p class="mt-2 text-sm text-ivory-100/60">
-        For interviews or press assets, contact <a href="mailto:press@sleepy1.example" class="text-brand-300 hover:text-brand-200">press@sleepy1.example</a>.
+        For interviews or press assets, contact <a href="mailto:sleepy1.pods@gmail.com" class="text-brand-300 hover:text-brand-200">sleepy1.pods@gmail.com</a>.
       </p>
     </div>
   </div>

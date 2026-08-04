@@ -112,8 +112,8 @@ function subscribe() {
 
       <!-- Footer Bottom Copyright & Support -->
       <div class="mt-8 flex flex-col gap-3 border-t border-white/15 pt-8 text-xs font-medium text-ivory-100/60 sm:flex-row sm:items-center sm:justify-between">
-        <p>© 2026 Sleepy1. Your Pod, Your Mode.</p>
-        <p>Support: <a href="mailto:support@sleepy1.example" class="transition-colors hover:text-white">support@sleepy1.example</a> · +91 1800-123-4567</p>
+        <p>© 2026 Sleepy1. Your Pod, Your Mode. · IIIT Dharwad</p>
+        <p>Support: <a href="mailto:sleepy1.pods@gmail.com" class="transition-colors hover:text-white">sleepy1.pods@gmail.com</a> · +91 1800-123-4567</p>
       </div>
     </div>
   </footer>
