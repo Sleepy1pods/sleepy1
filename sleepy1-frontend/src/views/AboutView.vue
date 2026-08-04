@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { impactStats, milestones } from '@/data/statistics'
+import { impactStats } from '@/data/statistics'
 import { usePageMeta } from '@/composables/usePageMeta'
 import SectionHeading from '@/components/common/SectionHeading.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
@@ -7,6 +7,7 @@ import PodVisual from '@/components/common/PodVisual.vue'
 import DreamCard from '@/components/common/DreamCard.vue'
 import HomeNewsletter from '@/components/home/HomeNewsletter.vue'
 import AboutSolutionComparison from '@/components/about/AboutSolutionComparison.vue'
+import AboutMilestones from '@/components/about/AboutMilestones.vue'
 
 usePageMeta({
   title: 'About Sleepy1',
@@ -21,10 +22,6 @@ const values = [
 ]
 
 
-const milestoneDetails = milestones.map((milestone, index) => ({
-  ...milestone,
-  step: String(index + 1).padStart(2, '0'),
-}))
 </script>
 
 <template>
@@ -96,15 +93,7 @@ const milestoneDetails = milestones.map((milestone, index) => ({
     <section class="section-pad border-t border-white/8">
       <div class="container-page">
         <SectionHeading eyebrow="Milestones" title="Our journey so far" align="center" class="mx-auto" />
-        <div class="mx-auto mt-14 max-w-3xl divide-y divide-white/8 border-t border-white/8">
-          <div v-for="m in milestoneDetails" :key="m.year" class="flex flex-col gap-1 py-6 sm:flex-row sm:gap-8">
-            <p class="w-20 shrink-0 text-sm font-semibold text-ivory-100/40">{{ m.step }} · {{ m.year }}</p>
-            <div>
-              <h3 class="text-base font-semibold text-ivory-50">{{ m.title }}</h3>
-              <p class="mt-1 text-sm leading-relaxed text-ivory-100/60">{{ m.description }}</p>
-            </div>
-          </div>
-        </div>
+        <AboutMilestones />
       </div>
     </section>
 
