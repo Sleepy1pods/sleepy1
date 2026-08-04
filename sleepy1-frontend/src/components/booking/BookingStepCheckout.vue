@@ -115,7 +115,7 @@ async function payNow() {
       },
       prefill: {
         name: flow.draft.guest?.fullName || 'Guest',
-        email: flow.draft.guest?.email || 'guest@sleepy1.com',
+        email: flow.draft.guest?.email || 'guest@sleepy1pods.com',
         contact: flow.draft.guest?.phone || '9876543210',
       },
       notes: {

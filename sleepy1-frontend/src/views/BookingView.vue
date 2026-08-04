@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { useBookingFlowStore } from '@/stores/bookingFlow'
 import { usePageMeta } from '@/composables/usePageMeta'
@@ -18,9 +18,10 @@ const route = useRoute()
 const flow = useBookingFlowStore()
 
 const steps = [
-  { key: 'select', label: '1. Pod & Schedule' },
-  { key: 'customize', label: '2. Guest & Extras' },
-  { key: 'checkout', label: '3. Review & Pay' },
+  { key: 'select', label: 'Select Pod' },
+  { key: 'customize', label: 'Guest & Extras' },
+  { key: 'checkout', label: 'Payment' },
+  { key: 'confirmation', label: 'Confirmed' },
 ]
 
 const stepComponents = {
@@ -36,6 +37,9 @@ onMounted(() => {
   // Only clear a prior draft once a booking has actually been confirmed — otherwise
   // navigating away mid-flow and back (e.g. via header nav) would silently wipe progress.
   if (flow.confirmedBooking) flow.reset()
+})
+
+watchEffect(() => {
   const locationSlug = route.query.location as string | undefined
   const podId = route.query.pod as string | undefined
   const hours = route.query.hours as string | undefined

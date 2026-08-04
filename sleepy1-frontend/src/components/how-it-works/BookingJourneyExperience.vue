@@ -693,7 +693,7 @@ function simulateQRScan() {
                   />
 
                   <QRDisplay
-                    value="https://sleepy1.com/checkin/SLP-9482-DEMO"
+                    value="https://sleepy1pods.com/checkin/SLP-9482-DEMO"
                     :size="120"
                     reference="SLP-9482"
                   />

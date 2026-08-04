@@ -82,12 +82,12 @@ onUnmounted(() => {
 
     <div class="container-page relative grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
       <div class="reveal pb-20 sm:pb-28 lg:col-span-7 lg:pb-36">
-        <p class="eyebrow mb-7">Your Pod, Your Mode</p>
+        <p class="eyebrow mb-7">Smart Rest Network</p>
         <h1
           class="font-display text-4xl font-bold leading-[1.1] text-ivory-50 sm:text-5xl lg:text-[3.75rem]"
-          aria-label="A quiet place to rest, right where you already are."
+          aria-label="Your Pod, Your Mode, right where you already are."
         >
-          <span class="block">A quiet place to rest,</span>
+          <span class="block">Your Pod, Your Mode,</span>
           <span class="block min-h-[2.4em] sm:min-h-[2.2em] lg:min-h-[2.2em]">
             <span class="bg-gradient-to-r from-gold-200 via-gold-300 to-amber-200 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(220,192,136,0.18)]">{{ displayedText }}</span>
             <span

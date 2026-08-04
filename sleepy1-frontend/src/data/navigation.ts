@@ -1,7 +1,6 @@
 import type { NavItem } from '@/types/common'
 
 export const primaryNav: NavItem[] = [
-  { label: 'Home', to: '/' },
   { label: 'About', to: '/about' },
   { label: 'Locations', to: '/locations' },
   { label: 'Features', to: '/pod-experience' },
@@ -57,8 +56,8 @@ export const footerMoreLinks: NavItem[] = [
   { label: 'Corporate Solutions', to: '/corporate' },
 ]
 
-export const socialLinks: { label: string; href: string; icon: 'instagram' | 'linkedin' | 'x' }[] = [
-  { label: 'Instagram', href: '#', icon: 'instagram' },
-  { label: 'LinkedIn', href: '#', icon: 'linkedin' },
-  { label: 'X (Twitter)', href: '#', icon: 'x' },
+export const socialLinks: { label: string; href: string; icon: 'instagram' | 'linkedin' | 'youtube' }[] = [
+  { label: 'Instagram', href: 'https://www.instagram.com/sleepy1pods', icon: 'instagram' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/sleepy1pods', icon: 'linkedin' },
+  { label: 'YouTube', href: 'https://www.youtube.com/@sleepy1pods', icon: 'youtube' },
 ]

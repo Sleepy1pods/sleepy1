@@ -9,7 +9,7 @@ import PrimaryButton from './PrimaryButton.vue'
 import SecondaryButton from './SecondaryButton.vue'
 
 const props = withDefaults(
-  defineProps<{ pod: PodTypeDefinition; selected?: boolean }>(),
+  defineProps<{ pod: PodTypeDefinition; selected?: boolean; pricePerHour?: number }>(),
   { selected: false },
 )
 
@@ -52,7 +52,7 @@ function handleSelectFromModal() {
             {{ pod.name }}
           </h3>
           <span class="text-sm font-bold text-brand-300 whitespace-nowrap">
-            ₹{{ pod.pricePerHour }}<span class="text-xs font-normal text-ivory-100/50">/hr</span>
+            ₹{{ pricePerHour ?? pod.pricePerHour }}<span class="text-xs font-normal text-ivory-100/50">/hr</span>
           </span>
         </div>
         <!-- 1-line concise tagline -->
@@ -112,7 +112,7 @@ function handleSelectFromModal() {
             {{ pod.occupancy }} guest{{ pod.occupancy > 1 ? 's' : '' }} max
           </span>
           <span class="absolute bottom-3 left-3 rounded-full bg-brand-400 px-3 py-1 text-xs font-bold text-ink-950 shadow-soft">
-            ₹{{ pod.pricePerHour }}/hour
+            ₹{{ pricePerHour ?? pod.pricePerHour }}/hour
           </span>
         </div>
 
@@ -160,7 +160,7 @@ function handleSelectFromModal() {
         <div class="flex items-center justify-between border-t border-white/10 pt-3">
           <SecondaryButton type="button" size="sm" @click="isModalOpen = false">Close</SecondaryButton>
           <PrimaryButton type="button" size="sm" @click="handleSelectFromModal">
-            Select This Pod (₹{{ pod.pricePerHour }}/hr) →
+            Select This Pod (₹{{ pricePerHour ?? pod.pricePerHour }}/hr) →
           </PrimaryButton>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { getLocationBySlug } from '@/data/locations'
 import { getPodTypeById } from '@/data/pods'
 import { bookingExtras } from '@/data/bookings'
 import { bookingService } from '@/services/bookingService'
-import { calculatePricing } from '@/utils/pricing'
+import { calculatePricing, getPodPriceForLocation } from '@/utils/pricing'
 
 const STEP_ORDER = ['select', 'customize', 'checkout', 'confirmation'] as const
 export type BookingStep = (typeof STEP_ORDER)[number]
@@ -45,8 +45,14 @@ export const useBookingFlowStore = defineStore('bookingFlow', () => {
   const selectedPod = computed(() => (draft.value.podTypeId ? getPodTypeById(draft.value.podTypeId) : undefined))
   const selectedExtras = computed(() => bookingExtras.filter((e) => draft.value.extraIds.includes(e.id)))
 
+  const currentPodPricePerHour = computed(() => getPodPriceForLocation(draft.value.podTypeId, draft.value.locationId))
+
+  function getPriceForPod(podTypeId: string): number {
+    return getPodPriceForLocation(podTypeId, draft.value.locationId)
+  }
+
   const pricing = computed(() => {
-    const basePrice = (selectedPod.value?.pricePerHour ?? 499) * draft.value.durationHours
+    const basePrice = currentPodPricePerHour.value * draft.value.durationHours
     const extrasTotal = selectedExtras.value.reduce((sum, e) => sum + e.price, 0)
     return calculatePricing({
       basePrice,
@@ -176,6 +182,8 @@ export const useBookingFlowStore = defineStore('bookingFlow', () => {
     selectedLocation,
     selectedPod,
     selectedExtras,
+    currentPodPricePerHour,
+    getPriceForPod,
     pricing,
     goToStep,
     nextStep,

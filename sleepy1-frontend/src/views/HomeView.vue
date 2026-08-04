@@ -14,7 +14,7 @@ usePageMeta({
 </script>
 
 <template>
-  <div>
+  <div class="relative z-10">
     <HomeHero />
     <HomeTrustedStrip />
     <HomeFeatures />

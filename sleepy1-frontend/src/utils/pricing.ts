@@ -1,4 +1,22 @@
 import type { PriceBreakdown } from '@/types/booking'
+import { getLocationBySlug } from '@/data/locations'
+
+export function getPodPriceForLocation(podTypeId: string | null | undefined, locationSlug: string | null | undefined): number {
+  const location = locationSlug ? getLocationBySlug(locationSlug) : undefined
+  const basePrice = location?.startingPricePerHour ?? 499
+
+  switch (podTypeId) {
+    case 'pod-solo-work':
+      return basePrice + 50
+    case 'pod-twin-lounge':
+      return basePrice + 300
+    case 'pod-premium-suite':
+      return basePrice + 500
+    case 'pod-solo-rest':
+    default:
+      return basePrice
+  }
+}
 
 const SERVICE_FEE = 49
 const TAX_RATE = 0.12

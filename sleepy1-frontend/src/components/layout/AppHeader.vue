@@ -9,9 +9,23 @@ import UserMenu from '@/components/layout/UserMenu.vue'
 const auth = useAuthStore()
 const ui = useUiStore()
 const isScrolled = ref(false)
+let ticking = false
 
 function onScroll() {
-  isScrolled.value = window.scrollY > 20
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      const y = window.scrollY
+      // 40px hysteresis gap (activate above 50px, deactivate below 10px)
+      // Prevents padding/height shifts from causing a scroll-oscillation glitch loop
+      if (!isScrolled.value && y > 50) {
+        isScrolled.value = true
+      } else if (isScrolled.value && y < 10) {
+        isScrolled.value = false
+      }
+      ticking = false
+    })
+    ticking = true
+  }
 }
 
 onMounted(() => window.addEventListener('scroll', onScroll, { passive: true }))
@@ -20,15 +34,15 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 
 <template>
   <header
-    class="sticky top-0 z-50 w-full transition-all duration-500 ease-out"
-    :class="isScrolled ? 'pt-0 px-0' : 'pt-4 px-4 sm:pt-5 sm:px-6'"
+    class="sticky top-0 z-50 w-full transition-all duration-300 ease-out"
+    :class="isScrolled ? 'pt-0 px-0' : 'pt-3 px-3 sm:pt-4 sm:px-6'"
   >
     <div
-      class="mx-auto flex items-center justify-between transition-all duration-500 ease-out"
+      class="mx-auto flex items-center justify-between transition-all duration-300 ease-out"
       :class="[
         isScrolled
-          ? 'max-w-full rounded-none border-b border-white/10 bg-ink-950/90 px-6 py-4 backdrop-blur-2xl shadow-lg sm:px-10'
-          : 'max-w-6xl rounded-full border border-white/15 bg-ink-950/80 px-6 py-3.5 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.6)] sm:px-8',
+          ? 'max-w-full rounded-none border-b border-white/10 bg-ink-950/95 px-6 py-3.5 backdrop-blur-2xl shadow-xl sm:px-10'
+          : 'max-w-6xl rounded-2xl border border-white/15 bg-ink-950/80 px-6 py-3.5 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.6)] sm:px-8',
       ]"
     >
       <router-link to="/" class="flex items-center gap-2 text-lg font-semibold tracking-[0.15em] text-ivory-50">

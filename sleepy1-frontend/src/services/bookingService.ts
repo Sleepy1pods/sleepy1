@@ -4,7 +4,7 @@ import { getLocationBySlug } from '@/data/locations'
 import { getPodTypeById } from '@/data/pods'
 import { delay } from '@/utils/delay'
 import { formatDate, generateBookingReference } from '@/utils/format'
-import { calculatePricing } from '@/utils/pricing'
+import { calculatePricing, getPodPriceForLocation } from '@/utils/pricing'
 import { creditService } from '@/services/creditService'
 
 let sessionBookings: Booking[] = [...mockBookings]
@@ -15,7 +15,7 @@ export const bookingService = {
   },
 
   async getAvailability(_locationId: string, _date: string): Promise<TimeSlot[]> {
-    return delay(generateTimeSlots(), 300)
+    return delay(generateTimeSlots())
   },
 
   async getMyBookings(): Promise<Booking[]> {
@@ -30,7 +30,7 @@ export const bookingService = {
     const location = draft.locationId ? getLocationBySlug(draft.locationId) : undefined
     const podType = draft.podTypeId ? getPodTypeById(draft.podTypeId) : undefined
 
-    const basePrice = (podType?.pricePerHour ?? 499) * draft.durationHours
+    const basePrice = getPodPriceForLocation(draft.podTypeId, draft.locationId) * draft.durationHours
     const extrasList = bookingExtras.filter((e) => draft.extraIds.includes(e.id))
     const extrasTotal = extrasList.reduce((sum, e) => sum + e.price, 0)
     const price = calculatePricing({

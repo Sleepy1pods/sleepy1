@@ -354,6 +354,7 @@ function proceed() {
           v-for="pod in podTypes"
           :key="pod.id"
           :pod="pod"
+          :price-per-hour="flow.getPriceForPod(pod.id)"
           :selected="flow.draft.podTypeId === pod.id"
           @select="flow.setPod(pod.id)"
         />
@@ -397,7 +398,7 @@ function proceed() {
               <span class="hidden sm:block h-[1px] w-10 bg-brand-400/40"></span>
             </div>
             <span class="mt-1 text-[11px] font-semibold text-ivory-100/60">
-              Est. Total: {{ formatInr((flow.selectedPod?.pricePerHour || 499) * duration) }}
+              Est. Total: {{ formatInr(flow.pricing.basePrice) }}
             </span>
           </div>
 
@@ -482,7 +483,7 @@ function proceed() {
                 Stay Duration: <span class="font-bold text-ivory-50">{{ duration }} hour{{ duration > 1 ? 's' : '' }}</span>
               </label>
               <span class="text-xs font-bold text-brand-300">
-                Total: {{ formatInr((flow.selectedPod?.pricePerHour || 499) * duration) }}
+                Total: {{ formatInr(flow.pricing.basePrice) }}
               </span>
             </div>
             <input
