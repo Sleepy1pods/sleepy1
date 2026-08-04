@@ -3,25 +3,18 @@ import { impactStats } from '@/data/statistics'
 import { usePageMeta } from '@/composables/usePageMeta'
 import SectionHeading from '@/components/common/SectionHeading.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
-import PodVisual from '@/components/common/PodVisual.vue'
 import DreamCard from '@/components/common/DreamCard.vue'
 import HomeNewsletter from '@/components/home/HomeNewsletter.vue'
 import AboutSolutionComparison from '@/components/about/AboutSolutionComparison.vue'
 import AboutMilestones from '@/components/about/AboutMilestones.vue'
+import AboutStoryHero from '@/components/about/AboutStoryHero.vue'
+import AboutBrandValues from '@/components/about/AboutBrandValues.vue'
+import AboutDesignPhilosophy from '@/components/about/AboutDesignPhilosophy.vue'
 
 usePageMeta({
   title: 'About Sleepy1',
   description: 'Sleepy1 is working to make safe, private rest more accessible in places where people travel, wait, and spend long hours — starting with campuses and hospitals, and expanding to more high-footfall locations.',
 })
-
-const values = [
-  { title: 'Hospitality first', description: 'Every decision starts with one question: would this feel like a five-star stay, however short?' },
-  { title: 'Radical privacy', description: 'No shared curtains, no cameras inside pods — your rest is genuinely your own.' },
-  { title: 'Built for speed', description: 'Booking, check-in, and check-out are designed to take seconds, not minutes.' },
-  { title: 'Everywhere you wait', description: 'Campuses first, then stations, malls, and business districts.' },
-]
-
-
 </script>
 
 <template>
@@ -34,33 +27,31 @@ const values = [
         </p>
       </div>
 
-      <div class="container-page mt-14 grid gap-8 lg:grid-cols-2 lg:items-center">
-        <div>
-          <h2 class="text-xl font-semibold text-ivory-50">Our story</h2>
-          <p class="mt-4 leading-relaxed text-ivory-100/65">
-            Sleepy1 started with a simple observation: people spend countless hours in high-footfall places
-            with no access to private, comfortable rest. We began with universities and are building toward
-            every campus, corporate park, hospital, and railway station where people need real rest.
-          </p>
-        </div>
-        <div class="overflow-hidden rounded-3xl">
-          <PodVisual id="pod-exterior-1" variant="exterior" class="h-full min-h-[280px] w-full" rounded="rounded-3xl" />
-        </div>
+      <div class="container-page">
+        <AboutStoryHero />
       </div>
     </section>
 
     <section class="section-pad border-t border-white/8">
       <div class="container-page grid gap-6 sm:grid-cols-2">
-        <DreamCard :glow="false" class="p-8">
-          <h2 class="text-lg font-semibold text-ivory-50">Mission</h2>
-          <p class="mt-3 text-sm leading-relaxed text-ivory-100/65">
+        <DreamCard :glow="false" class="group relative overflow-hidden p-8 transition-all duration-300 hover:border-white/20">
+          <div class="mb-4 flex items-center justify-between border-b border-white/5 pb-3">
+            <span class="eyebrow">01 · Mission</span>
+            <span class="h-1.5 w-1.5 rounded-full bg-brand-400/80" aria-hidden="true" />
+          </div>
+          <h2 class="font-display text-xl font-bold text-ivory-50 transition-colors group-hover:text-brand-300">Instant Sanctuary</h2>
+          <p class="mt-3 text-sm leading-relaxed text-ivory-100/70">
             To give every traveller instant access to a private, comfortable space to rest — wherever their
             journey takes them.
           </p>
         </DreamCard>
-        <DreamCard :glow="false" class="p-8">
-          <h2 class="text-lg font-semibold text-ivory-50">Vision</h2>
-          <p class="mt-3 text-sm leading-relaxed text-ivory-100/65">
+        <DreamCard :glow="false" class="group relative overflow-hidden p-8 transition-all duration-300 hover:border-white/20">
+          <div class="mb-4 flex items-center justify-between border-b border-white/5 pb-3">
+            <span class="eyebrow">02 · Vision</span>
+            <span class="h-1.5 w-1.5 rounded-full bg-brand-400/80" aria-hidden="true" />
+          </div>
+          <h2 class="font-display text-xl font-bold text-ivory-50 transition-colors group-hover:text-brand-300">The Trusted Rest Network</h2>
+          <p class="mt-3 text-sm leading-relaxed text-ivory-100/70">
             To become the most trusted rest network — smart booking, premium pod design, and a seamless
             experience across every major transit hub.
           </p>
@@ -81,12 +72,7 @@ const values = [
     <section class="section-pad border-t border-white/8">
       <div class="container-page">
         <SectionHeading eyebrow="Brand Values" title="What guides every Sleepy1 pod" align="center" class="mx-auto" />
-        <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          <div v-for="v in values" :key="v.title">
-            <h3 class="font-semibold text-ivory-50">{{ v.title }}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-ivory-100/60">{{ v.description }}</p>
-          </div>
-        </div>
+        <AboutBrandValues />
       </div>
     </section>
 
@@ -100,22 +86,23 @@ const values = [
     <section class="section-pad border-t border-white/8">
       <div class="container-page">
         <SectionHeading eyebrow="Impact" title="Sleepy1 by the numbers" align="center" class="mx-auto" />
-        <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          <div v-for="stat in impactStats" :key="stat.id" class="text-center">
-            <p class="font-display text-3xl font-medium text-ivory-50">{{ stat.value }}</p>
-            <p class="mt-1 text-sm text-ivory-100/50">{{ stat.label }}</p>
-            <p v-if="!stat.isVerified" class="mt-2 text-[10px] uppercase tracking-wide text-ivory-100/35">Illustrative estimate</p>
+        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div
+            v-for="stat in impactStats"
+            :key="stat.id"
+            class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] p-8 text-center shadow-soft transition-all duration-300 hover:border-white/20 hover:bg-white/[0.04]"
+          >
+            <p class="font-display text-4xl font-bold tracking-tight text-ivory-50 transition-colors group-hover:text-brand-300">{{ stat.value }}</p>
+            <p class="mt-2 text-sm font-medium text-ivory-100/60">{{ stat.label }}</p>
+            <p v-if="!stat.isVerified" class="mt-3 text-[10px] uppercase tracking-widest text-ivory-100/35">Illustrative estimate</p>
           </div>
         </div>
       </div>
     </section>
 
     <section class="section-pad border-t border-white/8">
-      <div class="container-page grid gap-10 lg:grid-cols-2 lg:items-center">
-        <SectionHeading eyebrow="Design Philosophy" title="Where hospitality meets engineering" description="Every pod blends hotel-grade materials with the technology of a smart hotel room — QR access, climate control, and an in-pod entertainment panel. As we expand into stations, malls, and campuses, this standard travels with us." />
-        <div class="overflow-hidden rounded-3xl">
-          <PodVisual id="pod-detail-2" variant="detail" class="h-full min-h-[260px] w-full" rounded="rounded-3xl" />
-        </div>
+      <div class="container-page">
+        <AboutDesignPhilosophy />
       </div>
     </section>
 
