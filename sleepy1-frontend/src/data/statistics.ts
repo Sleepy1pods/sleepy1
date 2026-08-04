@@ -13,8 +13,8 @@ export const impactStats: Stat[] = [
 ]
 
 export const milestones: { year: string; title: string; description: string }[] = [
-  { year: '2024', title: 'Sleepy1 founded', description: 'Started with a single observation: people deserve better rest in busy public spaces.' },
-  { year: '2025', title: 'First pods installed', description: 'Pilot pods launched across university campuses.' },
-  { year: '2026', title: 'National network', description: 'Expanded across universities, corporate parks, hospitals, and railway stations with credit-based membership launched.' },
-  { year: 'Ahead', title: 'Nationwide growth', description: 'Working to improve access across every high-footfall category, city by city.' },
+  { year: '2025', title: 'Sleepy1 founded', description: 'Started with a single observation: people deserve better rest in busy public spaces.' },
+  { year: '2026', title: 'MVP developed and pilot testing', description: 'Pilot pods designed, developed, and tested across initial locations.' },
+  { year: '2026', title: 'Final product development', description: 'Refined engineering, acoustic insulation, and smart booking features for scale.' },
+  { year: '2027', title: 'Pods installed and nationwide growth', description: 'Expanding across universities, corporate parks, hospitals, and railway stations nationwide.' },
 ]

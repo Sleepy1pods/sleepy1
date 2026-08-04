@@ -5,7 +5,6 @@ import HomeTrustedStrip from '@/components/home/HomeTrustedStrip.vue'
 import HomeFeatures from '@/components/home/HomeFeatures.vue'
 import HomePodExperience from '@/components/home/HomePodExperience.vue'
 import HomeHowItWorks from '@/components/home/HomeHowItWorks.vue'
-import HomeFinalCta from '@/components/home/HomeFinalCta.vue'
 
 usePageMeta({
   title: 'Sleepy1 — Your Pod, Your Mode',
@@ -20,6 +19,5 @@ usePageMeta({
     <HomeFeatures />
     <HomePodExperience />
     <HomeHowItWorks />
-    <HomeFinalCta />
   </div>
 </template>

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { impactStats } from '@/data/statistics'
 import { usePageMeta } from '@/composables/usePageMeta'
 import SectionHeading from '@/components/common/SectionHeading.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
@@ -80,23 +79,6 @@ usePageMeta({
       <div class="container-page">
         <SectionHeading eyebrow="Milestones" title="Our journey so far" align="center" class="mx-auto" />
         <AboutMilestones />
-      </div>
-    </section>
-
-    <section class="section-pad border-t border-white/8">
-      <div class="container-page">
-        <SectionHeading eyebrow="Impact" title="Sleepy1 by the numbers" align="center" class="mx-auto" />
-        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <div
-            v-for="stat in impactStats"
-            :key="stat.id"
-            class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] p-8 text-center shadow-soft transition-all duration-300 hover:border-white/20 hover:bg-white/[0.04]"
-          >
-            <p class="font-display text-4xl font-bold tracking-tight text-ivory-50 transition-colors group-hover:text-brand-300">{{ stat.value }}</p>
-            <p class="mt-2 text-sm font-medium text-ivory-100/60">{{ stat.label }}</p>
-            <p v-if="!stat.isVerified" class="mt-3 text-[10px] uppercase tracking-widest text-ivory-100/35">Illustrative estimate</p>
-          </div>
-        </div>
       </div>
     </section>
 
