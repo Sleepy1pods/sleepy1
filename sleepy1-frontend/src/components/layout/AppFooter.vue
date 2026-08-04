@@ -28,8 +28,10 @@ function subscribe() {
 
 <template>
   <footer class="border-t border-white/8 bg-ink-950">
-    <div class="container-page py-16">
-      <div class="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr]">
+    <div class="container-page py-12 sm:py-16">
+      <!-- Main Footer Grid -->
+      <div class="grid gap-10 lg:grid-cols-[1.4fr_2fr] lg:gap-16">
+        <!-- Brand, Newsletter & Socials -->
         <div>
           <router-link to="/" class="flex items-center gap-2 text-lg font-semibold tracking-[0.15em] text-ivory-50">
             <img src="/Logo.png" alt="Sleepy1 Icon" class="h-9 w-9 object-contain" />
@@ -81,30 +83,35 @@ function subscribe() {
           </div>
         </div>
 
-        <div v-for="column in footerColumns" :key="column.title">
-          <h3 class="text-sm font-semibold text-ivory-50">{{ column.title }}</h3>
-          <ul class="mt-4 space-y-3">
-            <li v-for="item in column.items" :key="item.to">
-              <router-link :to="item.to" class="link-underline text-sm text-ivory-100/55 transition-colors hover:text-ivory-50">
-                {{ item.label }}
-              </router-link>
-            </li>
-          </ul>
+        <!-- Navigation Columns: Side-by-Side on Mobile (grid-cols-2) -->
+        <div class="grid grid-cols-2 gap-8 sm:gap-12">
+          <div v-for="column in footerColumns" :key="column.title">
+            <h3 class="font-display text-sm font-semibold tracking-wider text-ivory-50">{{ column.title }}</h3>
+            <ul class="mt-4 space-y-2.5">
+              <li v-for="item in column.items" :key="item.to">
+                <router-link :to="item.to" class="link-underline inline-block py-1 text-sm text-ivory-100/60 transition-colors hover:text-ivory-50">
+                  {{ item.label }}
+                </router-link>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
-      <div class="mt-12 flex flex-wrap gap-x-5 gap-y-2 border-t border-white/8 pt-8">
+      <!-- Secondary Links: Structured 2-Column Grid on Mobile -->
+      <div class="mt-10 grid grid-cols-2 gap-x-4 gap-y-2.5 border-t border-white/8 pt-8 sm:grid-cols-3 md:grid-cols-4 lg:flex lg:flex-wrap lg:gap-x-6 lg:gap-y-2.5">
         <router-link
           v-for="item in footerMoreLinks"
           :key="item.to"
           :to="item.to"
-          class="text-xs text-ivory-100/35 transition-colors hover:text-ivory-100/70"
+          class="text-xs font-medium text-ivory-100/40 transition-colors hover:text-ivory-100/80"
         >
           {{ item.label }}
         </router-link>
       </div>
 
-      <div class="mt-8 flex flex-col gap-4 border-t border-white/8 pt-8 text-xs text-ivory-100/40 sm:flex-row sm:items-center sm:justify-between">
+      <!-- Footer Bottom Copyright & Support -->
+      <div class="mt-8 flex flex-col gap-3 border-t border-white/8 pt-8 text-xs text-ivory-100/40 sm:flex-row sm:items-center sm:justify-between">
         <p>© 2026 Sleepy1. Your Pod, Your Mode.</p>
         <p>Support: <a href="mailto:support@sleepy1.example" class="hover:text-ivory-100/70">support@sleepy1.example</a> · +91 1800-123-4567</p>
       </div>
