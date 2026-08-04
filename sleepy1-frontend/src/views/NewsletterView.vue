@@ -10,7 +10,7 @@ import type { Faq } from '@/types/common'
 usePageMeta({
   title: 'Sleepy1 Insider Club | Newsletter & Promo Codes',
   description:
-    'Join the Sleepy1 Insider Club. Get weekly airport layover hacks, circadian sleep science, and an instant welcome promo code for 100 free sleep credits.',
+    'Join the Sleepy1 Insider Club. Get weekly rest tips, circadian sleep science, and an instant welcome promo code for 100 free sleep credits.',
 })
 
 const clubBenefits = [
@@ -20,13 +20,13 @@ const clubBenefits = [
     icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
   },
   {
-    title: 'Curated Layover Hacks',
-    description: 'Weekly insider guides on beating jet lag, finding quiet transit zones, and power-nap optimization.',
+    title: 'Curated Rest Tips',
+    description: 'Weekly insider guides on recovery science, finding quiet spaces between commitments, and power-nap optimization.',
     icon: 'M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z',
   },
   {
     title: 'Priority Pod Hub Drops',
-    description: 'Be the first to know when new pod locations open across Hubli Railway Station, Dharwad campuses, and corporate parks.',
+    description: 'Be the first to know when new pod locations open across universities, railway stations, and corporate parks.',
     icon: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z',
   },
 ]
@@ -42,7 +42,7 @@ const newsletterFaqs: Faq[] = [
     id: 'faq-nl-2',
     category: 'booking',
     question: 'How often will I receive emails from Sleepy1?',
-    answer: 'You can choose between our Weekly Digest or Major Drops Only. We keep every email concise, useful, and relevant to travellers across Hubli and Dharwad.',
+    answer: 'You can choose between our Weekly Digest or Major Drops Only. We keep every email concise, useful, and relevant wherever you rest.',
   },
   {
     id: 'faq-nl-3',
@@ -66,35 +66,29 @@ const newsletterFaqs: Faq[] = [
 
     <!-- Page Hero Header -->
     <div class="mt-8 text-center">
-      <div class="inline-flex items-center gap-2 rounded-full border border-brand-400/30 bg-brand-400/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-brand-300">
-        <span class="relative flex h-2 w-2">
-          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-400 opacity-75" />
-          <span class="relative inline-flex h-2 w-2 rounded-full bg-brand-400" />
-        </span>
-        Sleepy1 Insider Club
-      </div>
+      <p class="eyebrow justify-center">Sleepy1 Insider Club</p>
 
       <h1 class="mt-4 font-display text-3xl font-medium tracking-tight text-ivory-50 sm:text-5xl">
         Rest smarter. Wait less.<br />
         <span class="bg-gradient-to-r from-brand-300 via-ivory-50 to-brand-400 bg-clip-text text-transparent">
-          Join 15,000+ smart travellers.
+          Join 15,000+ Sleepy1 members.
         </span>
       </h1>
 
       <p class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-ivory-100/70">
-        Get weekly curated airport &amp; campus layover hacks, sleep science, and secret member-only promo drops delivered straight to your inbox.
+        Get weekly curated rest tips, sleep science, and secret member-only promo drops delivered straight to your inbox.
       </p>
 
       <!-- Highlights row -->
       <div class="mt-6 flex flex-wrap items-center justify-center gap-3 text-xs text-ivory-100/60">
         <span class="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1">
-          ✨ Instant ₹100 Welcome Credits
+          Instant ₹100 Welcome Credits
         </span>
         <span class="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1">
-          ✈️ Airport &amp; Campus Nap Hacks
+          Rest &amp; Recovery Science
         </span>
         <span class="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1">
-          🔒 1-Click Unsubscribe Guarantee
+          1-Click Unsubscribe Guarantee
         </span>
       </div>
     </div>

@@ -31,7 +31,7 @@ const features: PodFeatureNode[] = [
     id: 'noise',
     number: '01',
     name: 'Noise Insulation',
-    description: 'Acoustic damping panels and door seals mute terminal noise outside.',
+    description: 'Acoustic damping panels and door seals mute ambient noise outside.',
     icon: 'noise',
     side: 'left',
     dotX: 470,
@@ -187,7 +187,7 @@ const activeHoverId = ref<string | null>(null)
           What's included in every pod
         </h2>
         <p class="mt-3 text-sm sm:text-base text-ivory-100/65">
-          Designed from the inside out for genuine uninterrupted rest, high-speed productivity, and airport privacy.
+          Designed from the inside out for genuine uninterrupted rest, high-speed productivity, and complete privacy.
         </p>
       </div>
 

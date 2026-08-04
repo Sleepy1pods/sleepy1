@@ -4,6 +4,9 @@ import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import SecondaryButton from '@/components/common/SecondaryButton.vue'
 import PodVisual from '@/components/common/PodVisual.vue'
 import HeroAtmosphere from '@/components/home/HeroAtmosphere.vue'
+import { useReducedMotion } from '@/composables/useReducedMotion'
+
+const prefersReducedMotion = useReducedMotion()
 
 const phrases = [
   'right where you already are.',
@@ -56,6 +59,11 @@ const typeStep = () => {
 }
 
 onMounted(() => {
+  if (prefersReducedMotion.value) {
+    displayedText.value = phrases[0]
+    showCursor.value = false
+    return
+  }
   typingTimer = setTimeout(typeStep, 350)
   cursorTimer = setInterval(() => {
     showCursor.value = !showCursor.value
