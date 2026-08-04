@@ -7,6 +7,7 @@ import SecondaryButton from '@/components/common/SecondaryButton.vue'
 import FAQAccordion from '@/components/common/FAQAccordion.vue'
 import AmenityIcon from '@/components/common/AmenityIcon.vue'
 import DreamCard from '@/components/common/DreamCard.vue'
+import CreditsHowToUseDeck from '@/components/credits/CreditsHowToUseDeck.vue'
 
 usePageMeta({
   title: 'Sleepy1 Credits Program — What Are Credits, How to Earn & How to Use',
@@ -196,23 +197,7 @@ const creditsFaqs = [
           class="mx-auto"
         />
 
-        <div class="mx-auto mt-14 grid max-w-5xl gap-8 md:grid-cols-3">
-          <div>
-            <p class="text-xs font-semibold uppercase tracking-wide text-ivory-100/40">01</p>
-            <h3 class="mt-3 text-lg font-semibold text-ivory-50">Select your pod & hours</h3>
-            <p class="mt-2 text-sm leading-relaxed text-ivory-100/65">Choose your location, pod type, and duration.</p>
-          </div>
-          <div>
-            <p class="text-xs font-semibold uppercase tracking-wide text-ivory-100/40">02</p>
-            <h3 class="mt-3 text-lg font-semibold text-ivory-50">Use your balance</h3>
-            <p class="mt-2 text-sm leading-relaxed text-ivory-100/65">At checkout, toggle "Use Wallet Balance" — deducted at a strict 1:1 rate.</p>
-          </div>
-          <div>
-            <p class="text-xs font-semibold uppercase tracking-wide text-ivory-100/40">03</p>
-            <h3 class="mt-3 text-lg font-semibold text-ivory-50">Instant unlock QR</h3>
-            <p class="mt-2 text-sm leading-relaxed text-ivory-100/65">Walk up to your pod and scan your dynamic QR code to unlock.</p>
-          </div>
-        </div>
+        <CreditsHowToUseDeck />
 
         <div class="mt-14 flex justify-center">
           <PrimaryButton as="RouterLink" to="/book" size="lg">Try booking a pod</PrimaryButton>
