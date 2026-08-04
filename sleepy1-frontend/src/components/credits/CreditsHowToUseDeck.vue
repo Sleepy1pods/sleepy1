@@ -119,7 +119,7 @@ const activeIndex = ref<number | null>(null)
             <div v-if="item.terminalType === 'booking'" class="space-y-1.5 text-[11px] text-ivory-100/75">
               <div class="flex justify-between">
                 <span class="text-ivory-100/40">HUB</span>
-                <span class="text-ivory-50 font-semibold">T3 AIRPORT LOUNGE</span>
+                <span class="text-ivory-50 font-semibold">CAMPUS HUB A</span>
               </div>
               <div class="flex justify-between">
                 <span class="text-ivory-100/40">POD</span>

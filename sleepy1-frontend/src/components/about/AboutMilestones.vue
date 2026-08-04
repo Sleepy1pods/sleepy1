@@ -114,12 +114,6 @@ onUnmounted(() => {
                 : 'border-white/20 bg-ink-950',
           ]"
         >
-          <!-- Outer Pulsing Beacon for Active Item -->
-          <span
-            v-if="index === activeIndex"
-            class="absolute h-full w-full animate-ping rounded-full bg-brand-400/40 opacity-75"
-            aria-hidden="true"
-          />
           <span
             class="h-1.5 w-1.5 rounded-full transition-colors"
             :class="index <= activeIndex ? 'bg-brand-300' : 'bg-white/40'"

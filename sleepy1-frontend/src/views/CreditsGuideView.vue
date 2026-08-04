@@ -16,7 +16,7 @@ usePageMeta({
 })
 
 const rechargeTiers = [
-  { amount: 1000, bonusPercent: 5, label: 'Frequent Flyer' },
+  { amount: 1000, bonusPercent: 5, label: 'Regular Rester' },
   { amount: 2500, bonusPercent: 10, label: 'Transit Pro' },
   { amount: 5000, bonusPercent: 15, label: 'Sleepy1 Explorer' },
   { amount: 10000, bonusPercent: 20, label: 'Executive Suite' },
@@ -126,7 +126,7 @@ const creditsFaqs = [
             <AmenityIcon icon="lock" size="h-6 w-6" class="text-brand-300" />
             <h3 class="mt-5 text-lg font-semibold text-ivory-50">Never expires</h3>
             <p class="mt-2 text-sm leading-relaxed text-ivory-100/65">
-              Fly weekly or once a year — your balance stays put until you're ready to book.
+              Rest weekly or once a year — your balance stays put until you're ready to book.
             </p>
           </DreamCard>
           <DreamCard :glow="false" class="p-8">
