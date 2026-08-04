@@ -80,15 +80,15 @@ onUnmounted(() => {
   <section class="relative overflow-hidden pt-20 sm:pt-28 lg:pt-32">
     <HeroAtmosphere />
 
-    <div class="container-page relative grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-20">
-      <div class="reveal pb-20 sm:pb-28 lg:pb-36">
+    <div class="container-page relative grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
+      <div class="reveal pb-20 sm:pb-28 lg:col-span-7 lg:pb-36">
         <p class="eyebrow mb-7">Your Pod, Your Mode</p>
         <h1
-          class="text-balance font-display text-5xl font-bold leading-[1.08] text-ivory-50 sm:text-6xl lg:text-[4.25rem]"
+          class="font-display text-4xl font-bold leading-[1.1] text-ivory-50 sm:text-5xl lg:text-[3.75rem]"
           aria-label="A quiet place to rest, right where you already are."
         >
           <span class="block">A quiet place to rest,</span>
-          <span class="block min-h-[1.25em]">
+          <span class="block min-h-[2.4em] sm:min-h-[2.2em] lg:min-h-[2.2em]">
             <span class="bg-gradient-to-r from-gold-200 via-gold-300 to-amber-200 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(220,192,136,0.18)]">{{ displayedText }}</span>
             <span
               class="ml-1 inline-block h-[0.78em] w-[3px] sm:w-[3.5px] translate-y-[0.08em] rounded-full bg-gradient-to-b from-gold-300 to-gold-400 shadow-[0_0_10px_rgba(220,192,136,0.8)] transition-opacity duration-150"
@@ -109,7 +109,7 @@ onUnmounted(() => {
         </p>
       </div>
 
-      <div class="reveal pb-20 [animation-delay:120ms] sm:pb-28 lg:pb-36">
+      <div class="reveal pb-20 [animation-delay:120ms] sm:pb-28 lg:col-span-5 lg:pb-36">
         <div class="mx-auto aspect-[4/5] max-w-md overflow-hidden rounded-3xl shadow-premium">
           <PodVisual id="pod-interior-1" variant="interior" class="h-full w-full" rounded="rounded-3xl" />
         </div>
