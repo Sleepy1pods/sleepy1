@@ -6,6 +6,7 @@ import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import PodVisual from '@/components/common/PodVisual.vue'
 import DreamCard from '@/components/common/DreamCard.vue'
 import HomeNewsletter from '@/components/home/HomeNewsletter.vue'
+import AboutSolutionComparison from '@/components/about/AboutSolutionComparison.vue'
 
 usePageMeta({
   title: 'About Sleepy1',
@@ -19,12 +20,6 @@ const values = [
   { title: 'Everywhere you wait', description: 'Campuses first, then stations, malls, and business districts.' },
 ]
 
-const beforeAfterRows = [
-  { before: 'A waiting chair', after: 'A private pod' },
-  { before: 'Bright, noisy terminals', after: 'Ambient light, acoustic isolation' },
-  { before: 'Nowhere to leave your bags', after: 'A locked space that is yours alone' },
-  { before: 'Time you can\'t get back', after: 'Real, recoverable rest' },
-]
 
 const milestoneDetails = milestones.map((milestone, index) => ({
   ...milestone,
@@ -80,19 +75,8 @@ const milestoneDetails = milestones.map((milestone, index) => ({
       <div class="container-page">
         <SectionHeading eyebrow="What we're solving" title="Waiting shouldn't mean discomfort" align="center" class="mx-auto" />
 
-        <div class="mx-auto mt-12 grid max-w-4xl gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/5 sm:grid-cols-2">
-          <div class="bg-ink-950 p-8">
-            <p class="text-xs font-semibold uppercase tracking-[0.18em] text-ivory-100/40">Before</p>
-            <ul class="mt-6 space-y-4">
-              <li v-for="row in beforeAfterRows" :key="row.before" class="text-sm text-ivory-100/55">{{ row.before }}</li>
-            </ul>
-          </div>
-          <div class="bg-ink-950 p-8">
-            <p class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-300">After</p>
-            <ul class="mt-6 space-y-4">
-              <li v-for="row in beforeAfterRows" :key="row.after" class="text-sm font-medium text-ivory-50">{{ row.after }}</li>
-            </ul>
-          </div>
+        <div class="mt-12">
+          <AboutSolutionComparison />
         </div>
       </div>
     </section>

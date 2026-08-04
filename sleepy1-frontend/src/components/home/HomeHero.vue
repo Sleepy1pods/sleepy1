@@ -1,8 +1,71 @@
 <script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import SecondaryButton from '@/components/common/SecondaryButton.vue'
 import PodVisual from '@/components/common/PodVisual.vue'
 import HeroAtmosphere from '@/components/home/HeroAtmosphere.vue'
+
+const phrases = [
+  'right where you already are.',
+  'between classes & meetings.',
+  'when you need a recharge.',
+  'on your own schedule.',
+  'without leaving campus.',
+]
+
+const phraseIndex = ref(0)
+const charIndex = ref(0)
+const isDeleting = ref(false)
+const displayedText = ref('')
+const showCursor = ref(true)
+
+let typingTimer: ReturnType<typeof setTimeout> | null = null
+let cursorTimer: ReturnType<typeof setInterval> | null = null
+
+const getRandomSpeed = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+const typeStep = () => {
+  const currentPhrase = phrases[phraseIndex.value]
+
+  if (!isDeleting.value) {
+    if (charIndex.value < currentPhrase.length) {
+      charIndex.value++
+      displayedText.value = currentPhrase.slice(0, charIndex.value)
+      showCursor.value = true
+      typingTimer = setTimeout(typeStep, getRandomSpeed(45, 75))
+    } else {
+      typingTimer = setTimeout(() => {
+        isDeleting.value = true
+        typeStep()
+      }, 2800)
+    }
+  } else {
+    if (charIndex.value > 0) {
+      charIndex.value--
+      displayedText.value = currentPhrase.slice(0, charIndex.value)
+      showCursor.value = true
+      typingTimer = setTimeout(typeStep, 25)
+    } else {
+      isDeleting.value = false
+      phraseIndex.value = (phraseIndex.value + 1) % phrases.length
+      typingTimer = setTimeout(typeStep, 400)
+    }
+  }
+}
+
+onMounted(() => {
+  typingTimer = setTimeout(typeStep, 350)
+  cursorTimer = setInterval(() => {
+    showCursor.value = !showCursor.value
+  }, 530)
+})
+
+onUnmounted(() => {
+  if (typingTimer) clearTimeout(typingTimer)
+  if (cursorTimer) clearInterval(cursorTimer)
+})
 </script>
 
 <template>
@@ -12,8 +75,19 @@ import HeroAtmosphere from '@/components/home/HeroAtmosphere.vue'
     <div class="container-page relative grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-20">
       <div class="reveal pb-20 sm:pb-28 lg:pb-36">
         <p class="eyebrow mb-7">Your Pod, Your Mode</p>
-        <h1 class="text-balance font-display text-5xl font-bold leading-[1.08] text-ivory-50 sm:text-6xl lg:text-[4.25rem]">
-          A quiet place to rest, right where you already are.
+        <h1
+          class="text-balance font-display text-5xl font-bold leading-[1.08] text-ivory-50 sm:text-6xl lg:text-[4.25rem]"
+          aria-label="A quiet place to rest, right where you already are."
+        >
+          <span class="block">A quiet place to rest,</span>
+          <span class="block min-h-[1.25em]">
+            <span class="bg-gradient-to-r from-gold-200 via-gold-300 to-amber-200 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(220,192,136,0.18)]">{{ displayedText }}</span>
+            <span
+              class="ml-1 inline-block h-[0.78em] w-[3px] sm:w-[3.5px] translate-y-[0.08em] rounded-full bg-gradient-to-b from-gold-300 to-gold-400 shadow-[0_0_10px_rgba(220,192,136,0.8)] transition-opacity duration-150"
+              :class="showCursor ? 'opacity-100' : 'opacity-0'"
+              aria-hidden="true"
+            ></span>
+          </span>
         </h1>
         <p class="mt-7 max-w-md text-lg leading-relaxed text-ivory-100/55">
           Smart, private rest pods across universities, corporate parks, hospitals, and railway stations.
