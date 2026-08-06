@@ -12,11 +12,9 @@ import HubVisual from '@/components/common/HubVisual.vue'
 import StatusBadge from '@/components/common/StatusBadge.vue'
 import LoadingSkeleton from '@/components/common/LoadingSkeleton.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
-import { useUiStore } from '@/stores/ui'
 
 const flow = useBookingFlowStore()
 const store = useLocationsStore()
-const ui = useUiStore()
 
 onMounted(() => {
   store.fetchAll()
