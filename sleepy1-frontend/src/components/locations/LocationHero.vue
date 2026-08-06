@@ -10,7 +10,8 @@ defineProps<{ location: Location }>()
 <template>
   <section class="relative overflow-hidden">
     <div class="absolute inset-0 h-[420px]">
-      <HubVisual :hub-type="location.hubType" :id="location.heroImage" class="h-full w-full" rounded="rounded-none" />
+      <img v-if="location.heroImage.startsWith('/')" :src="location.heroImage" class="h-full w-full object-cover" alt="Location hero image" />
+      <HubVisual v-else :hub-type="location.hubType" :id="location.heroImage" class="h-full w-full" rounded="rounded-none" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/70 to-ink-950/30" />
     </div>
     <div class="container-page relative flex min-h-[420px] flex-col justify-end pb-10 pt-24">

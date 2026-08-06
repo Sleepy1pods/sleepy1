@@ -105,7 +105,7 @@ onUnmounted(() => {
           <SecondaryButton as="RouterLink" to="/locations" size="lg">Find a Pod</SecondaryButton>
         </div>
         <p class="mt-8 text-xs font-medium uppercase tracking-[0.14em] text-ivory-100/35">
-          13+ locations · Universities · Hospitals · Corporate Parks · Railway Stations
+          IIIT Dharwad Campus
         </p>
       </div>
 

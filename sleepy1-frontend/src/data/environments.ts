@@ -19,14 +19,14 @@ export interface LocationEnvironment {
 }
 
 export const locationEnvironments: LocationEnvironment[] = [
-  { id: 'env-universities', label: 'Universities', hubType: 'university', restNeed: 'Recovery between demanding schedules.', status: 'current' },
-  { id: 'env-corporate', label: 'Corporate Offices & Tech Parks', hubType: 'corporate', restNeed: 'A quiet escape for corporate professionals.', status: 'current' },
-  { id: 'env-hospitals', label: 'Hospitals & Medical Campuses', hubType: 'hospital', restNeed: 'Private rest for attendants and visitors during long hospital stays.', status: 'current' },
-  { id: 'env-railway', label: 'Railway Stations', hubType: 'railway', restNeed: 'Recharge between long train journeys.', status: 'current' },
-  { id: 'env-bus', label: 'Bus Terminals', hubType: 'bus-terminal', restNeed: 'A safe, private place to wait between long-distance buses.', status: 'suitable' },
-  { id: 'env-business', label: 'Business Districts', hubType: 'business-district', restNeed: 'A pause during long days between commitments.', status: 'suitable' },
-  { id: 'env-malls', label: 'Shopping Malls', hubType: 'mall', restNeed: 'A quiet break during a long day out.', status: 'suitable' },
-  { id: 'env-convention', label: 'Convention Centres', hubType: 'convention-centre', restNeed: 'Rest between sessions at multi-day events.', status: 'suitable' },
-  { id: 'env-tourist', label: 'Tourist Destinations', hubType: 'tourist', restNeed: 'A private moment to recharge between sightseeing.', status: 'suitable' },
-  { id: 'env-highway', label: 'Highway Rest Stops', hubType: 'highway-rest-stop', restNeed: 'Rest safely during long-distance road travel.', status: 'suitable' },
+  { id: 'env-universities', label: 'Universities', hubType: 'university', restNeed: 'Recovery between demanding schedules.', status: 'planned' },
+  { id: 'env-corporate', label: 'Corporate Offices & Tech Parks', hubType: 'corporate', restNeed: 'A quiet escape for corporate professionals.', status: 'planned' },
+  { id: 'env-hospitals', label: 'Hospitals & Medical Campuses', hubType: 'hospital', restNeed: 'Private rest for attendants and visitors during long hospital stays.', status: 'planned' },
+  { id: 'env-railway', label: 'Railway Stations', hubType: 'railway', restNeed: 'Recharge between long train journeys.', status: 'planned' },
+  { id: 'env-bus', label: 'Bus Terminals', hubType: 'bus-terminal', restNeed: 'A safe, private place to wait between long-distance buses.', status: 'planned' },
+  { id: 'env-business', label: 'Business Districts', hubType: 'business-district', restNeed: 'A pause during long days between commitments.', status: 'planned' },
+  { id: 'env-malls', label: 'Shopping Malls', hubType: 'mall', restNeed: 'A quiet break during a long day out.', status: 'planned' },
+  { id: 'env-convention', label: 'Convention Centres', hubType: 'convention-centre', restNeed: 'Rest between sessions at multi-day events.', status: 'planned' },
+  { id: 'env-tourist', label: 'Tourist Destinations', hubType: 'tourist', restNeed: 'A private moment to recharge between sightseeing.', status: 'planned' },
+  { id: 'env-highway', label: 'Highway Rest Stops', hubType: 'highway-rest-stop', restNeed: 'Rest safely during long-distance road travel.', status: 'planned' },
 ]

@@ -21,7 +21,7 @@ const ui = useUiStore()
 onMounted(() => {
   store.fetchAll()
   if (!flow.draft.locationId) {
-    flow.setLocation('new-delhi-railway-station')
+    flow.setLocation('iiit-dharwad')
   }
   if (!flow.draft.podTypeId) {
     flow.setPod(podTypes[0].id)
@@ -40,7 +40,7 @@ const isLoading = ref(true)
 
 watchEffect(async () => {
   isLoading.value = true
-  slots.value = await bookingService.getAvailability(flow.draft.locationId ?? 'new-delhi-railway-station', selectedDate.value)
+  slots.value = await bookingService.getAvailability(flow.draft.locationId ?? 'iiit-dharwad', selectedDate.value)
   isLoading.value = false
   if (!selectedTime.value && slots.value.length > 0) {
     const firstAvailable = slots.value.find((s) => s.available)
@@ -192,59 +192,7 @@ const filteredSlots = computed(() => {
   })
 })
 
-const presets = [
-  {
-    id: 'nap' as const,
-    icon: '⚡',
-    title: '2-Hr Power Nap',
-    desc: 'Solo Rest Pod · 2 hrs',
-    time: '14:00',
-    badge: 'Most Popular',
-    price: 998,
-  },
-  {
-    id: 'work' as const,
-    icon: '💼',
-    title: '4-Hr Work & Calm',
-    desc: 'Solo Unwind Pod · 4 hrs',
-    time: '10:00',
-    badge: 'Business',
-    price: 2196,
-  },
-  {
-    id: 'duo' as const,
-    icon: '👥',
-    title: '3-Hr Duo Lounge',
-    desc: 'Twin Lounge Pod · 3 hrs',
-    time: '18:00',
-    badge: 'Couples',
-    price: 2397,
-  },
-  {
-    id: 'overnight' as const,
-    icon: '🌙',
-    title: '6-Hr Overnight',
-    desc: 'Solo Rest Pod · 6 hrs',
-    time: '22:00',
-    badge: 'Extended Stay',
-    price: 2994,
-  },
-]
 
-const activePreset = ref<string | null>(null)
-
-function triggerPreset(preset: (typeof presets)[0]) {
-  activePreset.value = preset.id
-  flow.applyQuickPreset(preset.id)
-  duration.value = flow.draft.durationHours
-  selectedTime.value = flow.draft.checkIn || preset.time
-  selectedDate.value = flow.draft.date || today
-  ui.pushToast({
-    type: 'success',
-    title: `${preset.title} Preset Applied`,
-    description: `Configured ${preset.desc} starting at ${preset.time}.`,
-  })
-}
 
 function proceed() {
   flow.setSchedule(selectedDate.value, selectedTime.value, duration.value)
@@ -254,49 +202,7 @@ function proceed() {
 
 <template>
   <div class="space-y-12">
-    <!-- Quick Express Presets Banner (WOW mechanism!) -->
-    <div class="rounded-2xl border border-brand-400/30 bg-ink-900/60 p-5 shadow-premium sm:p-6">
-      <div class="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
-        <div>
-          <span class="inline-flex items-center gap-1.5 rounded-full bg-brand-400/15 px-3 py-1 text-xs font-semibold text-brand-300">
-            <span>⚡ Express Pod Booking</span>
-          </span>
-          <h2 class="mt-2 text-lg font-semibold text-ivory-50 sm:text-xl">One-Click Stay Presets</h2>
-          <p class="text-xs text-ivory-100/60 sm:text-sm">In a hurry? Tap a preset to instantly configure location, pod, and schedule.</p>
-        </div>
-        <span class="text-xs font-medium text-brand-300">Or customize manually below ↓</span>
-      </div>
 
-      <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <button
-          v-for="preset in presets"
-          :key="preset.id"
-          type="button"
-          class="group relative flex flex-col justify-between rounded-xl border p-4 text-left transition-all duration-300"
-          :class="
-            activePreset === preset.id
-              ? 'border-brand-400 bg-brand-400/15 ring-2 ring-brand-400/40 shadow-soft'
-              : 'border-white/10 bg-ink-900/60 hover:border-white/25 hover:bg-ink-900'
-          "
-          @click="triggerPreset(preset)"
-        >
-          <div class="flex items-start justify-between">
-            <span class="text-2xl">{{ preset.icon }}</span>
-            <span class="rounded-full bg-white/5 px-2 py-0.5 text-[10px] font-semibold text-ivory-100/70 group-hover:bg-brand-400/20 group-hover:text-brand-200">
-              {{ preset.badge }}
-            </span>
-          </div>
-          <div class="mt-3">
-            <p class="text-sm font-semibold text-ivory-50 group-hover:text-brand-300 transition-colors">{{ preset.title }}</p>
-            <p class="text-xs text-ivory-100/60">{{ preset.desc }}</p>
-          </div>
-          <div class="mt-3 flex items-center justify-between border-t border-white/10 pt-2 text-xs">
-            <span class="text-ivory-100/50">{{ preset.time }}</span>
-            <span class="font-bold text-brand-300">₹{{ preset.price }}</span>
-          </div>
-        </button>
-      </div>
-    </div>
 
     <!-- Section 1: Choose Location -->
     <div>
@@ -307,7 +213,7 @@ function proceed() {
         </div>
         <div class="flex items-center gap-2 text-xs text-ivory-100/50">
           <span>Active:</span>
-          <span class="font-semibold text-brand-300">{{ flow.selectedLocation?.name || 'New Delhi Railway Station' }}</span>
+          <span class="font-semibold text-brand-300">{{ flow.selectedLocation?.name || 'IIIT Dharwad' }}</span>
         </div>
       </div>
 
@@ -322,7 +228,8 @@ function proceed() {
           @click="flow.setLocation(loc.slug)"
         >
           <div class="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl">
-            <HubVisual :hub-type="loc.hubType" :id="loc.heroImage" class="h-full w-full" rounded="rounded-xl" />
+            <img v-if="loc.heroImage.startsWith('/')" :src="loc.heroImage" class="h-full w-full object-cover" alt="Location hero image" />
+            <HubVisual v-else :hub-type="loc.hubType" :id="loc.heroImage" class="h-full w-full" rounded="rounded-xl" />
           </div>
           <div class="min-w-0 flex-1">
             <div class="flex items-center justify-between gap-2">
@@ -606,7 +513,7 @@ function proceed() {
           </div>
           <div>
             <p class="text-sm font-semibold text-ivory-50">
-              {{ flow.selectedPod?.name || 'Solo Rest Pod' }} · {{ flow.selectedLocation?.shortName || flow.selectedLocation?.name || 'Delhi T3' }}
+              {{ flow.selectedPod?.name || 'Solo Rest Pod' }} · {{ flow.selectedLocation?.shortName || flow.selectedLocation?.name || 'IIITD' }}
             </p>
             <p class="text-xs text-ivory-100/60">
               {{ selectedDate }} at {{ selectedTime }} · {{ duration }} hour{{ duration > 1 ? 's' : '' }} ·

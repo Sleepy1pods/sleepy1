@@ -2,8 +2,8 @@
 import { computed, ref } from 'vue'
 import { locations } from '@/data/locations'
 
-const marqueeLocations = locations
-const marqueeSets = computed(() => [marqueeLocations, marqueeLocations, marqueeLocations])
+const repeatedLocations = Array(15).fill(locations).flat()
+const marqueeSets = computed(() => [repeatedLocations, repeatedLocations, repeatedLocations])
 
 const marqueeOffset = ref(0)
 const isDragging = ref(false)

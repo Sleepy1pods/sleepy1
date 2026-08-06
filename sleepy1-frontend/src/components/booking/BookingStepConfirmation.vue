@@ -8,10 +8,12 @@ import PaymentSuccess from '@/components/booking/PaymentSuccess.vue'
 import QRDisplay from '@/components/common/QRDisplay.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import SecondaryButton from '@/components/common/SecondaryButton.vue'
+import { useUiStore } from '@/stores/ui'
 
 const flow = useBookingFlowStore()
 const bookingsStore = useBookingsStore()
 const router = useRouter()
+const ui = useUiStore()
 const booking = flow.confirmedBooking
 
 function downloadCalendarFile() {
@@ -48,6 +50,15 @@ function startNewBooking() {
   router.push('/bookings')
 }
 
+function downloadReceipt() {
+  ui.pushToast({
+    type: 'info',
+    title: 'Downloading Receipt',
+    description: 'Your receipt is being generated and downloaded.'
+  })
+  // In a real application, this would trigger a PDF generation or backend endpoint
+}
+
 const directionsHref = ref(
   flow.selectedLocation ? `https://www.google.com/maps/search/?api=1&query=${flow.selectedLocation.geo.lat},${flow.selectedLocation.geo.lng}` : '',
 )
@@ -69,12 +80,13 @@ const directionsHref = ref(
         </div>
       </div>
 
-      <div class="mt-8 grid gap-3 sm:grid-cols-3">
+      <div class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <SecondaryButton size="sm" @click="downloadCalendarFile">Add to Calendar</SecondaryButton>
         <SecondaryButton as="a" :href="directionsHref" size="sm" class="justify-center">
           Get Directions
         </SecondaryButton>
         <SecondaryButton as="RouterLink" :to="`/bookings/${booking.id}`" size="sm">Check-in Instructions</SecondaryButton>
+        <SecondaryButton size="sm" @click="downloadReceipt">Download Receipt</SecondaryButton>
       </div>
     </div>
 

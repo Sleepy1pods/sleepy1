@@ -19,7 +19,8 @@ const mapUrl = computed(() => {
 <template>
   <article class="card-surface group flex flex-col overflow-hidden transition-transform duration-300 hover:scale-[1.02]">
     <div class="relative h-44 overflow-hidden">
-      <HubVisual :hub-type="location.hubType" :id="location.heroImage" class="h-full w-full transition-transform duration-700 group-hover:scale-105" />
+      <img v-if="location.heroImage.startsWith('/')" :src="location.heroImage" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Location hero image" />
+      <HubVisual v-else :hub-type="location.hubType" :id="location.heroImage" class="h-full w-full transition-transform duration-700 group-hover:scale-105" />
       <div class="absolute left-3 top-3">
         <StatusBadge :status="location.availability" />
       </div>

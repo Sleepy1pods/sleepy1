@@ -47,7 +47,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
     >
       <router-link to="/" class="flex items-center gap-2 text-lg font-semibold tracking-[0.15em] text-ivory-50">
         <img src="/Logo.png" alt="Sleepy1 Icon" class="h-9 w-9 object-contain" />
-        SLEEPY1
+        <img src="/Logo-text.png" alt="Sleepy1 Text" class="h-6 object-contain" />
       </router-link>
 
       <nav class="hidden items-center gap-7 xl:gap-9 lg:flex" aria-label="Primary">
