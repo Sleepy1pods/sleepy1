@@ -2,6 +2,10 @@
 import { computed, ref } from 'vue'
 import { locations } from '@/data/locations'
 
+const MIN_LOCATIONS_FOR_MARQUEE = 6
+
+const isMarquee = computed(() => locations.length >= MIN_LOCATIONS_FOR_MARQUEE)
+
 const repeatedLocations = Array(15).fill(locations).flat()
 const marqueeSets = computed(() => [repeatedLocations, repeatedLocations, repeatedLocations])
 
@@ -40,6 +44,7 @@ function handlePointerEnd(event: PointerEvent) {
       <router-link to="/locations" class="link-underline text-xs font-medium text-ivory-100/60 hover:text-ivory-50">View all locations →</router-link>
     </div>
     <div
+      v-if="isMarquee"
       class="marquee-mask no-scrollbar overflow-hidden"
       aria-label="Sleepy1 locations"
       @pointerdown="handlePointerDown"
@@ -64,6 +69,15 @@ function handlePointerEnd(event: PointerEvent) {
           </span>
         </template>
       </div>
+    </div>
+    <div v-else class="container-page flex flex-wrap gap-3" aria-label="Sleepy1 locations">
+      <span
+        v-for="loc in locations"
+        :key="loc.id"
+        class="whitespace-nowrap rounded-full border border-white/10 px-4 py-1.5 text-sm font-medium text-ivory-100/70"
+      >
+        {{ loc.name }}
+      </span>
     </div>
   </section>
 </template>
