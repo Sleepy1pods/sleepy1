@@ -7,7 +7,7 @@ import { usePageMeta } from '@/composables/usePageMeta'
 import FormField from '@/components/common/FormField.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 
-usePageMeta({ title: 'Create Account', description: 'Create a Sleepy1 account to start booking premium rest pods. Demo registration only.' })
+usePageMeta({ title: 'Create Account', description: 'Create a Sleepy1 account to start booking premium rest pods.' })
 
 const auth = useAuthStore()
 const ui = useUiStore()
@@ -33,7 +33,7 @@ async function submit() {
   try {
     await auth.register(form)
     ui.pushToast({ type: 'success', title: 'Account created', description: 'Welcome to Sleepy1.' })
-    router.push('/otp-verification')
+    router.push('/')
   } finally {
     isSubmitting.value = false
   }
@@ -46,7 +46,6 @@ async function submit() {
       <div class="mb-8 text-center">
         <h1 class="text-2xl font-semibold text-ivory-50">Create your account</h1>
         <p class="mt-2 text-sm text-ivory-100/55">Join Sleepy1 for faster booking and credit rewards.</p>
-        <p class="mt-2 text-xs text-amber-300/80">Demo registration — no real account is created.</p>
       </div>
       <form class="card-surface space-y-5 p-6 sm:p-8" @submit.prevent="submit">
         <FormField v-model="form.fullName" label="Full name" required :error="errors.fullName" autocomplete="name" />
