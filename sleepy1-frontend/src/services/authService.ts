@@ -50,42 +50,62 @@ function formatNameFromEmail(email?: string): { fullName: string; avatarInitials
 
 export const authService = {
   async login(credentials: AuthCredentials): Promise<User> {
-    if (!credentials.email || !credentials.password) {
-      throw new Error('Email and password are required.')
+    const res = await fetch('http://localhost:5000/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(credentials),
+      credentials: 'include'
+    })
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}))
+      throw new Error(err.message || 'Login failed')
     }
-    const emailKey = (credentials.email || '').trim().toLowerCase()
-    const savedUsers = getSavedUsers()
-    let user = savedUsers[emailKey]
-
-    if (!user) {
-      const { fullName, avatarInitials } = formatNameFromEmail(credentials.email)
-      user = {
-        ...mockUser,
-        id: `usr-${Date.now()}`,
-        email: credentials.email,
-        fullName,
-        avatarInitials,
-      }
-      saveUserToDb(user)
+    const json = await res.json()
+    const userData = json.data || {}
+    
+    const user = {
+      ...mockUser,
+      id: userData._id || userData.id || `usr-${Date.now()}`,
+      fullName: userData.name || userData.fullName || 'User',
+      email: userData.email,
+      phone: userData.phone,
+      avatarInitials: (userData.name || 'User').charAt(0).toUpperCase(),
     }
-
+    
     localStorage.setItem(SESSION_KEY, JSON.stringify(user))
-    return delay(user, 500)
+    return user
   },
 
   async register(payload: RegisterPayload): Promise<User> {
-    const user: User = {
-      ...mockUser,
-      id: `usr-${Date.now()}`,
-      fullName: payload.fullName,
+    const body = {
+      name: payload.fullName,
       email: payload.email,
       phone: payload.phone,
-      avatarInitials: payload.fullName.trim().charAt(0).toUpperCase() || 'S',
-      membershipTier: 'explorer',
+      password: payload.password
     }
-    saveUserToDb(user)
+    const res = await fetch('http://localhost:5000/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+      credentials: 'include'
+    })
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}))
+      throw new Error(err.message || 'Registration failed')
+    }
+    const json = await res.json()
+    const userData = json.data || {}
+    
+    const user: User = {
+      ...mockUser,
+      id: userData._id || userData.id || `usr-${Date.now()}`,
+      fullName: userData.name || userData.fullName || payload.fullName,
+      email: userData.email || payload.email,
+      phone: userData.phone || payload.phone,
+      avatarInitials: (userData.name || payload.fullName).charAt(0).toUpperCase(),
+    }
     localStorage.setItem(SESSION_KEY, JSON.stringify(user))
-    return delay(user, 600)
+    return user
   },
 
   async requestOtp(_phoneOrEmail: string): Promise<{ demoOtp: string }> {
@@ -105,33 +125,49 @@ export const authService = {
   },
 
   async logout(): Promise<void> {
+    try {
+      await fetch('http://localhost:5000/api/auth/logout', { 
+        method: 'POST',
+        credentials: 'include'
+      })
+    } catch (e) {
+      console.warn('Logout request failed', e)
+    }
     localStorage.removeItem(SESSION_KEY)
-    await delay(null, 200)
   },
 
   restoreSession(): User | null {
     const raw = localStorage.getItem(SESSION_KEY)
     if (!raw) return null
     try {
-      const user = JSON.parse(raw) as User
-      if (user && user.fullName === 'Rupesh Kumar' && user.email) {
-        const emailKey = user.email.trim().toLowerCase()
-        const savedUsers = getSavedUsers()
-        const saved = savedUsers[emailKey]
-        if (saved && saved.fullName !== 'Rupesh Kumar') {
-          user.fullName = saved.fullName
-          user.avatarInitials = saved.avatarInitials
-        } else {
-          const { fullName, avatarInitials } = formatNameFromEmail(user.email)
-          user.fullName = fullName
-          user.avatarInitials = avatarInitials
-        }
-        localStorage.setItem(SESSION_KEY, JSON.stringify(user))
-        saveUserToDb(user)
-      }
-      return user
+      return JSON.parse(raw) as User
     } catch {
       return null
     }
   },
+
+  async fetchUser(): Promise<User | null> {
+    try {
+      const res = await fetch('http://localhost:5000/api/auth/me', {
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include'
+      })
+      if (!res.ok) return null
+      const json = await res.json()
+      const userData = json.data?.user || {}
+      
+      const user: User = {
+        ...mockUser,
+        id: userData._id || userData.id,
+        fullName: userData.name || userData.fullName,
+        email: userData.email,
+        phone: userData.phone,
+        avatarInitials: (userData.name || 'User').charAt(0).toUpperCase(),
+      }
+      localStorage.setItem(SESSION_KEY, JSON.stringify(user))
+      return user
+    } catch {
+      return null
+    }
+  }
 }
