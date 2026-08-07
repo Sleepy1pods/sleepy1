@@ -7,7 +7,7 @@ import { usePageMeta } from '@/composables/usePageMeta'
 import FormField from '@/components/common/FormField.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 
-usePageMeta({ title: 'Login', description: 'Sign in to your Sleepy1 account to manage bookings, credits, and membership. Demo authentication only.' })
+usePageMeta({ title: 'Login', description: 'Sign in to your Sleepy1 account to manage bookings, credits, and membership.' })
 
 const auth = useAuthStore()
 const ui = useUiStore()
@@ -47,7 +47,6 @@ async function submit() {
       <div class="mb-8 text-center">
         <h1 class="text-2xl font-semibold text-ivory-50">Welcome back</h1>
         <p class="mt-2 text-sm text-ivory-100/55">Sign in to manage your bookings and credits.</p>
-        <p class="mt-2 text-xs text-amber-300/80">Demo authentication — enter any email and password.</p>
       </div>
       <form class="card-surface space-y-5 p-6 sm:p-8" @submit.prevent="submit">
         <FormField v-model="form.email" label="Email" type="email" required :error="errors.email" autocomplete="email" />
