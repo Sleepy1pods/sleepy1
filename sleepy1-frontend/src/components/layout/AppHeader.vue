@@ -74,7 +74,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
             <path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 21c0-4 3.5-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </router-link>
-        <PrimaryButton as="RouterLink" to="/book" size="sm">Book Now</PrimaryButton>
+        <PrimaryButton as="RouterLink" to="/quick-book" size="sm">Book Now</PrimaryButton>
       </div>
 
       <button
