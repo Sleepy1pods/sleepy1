@@ -29,6 +29,7 @@ const router = createRouter({
     { path: '/support', redirect: '/contact' },
 
     { path: '/book', name: 'book', component: () => import('@/views/BookingView.vue') },
+    { path: '/quick-book', name: 'quick-book', component: () => import('@/views/QuickBookingView.vue') },
     { path: '/bookings', name: 'my-bookings', component: () => import('@/views/MyBookingsView.vue'), meta: { requiresAuth: true } },
     { path: '/bookings/:id', name: 'booking-detail', component: () => import('@/views/BookingDetailView.vue'), meta: { requiresAuth: true } },
 
@@ -49,7 +50,6 @@ const router = createRouter({
     { path: '/login', name: 'login', component: () => import('@/views/LoginView.vue'), meta: { guestOnly: true } },
     { path: '/register', name: 'register', component: () => import('@/views/RegisterView.vue'), meta: { guestOnly: true } },
     { path: '/forgot-password', name: 'forgot-password', component: () => import('@/views/ForgotPasswordView.vue'), meta: { guestOnly: true } },
-    { path: '/otp-verification', name: 'otp-verification', component: () => import('@/views/OtpVerificationView.vue') },
     { path: '/reset-password', name: 'reset-password', component: () => import('@/views/ResetPasswordView.vue'), meta: { guestOnly: true } },
 
     { path: '/legal/privacy-policy', name: 'privacy-policy', component: () => import('@/views/legal/PrivacyPolicyView.vue') },
