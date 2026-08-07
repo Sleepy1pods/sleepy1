@@ -13,6 +13,7 @@ const props = withDefaults(
     autocomplete?: string
     as?: 'input' | 'textarea'
     rows?: number
+    disabled?: boolean
   }>(),
   {
     type: 'text',
@@ -23,6 +24,7 @@ const props = withDefaults(
     autocomplete: 'off',
     as: 'input',
     rows: 4,
+    disabled: false,
   },
 )
 
@@ -49,8 +51,9 @@ function onInput(event: Event) {
       :rows="rows"
       :aria-invalid="hasError"
       :aria-describedby="hasError ? `${fieldId}-error` : hint ? `${fieldId}-hint` : undefined"
+      :disabled="disabled"
       class="w-full resize-none rounded-xl border bg-ink-800/60 px-4 py-3 text-ivory-50 placeholder:text-ivory-100/30 transition-colors focus:border-brand-400"
-      :class="hasError ? 'border-rose-400/60' : 'border-white/10'"
+      :class="[hasError ? 'border-rose-400/60' : 'border-white/10', disabled ? 'opacity-50 cursor-not-allowed' : '']"
       @input="onInput"
     />
     <input
@@ -62,8 +65,9 @@ function onInput(event: Event) {
       :autocomplete="autocomplete"
       :aria-invalid="hasError"
       :aria-describedby="hasError ? `${fieldId}-error` : hint ? `${fieldId}-hint` : undefined"
+      :disabled="disabled"
       class="min-h-[44px] w-full rounded-xl border bg-ink-800/60 px-4 py-3 text-ivory-50 placeholder:text-ivory-100/30 transition-colors focus:border-brand-400"
-      :class="hasError ? 'border-rose-400/60' : 'border-white/10'"
+      :class="[hasError ? 'border-rose-400/60' : 'border-white/10', disabled ? 'opacity-50 cursor-not-allowed' : '']"
       @input="onInput"
     />
     <p v-if="hasError" :id="`${fieldId}-error`" class="mt-1.5 text-xs font-medium text-rose-300">{{ error }}</p>

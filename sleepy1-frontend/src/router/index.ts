@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import { useUiStore } from '@/stores/ui'
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -28,8 +29,8 @@ const router = createRouter({
     { path: '/contact', name: 'contact', component: () => import('@/views/ContactView.vue') },
     { path: '/support', redirect: '/contact' },
 
-    { path: '/book', name: 'book', component: () => import('@/views/BookingView.vue') },
-    { path: '/quick-book', name: 'quick-book', component: () => import('@/views/QuickBookingView.vue') },
+    { path: '/book', name: 'book', component: () => import('@/views/BookingView.vue'), meta: { requiresAuth: true } },
+    { path: '/quick-book', name: 'quick-book', component: () => import('@/views/QuickBookingView.vue'), meta: { requiresAuth: true } },
     { path: '/bookings', name: 'my-bookings', component: () => import('@/views/MyBookingsView.vue'), meta: { requiresAuth: true } },
     { path: '/bookings/:id', name: 'booking-detail', component: () => import('@/views/BookingDetailView.vue'), meta: { requiresAuth: true } },
 
@@ -65,6 +66,12 @@ const router = createRouter({
 router.beforeEach((to) => {
   const auth = useAuthStore()
   if (to.meta.requiresAuth && !auth.isAuthenticated) {
+    const ui = useUiStore()
+    ui.pushToast({ 
+      type: 'error', 
+      title: 'Authentication Required', 
+      description: 'You must be logged in to access this page. Please log in first.' 
+    })
     return { path: '/login', query: { redirect: to.fullPath } }
   }
   if (to.meta.guestOnly && auth.isAuthenticated) {

@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUiStore } from '@/stores/ui'
+import { useAuthStore } from '@/stores/auth'
 import { usePageMeta } from '@/composables/usePageMeta'
 import FormField from '@/components/common/FormField.vue'
+import CustomSelect from '@/components/common/CustomSelect.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 
 usePageMeta({ title: 'Quick Book', description: 'Quickly book a pod in seconds.' })
 
 const ui = useUiStore()
+const auth = useAuthStore()
 const router = useRouter()
 
 const form = reactive({
@@ -22,16 +25,63 @@ const form = reactive({
   checkoutTime: ''
 })
 
+watch([() => form.checkinDate, () => form.checkinTime], ([newDate, newTime]) => {
+  if (newDate) {
+    form.checkoutDate = newDate
+  }
+
+  if (newDate && newTime) {
+    const [hours, minutes] = newTime.split(':').map(Number)
+    const checkinObj = new Date(`${newDate}T00:00:00`)
+    checkinObj.setHours(hours, minutes)
+    
+    // Add exactly 30 minutes duration
+    checkinObj.setMinutes(checkinObj.getMinutes() + 30)
+    
+    const outYear = checkinObj.getFullYear()
+    const outMonth = (checkinObj.getMonth() + 1).toString().padStart(2, '0')
+    const outDay = checkinObj.getDate().toString().padStart(2, '0')
+    const outHours = checkinObj.getHours().toString().padStart(2, '0')
+    const outMins = checkinObj.getMinutes().toString().padStart(2, '0')
+    
+    form.checkoutDate = `${outYear}-${outMonth}-${outDay}`
+    form.checkoutTime = `${outHours}:${outMins}`
+  }
+})
+
 const isSubmitting = ref(false)
 
 const timeOptions = []
 for (let i = 0; i < 24; i++) {
-  const h = i.toString().padStart(2, '0')
-  timeOptions.push(`${h}:00`)
-  timeOptions.push(`${h}:30`)
+  const h24 = i.toString().padStart(2, '0')
+  const period = i >= 12 ? 'PM' : 'AM'
+  const h12 = i === 0 ? 12 : i > 12 ? i - 12 : i
+  const h12Str = h12.toString().padStart(2, '0')
+  
+  timeOptions.push({
+    value: `${h24}:00`,
+    label: `${h12Str}:00 ${period}`
+  })
+  timeOptions.push({
+    value: `${h24}:30`,
+    label: `${h12Str}:30 ${period}`
+  })
 }
 
+const genderOptions = [
+  { value: 'male', label: 'Male' },
+  { value: 'female', label: 'Female' },
+  { value: 'other', label: 'Other' },
+  { value: 'prefer-not', label: 'Prefer not to say' }
+]
+
 async function submit() {
+  if (!auth.isAuthenticated) {
+    ui.pushToast({ type: 'error', title: 'Authentication Required', description: 'You must be logged in to book a pod. Please log in first.' })
+    router.push('/login')
+    return
+  }
+
   isSubmitting.value = true
   try {
     const payload = {
@@ -84,54 +134,33 @@ async function submit() {
           
           <div>
             <label class="mb-2 block text-sm font-medium text-ivory-100/80">Gender <span class="text-brand-300">*</span></label>
-            <div class="relative">
-              <select v-model="form.gender" required class="min-h-[44px] w-full appearance-none rounded-xl border border-white/10 bg-ink-800/60 px-4 py-3 text-ivory-50 transition-colors focus:border-brand-400">
-                <option value="" disabled>Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-                <option value="prefer-not">Prefer not to say</option>
-              </select>
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-ivory-100/50">
-                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-              </div>
-            </div>
+            <CustomSelect v-model="form.gender" :options="genderOptions" placeholder="Select Gender" />
           </div>
         </div>
       </div>
 
       <!-- Booking Schedule -->
       <div>
-        <h2 class="text-lg font-medium text-ivory-50 mb-5 border-b border-white/10 pb-2">Booking Schedule</h2>
+        <div class="mb-5 border-b border-white/10 pb-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <h2 class="text-lg font-medium text-ivory-50">Booking Schedule</h2>
+          <span class="inline-flex items-center rounded-full bg-brand-500/10 px-3 py-1 text-xs font-medium text-brand-300 ring-1 ring-inset ring-brand-500/20">
+            <svg class="mr-1.5 h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            Fixed 30-minute duration
+          </span>
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <FormField v-model="form.checkinDate" label="Check-in Date" type="date" required />
           
           <div>
             <label class="mb-2 block text-sm font-medium text-ivory-100/80">Check-in Time <span class="text-brand-300">*</span></label>
-            <div class="relative">
-              <select v-model="form.checkinTime" required class="min-h-[44px] w-full appearance-none rounded-xl border border-white/10 bg-ink-800/60 px-4 py-3 text-ivory-50 transition-colors focus:border-brand-400">
-                <option value="" disabled>Select Time</option>
-                <option v-for="time in timeOptions" :key="'in'+time" :value="time">{{ time }}</option>
-              </select>
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-ivory-100/50">
-                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-              </div>
-            </div>
+            <CustomSelect v-model="form.checkinTime" :options="timeOptions" placeholder="Select Time" />
           </div>
 
-          <FormField v-model="form.checkoutDate" label="Check-out Date" type="date" required />
+          <FormField v-model="form.checkoutDate" label="Check-out Date (Auto)" type="date" required disabled />
           
           <div>
-            <label class="mb-2 block text-sm font-medium text-ivory-100/80">Check-out Time <span class="text-brand-300">*</span></label>
-            <div class="relative">
-              <select v-model="form.checkoutTime" required class="min-h-[44px] w-full appearance-none rounded-xl border border-white/10 bg-ink-800/60 px-4 py-3 text-ivory-50 transition-colors focus:border-brand-400">
-                <option value="" disabled>Select Time</option>
-                <option v-for="time in timeOptions" :key="'out'+time" :value="time">{{ time }}</option>
-              </select>
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-ivory-100/50">
-                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-              </div>
-            </div>
+            <label class="mb-2 block text-sm font-medium text-ivory-100/80">Check-out Time (Auto) <span class="text-brand-300">*</span></label>
+            <CustomSelect v-model="form.checkoutTime" :options="timeOptions" placeholder="Auto calculated" disabled />
           </div>
         </div>
       </div>

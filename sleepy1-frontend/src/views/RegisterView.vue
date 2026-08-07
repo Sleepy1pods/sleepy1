@@ -19,7 +19,12 @@ const isSubmitting = ref(false)
 
 function validate() {
   const next: typeof errors.value = {}
-  if (!form.fullName.trim()) next.fullName = 'Enter your full name.'
+  if (!form.fullName.trim()) {
+    next.fullName = 'Enter your full name.'
+  } else if (!/^[a-zA-Z\s]+$/.test(form.fullName)) {
+    next.fullName = 'Name can only contain letters and spaces.'
+  }
+  
   if (!/^\S+@\S+\.\S+$/.test(form.email)) next.email = 'Enter a valid email address.'
   if (!/^[+]?[\d\s-]{7,15}$/.test(form.phone)) next.phone = 'Enter a valid phone number.'
   if (form.password.length < 6) next.password = 'Password must be at least 6 characters.'
