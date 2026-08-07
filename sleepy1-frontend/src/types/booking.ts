@@ -47,6 +47,8 @@ export interface Booking {
   podImage: string
   date: string
   checkIn: string
+  checkOutDate?: string
+  checkOutTime?: string
   durationHours: number
   extras: BookingExtra[]
   guest: GuestInfo

@@ -8,5 +8,7 @@ const router = Router();
 
 router.post("/", protect, validate(createBookingSchema), bookingController.createBooking);
 router.get("/", protect, bookingController.getBookings);
+router.get("/availability", bookingController.getAvailability);
+router.get("/:id", protect, bookingController.getBookingById);
 
 export default router;

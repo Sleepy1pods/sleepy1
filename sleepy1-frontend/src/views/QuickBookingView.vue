@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { reactive, ref, watch } from 'vue'
+import { reactive, ref, watch, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUiStore } from '@/stores/ui'
 import { useAuthStore } from '@/stores/auth'
+import { bookingService } from '@/services/bookingService'
 import { usePageMeta } from '@/composables/usePageMeta'
 import FormField from '@/components/common/FormField.vue'
 import CustomSelect from '@/components/common/CustomSelect.vue'
@@ -14,16 +15,39 @@ const ui = useUiStore()
 const auth = useAuthStore()
 const router = useRouter()
 
+const todayDate = new Date()
 const form = reactive({
   name: '',
   email: '',
   phone: '',
   gender: '',
-  checkinDate: '',
+  checkinDate: `${todayDate.getFullYear()}-${(todayDate.getMonth() + 1).toString().padStart(2, '0')}-${todayDate.getDate().toString().padStart(2, '0')}`,
   checkinTime: '',
   checkoutDate: '',
   checkoutTime: ''
 })
+
+const displayDate = computed(() => {
+  if (!form.checkinDate) return ''
+  const d = new Date(`${form.checkinDate}T00:00:00`)
+  const todayStr = `${todayDate.getFullYear()}-${(todayDate.getMonth() + 1).toString().padStart(2, '0')}-${todayDate.getDate().toString().padStart(2, '0')}`
+  if (form.checkinDate === todayStr) {
+    return 'Today, ' + d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+  }
+  return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })
+})
+
+function changeDate(days: number) {
+  const d = new Date(`${form.checkinDate}T00:00:00`)
+  d.setDate(d.getDate() + days)
+  
+  const todayZero = new Date()
+  todayZero.setHours(0,0,0,0)
+  if (d < todayZero) return
+  
+  form.checkinDate = `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}-${d.getDate().toString().padStart(2, '0')}`
+  form.checkinTime = ''
+}
 
 watch([() => form.checkinDate, () => form.checkinTime], ([newDate, newTime]) => {
   if (newDate) {
@@ -50,6 +74,26 @@ watch([() => form.checkinDate, () => form.checkinTime], ([newDate, newTime]) => 
 })
 
 const isSubmitting = ref(false)
+const bookedSlots = ref<string[]>([])
+const isLoadingSlots = ref(false)
+
+watch(() => form.checkinDate, async (newDate) => {
+  if (newDate) {
+    isLoadingSlots.value = true
+    try {
+      bookedSlots.value = await bookingService.getAvailability(newDate)
+      if (bookedSlots.value.includes(form.checkinTime)) {
+        form.checkinTime = ''
+      }
+    } catch (e) {
+      console.error(e)
+    } finally {
+      isLoadingSlots.value = false
+    }
+  } else {
+    bookedSlots.value = []
+  }
+}, { immediate: true })
 
 const timeOptions = []
 for (let i = 0; i < 24; i++) {
@@ -58,13 +102,18 @@ for (let i = 0; i < 24; i++) {
   const h12 = i === 0 ? 12 : i > 12 ? i - 12 : i
   const h12Str = h12.toString().padStart(2, '0')
   
+  const nextHour = i + 1
+  const nextHourPeriod = nextHour >= 12 && nextHour < 24 ? 'PM' : 'AM'
+  const h12Next = nextHour === 0 ? 12 : nextHour > 12 ? nextHour - 12 : nextHour
+  const h12NextStr = h12Next.toString().padStart(2, '0')
+
   timeOptions.push({
     value: `${h24}:00`,
-    label: `${h12Str}:00 ${period}`
+    label: `${h12Str}:00 ${period} - ${h12Str}:30 ${period}`
   })
   timeOptions.push({
     value: `${h24}:30`,
-    label: `${h12Str}:30 ${period}`
+    label: `${h12Str}:30 ${period} - ${h12NextStr}:00 ${nextHourPeriod}`
   })
 }
 
@@ -148,19 +197,58 @@ async function submit() {
             Fixed 30-minute duration
           </span>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField v-model="form.checkinDate" label="Check-in Date" type="date" required />
+        <div class="space-y-6">
+          <div class="max-w-xs">
+            <label class="mb-2 block text-sm font-medium text-ivory-100/80">Select Check-in Date <span class="text-brand-300">*</span></label>
+            <div class="flex items-center justify-between rounded-xl border border-white/10 bg-ink-800/60 p-2">
+              <button type="button" @click="changeDate(-1)" class="p-2 text-ivory-100 hover:text-brand-300 hover:bg-white/5 rounded-lg transition-colors">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+              </button>
+              <div class="text-center font-medium text-ivory-50 flex-1">{{ displayDate }}</div>
+              <button type="button" @click="changeDate(1)" class="p-2 text-ivory-100 hover:text-brand-300 hover:bg-white/5 rounded-lg transition-colors">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+              </button>
+            </div>
+          </div>
           
-          <div>
-            <label class="mb-2 block text-sm font-medium text-ivory-100/80">Check-in Time <span class="text-brand-300">*</span></label>
-            <CustomSelect v-model="form.checkinTime" :options="timeOptions" placeholder="Select Time" />
+          <div v-if="form.checkinDate" class="animate-fade-in">
+            <label class="mb-3 block text-sm font-medium text-ivory-100/80">Available Time Slots <span class="text-brand-300">*</span></label>
+            <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 max-h-56 overflow-y-auto pr-2 custom-scrollbar pb-2">
+              <button 
+                v-for="slot in timeOptions" 
+                :key="slot.value"
+                type="button"
+                :disabled="bookedSlots.includes(slot.value)"
+                @click="form.checkinTime = slot.value"
+                :class="[
+                  'relative py-3 px-1 rounded-xl border transition-all text-center flex flex-col items-center justify-center gap-1 overflow-hidden',
+                  bookedSlots.includes(slot.value)
+                    ? 'cursor-not-allowed border-red-500/20 bg-red-500/5'
+                    : form.checkinTime === slot.value 
+                      ? 'bg-brand-500 border-brand-400 text-white shadow-[0_0_12px_rgba(var(--color-brand-500),0.4)] scale-[1.03] z-10' 
+                      : 'bg-ink-800/60 border-white/10 text-ivory-100 hover:border-brand-500/50 hover:bg-ink-700/80 hover:-translate-y-0.5'
+                ]"
+              >
+                <span class="whitespace-nowrap font-semibold text-[14px] z-10" :class="bookedSlots.includes(slot.value) ? 'opacity-30 text-ivory-100' : ''">{{ slot.label.split(' - ')[0] }}</span>
+                <span class="text-[11px] z-10" :class="bookedSlots.includes(slot.value) ? 'opacity-20' : 'opacity-70'">to {{ slot.label.split(' - ')[1] }}</span>
+                
+                <div v-if="bookedSlots.includes(slot.value)" class="absolute inset-0 flex items-center justify-center bg-ink-900/60 backdrop-blur-[1px] z-20">
+                  <span class="text-[11px] font-bold uppercase tracking-widest text-red-500 rotate-[-12deg] border border-red-500/50 px-1.5 py-0.5 rounded-sm bg-ink-900/90 shadow-lg">Booked</span>
+                </div>
+              </button>
+            </div>
+            <p v-if="!form.checkinTime" class="mt-3 text-xs text-rose-400/80">Please select a time slot to continue.</p>
           </div>
 
-          <FormField v-model="form.checkoutDate" label="Check-out Date (Auto)" type="date" required disabled />
-          
-          <div>
-            <label class="mb-2 block text-sm font-medium text-ivory-100/80">Check-out Time (Auto) <span class="text-brand-300">*</span></label>
-            <CustomSelect v-model="form.checkoutTime" :options="timeOptions" placeholder="Auto calculated" disabled />
+          <div v-if="form.checkinTime && form.checkoutTime" class="rounded-xl bg-brand-500/10 border border-brand-500/20 p-5 flex items-center justify-between animate-fade-in">
+            <div>
+              <p class="text-[11px] text-ivory-100/60 uppercase tracking-wider mb-1 font-semibold">Check-out Schedule</p>
+              <p class="text-sm font-medium text-brand-300">{{ form.checkoutDate }} at {{ timeOptions.find(t => t.value === form.checkoutTime)?.label.split(' - ')[0] || form.checkoutTime }}</p>
+            </div>
+            <div class="text-right">
+              <p class="text-[11px] text-ivory-100/60 uppercase tracking-wider mb-1 font-semibold">Duration</p>
+              <p class="text-sm font-medium text-ivory-50">30 Minutes</p>
+            </div>
           </div>
         </div>
       </div>

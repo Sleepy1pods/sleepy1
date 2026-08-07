@@ -46,18 +46,7 @@ async function confirmReschedule() {
   rescheduleTargetId.value = null
 }
 
-function downloadInvoice(id: string) {
-  const booking = store.bookings.find((b) => b.id === id)
-  if (!booking) return
-  const content = `SLEEPY1 - SIMULATED INVOICE\nBooking Reference: ${booking.reference}\nLocation: ${booking.locationName}\nDate: ${booking.date} ${booking.checkIn}\nTotal Paid: Rs. ${booking.price.totalPayable}\n\nThis is a demo invoice generated on the frontend and is not a real financial document.`
-  const blob = new Blob([content], { type: 'text/plain' })
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  link.download = `sleepy1-invoice-${booking.reference}.txt`
-  link.click()
-  URL.revokeObjectURL(url)
-}
+
 </script>
 
 <template>
@@ -92,7 +81,7 @@ function downloadInvoice(id: string) {
         <h2 class="text-lg font-semibold text-ivory-50">Previous Bookings</h2>
         <EmptyState v-if="store.past.length === 0" class="mt-4" title="No previous bookings yet" />
         <div v-else class="mt-4 space-y-4">
-          <BookingCard v-for="b in store.past" :key="b.id" :booking="b" @invoice="downloadInvoice(b.id)" />
+          <BookingCard v-for="b in store.past" :key="b.id" :booking="b" />
         </div>
       </section>
     </template>

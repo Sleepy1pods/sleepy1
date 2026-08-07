@@ -14,16 +14,126 @@ export const bookingService = {
     return delay(bookingExtras)
   },
 
-  async getAvailability(_locationId: string, _date: string): Promise<TimeSlot[]> {
-    return delay(generateTimeSlots())
+  async getAvailability(date: string): Promise<string[]> {
+    try {
+      const res = await fetch(`http://localhost:5000/api/bookings/availability?date=${date}`)
+      if (!res.ok) throw new Error('Failed to fetch availability')
+      const json = await res.json()
+      return json.data || []
+    } catch (e) {
+      console.error('Error fetching availability:', e)
+      return []
+    }
   },
 
   async getMyBookings(): Promise<Booking[]> {
-    return delay([...sessionBookings].sort((a, b) => b.createdAt.localeCompare(a.createdAt)))
+    try {
+      const res = await fetch('http://localhost:5000/api/bookings', {
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include'
+      })
+      if (!res.ok) throw new Error('Failed to fetch bookings')
+      const json = await res.json()
+      
+      const backendBookings = json.data || []
+      return backendBookings.map((b: any) => ({
+        id: b._id,
+        reference: b._id.substring(b._id.length - 8).toUpperCase(),
+        locationId: 'iit-dharwad',
+        locationName: 'IIIT Dharwad',
+        terminal: '',
+        podTypeId: 'pod-solo-rest',
+        podLabel: 'Standard Pod',
+        podImage: 'pod-interior-1',
+        date: b.checkInDate,
+        checkIn: b.checkInTime,
+        checkOutDate: b.checkOutDate,
+        checkOutTime: b.checkOutTime,
+        durationHours: 0.5,
+        extras: [],
+        guest: {
+          fullName: b.name,
+          email: b.email,
+          phone: b.phone,
+          emergencyContactName: '',
+          emergencyContactPhone: '',
+          specialRequests: `Gender: ${b.gender}`
+        },
+        price: {
+          basePrice: 500,
+          extrasTotal: 0,
+          subtotal: 500,
+          taxes: 0,
+          total: 500,
+          discountAmount: 0,
+          creditsApplied: 0,
+          totalPayable: 500
+        },
+        paymentMethod: 'none',
+        status: 'upcoming',
+        createdAt: b.createdAt,
+        qrValue: `SLEEPY1-${b._id}`
+      }))
+    } catch (e) {
+      console.error('Error fetching bookings:', e)
+      return []
+    }
   },
 
   async getById(id: string): Promise<Booking | undefined> {
-    return delay(sessionBookings.find((b) => b.id === id || b.reference === id))
+    try {
+      const res = await fetch(`http://localhost:5000/api/bookings/${id}`, {
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include'
+      })
+      if (!res.ok) throw new Error('Booking not found')
+      const json = await res.json()
+      
+      const b = json.data
+      if (!b) return undefined
+
+      return {
+        id: b._id,
+        reference: b._id.substring(b._id.length - 8).toUpperCase(),
+        locationId: 'iit-dharwad',
+        locationName: 'IIIT Dharwad',
+        terminal: '',
+        podTypeId: 'pod-solo-rest',
+        podLabel: 'Standard Pod',
+        podImage: 'pod-interior-1',
+        date: b.checkInDate,
+        checkIn: b.checkInTime,
+        checkOutDate: b.checkOutDate,
+        checkOutTime: b.checkOutTime,
+        durationHours: 0.5,
+        extras: [],
+        guest: {
+          fullName: b.name,
+          email: b.email,
+          phone: b.phone,
+          emergencyContactName: '',
+          emergencyContactPhone: '',
+          specialRequests: `Gender: ${b.gender}`
+        },
+        price: {
+          basePrice: 500,
+          extrasTotal: 0,
+          subtotal: 500,
+          taxes: 0,
+          total: 500,
+          discountAmount: 0,
+          creditsApplied: 0,
+          totalPayable: 500
+        },
+        paymentMethod: 'none',
+        status: 'upcoming',
+        createdAt: b.createdAt,
+        qrValue: `SLEEPY1-${b._id}`
+      }
+    } catch (e) {
+      console.error('Error fetching booking by ID:', e)
+      return undefined
+    }
   },
 
   async createFromDraft(draft: BookingDraft): Promise<Booking> {
