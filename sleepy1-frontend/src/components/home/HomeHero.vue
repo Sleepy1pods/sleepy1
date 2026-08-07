@@ -101,7 +101,7 @@ onUnmounted(() => {
           Smart, private rest pods across universities, corporate parks, hospitals, and railway stations.
         </p>
         <div class="mt-11 flex flex-col gap-3 sm:flex-row">
-          <PrimaryButton as="RouterLink" to="/book" size="lg">Book Now</PrimaryButton>
+          <PrimaryButton as="RouterLink" to="/quick-book" size="lg">Book Now</PrimaryButton>
           <SecondaryButton as="RouterLink" to="/locations" size="lg">Find a Pod</SecondaryButton>
         </div>
         <p class="mt-8 text-xs font-medium uppercase tracking-[0.14em] text-ivory-100/35">
