@@ -38,5 +38,18 @@ export const useAuthStore = defineStore('auth', () => {
     user.value = null
   }
 
-  return { user, isLoading, error, isAuthenticated, login, register, logout }
+  async function fetchUser() {
+    try {
+      const fetchedUser = await authService.fetchUser()
+      if (fetchedUser) {
+        user.value = fetchedUser
+      } else {
+        user.value = null
+      }
+    } catch {
+      user.value = null
+    }
+  }
+
+  return { user, isLoading, error, isAuthenticated, login, register, logout, fetchUser }
 })
