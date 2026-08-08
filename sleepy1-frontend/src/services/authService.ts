@@ -11,7 +11,7 @@ const SESSION_KEY = 'sleepy1_mock_session'
 
 export const authService = {
   async login(credentials: AuthCredentials): Promise<User> {
-    const res = await fetch('http://localhost:5000/api/auth/login', {
+    const res = await fetch('https://sleepy1-backend.onrender.com/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials),
@@ -44,7 +44,7 @@ export const authService = {
       phone: payload.phone,
       password: payload.password
     }
-    const res = await fetch('http://localhost:5000/api/auth/register', {
+    const res = await fetch('https://sleepy1-backend.onrender.com/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
@@ -87,7 +87,7 @@ export const authService = {
 
   async logout(): Promise<void> {
     try {
-      await fetch('http://localhost:5000/api/auth/logout', { 
+      await fetch('https://sleepy1-backend.onrender.com/api/auth/logout', { 
         method: 'POST',
         credentials: 'include'
       })
@@ -109,7 +109,7 @@ export const authService = {
 
   async fetchUser(): Promise<User | null> {
     try {
-      const res = await fetch('http://localhost:5000/api/auth/me', {
+      const res = await fetch('https://sleepy1-backend.onrender.com/api/auth/me', {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
       })

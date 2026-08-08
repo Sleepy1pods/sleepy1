@@ -16,7 +16,7 @@ export const bookingService = {
 
   async getBookedSlots(date: string): Promise<string[]> {
     try {
-      const res = await fetch(`http://localhost:5000/api/bookings/availability?date=${date}`)
+      const res = await fetch(`https://sleepy1-backend.onrender.com/api/bookings/availability?date=${date}`)
       if (!res.ok) throw new Error('Failed to fetch availability')
       const json = await res.json()
       return json.data || []
@@ -37,7 +37,7 @@ export const bookingService = {
 
   async getMyBookings(): Promise<Booking[]> {
     try {
-      const res = await fetch('http://localhost:5000/api/bookings', {
+      const res = await fetch('https://sleepy1-backend.onrender.com/api/bookings', {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
       })
@@ -91,7 +91,7 @@ export const bookingService = {
 
   async getById(id: string): Promise<Booking | undefined> {
     try {
-      const res = await fetch(`http://localhost:5000/api/bookings/${id}`, {
+      const res = await fetch(`https://sleepy1-backend.onrender.com/api/bookings/${id}`, {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
       })
