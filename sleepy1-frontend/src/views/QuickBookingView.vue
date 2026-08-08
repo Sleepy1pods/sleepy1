@@ -81,7 +81,7 @@ watch(() => form.checkinDate, async (newDate) => {
   if (newDate) {
     isLoadingSlots.value = true
     try {
-      bookedSlots.value = await bookingService.getAvailability(newDate)
+      bookedSlots.value = await bookingService.getBookedSlots(newDate)
       if (bookedSlots.value.includes(form.checkinTime)) {
         form.checkinTime = ''
       }

@@ -2,7 +2,6 @@
 import { ref, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { bookingService } from '@/services/bookingService'
-import { getLocationBySlug, locations } from '@/data/locations'
 import { usePageMeta } from '@/composables/usePageMeta'
 import { useUiStore } from '@/stores/ui'
 import type { Booking } from '@/types/booking'

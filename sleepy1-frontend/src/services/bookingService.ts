@@ -14,7 +14,7 @@ export const bookingService = {
     return delay(bookingExtras)
   },
 
-  async getAvailability(date: string): Promise<string[]> {
+  async getBookedSlots(date: string): Promise<string[]> {
     try {
       const res = await fetch(`http://localhost:5000/api/bookings/availability?date=${date}`)
       if (!res.ok) throw new Error('Failed to fetch availability')
@@ -24,6 +24,15 @@ export const bookingService = {
       console.error('Error fetching availability:', e)
       return []
     }
+  },
+
+  async getAvailability(_locationId: string, date: string): Promise<TimeSlot[]> {
+    const baseSlots = generateTimeSlots()
+    const bookedTimes = await this.getBookedSlots(date)
+    return baseSlots.map((slot) => ({
+      ...slot,
+      available: slot.available && !bookedTimes.includes(slot.time),
+    }))
   },
 
   async getMyBookings(): Promise<Booking[]> {
@@ -62,14 +71,14 @@ export const bookingService = {
         price: {
           basePrice: 500,
           extrasTotal: 0,
-          subtotal: 500,
+          serviceFee: 0,
           taxes: 0,
-          total: 500,
-          discountAmount: 0,
+          discount: 0,
           creditsApplied: 0,
+          couponDiscount: 0,
           totalPayable: 500
         },
-        paymentMethod: 'none',
+        paymentMethod: 'direct',
         status: 'upcoming',
         createdAt: b.createdAt,
         qrValue: `SLEEPY1-${b._id}`
@@ -118,14 +127,14 @@ export const bookingService = {
         price: {
           basePrice: 500,
           extrasTotal: 0,
-          subtotal: 500,
+          serviceFee: 0,
           taxes: 0,
-          total: 500,
-          discountAmount: 0,
+          discount: 0,
           creditsApplied: 0,
+          couponDiscount: 0,
           totalPayable: 500
         },
-        paymentMethod: 'none',
+        paymentMethod: 'direct',
         status: 'upcoming',
         createdAt: b.createdAt,
         qrValue: `SLEEPY1-${b._id}`

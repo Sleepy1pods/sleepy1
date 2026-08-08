@@ -8,45 +8,6 @@ import { delay } from '@/utils/delay'
  * page reloads. Do not treat this as production authentication.
  */
 const SESSION_KEY = 'sleepy1_mock_session'
-const USERS_DB_KEY = 'sleepy1_mock_users_db'
-
-function getSavedUsers(): Record<string, User> {
-  try {
-    const raw = localStorage.getItem(USERS_DB_KEY)
-    return raw ? JSON.parse(raw) : {}
-  } catch {
-    return {}
-  }
-}
-
-function saveUserToDb(user: User): void {
-  try {
-    const db = getSavedUsers()
-    db[user.email.toLowerCase()] = user
-    localStorage.setItem(USERS_DB_KEY, JSON.stringify(db))
-  } catch {
-    // ignore storage errors
-  }
-}
-
-function formatNameFromEmail(email?: string): { fullName: string; avatarInitials: string } {
-  if (!email || !email.includes('@')) {
-    return { fullName: 'Sleepy1 Member', avatarInitials: 'S' }
-  }
-  const localPart = email.split('@')[0] || ''
-  const clean = localPart.replace(/[._+-]+/g, ' ').replace(/\d+/g, '').trim()
-  const words = clean.split(/\s+/).filter(Boolean)
-  if (words.length === 0) {
-    const fallbackWord = localPart.trim() || 'Member'
-    const fullName = fallbackWord.charAt(0).toUpperCase() + fallbackWord.slice(1).toLowerCase()
-    return { fullName, avatarInitials: fullName.charAt(0).toUpperCase() }
-  }
-  const fullName = words
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(' ')
-  const avatarInitials = words[0].charAt(0).toUpperCase()
-  return { fullName, avatarInitials }
-}
 
 export const authService = {
   async login(credentials: AuthCredentials): Promise<User> {
