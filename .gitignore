@@ -7,6 +7,7 @@ sleepy1-frontend/.env.*.local
 # Backend
 sleepy1-backend/target/
 sleepy1-backend/node_modules/
+sleepy1-backend/dist/
 sleepy1-backend/.env
 
 # OS / editor
