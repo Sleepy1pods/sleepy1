@@ -31,7 +31,7 @@ class BookingController {
 
     getBookingById = async (req: Request, res: Response) => {
         try {
-            const booking = await bookingService.getBookingById(req.params.id, req.user._id);
+            const booking = await bookingService.getBookingById(req.params.id as string, req.user._id);
             res.status(200).json({
                 success: true,
                 message: "Booking details fetched successfully",
