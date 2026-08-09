@@ -3,6 +3,7 @@ import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 
 // ============================================================================
 // 3D MODEL CONFIGURATION
@@ -11,7 +12,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 // 2. Set `customModelUrl` below to your file path: e.g. `'/models/pod.glb'`
 // 3. The viewer will automatically load your custom 3D model!
 // ============================================================================
-const customModelUrl = ref<string>('') // e.g., '/models/pod.glb'
+const customModelUrl = ref<string>('/SleepPod1.glb') // e.g., '/models/pod.glb'
 
 type ViewMode = 'interior' | 'exterior'
 const activeView = ref<ViewMode>('exterior')
@@ -298,6 +299,9 @@ function loadModel() {
   if (customModelUrl.value && customModelUrl.value.trim() !== '') {
     isLoadingModel.value = true
     const loader = new GLTFLoader()
+    const dracoLoader = new DRACOLoader()
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/')
+    loader.setDRACOLoader(dracoLoader)
     loader.load(
       customModelUrl.value,
       (gltf) => {
