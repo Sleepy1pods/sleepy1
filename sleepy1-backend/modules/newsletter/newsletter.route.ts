@@ -20,7 +20,8 @@ router.post('/subscribe', async (req: Request, res: Response) => {
   }
 
   const resend = new Resend(apiKey)
-  const fromAddress = process.env.RESEND_FROM_EMAIL || 'Sleepy1 <hello@sleepy1pods.com>'
+  // For Resend free tier without a verified domain, you MUST use onboarding@resend.dev
+  const fromAddress = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev'
 
   try {
     await resend.emails.send({
