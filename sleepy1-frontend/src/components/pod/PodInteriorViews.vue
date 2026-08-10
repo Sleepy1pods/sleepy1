@@ -11,7 +11,7 @@ type ViewMode = 'interior' | 'exterior'
 const activeView = ref<ViewMode>('exterior')
 // (auto-rotation removed per user request)
 const isLoadingModel = ref(false)
-const currentAngleDegrees = ref(0)
+// const currentAngleDegrees = ref(0) // Removed since badge was removed
 
 const canvasContainer = ref<HTMLElement | null>(null)
 
@@ -581,10 +581,7 @@ onMounted(() => {
   function animate() {
     animationFrameId = requestAnimationFrame(animate)
 
-    if (podGroup) {
-      const deg = Math.round(THREE.MathUtils.radToDeg(podGroup.rotation.y) % 360)
-      currentAngleDegrees.value = (deg + 360) % 360
-    }
+    // No rotation calculation needed anymore
 
     if (starParticles) {
       starParticles.rotation.y += 0.001
@@ -753,15 +750,9 @@ onBeforeUnmount(() => {
               </span>
             </div>
 
-            <!-- HUD Bottom-Right: click hint in interior, rotation in exterior -->
-            <div class="absolute bottom-4 right-4 z-10 pointer-events-none rounded-full bg-ink-950/85 border border-white/10 px-3.5 py-1 backdrop-blur-md">
-              <template v-if="activeView === 'interior'">
-                <span class="font-mono text-xs text-brand-300">👆 Click objects to explore</span>
-              </template>
-              <template v-else>
-                <span class="font-mono text-xs text-ivory-100/70">ROTATION:</span>
-                <span class="font-mono text-xs font-bold text-ivory-50 ml-1.5">{{ currentAngleDegrees }}°</span>
-              </template>
+            <!-- HUD Bottom-Right: click hint in interior -->
+            <div v-if="activeView === 'interior'" class="absolute bottom-4 right-4 z-10 pointer-events-none rounded-full bg-ink-950/85 border border-white/10 px-3.5 py-1 backdrop-blur-md">
+              <span class="font-mono text-xs text-brand-300">👆 Click objects to explore</span>
             </div>
           </div>
         </div>
