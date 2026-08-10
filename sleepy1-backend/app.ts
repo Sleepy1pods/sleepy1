@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import connectDB from './config/database.js';
 import authRoute from './modules/auth/auth.route.js';
 import bookingRoute from './modules/booking/booking.route.js';
+import newsletterRoute from './modules/newsletter/newsletter.route.js';
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use(cookieParser());
 
 app.use('/api/auth', authRoute);
 app.use('/api/bookings', bookingRoute);
+app.use('/api/newsletter', newsletterRoute);
 
 app.listen(PORT, () => {
     connectDB();

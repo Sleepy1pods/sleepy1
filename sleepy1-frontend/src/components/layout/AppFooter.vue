@@ -5,18 +5,37 @@ import { useUiStore } from '@/stores/ui'
 
 const ui = useUiStore()
 const email = ref('')
+const isSubscribing = ref(false)
 
-function subscribe() {
-  if (!email.value.trim() || !email.value.includes('@')) {
+async function subscribe() {
+  const trimmed = email.value.trim()
+  if (!trimmed || !trimmed.includes('@')) {
     ui.pushToast({ type: 'error', title: 'Valid Email Required', description: 'Please enter a valid email address.' })
     return
   }
-  ui.pushToast({
-    type: 'success',
-    title: 'Welcome to the Insider Club!',
-    description: 'Use code WELCOME-REST100 at checkout for 100 free sleep credits.',
-  })
-  email.value = ''
+  isSubscribing.value = true
+  try {
+    const res = await fetch('http://localhost:5000/api/newsletter/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: trimmed }),
+    })
+    const data = await res.json()
+    if (data.success) {
+      ui.pushToast({
+        type: 'success',
+        title: '🌙 Welcome to Sleepy1!',
+        description: 'Check your inbox — a warm welcome (and free credits!) await you.',
+      })
+      email.value = ''
+    } else {
+      ui.pushToast({ type: 'error', title: 'Oops!', description: data.message || 'Something went wrong. Please try again.' })
+    }
+  } catch {
+    ui.pushToast({ type: 'error', title: 'Connection Error', description: 'Could not reach the server. Please try again later.' })
+  } finally {
+    isSubscribing.value = false
+  }
 }
 </script>
 
@@ -44,7 +63,13 @@ function subscribe() {
               placeholder="you@email.com"
               class="min-h-[44px] w-full rounded-full border border-white/20 bg-ink-900 px-4 py-2.5 text-sm text-white placeholder:text-ivory-100/40 focus:border-brand-400"
             />
-            <button type="submit" class="btn-base shrink-0 bg-white px-5 py-2.5 text-sm font-semibold text-ink-950 transition-colors hover:bg-ivory-100">Join</button>
+            <button
+              type="submit"
+              :disabled="isSubscribing"
+              class="btn-base shrink-0 bg-white px-5 py-2.5 text-sm font-semibold text-ink-950 transition-colors hover:bg-ivory-100 disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {{ isSubscribing ? '...' : 'Join' }}
+            </button>
           </form>
 
           <div class="mt-4">

@@ -37,7 +37,6 @@ const animatedMeshes: {
 }[] = []
 
 const interactiveMeshes: { mesh: THREE.Object3D; label: string }[] = []
-const hoveredLabel = ref<string | null>(null)
 const clickedLabel = ref<string | null>(null)
 let clickedLabelTimer: ReturnType<typeof setTimeout> | null = null
 const mousePos = ref({ x: 0, y: 0 })
@@ -380,7 +379,7 @@ function setupInteractivity(group: THREE.Group) {
       }
     }
 
-    if (label && (child instanceof THREE.Mesh || child.isMesh)) {
+    if (label && (child instanceof THREE.Mesh || (child as any).isMesh)) {
       interactiveMeshes.push({ mesh: child, label })
     }
   })
@@ -401,7 +400,7 @@ function setupAnimations(group: THREE.Group) {
       type = 'headphone'
     }
 
-    if (type && (child instanceof THREE.Mesh || child.isMesh || child instanceof THREE.Group)) {
+    if (type && (child instanceof THREE.Mesh || (child as any).isMesh || child instanceof THREE.Group)) {
       animatedMeshes.push({
         mesh: child,
         originalPosX: child.position.x,
@@ -538,6 +537,7 @@ function onCanvasClick(event: MouseEvent) {
 onMounted(() => {
   window.addEventListener('pointermove', onPointerMove)
   if (!canvasContainer.value) return
+  canvasContainer.value.addEventListener('click', onCanvasClick)
 
   const width = canvasContainer.value.clientWidth || 800
   const height = canvasContainer.value.clientHeight || 500
@@ -590,28 +590,6 @@ onMounted(() => {
       starParticles.rotation.y += 0.001
     }
     
-    // Interactive Raycasting for Tooltips
-    if (activeView.value === 'interior' && interactiveMeshes.length > 0 && camera && scene) {
-      if (mouseVector.x !== -9999) {
-        raycaster.setFromCamera(mouseVector, camera)
-        const meshesToTest = interactiveMeshes.map(m => m.mesh)
-        const intersects = raycaster.intersectObjects(meshesToTest, false)
-        
-        if (intersects.length > 0) {
-          const hit = intersects[0].object
-          const matched = interactiveMeshes.find(m => m.mesh === hit)
-          if (matched) {
-            hoveredLabel.value = matched.label
-          }
-        } else {
-          hoveredLabel.value = null
-        }
-      } else {
-        hoveredLabel.value = null
-      }
-    } else {
-      hoveredLabel.value = null
-    }
 
     // Apply zero-gravity animations to found meshes
     const time = Date.now() * 0.001
@@ -665,6 +643,10 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   window.removeEventListener('pointermove', onPointerMove)
+  if (canvasContainer.value) {
+    canvasContainer.value.removeEventListener('click', onCanvasClick)
+  }
+  if (clickedLabelTimer) clearTimeout(clickedLabelTimer)
   if (animationFrameId !== null) {
     cancelAnimationFrame(animationFrameId)
   }
@@ -728,21 +710,23 @@ onBeforeUnmount(() => {
             <!-- 3D WebGL Canvas Container -->
             <div
               ref="canvasContainer"
-              class="h-[380px] sm:h-[460px] md:h-auto md:aspect-[16/10] w-full relative cursor-grab active:cursor-grabbing select-none"
+              class="h-[380px] sm:h-[460px] md:h-auto md:aspect-[16/10] w-full relative select-none"
+              :class="activeView === 'interior' ? 'cursor-pointer' : 'cursor-grab active:cursor-grabbing'"
               style="touch-action: none;"
               aria-label="3D interactive model viewer"
             >
-              <!-- Interactive Hover Tooltip Overlay -->
+              <!-- Click-to-reveal Interactive Tooltip -->
               <Transition name="tooltip-fade">
-                <div 
-                  v-if="hoveredLabel"
-                  class="pointer-events-none absolute z-50 whitespace-nowrap rounded-lg bg-ink-950/90 border border-brand-400/30 px-3 py-1.5 text-xs font-semibold text-brand-200 backdrop-blur shadow-xl transition-transform duration-75 ease-out"
-                  :style="{ transform: `translate(${mousePos.x + 15}px, ${mousePos.y + 15}px)` }"
+                <div
+                  v-if="clickedLabel"
+                  class="pointer-events-none absolute z-50 whitespace-nowrap rounded-xl bg-ink-950/95 border border-brand-400/40 px-4 py-2 text-xs font-semibold text-brand-200 backdrop-blur-md shadow-2xl"
+                  :style="{ transform: `translate(${Math.min(mousePos.x + 16, 340)}px, ${mousePos.y - 44}px)` }"
                 >
                   <div class="flex items-center gap-2">
-                    <span class="h-1.5 w-1.5 rounded-full bg-brand-400 animate-pulse"></span>
-                    {{ hoveredLabel }}
+                    <span class="h-2 w-2 rounded-full bg-brand-400 animate-pulse flex-shrink-0"></span>
+                    <span>{{ clickedLabel }}</span>
                   </div>
+                  <div class="absolute -bottom-1.5 left-5 h-3 w-3 rotate-45 rounded-sm bg-ink-950/95 border-r border-b border-brand-400/40"></div>
                 </div>
               </Transition>
             </div>
@@ -769,10 +753,15 @@ onBeforeUnmount(() => {
               </span>
             </div>
 
-            <!-- HUD Angle Badge Bottom-Right -->
+            <!-- HUD Bottom-Right: click hint in interior, rotation in exterior -->
             <div class="absolute bottom-4 right-4 z-10 pointer-events-none rounded-full bg-ink-950/85 border border-white/10 px-3.5 py-1 backdrop-blur-md">
-              <span class="font-mono text-xs text-ivory-100/70">ROTATION:</span>
-              <span class="font-mono text-xs font-bold text-ivory-50 ml-1.5">{{ currentAngleDegrees }}°</span>
+              <template v-if="activeView === 'interior'">
+                <span class="font-mono text-xs text-brand-300">👆 Click objects to explore</span>
+              </template>
+              <template v-else>
+                <span class="font-mono text-xs text-ivory-100/70">ROTATION:</span>
+                <span class="font-mono text-xs font-bold text-ivory-50 ml-1.5">{{ currentAngleDegrees }}°</span>
+              </template>
             </div>
           </div>
         </div>
