@@ -24,7 +24,8 @@ router.post('/subscribe', async (req: Request, res: Response) => {
   const fromAddress = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev'
 
   try {
-    await resend.emails.send({
+    console.log(`[Newsletter] Attempting to send email to: ${email} from: ${fromAddress}`);
+    const { data, error } = await resend.emails.send({
       from: fromAddress,
       to: [email],
       subject: '🛌 Welcome to Sleepy1 — Your First Rest is Free!',
@@ -118,6 +119,13 @@ router.post('/subscribe', async (req: Request, res: Response) => {
         </html>
       `,
     })
+
+    console.log('[Newsletter] Resend API Response -> Data:', JSON.stringify(data), 'Error:', JSON.stringify(error));
+
+    if (error) {
+      console.error('[Newsletter] Resend API explicit error:', error);
+      return res.status(500).json({ success: false, message: 'Failed to send welcome email. ' + (error.message || '') })
+    }
 
     return res.json({ success: true, message: 'Welcome email sent!' })
   } catch (err: unknown) {
