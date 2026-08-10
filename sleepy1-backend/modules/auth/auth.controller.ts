@@ -7,6 +7,8 @@ class AuthController {
     const options = {
       expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
       httpOnly: true,
+      sameSite: "none" as const,
+      secure: true
     };
 
     // Strip password from output
@@ -41,6 +43,8 @@ class AuthController {
     res.cookie("token", "none", {
       expires: new Date(Date.now() + 10 * 1000),
       httpOnly: true,
+      sameSite: "none" as const,
+      secure: true
     });
 
     res.status(200).json({
