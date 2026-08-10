@@ -9,7 +9,7 @@ export const podTypes: PodTypeDefinition[] = [
     description: 'A fully enclosed single-occupancy pod engineered for uninterrupted sleep — ergonomic mattress, blackout lighting, and acoustic isolation from the world outside.',
     image: 'pod-interior-1',
     occupancy: 1,
-    pricePerHour: 499,
+    pricePerHour: 0,
     amenityIds: ['mattress', 'lighting', 'noise', 'lock', 'ventilation', 'charging'],
     bestFor: ['Long shifts', 'Late-night stays', 'Recovery between commitments'],
   }
@@ -22,7 +22,7 @@ export const podFeatureComparison: PodFeatureComparisonRow[] = [
   { feature: 'Smart entertainment panel', soloRest: false, soloWork: false, twinLounge: false, premiumSuite: false },
   { feature: 'Smart climate control', soloRest: false, soloWork: false, twinLounge: false, premiumSuite: false },
   { feature: 'Shower access add-on', soloRest: false, soloWork: false, twinLounge: false, premiumSuite: false },
-  { feature: 'Starting price / hour', soloRest: '₹499', soloWork: '-', twinLounge: '-', premiumSuite: '-' },
+  { feature: 'Starting price / hour', soloRest: 'Free', soloWork: '-', twinLounge: '-', premiumSuite: '-' },
 ]
 
 export function getPodTypeById(id: string): PodTypeDefinition | undefined {

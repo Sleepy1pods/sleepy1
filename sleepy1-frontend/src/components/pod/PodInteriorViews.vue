@@ -9,7 +9,7 @@ const customModelUrl = ref<string>('/SleepPod1.glb')
 
 type ViewMode = 'interior' | 'exterior'
 const activeView = ref<ViewMode>('exterior')
-const isAutoRotating = ref(false)
+// (auto-rotation removed per user request)
 const isLoadingModel = ref(false)
 const currentAngleDegrees = ref(0)
 
@@ -38,6 +38,8 @@ const animatedMeshes: {
 
 const interactiveMeshes: { mesh: THREE.Object3D; label: string }[] = []
 const hoveredLabel = ref<string | null>(null)
+const clickedLabel = ref<string | null>(null)
+let clickedLabelTimer: ReturnType<typeof setTimeout> | null = null
 const mousePos = ref({ x: 0, y: 0 })
 const raycaster = new THREE.Raycaster()
 const mouseVector = new THREE.Vector2(-9999, -9999)
@@ -116,6 +118,7 @@ function buildProceduralPodModel(): THREE.Group {
   shellMesh.rotation.z = Math.PI / 2
   shellMesh.castShadow = true
   shellMesh.receiveShadow = true
+  shellMesh.name = 'shell_exterior'
   group.add(shellMesh)
 
   const ringGeo = new THREE.TorusGeometry(1.57, 0.045, 24, 64)
@@ -127,11 +130,13 @@ function buildProceduralPodModel(): THREE.Group {
   const leftRing = new THREE.Mesh(ringGeo, ringMat)
   leftRing.rotation.y = Math.PI / 2
   leftRing.position.x = -1.15
+  leftRing.name = 'seal_ring_left'
   group.add(leftRing)
 
   const rightRing = new THREE.Mesh(ringGeo, ringMat)
   rightRing.rotation.y = Math.PI / 2
   rightRing.position.x = 1.15
+  rightRing.name = 'seal_ring_right'
   group.add(rightRing)
 
   const windowGeo = new THREE.CylinderGeometry(1.58, 1.58, 1.7, 32, 1, false, -Math.PI / 3.2, (2 * Math.PI) / 3.2)
@@ -146,6 +151,7 @@ function buildProceduralPodModel(): THREE.Group {
   const windowMesh = new THREE.Mesh(windowGeo, windowMat)
   windowMesh.rotation.z = Math.PI / 2
   windowMesh.rotation.x = Math.PI / 2
+  windowMesh.name = 'privacy_window'
   group.add(windowMesh)
 
   const linerGeo = new THREE.CapsuleGeometry(1.47, 2.22, 32, 32)
@@ -156,12 +162,14 @@ function buildProceduralPodModel(): THREE.Group {
   })
   const linerMesh = new THREE.Mesh(linerGeo, linerMat)
   linerMesh.rotation.z = Math.PI / 2
+  linerMesh.name = 'acoustic_liner'
   group.add(linerMesh)
 
   const frameGeo = new THREE.BoxGeometry(2.36, 0.14, 1.36)
   const frameMat = new THREE.MeshStandardMaterial({ color: 0x2a2421, roughness: 0.4 })
   const frameMesh = new THREE.Mesh(frameGeo, frameMat)
   frameMesh.position.set(0, -0.74, 0)
+  frameMesh.name = 'bed_frame'
   group.add(frameMesh)
 
   const bedGeo = new THREE.BoxGeometry(2.32, 0.28, 1.32)
@@ -256,6 +264,7 @@ function buildProceduralPodModel(): THREE.Group {
   const barMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.3 })
   const barMesh = new THREE.Mesh(barGeo, barMat)
   barMesh.position.set(1.05, -0.42, 0)
+  barMesh.name = 'control_panel'
   group.add(barMesh)
 
   const starCount = 150
@@ -295,12 +304,14 @@ function buildProceduralPodModel(): THREE.Group {
   const scannerMat = new THREE.MeshStandardMaterial({ color: 0x121422, roughness: 0.4 })
   const scannerMesh = new THREE.Mesh(scannerGeo, scannerMat)
   scannerMesh.position.set(0.65, 0.1, 1.48)
+  scannerMesh.name = 'nfc_scanner'
   group.add(scannerMesh)
 
   const ledGeo = new THREE.CircleGeometry(0.04, 16)
   const ledMat = new THREE.MeshBasicMaterial({ color: 0x4ade80 })
   const ledMesh = new THREE.Mesh(ledGeo, ledMat)
   ledMesh.position.set(0.65, 0.2, 1.53)
+  ledMesh.name = 'led_indicator'
   group.add(ledMesh)
 
   const floorGeo = new THREE.CylinderGeometry(2.5, 2.65, 0.1, 64)
@@ -335,15 +346,23 @@ function buildProceduralPodModel(): THREE.Group {
 function getLabelForName(name: string | undefined): string | null {
   if (!name) return null
   const n = name.toLowerCase()
-  if (n.includes('pillow') || n.includes('cushion')) return 'Ergonomic Pillow'
-  if (n.includes('sheet') || n.includes('duvet') || n.includes('blanket') || n.includes('bed')) return 'Organic Blanket'
+  if (n.includes('pillow') || n.includes('cushion')) return 'Ergonomic Memory-Foam Pillow'
+  if (n.includes('duvet') || n.includes('blanket')) return 'Organic Cotton Blanket'
+  if (n === 'bed') return 'Premium Mattress'
+  if (n.includes('bed_frame') || n.includes('frame')) return 'Reinforced Bed Frame'
   if (n.includes('headphone') || n.includes('audio') || n.includes('ear')) return 'Noise-Cancelling Headphones'
-  if (n.includes('projector') || n.includes('screen') || n.includes('display')) return 'Entertainment Display'
+  if (n.includes('entertainment') || n.includes('screen') || n.includes('display') || n.includes('projector')) return 'HD Entertainment Display'
+  if (n.includes('control') || n.includes('panel')) return 'Smart Touch Control Panel'
+  if (n.includes('ambient_light') || n.includes('strip')) return 'Ambient LED Mood Light'
+  if (n.includes('led_indicator')) return 'Occupancy Status LED'
+  if (n.includes('nfc') || n.includes('scanner')) return 'NFC Access Scanner'
+  if (n.includes('shell') || n.includes('exterior')) return 'Acoustic Shell Exterior'
+  if (n.includes('seal_ring') || n.includes('ring')) return 'Pressure Seal Ring'
+  if (n.includes('privacy_window') || n.includes('window')) return 'Privacy Tinted Window'
+  if (n.includes('acoustic_liner') || n.includes('liner')) return 'Sound-Dampening Liner'
   if (n.includes('hanger') || n.includes('hook') || n.includes('wardrobe')) return 'Coat Hanger'
-  if (n.includes('ac ') || n.includes('air') || n.includes('vent') || n.includes('hepa')) return 'HEPA Air Vent'
-  if (n.includes('charge') || n.includes('plug') || n.includes('socket') || n.includes('usb')) return 'Fast Charging Point'
-  if (n.includes('light') || n.includes('lamp') || n.includes('led')) return 'Ambient Mood Light'
-  if (n.includes('control') || n.includes('panel')) return 'Smart Control Panel'
+  if (n.includes('vent') || n.includes('hepa')) return 'HEPA Air Vent'
+  if (n.includes('charge') || n.includes('plug') || n.includes('socket') || n.includes('usb')) return 'Fast Charging Port'
   return null
 }
 
@@ -483,6 +502,39 @@ watch(activeView, (newMode) => {
   updateCameraForMode(newMode)
 })
 
+function onCanvasClick(event: MouseEvent) {
+  if (!canvasContainer.value || !camera || !scene || interactiveMeshes.length === 0) return
+
+  const rect = canvasContainer.value.getBoundingClientRect()
+  const clickVec = new THREE.Vector2(
+    ((event.clientX - rect.left) / rect.width) * 2 - 1,
+    -((event.clientY - rect.top) / rect.height) * 2 + 1
+  )
+  raycaster.setFromCamera(clickVec, camera)
+  const meshesToTest = interactiveMeshes.map(m => m.mesh)
+  const intersects = raycaster.intersectObjects(meshesToTest, false)
+
+  if (intersects.length > 0) {
+    const hit = intersects[0].object
+    const matched = interactiveMeshes.find(m => m.mesh === hit)
+    if (matched) {
+      clickedLabel.value = matched.label
+      mousePos.value = {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top
+      }
+      // Auto-dismiss after 2.5 seconds
+      if (clickedLabelTimer) clearTimeout(clickedLabelTimer)
+      clickedLabelTimer = setTimeout(() => {
+        clickedLabel.value = null
+      }, 2500)
+    }
+  } else {
+    clickedLabel.value = null
+    if (clickedLabelTimer) clearTimeout(clickedLabelTimer)
+  }
+}
+
 onMounted(() => {
   window.addEventListener('pointermove', onPointerMove)
   if (!canvasContainer.value) return
@@ -528,10 +580,6 @@ onMounted(() => {
 
   function animate() {
     animationFrameId = requestAnimationFrame(animate)
-
-    if (podGroup && isAutoRotating.value) {
-      podGroup.rotation.y += 0.005
-    }
 
     if (podGroup) {
       const deg = Math.round(THREE.MathUtils.radToDeg(podGroup.rotation.y) % 360)

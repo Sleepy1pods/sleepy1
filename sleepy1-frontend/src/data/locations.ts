@@ -22,7 +22,7 @@ export const locations: Location[] = [
     podCount: 5,
     availablePods: 5,
     availability: 'high',
-    startingPricePerHour: 299,
+    startingPricePerHour: 0,
     amenityIds: ['wifi', 'charging', 'mattress'],
     operatingHours: { opens: '00:00', closes: '23:59', is24x7: true },
     geo: { lat: 15.3930, lng: 75.0236 },

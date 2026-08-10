@@ -27,7 +27,7 @@ const selectedTier = computed(() => rechargeTiers[selectedTierIdx.value] || rech
 
 const bonusCredits = computed(() => Math.round((selectedTier.value.amount * selectedTier.value.bonusPercent) / 100))
 const totalCredits = computed(() => selectedTier.value.amount + bonusCredits.value)
-const estimatedHours = computed(() => (totalCredits.value / 299).toFixed(1))
+const estimatedHours = computed(() => 'Unlimited')
 
 const creditsFaqs = [
   {

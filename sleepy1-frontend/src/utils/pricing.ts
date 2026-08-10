@@ -3,22 +3,22 @@ import { getLocationBySlug } from '@/data/locations'
 
 export function getPodPriceForLocation(podTypeId: string | null | undefined, locationSlug: string | null | undefined): number {
   const location = locationSlug ? getLocationBySlug(locationSlug) : undefined
-  const basePrice = location?.startingPricePerHour ?? 499
+  const basePrice = location?.startingPricePerHour ?? 0
 
   switch (podTypeId) {
     case 'pod-solo-work':
-      return basePrice + 50
+      return basePrice + 0
     case 'pod-twin-lounge':
-      return basePrice + 300
+      return basePrice + 0
     case 'pod-premium-suite':
-      return basePrice + 500
+      return basePrice + 0
     case 'pod-solo-rest':
     default:
       return basePrice
   }
 }
 
-const SERVICE_FEE = 49
+const SERVICE_FEE = 0
 const TAX_RATE = 0.12
 const FIRST_BOOKING_COUPON = 'FIRSTSLEEP'
 const FIRST_BOOKING_DISCOUNT_RATE = 0.2
