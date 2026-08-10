@@ -1,16 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { footerColumns, footerMoreLinks, socialLinks } from '@/data/navigation'
+import { footerColumns, socialLinks } from '@/data/navigation'
 import { useUiStore } from '@/stores/ui'
 
 const ui = useUiStore()
 const email = ref('')
-
-const socialIconPaths: Record<string, string> = {
-  instagram: 'M7 3h10a4 4 0 014 4v10a4 4 0 01-4 4H7a4 4 0 01-4-4V7a4 4 0 014-4zM12 8.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7zM17 6.5h.01',
-  linkedin: 'M4 4h4v4H4V4zM4 10h4v10H4V10zM12 10h3.8v1.6c.6-1 1.9-1.9 3.6-1.9 3 0 3.6 2 3.6 4.5V20H19v-5.2c0-1.2 0-2.8-1.7-2.8s-2 1.4-2 2.7V20H12V10z',
-  youtube: 'M2.5 17a24.12 24.12 0 010-10 2 2 0 011.4-1.4 49.56 49.56 0 0116.2 0A2 2 0 0121.5 7a24.12 24.12 0 010 10 2 2 0 01-1.4 1.4 49.55 49.55 0 01-16.2 0A2 2 0 012.5 17zM10 15l5-3-5-3v6z',
-}
 
 function subscribe() {
   if (!email.value.trim() || !email.value.includes('@')) {
@@ -70,14 +64,27 @@ function subscribe() {
 
           <div class="mt-6 flex items-center gap-3">
             <a
-              v-for="social in socialLinks"
-              :key="social.icon"
-              :href="social.href"
-              :aria-label="social.label"
-              class="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-ivory-100/75 transition-colors hover:border-white/50 hover:text-white"
+              v-if="socialLinks.find(s => s.icon === 'instagram')"
+              :href="socialLinks.find(s => s.icon === 'instagram')?.href"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              class="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-ivory-100/75 transition-colors hover:border-[#E1306C] hover:text-[#E1306C]"
             >
-              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path :d="socialIconPaths[social.icon]" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+              </svg>
+            </a>
+            <a
+              v-if="socialLinks.find(s => s.icon === 'linkedin')"
+              :href="socialLinks.find(s => s.icon === 'linkedin')?.href"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              class="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-ivory-100/75 transition-colors hover:border-[#0077b5] hover:text-[#0077b5]"
+            >
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
               </svg>
             </a>
           </div>
@@ -98,22 +105,10 @@ function subscribe() {
         </div>
       </div>
 
-      <!-- Secondary Links: Structured 2-Column Grid on Mobile -->
-      <div class="mt-12 grid grid-cols-2 gap-x-4 gap-y-2.5 border-t border-white/15 pt-8 sm:grid-cols-3 md:grid-cols-4 lg:flex lg:flex-wrap lg:gap-x-6 lg:gap-y-2.5">
-        <router-link
-          v-for="item in footerMoreLinks"
-          :key="item.to"
-          :to="item.to"
-          class="text-xs font-medium text-ivory-100/60 transition-colors hover:text-white"
-        >
-          {{ item.label }}
-        </router-link>
-      </div>
-
       <!-- Footer Bottom Copyright & Support -->
-      <div class="mt-8 flex flex-col gap-3 border-t border-white/15 pt-8 text-xs font-medium text-ivory-100/60 sm:flex-row sm:items-center sm:justify-between">
-        <p>© 2026 Sleepy1. Your Pod, Your Mode. · IIIT Dharwad</p>
-        <p>Support: <a href="mailto:sleepy1.pods@gmail.com" class="transition-colors hover:text-white">sleepy1.pods@gmail.com</a> · +91 1800-123-4567</p>
+      <div class="mt-12 flex flex-col gap-3 border-t border-white/15 pt-8 text-xs font-medium text-ivory-100/60 sm:flex-row sm:items-center sm:justify-between">
+        <p>© 2026 Sleepy1. Your Pod, Your Mode. · IIIT Dharwad Research Park,</p>
+        <p>Support: <a href="mailto:sleepy1.pods@gmail.com" class="transition-colors hover:text-white">sleepy1.pods@gmail.com</a></p>
       </div>
     </div>
   </footer>

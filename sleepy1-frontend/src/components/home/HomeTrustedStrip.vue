@@ -70,14 +70,52 @@ function handlePointerEnd(event: PointerEvent) {
         </template>
       </div>
     </div>
-    <div v-else class="container-page flex flex-wrap gap-3" aria-label="Sleepy1 locations">
-      <span
+    <div v-else class="container-page flex justify-center py-4" aria-label="Sleepy1 locations">
+      <router-link
         v-for="loc in locations"
         :key="loc.id"
-        class="whitespace-nowrap rounded-full border border-white/10 px-4 py-1.5 text-sm font-medium text-ivory-100/70"
+        :to="`/locations/${loc.slug}`"
+        class="group relative block w-full max-w-3xl overflow-hidden rounded-3xl border border-white/10 bg-ink-900 shadow-premium transition-all duration-300 hover:border-brand-500/30 hover:shadow-[0_8px_30px_rgba(139,155,251,0.12)] hover:-translate-y-1"
       >
-        {{ loc.name }}
-      </span>
+        <div class="aspect-[21/9] w-full overflow-hidden sm:aspect-[21/8]">
+          <img
+            :src="loc.heroImage || '/iiit_dharwad.png'"
+            :alt="loc.name"
+            class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            loading="lazy"
+          />
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/50 to-transparent opacity-95"></div>
+        
+        <div class="absolute bottom-0 left-0 p-6 sm:p-8 w-full">
+          <div class="flex items-end justify-between">
+            <div>
+              <div class="mb-3 flex items-center gap-2">
+                <span class="rounded-full bg-brand-500/20 border border-brand-400/30 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-brand-300 backdrop-blur-md">
+                  {{ loc.hubType || 'University' }}
+                </span>
+                <span v-if="loc.availablePods > 0" class="flex items-center gap-1.5 text-xs font-medium text-emerald-400 backdrop-blur-md bg-ink-950/30 px-2.5 py-1 rounded-full border border-emerald-500/20">
+                  <span class="relative flex h-2 w-2">
+                    <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+                  </span>
+                  Available
+                </span>
+              </div>
+              <h3 class="font-display text-2xl font-semibold text-ivory-50 sm:text-3xl">
+                {{ loc.name }}
+              </h3>
+              <p class="mt-1 text-sm text-ivory-100/70">
+                {{ loc.city }}, {{ loc.state }}
+              </p>
+            </div>
+            
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-white/5 border border-white/10 text-ivory-50 backdrop-blur-md transition-all duration-300 group-hover:bg-brand-500 group-hover:border-brand-500 group-hover:text-ink-950 group-hover:shadow-[0_0_20px_rgba(139,155,251,0.4)] shrink-0">
+              <span class="text-xl leading-none transition-transform duration-300 group-hover:-rotate-45">→</span>
+            </div>
+          </div>
+        </div>
+      </router-link>
     </div>
   </section>
 </template>

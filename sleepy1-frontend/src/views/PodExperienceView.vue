@@ -13,6 +13,12 @@ usePageMeta({
 
 <template>
   <div>
+    <!-- Essential Features Anatomy -->
+    <PodFeatureAnatomy id="all-amenities" />
+
+    <!-- 360-Degree View Section (Interior & Exterior) -->
+    <PodInteriorViews />
+
     <!-- Hero Section -->
     <section class="py-20 sm:py-28">
       <div class="container-page grid gap-10 lg:grid-cols-2 lg:items-center">
@@ -30,15 +36,7 @@ usePageMeta({
       </div>
     </section>
 
-    <!-- Essential Features Anatomy -->
-    <PodFeatureAnatomy id="all-amenities" />
-
-    <!-- 360-Degree View Section (Interior & Exterior) -->
-    <PodInteriorViews />
-
     <!-- Final CTA Section -->
-    <section class="py-20 text-center">
-      <PrimaryButton as="RouterLink" to="/book" size="lg">Book Your Pod →</PrimaryButton>
-    </section>
+   
   </div>
 </template>

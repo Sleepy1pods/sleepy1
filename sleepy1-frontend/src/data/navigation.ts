@@ -56,8 +56,7 @@ export const footerMoreLinks: NavItem[] = [
   { label: 'Corporate Solutions', to: '/corporate' },
 ]
 
-export const socialLinks: { label: string; href: string; icon: 'instagram' | 'linkedin' | 'youtube' }[] = [
-  { label: 'Instagram', href: 'https://www.instagram.com/sleepy1pods', icon: 'instagram' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/sleepy1pods', icon: 'linkedin' },
-  { label: 'YouTube', href: 'https://www.youtube.com/@sleepy1pods', icon: 'youtube' },
+export const socialLinks: { label: string; href: string; icon: 'instagram' | 'linkedin' }[] = [
+  { label: 'Instagram', href: 'https://www.instagram.com/sleepy1.pods/', icon: 'instagram' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/sleepy1pods?utm_source=share_via&utm_content=profile&utm_medium=member_android', icon: 'linkedin' },
 ]

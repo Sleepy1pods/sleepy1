@@ -5,18 +5,11 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 
-// ============================================================================
-// 3D MODEL CONFIGURATION
-// To replace this example 3D pod model with your own custom .glb or .gltf file:
-// 1. Place your 3D model file in the `/public/models/` folder (e.g. `/public/models/pod.glb`)
-// 2. Set `customModelUrl` below to your file path: e.g. `'/models/pod.glb'`
-// 3. The viewer will automatically load your custom 3D model!
-// ============================================================================
-const customModelUrl = ref<string>('/SleepPod1.glb') // e.g., '/models/pod.glb'
+const customModelUrl = ref<string>('/SleepPod1.glb')
 
 type ViewMode = 'interior' | 'exterior'
 const activeView = ref<ViewMode>('exterior')
-const isAutoRotating = ref(true)
+const isAutoRotating = ref(false)
 const isLoadingModel = ref(false)
 const currentAngleDegrees = ref(0)
 
@@ -30,7 +23,55 @@ let animationFrameId: number | null = null
 let podGroup: THREE.Group | null = null
 let starParticles: THREE.Points | null = null
 
-// View metadata & feature descriptions
+// Animation array for zero-gravity effect
+const animatedMeshes: {
+  mesh: THREE.Object3D
+  originalPosX: number
+  originalPosY: number
+  originalPosZ: number
+  originalRotX: number
+  originalRotY: number
+  originalRotZ: number
+  phase: number
+  type: 'pillow' | 'sheet' | 'headphone' | 'generic'
+}[] = []
+
+const interactiveMeshes: { mesh: THREE.Object3D; label: string }[] = []
+const hoveredLabel = ref<string | null>(null)
+const mousePos = ref({ x: 0, y: 0 })
+const raycaster = new THREE.Raycaster()
+const mouseVector = new THREE.Vector2(-9999, -9999)
+
+// Mouse tracking for interactivity
+let mouseX = 0
+let mouseY = 0
+let currentMouseX = 0
+let currentMouseY = 0
+
+function onPointerMove(event: PointerEvent) {
+  mouseX = (event.clientX / window.innerWidth) * 2 - 1
+  mouseY = -(event.clientY / window.innerHeight) * 2 + 1
+
+  if (canvasContainer.value) {
+    const rect = canvasContainer.value.getBoundingClientRect()
+    
+    if (event.clientX >= rect.left && event.clientX <= rect.right &&
+        event.clientY >= rect.top && event.clientY <= rect.bottom) {
+      
+      mouseVector.x = ((event.clientX - rect.left) / rect.width) * 2 - 1
+      mouseVector.y = -((event.clientY - rect.top) / rect.height) * 2 + 1
+      
+      mousePos.value = {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top
+      }
+    } else {
+      mouseVector.x = -9999
+      mouseVector.y = -9999
+    }
+  }
+}
+
 const viewMeta = computed(() => {
   if (activeView.value === 'interior') {
     return {
@@ -62,15 +103,12 @@ const viewMeta = computed(() => {
   }
 })
 
-// Build default procedural 3D example pod model
 function buildProceduralPodModel(): THREE.Group {
   const group = new THREE.Group()
 
-  // 1. Bright Pearl-White Luxury Outer Shell (Rotated horizontally)
-  // Highly detailed capsule geometry for ultra-smooth modern curves
   const shellGeo = new THREE.CapsuleGeometry(1.55, 2.3, 48, 48)
   const shellMat = new THREE.MeshStandardMaterial({
-    color: 0xf8f9fc, // Luxury Pearl White / Ivory Bright finish
+    color: 0xf8f9fc,
     roughness: 0.18,
     metalness: 0.25,
   })
@@ -80,10 +118,9 @@ function buildProceduralPodModel(): THREE.Group {
   shellMesh.receiveShadow = true
   group.add(shellMesh)
 
-  // 2. Brushed Silver / Titanium Acoustic Sealing Rings (Front & Back)
   const ringGeo = new THREE.TorusGeometry(1.57, 0.045, 24, 64)
   const ringMat = new THREE.MeshStandardMaterial({
-    color: 0xdce3f0, // Titanium silver chrome
+    color: 0xdce3f0,
     metalness: 0.9,
     roughness: 0.1,
   })
@@ -97,7 +134,6 @@ function buildProceduralPodModel(): THREE.Group {
   rightRing.position.x = 1.15
   group.add(rightRing)
 
-  // 3. Crystal-Clear Tinted Curved Glass Privacy Window/Door (+Z)
   const windowGeo = new THREE.CylinderGeometry(1.58, 1.58, 1.7, 32, 1, false, -Math.PI / 3.2, (2 * Math.PI) / 3.2)
   const windowMat = new THREE.MeshPhysicalMaterial({
     color: 0xdde7ff,
@@ -112,10 +148,9 @@ function buildProceduralPodModel(): THREE.Group {
   windowMesh.rotation.x = Math.PI / 2
   group.add(windowMesh)
 
-  // 4. Upholstered Cozy Dark Inner Cabin Liner
   const linerGeo = new THREE.CapsuleGeometry(1.47, 2.22, 32, 32)
   const linerMat = new THREE.MeshStandardMaterial({
-    color: 0x1a1a2e, // Acoustic deep indigo fabric tone
+    color: 0x1a1a2e,
     roughness: 0.9,
     side: THREE.BackSide,
   })
@@ -123,36 +158,33 @@ function buildProceduralPodModel(): THREE.Group {
   linerMesh.rotation.z = Math.PI / 2
   group.add(linerMesh)
 
-  // 5. Plush Layered Luxury Bed & Bedding
-  // Walnut wood bed frame base
   const frameGeo = new THREE.BoxGeometry(2.36, 0.14, 1.36)
   const frameMat = new THREE.MeshStandardMaterial({ color: 0x2a2421, roughness: 0.4 })
   const frameMesh = new THREE.Mesh(frameGeo, frameMat)
   frameMesh.position.set(0, -0.74, 0)
   group.add(frameMesh)
 
-  // Thick Organic Ivory Memory-Foam Mattress
   const bedGeo = new THREE.BoxGeometry(2.32, 0.28, 1.32)
   const bedMat = new THREE.MeshStandardMaterial({
-    color: 0xfffcf5, // Warm organic ivory
+    color: 0xfffcf5,
     roughness: 0.75,
   })
   const bedMesh = new THREE.Mesh(bedGeo, bedMat)
   bedMesh.position.set(0, -0.55, 0)
   bedMesh.receiveShadow = true
+  bedMesh.name = 'bed'
   group.add(bedMesh)
 
-  // Folded Quilted Duvet / Comforter draped over the foot (+X)
   const duvetGeo = new THREE.BoxGeometry(1.05, 0.08, 1.32)
   const duvetMat = new THREE.MeshStandardMaterial({
-    color: 0xe8effa, // Soft lavender-gray organic linen
+    color: 0xe8effa,
     roughness: 0.85,
   })
   const duvetMesh = new THREE.Mesh(duvetGeo, duvetMat)
   duvetMesh.position.set(0.62, -0.38, 0)
+  duvetMesh.name = 'duvet'
   group.add(duvetMesh)
 
-  // Main Sleeping Pillow at head (-X)
   const pillowGeo = new THREE.BoxGeometry(0.48, 0.16, 0.88)
   const pillowMat = new THREE.MeshStandardMaterial({
     color: 0xfffaf0,
@@ -161,59 +193,78 @@ function buildProceduralPodModel(): THREE.Group {
   const pillowMesh = new THREE.Mesh(pillowGeo, pillowMat)
   pillowMesh.position.set(-0.85, -0.36, 0)
   pillowMesh.rotation.z = 0.16
+  pillowMesh.name = 'pillow'
   group.add(pillowMesh)
 
-  // Decorative Accent Pillow (Lumbar indigo accent pillow)
   const accentPillowGeo = new THREE.BoxGeometry(0.3, 0.14, 0.55)
   const accentPillowMat = new THREE.MeshStandardMaterial({
-    color: 0x8b9bfb, // Luxury violet/lavender accent
+    color: 0x8b9bfb,
     roughness: 0.8,
   })
   const accentPillowMesh = new THREE.Mesh(accentPillowGeo, accentPillowMat)
   accentPillowMesh.position.set(-0.62, -0.35, 0)
   accentPillowMesh.rotation.z = 0.25
+  accentPillowMesh.name = 'pillow_accent'
   group.add(accentPillowMesh)
 
-  // 6. Warm Golden LED Cove Light Strips along sides of cabin
+  const hpGroup = new THREE.Group()
+  hpGroup.name = 'headphone'
+  const hpBand = new THREE.TorusGeometry(0.08, 0.015, 16, 32, Math.PI)
+  const hpMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.2 })
+  const hpBandMesh = new THREE.Mesh(hpBand, hpMat)
+  hpGroup.add(hpBandMesh)
+  const hpEarGeo = new THREE.CylinderGeometry(0.04, 0.04, 0.03, 16)
+  const hpEarMesh1 = new THREE.Mesh(hpEarGeo, hpMat)
+  hpEarMesh1.rotation.z = Math.PI / 2
+  hpEarMesh1.position.set(0.08, 0, 0)
+  hpGroup.add(hpEarMesh1)
+  const hpEarMesh2 = new THREE.Mesh(hpEarGeo, hpMat)
+  hpEarMesh2.rotation.z = Math.PI / 2
+  hpEarMesh2.position.set(-0.08, 0, 0)
+  hpGroup.add(hpEarMesh2)
+  hpGroup.position.set(-0.2, -0.4, 0.3)
+  hpGroup.rotation.x = -Math.PI / 2
+  group.add(hpGroup)
+
   const stripGeo = new THREE.BoxGeometry(2.0, 0.03, 0.03)
   const stripMat = new THREE.MeshBasicMaterial({
-    color: 0xfbbf24, // Cozy golden amber
+    color: 0xfbbf24,
   })
   const leftStrip = new THREE.Mesh(stripGeo, stripMat)
   leftStrip.position.set(0, -0.38, -0.66)
+  leftStrip.name = 'ambient_light'
   group.add(leftStrip)
 
   const rightStrip = new THREE.Mesh(stripGeo, stripMat)
   rightStrip.position.set(0, -0.38, 0.66)
+  rightStrip.name = 'ambient_light'
   group.add(rightStrip)
 
-  // 7. Entertainment Widescreen Display & Soundbar at foot (+X)
   const screenGeo = new THREE.BoxGeometry(0.05, 0.65, 1.15)
   const screenMat = new THREE.MeshStandardMaterial({
     color: 0x050711,
     emissive: 0x4d61fc,
-    emissiveIntensity: 0.75, // Vivid aurora screen glow
+    emissiveIntensity: 0.75,
     roughness: 0.15,
   })
   const screenMesh = new THREE.Mesh(screenGeo, screenMat)
   screenMesh.position.set(1.06, -0.05, 0)
+  screenMesh.name = 'entertainment_display'
   group.add(screenMesh)
 
-  // Soundbar below display
   const barGeo = new THREE.BoxGeometry(0.06, 0.08, 0.9)
   const barMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.3 })
   const barMesh = new THREE.Mesh(barGeo, barMat)
   barMesh.position.set(1.05, -0.42, 0)
   group.add(barMesh)
 
-  // 8. Multi-Color 150-Star Ceiling Constellation Canopy
   const starCount = 150
   const starPositions = new Float32Array(starCount * 3)
   const starColors = new Float32Array(starCount * 3)
   const palette = [
-    new THREE.Color(0xfff0b3), // Warm gold star
-    new THREE.Color(0xd4a5ff), // Soft violet star
-    new THREE.Color(0xffffff), // Crisp white star
+    new THREE.Color(0xfff0b3),
+    new THREE.Color(0xd4a5ff),
+    new THREE.Color(0xffffff),
   ]
   for (let i = 0; i < starCount; i++) {
     const u = Math.random() * Math.PI - Math.PI / 2
@@ -240,21 +291,18 @@ function buildProceduralPodModel(): THREE.Group {
   starParticles = new THREE.Points(starGeo, starMat)
   group.add(starParticles)
 
-  // 9. Smart NFC Scanner & Occupancy LED Indicator (+Z outside)
   const scannerGeo = new THREE.BoxGeometry(0.18, 0.35, 0.08)
   const scannerMat = new THREE.MeshStandardMaterial({ color: 0x121422, roughness: 0.4 })
   const scannerMesh = new THREE.Mesh(scannerGeo, scannerMat)
   scannerMesh.position.set(0.65, 0.1, 1.48)
   group.add(scannerMesh)
 
-  // Glowing Green Occupancy LED
   const ledGeo = new THREE.CircleGeometry(0.04, 16)
   const ledMat = new THREE.MeshBasicMaterial({ color: 0x4ade80 })
   const ledMesh = new THREE.Mesh(ledGeo, ledMat)
   ledMesh.position.set(0.65, 0.2, 1.53)
   group.add(ledMesh)
 
-  // 10. Circular Luxury Lounge Floor Platform Pad with LED Ring
   const floorGeo = new THREE.CylinderGeometry(2.5, 2.65, 0.1, 64)
   const floorMat = new THREE.MeshStandardMaterial({
     color: 0x12141c,
@@ -266,7 +314,6 @@ function buildProceduralPodModel(): THREE.Group {
   floorMesh.receiveShadow = true
   group.add(floorMesh)
 
-  // Glowing perimeter accent ring on platform
   const floorRingGeo = new THREE.TorusGeometry(2.55, 0.02, 16, 64)
   const floorRingMat = new THREE.MeshBasicMaterial({ color: 0x8b9bfb })
   const floorRingMesh = new THREE.Mesh(floorRingGeo, floorRingMat)
@@ -274,7 +321,6 @@ function buildProceduralPodModel(): THREE.Group {
   floorRingMesh.position.set(0, -1.5, 0)
   group.add(floorRingMesh)
 
-  // 11. Internal Cabin Warm Twilight & Amber Mood Lighting
   const headLight = new THREE.PointLight(0xfbbf24, 2.5, 4)
   headLight.position.set(-0.6, 0.3, 0)
   group.add(headLight)
@@ -286,11 +332,63 @@ function buildProceduralPodModel(): THREE.Group {
   return group
 }
 
-// Load custom 3D model if provided, otherwise use procedural pod
+function setupInteractivity(group: THREE.Group) {
+  interactiveMeshes.length = 0
+  group.traverse((child) => {
+    const name = child.name.toLowerCase()
+    
+    let label: string | null = null
+    
+    if (name.includes('pillow') || name.includes('cushion')) label = 'Ergonomic Pillow'
+    else if (name.includes('sheet') || name.includes('duvet') || name.includes('blanket') || name.includes('bed')) label = 'Organic Blanket'
+    else if (name.includes('headphone') || name.includes('audio') || name.includes('ear')) label = 'Noise-Cancelling Headphones'
+    else if (name.includes('projector') || name.includes('screen') || name.includes('display')) label = 'Entertainment Display'
+    else if (name.includes('hanger') || name.includes('hook') || name.includes('wardrobe')) label = 'Coat Hanger'
+    else if (name.includes('ac ') || name.includes('air') || name.includes('vent') || name.includes('hepa')) label = 'HEPA Air Vent'
+    else if (name.includes('charge') || name.includes('plug') || name.includes('socket') || name.includes('usb')) label = 'Fast Charging Point'
+    else if (name.includes('light') || name.includes('lamp') || name.includes('led')) label = 'Ambient Mood Light'
+    else if (name.includes('control') || name.includes('panel')) label = 'Smart Control Panel'
+
+    if (label && (child instanceof THREE.Mesh || child.isMesh)) {
+      interactiveMeshes.push({ mesh: child, label })
+    }
+  })
+}
+
+function setupAnimations(group: THREE.Group) {
+  animatedMeshes.length = 0
+  group.traverse((child) => {
+    const name = child.name.toLowerCase()
+    
+    let type: 'pillow' | 'sheet' | 'headphone' | 'generic' | null = null
+    
+    if (name.includes('pillow') || name.includes('cushion')) {
+      type = 'pillow'
+    } else if (name.includes('sheet') || name.includes('duvet') || name.includes('blanket') || name.includes('bed')) {
+      type = 'sheet'
+    } else if (name.includes('headphone') || name.includes('audio') || name.includes('ear')) {
+      type = 'headphone'
+    }
+
+    if (type && (child instanceof THREE.Mesh || child.isMesh || child instanceof THREE.Group)) {
+      animatedMeshes.push({
+        mesh: child,
+        originalPosX: child.position.x,
+        originalPosY: child.position.y,
+        originalPosZ: child.position.z,
+        originalRotX: child.rotation.x,
+        originalRotY: child.rotation.y,
+        originalRotZ: child.rotation.z,
+        phase: Math.random() * Math.PI * 2,
+        type
+      })
+    }
+  })
+}
+
 function loadModel() {
   if (!scene) return
 
-  // Remove existing podGroup if present
   if (podGroup) {
     scene.remove(podGroup)
     podGroup = null
@@ -307,7 +405,6 @@ function loadModel() {
       (gltf) => {
         isLoadingModel.value = false
         podGroup = gltf.scene
-        // Center and normalize scale
         const box = new THREE.Box3().setFromObject(podGroup)
         const center = box.getCenter(new THREE.Vector3())
         const size = box.getSize(new THREE.Vector3())
@@ -316,6 +413,8 @@ function loadModel() {
         podGroup.scale.setScalar(scale)
         podGroup.position.sub(center.multiplyScalar(scale))
         scene?.add(podGroup)
+        setupAnimations(podGroup)
+        setupInteractivity(podGroup)
       },
       undefined,
       (err) => {
@@ -323,23 +422,24 @@ function loadModel() {
         isLoadingModel.value = false
         podGroup = buildProceduralPodModel()
         scene?.add(podGroup)
+        setupAnimations(podGroup)
+        setupInteractivity(podGroup)
       },
     )
   } else {
     podGroup = buildProceduralPodModel()
     scene.add(podGroup)
+    setupAnimations(podGroup)
+    setupInteractivity(podGroup)
   }
 }
 
-// Camera transitions between Interior & Exterior modes
 function updateCameraForMode(mode: ViewMode) {
   if (!camera || !controls) return
   const isMobile = window.innerWidth < 640
   if (mode === 'interior') {
-    // Zoom inside through the side glass window for an immersive cabin perspective
     animateCameraTo(new THREE.Vector3(0.15, 0.1, isMobile ? 2.3 : 1.8), new THREE.Vector3(0, -0.2, -0.6))
   } else {
-    // Exterior orbital view of the full pod chassis (slightly further back on phone screens so it fits perfectly!)
     animateCameraTo(new THREE.Vector3(0, 1.3, isMobile ? 7.6 : 5.8), new THREE.Vector3(0, 0, 0))
   }
 }
@@ -348,13 +448,12 @@ function animateCameraTo(targetPos: THREE.Vector3, targetLook: THREE.Vector3) {
   if (!camera || !controls) return
   const startPos = camera.position.clone()
   const startLook = controls.target.clone()
-  const duration = 800 // ms
+  const duration = 800
   const startTime = performance.now()
 
   function step(time: number) {
     const elapsed = time - startTime
     const progress = Math.min(elapsed / duration, 1)
-    // Ease out cubic
     const ease = 1 - Math.pow(1 - progress, 3)
 
     camera?.position.lerpVectors(startPos, targetPos, ease)
@@ -373,21 +472,19 @@ watch(activeView, (newMode) => {
 })
 
 onMounted(() => {
+  window.addEventListener('pointermove', onPointerMove)
   if (!canvasContainer.value) return
 
   const width = canvasContainer.value.clientWidth || 800
   const height = canvasContainer.value.clientHeight || 500
   const isMobile = window.innerWidth < 640
 
-  // 1. Scene
   scene = new THREE.Scene()
   scene.background = new THREE.Color(0x090a10)
 
-  // 2. Camera (wider FOV and increased distance on phone screens for full visibility)
   camera = new THREE.PerspectiveCamera(isMobile ? 52 : 45, width / height, 0.1, 100)
   camera.position.set(0, 1.3, isMobile ? 7.6 : 5.8)
 
-  // 3. Renderer
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
   renderer.setSize(width, height)
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -395,7 +492,6 @@ onMounted(() => {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap
   canvasContainer.value.appendChild(renderer.domElement)
 
-  // 4. Controls
   controls = new OrbitControls(camera, renderer.domElement)
   controls.enableDamping = true
   controls.dampingFactor = 0.05
@@ -404,7 +500,6 @@ onMounted(() => {
   controls.target.set(0, 0, 0)
   controls.update()
 
-  // 5. Lighting - Enhanced for Bright Pearl White & Luxury Reflections
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.95)
   scene.add(ambientLight)
 
@@ -417,10 +512,8 @@ onMounted(() => {
   dirLight2.position.set(-5, -3, -4)
   scene.add(dirLight2)
 
-  // 6. Load Pod Model
   loadModel()
 
-  // 7. Animation Loop
   function animate() {
     animationFrameId = requestAnimationFrame(animate)
 
@@ -433,10 +526,64 @@ onMounted(() => {
       currentAngleDegrees.value = (deg + 360) % 360
     }
 
-    // Shimmer star ceiling particles
     if (starParticles) {
       starParticles.rotation.y += 0.001
     }
+    
+    // Interactive Raycasting for Tooltips
+    if (activeView.value === 'interior' && interactiveMeshes.length > 0 && camera && scene) {
+      if (mouseVector.x !== -9999) {
+        raycaster.setFromCamera(mouseVector, camera)
+        const meshesToTest = interactiveMeshes.map(m => m.mesh)
+        const intersects = raycaster.intersectObjects(meshesToTest, false)
+        
+        if (intersects.length > 0) {
+          const hit = intersects[0].object
+          const matched = interactiveMeshes.find(m => m.mesh === hit)
+          if (matched) {
+            hoveredLabel.value = matched.label
+          }
+        } else {
+          hoveredLabel.value = null
+        }
+      } else {
+        hoveredLabel.value = null
+      }
+    } else {
+      hoveredLabel.value = null
+    }
+
+    // Apply zero-gravity animations to found meshes
+    const time = Date.now() * 0.001
+    
+    // Smoothly interpolate current mouse for smooth interactive effect
+    currentMouseX += (mouseX - currentMouseX) * 0.05
+    currentMouseY += (mouseY - currentMouseY) * 0.05
+
+    animatedMeshes.forEach((item) => {
+      if (!item.mesh) return
+
+      // Very subtle floating offset (reduced amplitudes)
+      const floatY = Math.sin(time + item.phase) * 0.005
+      
+      // Interactive rotation leaning towards mouse
+      const interactRotX = currentMouseY * 0.08
+      const interactRotZ = currentMouseX * 0.08
+      
+      if (item.type === 'headphone') {
+        item.mesh.position.y = item.originalPosY + floatY * 1.5
+        item.mesh.rotation.z = item.originalRotZ + Math.sin(time * 0.8 + item.phase) * 0.03 + interactRotZ * 1.5
+        item.mesh.rotation.x = item.originalRotX + Math.cos(time * 0.7 + item.phase) * 0.02 + interactRotX * 1.5
+      } else if (item.type === 'pillow') {
+        item.mesh.position.y = item.originalPosY + floatY * 0.8
+        item.mesh.rotation.z = item.originalRotZ + Math.sin(time * 0.5 + item.phase) * 0.015 + interactRotZ * 0.5
+        item.mesh.rotation.x = item.originalRotX + interactRotX * 0.5
+      } else if (item.type === 'sheet') {
+        // Sheets gently breathe via scale and very slight position shift
+        item.mesh.scale.y = 1 + Math.sin(time * 0.4 + item.phase) * 0.004
+        item.mesh.position.y = item.originalPosY + floatY * 0.3
+      }
+    })
 
     controls?.update()
     if (renderer && scene && camera) {
@@ -445,7 +592,6 @@ onMounted(() => {
   }
   animate()
 
-  // 8. Resize Listener
   function onResize() {
     if (!canvasContainer.value || !renderer || !camera) return
     const newW = canvasContainer.value.clientWidth
@@ -458,6 +604,7 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
+  window.removeEventListener('pointermove', onPointerMove)
   if (animationFrameId !== null) {
     cancelAnimationFrame(animationFrameId)
   }
@@ -483,7 +630,7 @@ onBeforeUnmount(() => {
           Explore the Sleepy1 Pod in 3D
         </h2>
         <p class="mt-5 text-base text-ivory-100/70 sm:text-lg leading-relaxed">
-          Interact with our live 3D pod model — click and drag to rotate 360°, scroll to zoom, and explore both the exterior shell and interior cabin from any angle.
+          Interact with our live 3D pod model — click and drag to rotate 360°, scroll to zoom, and explore both the exterior shell and interior cabin from any angle. Hover over objects inside to learn more!
         </p>
 
         <!-- View Mode Switcher (Exterior / Interior) -->
@@ -524,7 +671,21 @@ onBeforeUnmount(() => {
               class="h-[380px] sm:h-[460px] md:h-auto md:aspect-[16/10] w-full relative cursor-grab active:cursor-grabbing select-none"
               style="touch-action: none;"
               aria-label="3D interactive model viewer"
-            />
+            >
+              <!-- Interactive Hover Tooltip Overlay -->
+              <Transition name="tooltip-fade">
+                <div 
+                  v-if="hoveredLabel"
+                  class="pointer-events-none absolute z-50 whitespace-nowrap rounded-lg bg-ink-950/90 border border-brand-400/30 px-3 py-1.5 text-xs font-semibold text-brand-200 backdrop-blur shadow-xl transition-transform duration-75 ease-out"
+                  :style="{ transform: `translate(${mousePos.x + 15}px, ${mousePos.y + 15}px)` }"
+                >
+                  <div class="flex items-center gap-2">
+                    <span class="h-1.5 w-1.5 rounded-full bg-brand-400 animate-pulse"></span>
+                    {{ hoveredLabel }}
+                  </div>
+                </div>
+              </Transition>
+            </div>
 
             <!-- Mobile touch helper pill badge -->
             <div class="absolute top-4 right-4 z-10 pointer-events-none sm:hidden rounded-full bg-brand-500/20 border border-brand-400/30 px-3 py-1 backdrop-blur-md">
@@ -607,5 +768,14 @@ onBeforeUnmount(() => {
 .info-fade-leave-to {
   opacity: 0;
   transform: translateY(-8px);
+}
+
+.tooltip-fade-enter-active,
+.tooltip-fade-leave-active {
+  transition: opacity 0.15s ease;
+}
+.tooltip-fade-enter-from,
+.tooltip-fade-leave-to {
+  opacity: 0;
 }
 </style>

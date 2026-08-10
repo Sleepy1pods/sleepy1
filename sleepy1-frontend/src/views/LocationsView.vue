@@ -69,8 +69,17 @@ const availableLocations = computed(() => store.filtered)
         <section v-if="availableLocations.length > 0">
           <h2 class="text-lg font-semibold text-ivory-50">Locations</h2>
           <p class="mt-1 text-sm text-ivory-100/55">Sleepy1 pod locations across universities, corporate parks, hospitals, and railway stations.</p>
-          <div class="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <LocationCard v-for="loc in availableLocations" :key="loc.id" :location="loc" />
+          <div 
+            class="mt-8 gap-6"
+            :class="availableLocations.length === 1 ? 'flex justify-center' : 'grid sm:grid-cols-2 lg:grid-cols-3'"
+          >
+            <div 
+              v-for="loc in availableLocations" 
+              :key="loc.id"
+              :class="{ 'w-full max-w-[26rem]': availableLocations.length === 1 }"
+            >
+              <LocationCard :location="loc" class="h-full w-full" />
+            </div>
           </div>
         </section>
       </template>
