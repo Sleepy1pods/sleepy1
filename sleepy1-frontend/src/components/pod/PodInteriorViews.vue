@@ -332,22 +332,34 @@ function buildProceduralPodModel(): THREE.Group {
   return group
 }
 
+function getLabelForName(name: string | undefined): string | null {
+  if (!name) return null
+  const n = name.toLowerCase()
+  if (n.includes('pillow') || n.includes('cushion')) return 'Ergonomic Pillow'
+  if (n.includes('sheet') || n.includes('duvet') || n.includes('blanket') || n.includes('bed')) return 'Organic Blanket'
+  if (n.includes('headphone') || n.includes('audio') || n.includes('ear')) return 'Noise-Cancelling Headphones'
+  if (n.includes('projector') || n.includes('screen') || n.includes('display')) return 'Entertainment Display'
+  if (n.includes('hanger') || n.includes('hook') || n.includes('wardrobe')) return 'Coat Hanger'
+  if (n.includes('ac ') || n.includes('air') || n.includes('vent') || n.includes('hepa')) return 'HEPA Air Vent'
+  if (n.includes('charge') || n.includes('plug') || n.includes('socket') || n.includes('usb')) return 'Fast Charging Point'
+  if (n.includes('light') || n.includes('lamp') || n.includes('led')) return 'Ambient Mood Light'
+  if (n.includes('control') || n.includes('panel')) return 'Smart Control Panel'
+  return null
+}
+
 function setupInteractivity(group: THREE.Group) {
   interactiveMeshes.length = 0
   group.traverse((child) => {
-    const name = child.name.toLowerCase()
+    let label = getLabelForName(child.name)
     
-    let label: string | null = null
-    
-    if (name.includes('pillow') || name.includes('cushion')) label = 'Ergonomic Pillow'
-    else if (name.includes('sheet') || name.includes('duvet') || name.includes('blanket') || name.includes('bed')) label = 'Organic Blanket'
-    else if (name.includes('headphone') || name.includes('audio') || name.includes('ear')) label = 'Noise-Cancelling Headphones'
-    else if (name.includes('projector') || name.includes('screen') || name.includes('display')) label = 'Entertainment Display'
-    else if (name.includes('hanger') || name.includes('hook') || name.includes('wardrobe')) label = 'Coat Hanger'
-    else if (name.includes('ac ') || name.includes('air') || name.includes('vent') || name.includes('hepa')) label = 'HEPA Air Vent'
-    else if (name.includes('charge') || name.includes('plug') || name.includes('socket') || name.includes('usb')) label = 'Fast Charging Point'
-    else if (name.includes('light') || name.includes('lamp') || name.includes('led')) label = 'Ambient Mood Light'
-    else if (name.includes('control') || name.includes('panel')) label = 'Smart Control Panel'
+    // Inherit label from parent hierarchy if it's a child mesh of a grouped object
+    if (!label) {
+      let parent = child.parent
+      while (parent && !label) {
+        label = getLabelForName(parent.name)
+        parent = parent.parent
+      }
+    }
 
     if (label && (child instanceof THREE.Mesh || child.isMesh)) {
       interactiveMeshes.push({ mesh: child, label })
