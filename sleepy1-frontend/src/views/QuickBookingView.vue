@@ -143,9 +143,13 @@ async function submit() {
       checkOutTime: form.checkoutTime,
       gender: form.gender
     }
+    const token = localStorage.getItem('sleepy1_auth_token')
+    const headers: any = { 'Content-Type': 'application/json' }
+    if (token) headers['Authorization'] = `Bearer ${token}`
+
     const res = await fetch('https://sleepy1-backend.onrender.com/api/bookings', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers,
       body: JSON.stringify(payload),
       credentials: 'include'
     })

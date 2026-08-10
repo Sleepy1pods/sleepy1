@@ -37,8 +37,12 @@ export const bookingService = {
 
   async getMyBookings(): Promise<Booking[]> {
     try {
+      const token = localStorage.getItem('sleepy1_auth_token')
+      const headers: any = { 'Content-Type': 'application/json' }
+      if (token) headers['Authorization'] = `Bearer ${token}`
+
       const res = await fetch('https://sleepy1-backend.onrender.com/api/bookings', {
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         credentials: 'include'
       })
       if (!res.ok) throw new Error('Failed to fetch bookings')
@@ -91,8 +95,12 @@ export const bookingService = {
 
   async getById(id: string): Promise<Booking | undefined> {
     try {
+      const token = localStorage.getItem('sleepy1_auth_token')
+      const headers: any = { 'Content-Type': 'application/json' }
+      if (token) headers['Authorization'] = `Bearer ${token}`
+
       const res = await fetch(`https://sleepy1-backend.onrender.com/api/bookings/${id}`, {
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         credentials: 'include'
       })
       if (!res.ok) throw new Error('Booking not found')

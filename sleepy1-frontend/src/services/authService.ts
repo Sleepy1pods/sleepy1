@@ -8,6 +8,7 @@ import { delay } from '@/utils/delay'
  * page reloads. Do not treat this as production authentication.
  */
 const SESSION_KEY = 'sleepy1_mock_session'
+const TOKEN_KEY = 'sleepy1_auth_token'
 
 export const authService = {
   async login(credentials: AuthCredentials): Promise<User> {
@@ -24,6 +25,10 @@ export const authService = {
     const json = await res.json()
     const userData = json.data || {}
     
+    if (json.token) {
+      localStorage.setItem(TOKEN_KEY, json.token)
+    }
+
     const user = {
       ...mockUser,
       id: userData._id || userData.id || `usr-${Date.now()}`,
@@ -57,6 +62,10 @@ export const authService = {
     const json = await res.json()
     const userData = json.data || {}
     
+    if (json.token) {
+      localStorage.setItem(TOKEN_KEY, json.token)
+    }
+    
     const user: User = {
       ...mockUser,
       id: userData._id || userData.id || `usr-${Date.now()}`,
@@ -87,14 +96,17 @@ export const authService = {
 
   async logout(): Promise<void> {
     try {
+      const token = localStorage.getItem(TOKEN_KEY)
       await fetch('https://sleepy1-backend.onrender.com/api/auth/logout', { 
         method: 'POST',
+        headers: token ? { 'Authorization': `Bearer ${token}` } : undefined,
         credentials: 'include'
       })
     } catch (e) {
       console.warn('Logout request failed', e)
     }
     localStorage.removeItem(SESSION_KEY)
+    localStorage.removeItem(TOKEN_KEY)
   },
 
   restoreSession(): User | null {
@@ -109,8 +121,12 @@ export const authService = {
 
   async fetchUser(): Promise<User | null> {
     try {
+      const token = localStorage.getItem(TOKEN_KEY)
+      const headers: any = { 'Content-Type': 'application/json' }
+      if (token) headers['Authorization'] = `Bearer ${token}`
+
       const res = await fetch('https://sleepy1-backend.onrender.com/api/auth/me', {
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         credentials: 'include'
       })
       if (!res.ok) return null
