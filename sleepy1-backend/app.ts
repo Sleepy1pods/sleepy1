@@ -40,6 +40,7 @@ app.get("/", (req, res) => {
   });
 });
 
+
 app.use('/api/auth', authRoute);
 app.use('/api/bookings', bookingRoute);
 app.use('/api/newsletter', newsletterRoute);
