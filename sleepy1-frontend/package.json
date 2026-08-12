@@ -9,7 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/dompurify": "^3.0.5",
+    "dompurify": "^3.4.13",
     "leaflet": "^1.9.4",
+    "marked": "^18.0.9",
     "pinia": "^4.0.2",
     "qrcode.vue": "^3.10.0",
     "three": "^0.185.1",

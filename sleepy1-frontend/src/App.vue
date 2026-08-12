@@ -6,6 +6,7 @@ import AppFooter from '@/components/layout/AppFooter.vue'
 import MobileMenu from '@/components/layout/MobileMenu.vue'
 import ToastNotification from '@/components/common/ToastNotification.vue'
 import StarryBackground from '@/components/common/StarryBackground.vue'
+import ChatbotWidget from '@/components/common/ChatbotWidget.vue'
 import { useUiStore } from '@/stores/ui'
 
 const route = useRoute()
@@ -34,6 +35,7 @@ watch(
     <AppFooter class="relative z-20" />
     <MobileMenu />
     <ToastNotification />
+    <ChatbotWidget />
   </div>
 </template>
 
