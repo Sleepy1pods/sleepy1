@@ -67,14 +67,14 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
         <router-link
           v-else
           to="/login"
-          aria-label="Login"
-          class="flex h-10 w-10 items-center justify-center rounded-full text-ivory-100/70 transition-colors hover:bg-white/5 hover:text-ivory-50"
+          class="flex items-center gap-2 rounded-full px-2 py-1.5 text-sm font-medium text-brand-400 transition-colors hover:bg-white/5 hover:text-brand-300"
         >
           <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 21c0-4 3.5-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
+          <span>Login</span>
         </router-link>
-        <PrimaryButton as="RouterLink" to="/quick-book" size="sm">Book Now</PrimaryButton>
+        <PrimaryButton as="RouterLink" to="/quick-book" size="sm">Book</PrimaryButton>
       </div>
 
       <button

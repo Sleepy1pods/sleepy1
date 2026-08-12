@@ -8,7 +8,7 @@ import HomeNewsletter from '@/components/home/HomeNewsletter.vue'
 import type { Faq } from '@/types/common'
 
 usePageMeta({
-  title: 'Sleepy1 Insider Club | Newsletter & Promo Codes',
+  title: 'Insider Club | Newsletter & Promo Codes',
   description:
     'Join the Sleepy1 Insider Club. Get weekly rest tips, circadian sleep science, and an instant welcome promo code for 100 free sleep credits.',
 })

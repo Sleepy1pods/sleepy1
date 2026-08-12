@@ -11,7 +11,7 @@ import AboutBrandValues from '@/components/about/AboutBrandValues.vue'
 import AboutDesignPhilosophy from '@/components/about/AboutDesignPhilosophy.vue'
 
 usePageMeta({
-  title: 'About Sleepy1',
+  title: 'About',
   description: 'Sleepy1 is working to make safe, private rest more accessible in places where people travel, wait, and spend long hours — starting with campuses and hospitals, and expanding to more high-footfall locations.',
 })
 </script>

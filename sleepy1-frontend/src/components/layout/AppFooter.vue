@@ -130,10 +130,9 @@ async function subscribe() {
         </div>
       </div>
 
-      <!-- Footer Bottom Copyright & Support -->
-      <div class="mt-12 flex flex-col gap-3 border-t border-white/15 pt-8 text-xs font-medium text-ivory-100/60 sm:flex-row sm:items-center sm:justify-between">
+      <!-- Footer Bottom Copyright -->
+      <div class="mt-12 text-xs font-medium text-ivory-100/60">
         <p>© 2026 Sleepy1. Your Pod, Your Mode. · IIIT Dharwad Research Park</p>
-        <p>Support: <a href="mailto:sleepy1.pods@gmail.com" class="transition-colors hover:text-white">sleepy1.pods@gmail.com</a></p>
       </div>
     </div>
   </footer>

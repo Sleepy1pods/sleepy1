@@ -3,7 +3,7 @@ import { usePageMeta } from '@/composables/usePageMeta'
 import { privacyPolicySections } from '@/data/legal'
 import LegalPageLayout from '@/components/common/LegalPageLayout.vue'
 
-usePageMeta({ title: 'Privacy Policy', description: 'Sleepy1 Privacy Policy — placeholder content pending legal review.' })
+usePageMeta({ title: 'Privacy Policy', description: 'Read the Sleepy1 Privacy Policy to learn how we collect, use, and protect your information.' })
 </script>
 
 <template>

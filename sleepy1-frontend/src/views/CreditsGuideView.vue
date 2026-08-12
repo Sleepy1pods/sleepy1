@@ -10,7 +10,7 @@ import DreamCard from '@/components/common/DreamCard.vue'
 import CreditsHowToUseDeck from '@/components/credits/CreditsHowToUseDeck.vue'
 
 usePageMeta({
-  title: 'Sleepy1 Credits Program — What Are Credits, How to Earn & How to Use',
+  title: 'Credits Program — What Are Credits, How to Earn & How to Use',
   description:
     'Learn about Sleepy1 Credits: the universal currency for pod sleep. 1 Credit = ₹1. Never expires, zero transaction fees, instant keyless pod entry, and loyalty cashbacks.',
 })

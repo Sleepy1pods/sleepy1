@@ -23,7 +23,7 @@ function setMetaTag(name: string, content: string, attr: 'name' | 'property' = '
 export function usePageMeta(options: PageMetaOptions | (() => PageMetaOptions)) {
   watchEffect(() => {
     const { title, description, image } = typeof options === 'function' ? options() : options
-    const fullTitle = `${title} · Sleepy1`
+    const fullTitle = title === 'Sleepy1' ? title : `Sleepy1 · ${title}`
     const imageUrl = window.location.origin + (image ?? DEFAULT_OG_IMAGE)
     document.title = fullTitle
     setMetaTag('description', description)
