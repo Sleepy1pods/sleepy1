@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import PodVisual from '@/components/common/PodVisual.vue'
 import AmenityIcon from '@/components/common/AmenityIcon.vue'
 import type { AmenityIcon as AmenityIconType } from '@/types/common'
 
