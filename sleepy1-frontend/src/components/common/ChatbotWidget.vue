@@ -67,18 +67,30 @@
       </div>
     </Transition>
 
-    <!-- Floating Button -->
-    <button 
-      @click="isOpen = !isOpen"
-      class="w-14 h-14 bg-brand-600 hover:bg-brand-700 text-white rounded-full shadow-lg flex items-center justify-center transition-transform hover:scale-105 active:scale-95"
-    >
-      <svg v-if="!isOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-      </svg>
-      <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </button>
+    <!-- Floating Button Container -->
+    <div class="relative">
+      <!-- Pinging background/border animation when closed -->
+      <div 
+        v-if="!isOpen"
+        class="absolute inset-0 bg-brand-600 rounded-full animate-ping opacity-75"
+      ></div>
+      
+      <!-- Actual Button -->
+      <button 
+        @click="isOpen = !isOpen"
+        class="relative w-14 h-14 bg-brand-600 hover:bg-brand-700 text-white rounded-full shadow-lg flex items-center justify-center transition-transform hover:scale-105 active:scale-95 z-10"
+      >
+        <img 
+          v-if="!isOpen" 
+          src="/Logo.png" 
+          alt="Chat Assistant" 
+          class="h-8 w-8 object-contain" 
+        />
+        <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
   </div>
 </template>
 
