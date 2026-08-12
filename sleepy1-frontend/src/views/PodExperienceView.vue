@@ -31,7 +31,7 @@ usePageMeta({
           <PrimaryButton as="RouterLink" to="/book" size="lg" class="mt-8">Book a Pod →</PrimaryButton>
         </div>
         <div class="overflow-hidden rounded-3xl shadow-premium">
-          <PodVisual id="pod-interior-2" variant="interior" class="aspect-[4/3] w-full" rounded="rounded-3xl" />
+          <img src="/pod4.png" alt="Pod Interior" class="aspect-[4/3] w-full object-cover rounded-3xl" />
         </div>
       </div>
     </section>

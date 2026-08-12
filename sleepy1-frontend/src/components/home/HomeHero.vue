@@ -113,7 +113,7 @@ import HeroAtmosphere from '@/components/home/HeroAtmosphere.vue'
 
       <div class="reveal pb-20 [animation-delay:120ms] sm:pb-28 lg:col-span-5 lg:pb-36">
         <div class="mx-auto aspect-[4149/3638] max-w-lg overflow-hidden rounded-3xl shadow-premium">
-          <img src="/pod-hero.jpg" alt="Sleepy1 smart rest pod" class="h-full w-full object-cover" />
+          <img src="/pod1.png" alt="Sleepy1 smart rest pod" class="h-full w-full object-cover" />
         </div>
       </div>
     </div>
