@@ -147,7 +147,7 @@ const sendMessage = async () => {
     // We pass the conversation history as well
     const historyPayload = messages.value.slice(0, -1)
     
-    const response = await fetch(`${API_URL}/chatbot/chat`, {
+    const response = await fetch(`https://sleepy1-backend.onrender.com/api/chatbot/chat`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
