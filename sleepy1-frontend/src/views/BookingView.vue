@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, watchEffect } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useBookingFlowStore } from '@/stores/bookingFlow'
-import { useAuthStore } from '@/stores/auth'
-import { useUiStore } from '@/stores/ui'
 import { usePageMeta } from '@/composables/usePageMeta'
 import BookingStepper from '@/components/booking/BookingStepper.vue'
 import BookingStepSelect from '@/components/booking/BookingStepSelect.vue'
@@ -17,10 +15,7 @@ usePageMeta({
 })
 
 const route = useRoute()
-const router = useRouter()
 const flow = useBookingFlowStore()
-const auth = useAuthStore()
-const ui = useUiStore()
 
 const steps = [
   { key: 'select', label: 'Select Pod' },

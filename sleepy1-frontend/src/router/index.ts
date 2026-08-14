@@ -1,7 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import { useUiStore } from '@/stores/ui'
-
 declare module 'vue-router' {
   interface RouteMeta {
     requiresAuth?: boolean

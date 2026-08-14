@@ -111,7 +111,7 @@ async function payNow() {
       image: 'https://cdn-icons-png.flaticon.com/512/3003/3003984.png',
       handler: function (response: any) {
         console.log('Razorpay Payment Success:', response)
-        executePaymentConfirm(response.razorpay_payment_id || `pay_${Date.now()}`)
+        executePaymentConfirm()
       },
       prefill: {
         name: flow.draft.guest?.fullName || 'Guest',
@@ -156,7 +156,7 @@ async function payNow() {
   await executePaymentConfirm()
 }
 
-async function executePaymentConfirm(razorpayId?: string) {
+async function executePaymentConfirm() {
   isPaying.value = true
   try {
     if (flow.draft.creditsToApply > 0) {

@@ -2,7 +2,6 @@
 import { reactive, ref, watch, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUiStore } from '@/stores/ui'
-import { useAuthStore } from '@/stores/auth'
 import { bookingService } from '@/services/bookingService'
 import { usePageMeta } from '@/composables/usePageMeta'
 import FormField from '@/components/common/FormField.vue'
@@ -12,7 +11,6 @@ import PrimaryButton from '@/components/common/PrimaryButton.vue'
 usePageMeta({ title: 'Quick Book', description: 'Quickly book a pod in seconds.' })
 
 const ui = useUiStore()
-const auth = useAuthStore()
 const router = useRouter()
 
 const todayDate = new Date()
