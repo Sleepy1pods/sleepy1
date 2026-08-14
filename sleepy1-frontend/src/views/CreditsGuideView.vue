@@ -200,7 +200,7 @@ const creditsFaqs = [
         <CreditsHowToUseDeck />
 
         <div class="mt-14 flex justify-center">
-          <PrimaryButton as="RouterLink" to="/book" size="lg">Try booking a pod</PrimaryButton>
+          <PrimaryButton as="RouterLink" to="/quick-book" size="lg">Try booking a pod</PrimaryButton>
         </div>
       </div>
     </section>

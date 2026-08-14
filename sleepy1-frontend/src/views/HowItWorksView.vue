@@ -33,7 +33,7 @@ usePageMeta({
     </section>
 
     <section class="py-20 text-center">
-      <PrimaryButton as="RouterLink" to="/book" size="lg">Start Your Booking →</PrimaryButton>
+      <PrimaryButton as="RouterLink" to="/quick-book" size="lg">Start Your Booking →</PrimaryButton>
     </section>
   </div>
 </template>

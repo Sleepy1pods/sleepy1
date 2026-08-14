@@ -107,7 +107,7 @@ async function handleLogout() {
                 </button> -->
               </div>
 
-              <PrimaryButton as="RouterLink" to="/book" full-width @click="ui.closeMobileMenu()">
+              <PrimaryButton as="RouterLink" to="/quick-book" full-width @click="ui.closeMobileMenu()">
                 Book a Pod
               </PrimaryButton>
               <!-- <PrimaryButton as="a" href="https://docs.google.com/forms/your-form-link-here" target="_blank" full-width @click="ui.closeMobileMenu()">

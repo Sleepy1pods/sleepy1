@@ -136,11 +136,10 @@ const isSlotPast = (slotValue: string) => {
 }
 
 async function submit() {
-  // if (!auth.isAuthenticated) {
-  //   ui.pushToast({ type: 'error', title: 'Authentication Required', description: 'You must be logged in to book a pod. Please log in first.' })
-  //   router.push('/login')
-  //   return
-  // }
+  if (!form.checkinTime) {
+    ui.pushToast({ type: 'error', title: 'Missing Time Slot', description: 'Please select an available time slot before booking.' })
+    return
+  }
 
   isSubmitting.value = true
   try {

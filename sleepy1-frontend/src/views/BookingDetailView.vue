@@ -122,7 +122,7 @@ async function cancelBooking() {
         </button>
       </div>
       <div v-else class="mt-10">
-        <PrimaryButton as="RouterLink" to="/book">Book Another Pod</PrimaryButton>
+        <PrimaryButton as="RouterLink" to="/quick-book">Book Another Pod</PrimaryButton>
       </div>
     </div>
 

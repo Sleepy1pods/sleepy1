@@ -95,7 +95,7 @@ usePageMeta({
         <h2 class="text-balance font-display text-3xl font-medium text-ivory-50 sm:text-4xl">Join us in redefining rest.</h2>
         <p class="mx-auto mt-3 max-w-lg text-ivory-100/65">Book your first Sleepy1 pod, or reach out about bringing Sleepy1 to your location.</p>
         <div class="mt-8 flex justify-center">
-          <PrimaryButton as="RouterLink" to="/book" size="lg">Book a pod</PrimaryButton>
+          <PrimaryButton as="RouterLink" to="/quick-book" size="lg">Book a pod</PrimaryButton>
         </div>
       </div>
     </section>

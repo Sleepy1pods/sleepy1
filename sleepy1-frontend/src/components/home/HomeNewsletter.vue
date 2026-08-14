@@ -139,7 +139,7 @@ function resetForm() {
               </div>
 
               <div class="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-center">
-                <PrimaryButton as="RouterLink" to="/book" size="sm">Book a pod now</PrimaryButton>
+                <PrimaryButton as="RouterLink" to="/quick-book" size="sm">Book a pod now</PrimaryButton>
                 <button type="button" class="rounded-lg border border-white/10 px-4 py-2 text-xs font-medium text-ivory-100/60 hover:border-white/20 hover:text-ivory-50" @click="resetForm">
                   Subscribe another email
                 </button>

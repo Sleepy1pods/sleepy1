@@ -27,7 +27,7 @@ usePageMeta({
           <p class="mt-5 max-w-lg text-lg leading-relaxed text-ivory-100/65">
             Every Sleepy1 pod combines essential smart features, hospitality-grade hygiene, and modular mobility — built purely around one thing: genuine, uninterrupted rest.
           </p>
-          <PrimaryButton as="RouterLink" to="/book" size="lg" class="mt-8">Book a Pod →</PrimaryButton>
+          <PrimaryButton as="RouterLink" to="/quick-book" size="lg" class="mt-8">Book a Pod →</PrimaryButton>
         </div>
         <div class="overflow-hidden rounded-3xl shadow-premium">
           <img src="/pod4.png" alt="Pod Interior" class="aspect-[4/3] w-full object-cover rounded-3xl" />

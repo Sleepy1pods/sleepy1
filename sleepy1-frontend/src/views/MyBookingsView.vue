@@ -64,7 +64,7 @@ async function confirmReschedule() {
           title="No upcoming bookings"
           description="Book a pod for your next journey and it will appear here."
           action-label="Book a Pod"
-          @action="$router.push('/book')"
+          @action="$router.push('/quick-book')"
         />
         <div v-else class="mt-4 space-y-4">
           <BookingCard

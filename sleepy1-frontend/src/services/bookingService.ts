@@ -7,14 +7,38 @@ import { formatDate, generateBookingReference } from '@/utils/format'
 import { calculatePricing, getPodPriceForLocation } from '@/utils/pricing'
 import { creditService } from '@/services/creditService'
 
-let sessionBookings: Booking[] = [...mockBookings]
+let sessionBookings: Booking[] = []
 
+function loadSessionBookings() {
+  try {
+    const stored = localStorage.getItem('sleepy1_session_bookings')
+    if (stored) {
+      sessionBookings = JSON.parse(stored)
+    } else {
+      sessionBookings = [...mockBookings]
+      saveSessionBookings()
+    }
+  } catch (e) {
+    sessionBookings = [...mockBookings]
+  }
+}
+
+function saveSessionBookings() {
+  try {
+    localStorage.setItem('sleepy1_session_bookings', JSON.stringify(sessionBookings))
+  } catch (e) {
+    console.error('Failed to save bookings to localStorage', e)
+  }
+}
+
+loadSessionBookings()
 export const bookingService = {
   async getExtras() {
     return delay(bookingExtras)
   },
 
   async getBookedSlots(date: string): Promise<string[]> {
+    loadSessionBookings() // Ensure fresh data from localStorage
     return sessionBookings
       .filter(b => b.date === date && b.status !== 'cancelled')
       .map(b => b.checkIn)
@@ -132,6 +156,7 @@ export const bookingService = {
     }
 
     sessionBookings = [booking, ...sessionBookings]
+    saveSessionBookings()
     return delay(booking, 500)
   },
 
@@ -155,6 +180,7 @@ export const bookingService = {
       createdAt: new Date().toISOString(),
       qrValue: ''
     })
+    saveSessionBookings()
   },
 
   async cancel(id: string): Promise<Booking | undefined> {
@@ -167,11 +193,13 @@ export const bookingService = {
       )
     }
     sessionBookings = sessionBookings.map((b) => (b.id === id ? { ...b, status: 'cancelled' } : b))
+    saveSessionBookings()
     return delay(sessionBookings.find((b) => b.id === id))
   },
 
   async reschedule(id: string, date: string, checkIn: string): Promise<Booking | undefined> {
     sessionBookings = sessionBookings.map((b) => (b.id === id ? { ...b, date, checkIn, status: 'upcoming' } : b))
+    saveSessionBookings()
     return delay(sessionBookings.find((b) => b.id === id))
   },
 }

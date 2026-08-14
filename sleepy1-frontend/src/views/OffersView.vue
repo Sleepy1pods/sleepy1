@@ -27,7 +27,7 @@ function onCopy(code: string) {
         title="New here? Get 20% off your first pod."
         description="Use code FIRSTSLEEP at checkout on any Sleepy1 location."
         cta-label="Book Your First Pod"
-        cta-to="/book"
+        cta-to="/quick-book"
       />
     </div>
 

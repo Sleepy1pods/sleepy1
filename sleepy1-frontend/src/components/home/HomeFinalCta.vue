@@ -18,7 +18,7 @@ import SectionHeading from '@/components/common/SectionHeading.vue'
         class="mx-auto"
       />
       <div class="mt-8 flex justify-center">
-        <PrimaryButton as="RouterLink" to="/book" size="lg">Book your pod</PrimaryButton>
+        <PrimaryButton as="RouterLink" to="/quick-book" size="lg">Book your pod</PrimaryButton>
         <!-- <PrimaryButton as="a" href="https://docs.google.com/forms/your-form-link-here" target="_blank" size="lg">Book your pod</PrimaryButton> -->
       </div>
     </div>

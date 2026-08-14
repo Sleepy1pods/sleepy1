@@ -49,7 +49,7 @@ useStructuredData(() =>
     </div>
 
     <div class="mt-12 border-t border-white/10 pt-8 text-center">
-      <PrimaryButton as="RouterLink" to="/book">Book a Pod For Your Next Trip →</PrimaryButton>
+      <PrimaryButton as="RouterLink" to="/quick-book">Book a Pod For Your Next Trip →</PrimaryButton>
     </div>
 
     <HomeNewsletter class="mt-8" />

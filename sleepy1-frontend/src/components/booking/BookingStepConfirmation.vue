@@ -97,6 +97,6 @@ const directionsHref = ref(
   </div>
   <div v-else class="mx-auto max-w-lg text-center">
     <p class="text-ivory-100/60">No booking found in this session yet.</p>
-    <PrimaryButton as="RouterLink" to="/book" class="mt-6">Start a Booking</PrimaryButton>
+    <PrimaryButton as="RouterLink" to="/quick-book" class="mt-6">Start a Booking</PrimaryButton>
   </div>
 </template>

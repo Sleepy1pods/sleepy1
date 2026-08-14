@@ -128,7 +128,7 @@ const facilitiesFaqs = computed(() => getFaqsByCategory('facilities').slice(0, 4
             <div class="flex justify-between"><dt class="text-ivory-100/60">Hours</dt><dd class="text-ivory-50">{{ location.operatingHours.is24x7 ? '24/7' : `${location.operatingHours.opens} – ${location.operatingHours.closes}` }}</dd></div>
             <div class="flex justify-between"><dt class="text-ivory-100/60">Hub type</dt><dd class="capitalize text-ivory-50">{{ location.hubType.replace('-', ' ') }}</dd></div>
           </dl>
-          <PrimaryButton as="RouterLink" :to="`/book?location=${location.slug}`" full-width class="mt-6">Book This Pod</PrimaryButton>
+          <PrimaryButton as="RouterLink" to="/quick-book" full-width class="mt-6">Book This Pod</PrimaryButton>
         </div>
       </aside>
     </div>
