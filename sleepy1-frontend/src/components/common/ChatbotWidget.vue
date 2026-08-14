@@ -69,11 +69,7 @@
 
     <!-- Floating Button Container -->
     <div class="relative">
-      <!-- Pinging background/border animation when closed -->
-      <div 
-        v-if="!isOpen"
-        class="absolute inset-0 bg-brand-600 rounded-full animate-ping opacity-75"
-      ></div>
+      <!-- Pinging background/border animation when closed removed -->
       
       <!-- Actual Button -->
       <button 
