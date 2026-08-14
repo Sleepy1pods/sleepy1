@@ -4,42 +4,115 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ══════════════════════════════════════════════
+   COLOR TOKENS — exact values provided by user
+   Light  → white bg, dark text
+   Dark   → #0A0A0A bg, white text
+══════════════════════════════════════════════ */
 @layer base {
   :root {
+    /* Light theme (default) */
+    --bg:              #FFFFFF;
+    --surface:         #F5F5F5;
+    --border:          #E0E0E0;
+    --text-primary:    #0A0A0A;
+    --text-secondary:  #9E9E9E;
+    --text-muted:      #6B6B6B;
+    --cta-bg:          #0A0A0A;
+    --cta-text:        #FFFFFF;
+    /* For opacity utilities */
+    --text-primary-rgb:   10 10 10;
+    --text-secondary-rgb: 158 158 158;
+    color-scheme: light;
+  }
+
+  .dark {
+    --bg:              #0A0A0A;
+    --surface:         #1A1A1A;
+    --border:          #2E2E2E;
+    --text-primary:    #FFFFFF;
+    --text-secondary:  #9E9E9E;
+    --text-muted:      #6B6B6B;
+    --cta-bg:          #FFFFFF;
+    --cta-text:        #0A0A0A;
+    --text-primary-rgb:   255 255 255;
+    --text-secondary-rgb: 158 158 158;
     color-scheme: dark;
   }
 
+  /* ── GLOBAL overrides: every element inherits theme ── */
   html {
     scroll-behavior: smooth;
+    background-color: var(--bg) !important;
+    color: var(--text-primary) !important;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  body {
+    background-color: var(--bg) !important;
+    color: var(--text-primary) !important;
+    @apply antialiased font-sans;
+    font-feature-settings: 'ss01' 1, 'cv01' 1;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  /* ── Override ALL the hardcoded dark Tailwind classes ──
+     Any element that has bg-ink-* or text-ivory-* will
+     now follow the theme via these forced overrides.      */
+
+  /* bg-black, bg-ink-950 → always use --bg */
+  .bg-black,
+  [class*='bg-ink-950'],
+  [class*='bg-ink-900'],
+  [class*='bg-ink-800'],
+  [class*='bg-ink-700'],
+  [class*='bg-ink-600'] {
+    background-color: var(--surface) !important;
+  }
+
+  /* The root wrapper (App.vue) keeps true bg */
+  .bg-ink-950.flex.min-h-screen {
+    background-color: var(--bg) !important;
+  }
+
+  /* text-ivory-50 / text-ivory-100 → text-primary / text-secondary */
+  [class*='text-ivory-50']:not([class*='focus']):not([class*='hover']):not([class*='active']) {
+    color: var(--text-primary) !important;
+  }
+  [class*='text-ivory-100']:not([class*='focus']):not([class*='hover']):not([class*='active']) {
+    color: var(--text-secondary) !important;
+  }
+  [class*='text-ivory-200']:not([class*='focus']):not([class*='hover']):not([class*='active']) {
+    color: var(--text-muted) !important;
+  }
+
+  /* border-white/* → border-theme */
+  [class*='border-white'] {
+    border-color: var(--border) !important;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold;
+    color: var(--text-primary);
+  }
+
+  ::selection {
+    background-color: var(--cta-bg);
+    color: var(--cta-text);
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-offset-2 rounded-sm;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
+    html { scroll-behavior: auto; }
     *, *::before, *::after {
       animation-duration: 0.001ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.001ms !important;
       scroll-behavior: auto !important;
     }
-  }
-
-  body {
-    @apply bg-ink-950 text-ivory-100 antialiased font-sans;
-    font-feature-settings: 'ss01' 1, 'cv01' 1;
-  }
-
-  h1, h2, h3, h4 {
-    @apply font-display font-bold;
-  }
-
-  ::selection {
-    @apply bg-brand-500/40 text-ivory-50;
-  }
-
-  :focus-visible {
-    @apply outline-none ring-2 ring-brand-400 ring-offset-2 ring-offset-ink-950 rounded-sm;
   }
 }
 
@@ -49,7 +122,8 @@
   }
 
   .eyebrow {
-    @apply inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-brand-300;
+    @apply inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase;
+    color: var(--text-secondary);
   }
 
   .section-pad {
@@ -57,16 +131,19 @@
   }
 
   .card-surface {
-    @apply bg-ink-800/70 border border-white/10 rounded-2xl shadow-soft backdrop-blur-sm transition-[transform,box-shadow,border-color] duration-300 ease-out;
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.04), 0 2px 24px -4px rgba(0, 0, 0, 0.25);
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    @apply rounded-2xl shadow-soft transition-[transform,box-shadow,border-color] duration-300 ease-out;
   }
 
   .card-surface:hover {
-    @apply border-white/15;
+    box-shadow: 0 4px 32px -8px rgba(0,0,0,0.12);
   }
 
   .glass-surface {
-    @apply bg-white/5 border border-white/10 backdrop-blur-xl;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    @apply backdrop-blur-xl;
   }
 
   .btn-base {
@@ -97,4 +174,12 @@
   .link-underline:focus-visible {
     background-size: 100% 1px;
   }
+
+  /* Direct helper utilities */
+  .text-primary   { color: var(--text-primary) !important; }
+  .text-secondary { color: var(--text-secondary) !important; }
+  .text-muted     { color: var(--text-muted) !important; }
+  .bg-surface     { background-color: var(--surface) !important; }
+  .bg-page        { background-color: var(--bg) !important; }
+  .border-theme   { border-color: var(--border) !important; }
 }

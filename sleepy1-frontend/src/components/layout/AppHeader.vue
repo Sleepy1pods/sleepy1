@@ -5,6 +5,7 @@ import { useUiStore } from '@/stores/ui'
 import { primaryNav } from '@/data/navigation'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import UserMenu from '@/components/layout/UserMenu.vue'
+import ThemeToggle from '@/components/common/ThemeToggle.vue'
 
 const auth = useAuthStore()
 const ui = useUiStore()
@@ -15,13 +16,8 @@ function onScroll() {
   if (!ticking) {
     window.requestAnimationFrame(() => {
       const y = window.scrollY
-      // 40px hysteresis gap (activate above 50px, deactivate below 10px)
-      // Prevents padding/height shifts from causing a scroll-oscillation glitch loop
-      if (!isScrolled.value && y > 50) {
-        isScrolled.value = true
-      } else if (isScrolled.value && y < 10) {
-        isScrolled.value = false
-      }
+      if (!isScrolled.value && y > 50) isScrolled.value = true
+      else if (isScrolled.value && y < 10) isScrolled.value = false
       ticking = false
     })
     ticking = true
@@ -41,11 +37,17 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       class="mx-auto flex items-center justify-between transition-all duration-300 ease-out"
       :class="[
         isScrolled
-          ? 'max-w-full rounded-none border-b border-white/10 bg-ink-950/95 px-6 py-3.5 backdrop-blur-2xl shadow-xl sm:px-10'
-          : 'max-w-6xl rounded-2xl border border-white/15 bg-ink-950/80 px-6 py-3.5 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.6)] sm:px-8',
+          ? 'max-w-full rounded-none px-6 py-3.5 backdrop-blur-2xl shadow-sm sm:px-10'
+          : 'max-w-6xl rounded-2xl px-6 py-3.5 backdrop-blur-2xl shadow-soft sm:px-8',
       ]"
+      :style="{
+        backgroundColor: isScrolled ? 'rgba(var-color-bg, 0.97)' : 'var(--bg)',
+        borderBottom: isScrolled ? '1px solid var(--border)' : 'none',
+        border: !isScrolled ? '1px solid var(--border)' : '',
+      }"
+      style="background-color: var(--bg); border-color: var(--border);"
     >
-      <router-link to="/" class="flex items-center gap-2 text-lg font-semibold tracking-[0.15em] text-ivory-50">
+      <router-link to="/" class="flex items-center gap-2 text-lg font-semibold tracking-[0.15em]" :style="{ color: 'var(--text-primary)' }">
         <img src="/Logo.png" alt="Sleepy1 Icon" class="h-9 w-9 object-contain" />
         <img src="/Logo-text.png" alt="Sleepy1 Text" class="h-6 object-contain" />
       </router-link>
@@ -55,32 +57,24 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
           v-for="item in primaryNav"
           :key="item.to"
           :to="item.to"
-          class="link-underline text-sm font-medium text-ivory-100/70 transition-colors hover:text-ivory-50"
-          active-class="text-ivory-50 !bg-[length:100%_1px]"
+          class="link-underline text-sm font-medium transition-colors"
+          :style="{ color: 'var(--text-secondary)' }"
+          active-class="!text-primary"
         >
           {{ item.label }}
         </router-link>
       </nav>
 
-      <div class="hidden items-center gap-5 lg:flex">
+      <div class="hidden items-center gap-4 lg:flex">
         <UserMenu v-if="auth.isAuthenticated" />
-        <!-- <router-link
-          v-else
-          to="/login"
-          class="flex items-center gap-2 rounded-full px-2 py-1.5 text-sm font-medium text-brand-400 transition-colors hover:bg-white/5 hover:text-brand-300"
-        >
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 21c0-4 3.5-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-          <span>Login</span>
-        </router-link> -->
+        <ThemeToggle />
         <PrimaryButton as="RouterLink" to="/quick-book" size="sm">Book</PrimaryButton>
-        <!-- <PrimaryButton as="a" href="https://docs.google.com/forms/your-form-link-here" target="_blank" size="sm">Book</PrimaryButton> -->
       </div>
 
       <button
         type="button"
-        class="flex h-11 w-11 items-center justify-center rounded-full text-ivory-100 transition-colors hover:bg-white/5 lg:hidden"
+        class="flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-black/5 dark:hover:bg-white/5 lg:hidden"
+        :style="{ color: 'var(--text-primary)' }"
         aria-label="Open menu"
         :aria-expanded="ui.isMobileMenuOpen"
         @click="ui.openMobileMenu()"

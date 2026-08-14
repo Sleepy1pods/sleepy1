@@ -37,10 +37,11 @@ const sizeClasses: Record<string, string> = {
     :type="as === 'button' ? type : undefined"
     :disabled="as === 'button' ? disabled || loading : undefined"
     :class="[
-      'btn-base bg-brand-400 text-ink-950 shadow-soft transition-[background-color,box-shadow,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-brand-300 hover:shadow-glow hover:-translate-y-px active:translate-y-0 active:bg-brand-500',
+      'btn-base shadow-soft transition-all duration-200 hover:opacity-85 hover:-translate-y-px active:translate-y-0 active:opacity-70',
       sizeClasses[size],
       fullWidth ? 'w-full' : '',
     ]"
+    :style="{ backgroundColor: 'var(--cta-bg)', color: 'var(--cta-text)' }"
   >
     <svg v-if="loading" class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
