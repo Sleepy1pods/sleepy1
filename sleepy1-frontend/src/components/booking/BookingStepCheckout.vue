@@ -165,10 +165,8 @@ async function executePaymentConfirm(razorpayId?: string) {
     await flow.confirmBooking()
     ui.pushToast({
       type: 'success',
-      title: razorpayId ? 'Payment Complete via Razorpay!' : 'Booking confirmed',
-      description: razorpayId
-        ? `Your pod is reserved. Razorpay Payment ID: ${razorpayId}`
-        : 'Your pod is reserved. Simulated payment complete.',
+      title: 'Success!',
+      description: 'Your pod is successfully booked.',
     })
   } finally {
     isPaying.value = false

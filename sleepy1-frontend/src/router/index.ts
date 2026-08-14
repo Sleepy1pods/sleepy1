@@ -65,15 +65,15 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   const auth = useAuthStore()
-  if (to.meta.requiresAuth && !auth.isAuthenticated) {
-    const ui = useUiStore()
-    ui.pushToast({ 
-      type: 'error', 
-      title: 'Authentication Required', 
-      description: 'You must be logged in to access this page. Please log in first.' 
-    })
-    return { path: '/login', query: { redirect: to.fullPath } }
-  }
+  // if (to.meta.requiresAuth && !auth.isAuthenticated) {
+  //   const ui = useUiStore()
+  //   ui.pushToast({ 
+  //     type: 'error', 
+  //     title: 'Authentication Required', 
+  //     description: 'You must be logged in to access this page. Please log in first.' 
+  //   })
+  //   return { path: '/login', query: { redirect: to.fullPath } }
+  // }
   if (to.meta.guestOnly && auth.isAuthenticated) {
     return { path: '/' }
   }

@@ -39,11 +39,11 @@ const stepComponents = {
 const activeComponent = computed(() => stepComponents[flow.currentStep])
 
 onMounted(() => {
-  if (!auth.isAuthenticated) {
-    ui.pushToast({ type: 'error', title: 'Authentication Required', description: 'You must be logged in to book a pod. Please log in first.' })
-    router.push('/login')
-    return
-  }
+  // if (!auth.isAuthenticated) {
+  //   ui.pushToast({ type: 'error', title: 'Authentication Required', description: 'You must be logged in to book a pod. Please log in first.' })
+  //   router.push('/login')
+  //   return
+  // }
 
   // Only clear a prior draft once a booking has actually been confirmed — otherwise
   // navigating away mid-flow and back (e.g. via header nav) would silently wipe progress.

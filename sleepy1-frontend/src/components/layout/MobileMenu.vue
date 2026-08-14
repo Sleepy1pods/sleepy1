@@ -97,19 +97,22 @@ async function handleLogout() {
                     Log Out
                   </button>
                 </template>
-                <button
+                <!-- <button
                   v-else
                   type="button"
                   class="block w-full min-h-[44px] rounded-xl px-3 py-3 text-left text-base font-medium text-ivory-100/85 hover:bg-white/5"
                   @click="navigateAndClose('/login')"
                 >
                   Login
-                </button>
+                </button> -->
               </div>
 
               <PrimaryButton as="RouterLink" to="/book" full-width @click="ui.closeMobileMenu()">
                 Book a Pod
               </PrimaryButton>
+              <!-- <PrimaryButton as="a" href="https://docs.google.com/forms/your-form-link-here" target="_blank" full-width @click="ui.closeMobileMenu()">
+                Book a Pod
+              </PrimaryButton> -->
             </div>
           </nav>
         </Transition>

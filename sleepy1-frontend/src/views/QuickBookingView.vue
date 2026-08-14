@@ -124,34 +124,67 @@ const genderOptions = [
   { value: 'prefer-not', label: 'Prefer not to say' }
 ]
 
-async function submit() {
-  if (!auth.isAuthenticated) {
-    ui.pushToast({ type: 'error', title: 'Authentication Required', description: 'You must be logged in to book a pod. Please log in first.' })
-    router.push('/login')
-    return
+const isSlotPast = (slotValue: string) => {
+  if (!form.checkinDate) return false
+  const todayStr = `${todayDate.getFullYear()}-${(todayDate.getMonth() + 1).toString().padStart(2, '0')}-${todayDate.getDate().toString().padStart(2, '0')}`
+  if (form.checkinDate === todayStr) {
+    const [hours, minutes] = slotValue.split(':').map(Number)
+    const now = new Date()
+    const slotTime = new Date()
+    slotTime.setHours(hours, minutes, 0, 0)
+    return slotTime <= now
   }
+  return false
+}
+
+async function submit() {
+  // if (!auth.isAuthenticated) {
+  //   ui.pushToast({ type: 'error', title: 'Authentication Required', description: 'You must be logged in to book a pod. Please log in first.' })
+  //   router.push('/login')
+  //   return
+  // }
 
   isSubmitting.value = true
   try {
+    const formatAmPm = (timeStr: string) => {
+      if (!timeStr) return ''
+      const [h, m] = timeStr.split(':').map(Number)
+      const period = h >= 12 ? 'PM' : 'AM'
+      const h12 = h % 12 || 12
+      return `${h12.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')} ${period}`
+    }
+
     const payload = {
+      access_key: '72e47201-4ef5-45f9-a7f8-6fb82f2f3c53',
+      subject: 'New Pod Booking Request',
       name: form.name,
       email: form.email,
       phone: form.phone,
       checkInDate: form.checkinDate,
-      checkInTime: form.checkinTime,
+      checkInTime: formatAmPm(form.checkinTime),
       checkOutDate: form.checkoutDate,
-      checkOutTime: form.checkoutTime,
+      checkOutTime: formatAmPm(form.checkoutTime),
       gender: form.gender
     }
-    const token = localStorage.getItem('sleepy1_auth_token')
-    const headers: any = { 'Content-Type': 'application/json' }
-    if (token) headers['Authorization'] = `Bearer ${token}`
+    
+    // const token = localStorage.getItem('sleepy1_auth_token')
+    // const headers: any = { 'Content-Type': 'application/json' }
+    // if (token) headers['Authorization'] = `Bearer ${token}`
 
-    const res = await fetch('https://sleepy1-backend.onrender.com/api/bookings', {
+    // const res = await fetch('https://sleepy1-backend.onrender.com/api/bookings', {
+    //   method: 'POST',
+    //   headers,
+    //   body: JSON.stringify(payload),
+    //   credentials: 'include'
+    // })
+
+    const res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      headers,
-      body: JSON.stringify(payload),
-      credentials: 'include'
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(payload)
     })
     
     if (!res.ok) {
@@ -159,7 +192,10 @@ async function submit() {
       throw new Error(err.message || 'Booking failed')
     }
     
-    ui.pushToast({ type: 'success', title: 'Booking Request Received', description: 'We will confirm your booking shortly.' })
+    // Add to session mock state so it shows as booked without a backend
+    bookingService.addMockBooking(form.checkinDate, form.checkinTime)
+
+    ui.pushToast({ type: 'success', title: 'Success!', description: 'Your pod is successfully booked.' })
     router.push('/')
   } catch (error: any) {
     ui.pushToast({ type: 'error', title: 'Booking Failed', description: error.message || 'Please try again.' })
@@ -222,22 +258,25 @@ async function submit() {
                 v-for="slot in timeOptions" 
                 :key="slot.value"
                 type="button"
-                :disabled="bookedSlots.includes(slot.value)"
+                :disabled="bookedSlots.includes(slot.value) || isSlotPast(slot.value)"
                 @click="form.checkinTime = slot.value"
                 :class="[
                   'relative py-3 px-1 rounded-xl border transition-all text-center flex flex-col items-center justify-center gap-1 overflow-hidden',
-                  bookedSlots.includes(slot.value)
+                  (bookedSlots.includes(slot.value) || isSlotPast(slot.value))
                     ? 'cursor-not-allowed border-red-500/20 bg-red-500/5'
                     : form.checkinTime === slot.value 
                       ? 'bg-brand-500 border-brand-400 text-white shadow-[0_0_12px_rgba(var(--color-brand-500),0.4)] scale-[1.03] z-10' 
                       : 'bg-ink-800/60 border-white/10 text-ivory-100 hover:border-brand-500/50 hover:bg-ink-700/80 hover:-translate-y-0.5'
                 ]"
               >
-                <span class="whitespace-nowrap font-semibold text-[14px] z-10" :class="bookedSlots.includes(slot.value) ? 'opacity-30 text-ivory-100' : ''">{{ slot.label.split(' - ')[0] }}</span>
-                <span class="text-[11px] z-10" :class="bookedSlots.includes(slot.value) ? 'opacity-20' : 'opacity-70'">to {{ slot.label.split(' - ')[1] }}</span>
+                <span class="whitespace-nowrap font-semibold text-[14px] z-10" :class="(bookedSlots.includes(slot.value) || isSlotPast(slot.value)) ? 'opacity-30 text-ivory-100' : ''">{{ slot.label.split(' - ')[0] }}</span>
+                <span class="text-[11px] z-10" :class="(bookedSlots.includes(slot.value) || isSlotPast(slot.value)) ? 'opacity-20' : 'opacity-70'">to {{ slot.label.split(' - ')[1] }}</span>
                 
                 <div v-if="bookedSlots.includes(slot.value)" class="absolute inset-0 flex items-center justify-center bg-ink-900/60 backdrop-blur-[1px] z-20">
                   <span class="text-[11px] font-bold uppercase tracking-widest text-red-500 rotate-[-12deg] border border-red-500/50 px-1.5 py-0.5 rounded-sm bg-ink-900/90 shadow-lg">Booked</span>
+                </div>
+                <div v-else-if="isSlotPast(slot.value)" class="absolute inset-0 flex items-center justify-center bg-ink-900/40 backdrop-blur-[1px] z-20">
+                  <span class="text-[11px] font-bold uppercase tracking-widest text-ivory-100/50 rotate-[-12deg] px-1.5 py-0.5 rounded-sm bg-ink-900/90">Past</span>
                 </div>
               </button>
             </div>

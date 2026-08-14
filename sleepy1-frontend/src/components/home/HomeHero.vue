@@ -107,6 +107,7 @@ import HeroAtmosphere from '@/components/home/HeroAtmosphere.vue'
         </p>
         <div class="mt-11 flex flex-col gap-3 sm:flex-row">
           <PrimaryButton as="RouterLink" to="/quick-book" size="lg">Book Now</PrimaryButton>
+          <!-- <PrimaryButton as="a" href="https://docs.google.com/forms/your-form-link-here" target="_blank" size="lg">Book Now</PrimaryButton> -->
           <!-- <SecondaryButton as="RouterLink" to="/locations" size="lg">Find a Pod</SecondaryButton> -->
         </div>
       </div>

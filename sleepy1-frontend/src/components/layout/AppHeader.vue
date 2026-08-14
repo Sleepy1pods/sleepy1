@@ -64,7 +64,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 
       <div class="hidden items-center gap-5 lg:flex">
         <UserMenu v-if="auth.isAuthenticated" />
-        <router-link
+        <!-- <router-link
           v-else
           to="/login"
           class="flex items-center gap-2 rounded-full px-2 py-1.5 text-sm font-medium text-brand-400 transition-colors hover:bg-white/5 hover:text-brand-300"
@@ -73,8 +73,9 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
             <path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 21c0-4 3.5-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
           <span>Login</span>
-        </router-link>
+        </router-link> -->
         <PrimaryButton as="RouterLink" to="/quick-book" size="sm">Book</PrimaryButton>
+        <!-- <PrimaryButton as="a" href="https://docs.google.com/forms/your-form-link-here" target="_blank" size="sm">Book</PrimaryButton> -->
       </div>
 
       <button
