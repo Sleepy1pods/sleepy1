@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { computed, onMounted, watchEffect } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useBookingFlowStore } from '@/stores/bookingFlow'
+import { useAuthStore } from '@/stores/auth'
+import { useUiStore } from '@/stores/ui'
 import { usePageMeta } from '@/composables/usePageMeta'
 import BookingStepper from '@/components/booking/BookingStepper.vue'
 import BookingStepSelect from '@/components/booking/BookingStepSelect.vue'
@@ -15,7 +17,10 @@ usePageMeta({
 })
 
 const route = useRoute()
+const router = useRouter()
 const flow = useBookingFlowStore()
+const auth = useAuthStore()
+const ui = useUiStore()
 
 const steps = [
   { key: 'select', label: 'Select Pod' },
@@ -34,11 +39,11 @@ const stepComponents = {
 const activeComponent = computed(() => stepComponents[flow.currentStep])
 
 onMounted(() => {
-  // if (!auth.isAuthenticated) {
-  //   ui.pushToast({ type: 'error', title: 'Authentication Required', description: 'You must be logged in to book a pod. Please log in first.' })
-  //   router.push('/login')
-  //   return
-  // }
+  if (!auth.isAuthenticated) {
+    ui.pushToast({ type: 'error', title: 'Authentication Required', description: 'You must be logged in to book a pod. Please log in first.' })
+    router.push('/login')
+    return
+  }
 
   // Only clear a prior draft once a booking has actually been confirmed — otherwise
   // navigating away mid-flow and back (e.g. via header nav) would silently wipe progress.

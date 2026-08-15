@@ -164,24 +164,15 @@ async function submit() {
       gender: form.gender
     }
     
-    // const token = localStorage.getItem('sleepy1_auth_token')
-    // const headers: any = { 'Content-Type': 'application/json' }
-    // if (token) headers['Authorization'] = `Bearer ${token}`
+    const token = localStorage.getItem('sleepy1_auth_token')
+    const headers: any = { 'Content-Type': 'application/json' }
+    if (token) headers['Authorization'] = `Bearer ${token}`
 
-    // const res = await fetch('https://sleepy1-backend.onrender.com/api/bookings', {
-    //   method: 'POST',
-    //   headers,
-    //   body: JSON.stringify(payload),
-    //   credentials: 'include'
-    // })
-
-    const res = await fetch('https://api.web3forms.com/submit', {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/bookings`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(payload)
+      headers,
+      body: JSON.stringify(payload),
+      credentials: 'include'
     })
     
     if (!res.ok) {

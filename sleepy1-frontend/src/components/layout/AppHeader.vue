@@ -67,6 +67,14 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 
       <div class="hidden items-center gap-4 lg:flex">
         <UserMenu v-if="auth.isAuthenticated" />
+        <router-link
+          v-else
+          to="/login"
+          class="text-sm font-medium transition-colors hover:opacity-80"
+          :style="{ color: 'var(--text-primary)' }"
+        >
+          Login
+        </router-link>
         <ThemeToggle />
         <PrimaryButton as="RouterLink" to="/quick-book" size="sm">Book</PrimaryButton>
       </div>
