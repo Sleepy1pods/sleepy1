@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
+import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
@@ -79,36 +79,7 @@ function onPointerMove(event: PointerEvent) {
   }
 }
 
-const viewMeta = computed(() => {
-  if (activeView.value === 'interior') {
-    return {
-      label: '3D Interior Cabin',
-      tagline: 'Step inside your private rest sanctuary',
-      description:
-        'Explore inside the cabin in 3D — view the ergonomic memory-foam mattress, glowing star ceiling constellation canopy, private entertainment display, and intuitive touch controls.',
-      features: [
-        'Immersive starry night sky ceiling canopy',
-        'HD entertainment & private audio display',
-        'Smart touch lighting & climate control panel',
-        'Active laminar HEPA air circulation',
-        'Ergonomic memory-foam mattress & organic bedding',
-      ],
-    }
-  }
-  return {
-    label: '3D Exterior Chassis',
-    tagline: 'Modular, portable, and acoustic-sealed',
-    description:
-      'Rotate the freestanding architectural pod exterior in 3D — featuring hospitality-grade acoustic isolation casing, contactless NFC access scanner, and modular footprint.',
-    features: [
-      'Freestanding modular portable architecture',
-      'Double-walled hospitality acoustic shell',
-      'Smart QR & contactless NFC entry scanner',
-      'Continuous HEPA external air intake vents',
-      'Sleek privacy tinted door & occupancy glow',
-    ],
-  }
-})
+
 
 function buildProceduralPodModel(): THREE.Group {
   const group = new THREE.Group()

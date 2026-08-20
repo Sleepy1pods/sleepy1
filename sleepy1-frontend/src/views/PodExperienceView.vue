@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { usePageMeta } from '@/composables/usePageMeta'
-import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import PodFeatureAnatomy from '@/components/pod/PodFeatureAnatomy.vue'
 import PodInteriorViews from '@/components/pod/PodInteriorViews.vue'
 import PodModes from '@/components/pod/PodModes.vue'

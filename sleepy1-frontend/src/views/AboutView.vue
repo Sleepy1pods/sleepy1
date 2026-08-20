@@ -3,12 +3,9 @@ import { usePageMeta } from '@/composables/usePageMeta'
 import SectionHeading from '@/components/common/SectionHeading.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import DreamCard from '@/components/common/DreamCard.vue'
-import HomeNewsletter from '@/components/home/HomeNewsletter.vue'
-import AboutSolutionComparison from '@/components/about/AboutSolutionComparison.vue'
 import AboutMilestones from '@/components/about/AboutMilestones.vue'
 import AboutStoryHero from '@/components/about/AboutStoryHero.vue'
 import AboutBrandValues from '@/components/about/AboutBrandValues.vue'
-import AboutDesignPhilosophy from '@/components/about/AboutDesignPhilosophy.vue'
 
 usePageMeta({
   title: 'About',
