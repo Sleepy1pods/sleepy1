@@ -15,19 +15,7 @@ usePageMeta({
     'Learn about Sleepy1 Credits: the universal currency for pod sleep. 1 Credit = ₹1. Never expires, zero transaction fees, instant keyless pod entry, and loyalty cashbacks.',
 })
 
-const rechargeTiers = [
-  { amount: 1000, bonusPercent: 5, label: 'Regular Rester' },
-  { amount: 2500, bonusPercent: 10, label: 'Transit Pro' },
-  { amount: 5000, bonusPercent: 15, label: 'Sleepy1 Explorer' },
-  { amount: 10000, bonusPercent: 20, label: 'Executive Suite' },
-]
 
-const selectedTierIdx = ref(1)
-const selectedTier = computed(() => rechargeTiers[selectedTierIdx.value] || rechargeTiers[0])
-
-const bonusCredits = computed(() => Math.round((selectedTier.value.amount * selectedTier.value.bonusPercent) / 100))
-const totalCredits = computed(() => selectedTier.value.amount + bonusCredits.value)
-const estimatedHours = computed(() => 'Unlimited')
 
 const creditsFaqs = [
   {
@@ -70,11 +58,10 @@ const creditsFaqs = [
     <section class="py-20 sm:py-28 lg:py-32">
       <div class="container-page">
         <div class="mx-auto max-w-3xl text-center">
-          <p class="eyebrow">Universal Sleep Currency</p>
+          <p class="eyebrow">Coming Soon</p>
           <h1 class="mt-6 font-display text-4xl font-medium text-ivory-50 sm:text-5xl">Sleepy1 Credits</h1>
           <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-ivory-100/70">
-            One currency for effortless rest. <strong class="text-ivory-50">1 Credit = ₹1.</strong>
-            Never expires, zero fees, instant keyless entry.
+            One currency for effortless rest. Never expires, zero fees, instant keyless entry.
           </p>
 
           <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
@@ -82,29 +69,12 @@ const creditsFaqs = [
             <SecondaryButton as="RouterLink" to="/gift-credits" size="lg">Gift to a friend</SecondaryButton>
           </div>
 
-          <div class="mx-auto mt-12 grid max-w-2xl grid-cols-2 gap-6 border-t border-white/10 pt-8 sm:grid-cols-4">
-            <div class="text-center">
-              <div class="font-display text-2xl font-medium text-ivory-50">1 : 1</div>
-              <div class="mt-1 text-xs text-ivory-100/50">Rupee equivalent</div>
-            </div>
-            <div class="text-center">
-              <div class="font-display text-2xl font-medium text-ivory-50">0%</div>
-              <div class="mt-1 text-xs text-ivory-100/50">Transaction fees</div>
-            </div>
-            <div class="text-center">
-              <div class="font-display text-2xl font-medium text-ivory-50">Never</div>
-              <div class="mt-1 text-xs text-ivory-100/50">Expires</div>
-            </div>
-            <div class="text-center">
-              <div class="font-display text-2xl font-medium text-ivory-50">3s</div>
-              <div class="mt-1 text-xs text-ivory-100/50">Instant checkout</div>
-            </div>
-          </div>
+
         </div>
       </div>
     </section>
 
-    <section id="what-are-credits" class="section-pad border-t border-white/8">
+    <section id="what-are-credits" class="section-pad border-t border-gray-600/50">
       <div class="container-page">
         <SectionHeading
           eyebrow="What Are Credits"
@@ -114,50 +84,32 @@ const creditsFaqs = [
           class="mx-auto"
         />
 
-        <div class="mt-14 grid gap-5 md:grid-cols-3">
-          <DreamCard :glow="false" class="p-8">
-            <AmenityIcon icon="charging" size="h-6 w-6" class="text-brand-300" />
-            <h3 class="mt-5 text-lg font-semibold text-ivory-50">1:1 rupee value</h3>
-            <p class="mt-2 text-sm leading-relaxed text-ivory-100/65">
-              No points formulas or hidden markups — 1 Credit is always exactly ₹1 of usable balance.
-            </p>
-          </DreamCard>
-          <DreamCard :glow="false" class="p-8">
-            <AmenityIcon icon="lock" size="h-6 w-6" class="text-brand-300" />
-            <h3 class="mt-5 text-lg font-semibold text-ivory-50">Never expires</h3>
-            <p class="mt-2 text-sm leading-relaxed text-ivory-100/65">
-              Rest weekly or once a year — your balance stays put until you're ready to book.
-            </p>
-          </DreamCard>
-          <DreamCard :glow="false" class="p-8">
-            <AmenityIcon icon="wifi" size="h-6 w-6" class="text-brand-300" />
-            <h3 class="mt-5 text-lg font-semibold text-ivory-50">3-second entry</h3>
-            <p class="mt-2 text-sm leading-relaxed text-ivory-100/65">
-              Book with one tap using your balance and get your QR access code instantly.
-            </p>
-          </DreamCard>
+        <div class="mt-14 mx-auto max-w-2xl text-center">
+          <p class="text-lg leading-relaxed text-ivory-100/80">
+            Sleepy1 Credits are the universal currency designed for your effortless pod stays. Use them to book pods seamlessly without banking redirects. Enjoy instant checkouts, exclusive bonuses, and ultimate flexibility.
+          </p>
         </div>
       </div>
     </section>
 
-    <section id="how-to-earn" class="section-pad border-t border-white/8">
+    <section id="how-to-earn" class="section-pad border-t border-gray-600/50">
       <div class="container-page">
         <SectionHeading
           eyebrow="How To Earn"
-          title="Four ways to earn Credits"
-          description="Beyond buying credits, earn free bonus balance through loyalty, referrals, and plan-change assurance."
+          title="Three ways to earn Credits"
+          description="Beyond buying credits, earn free bonus balance through loyalty and referrals."
           align="center"
           class="mx-auto"
         />
 
-        <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           <DreamCard :glow="false" class="flex flex-col justify-between p-7">
             <div>
               <p class="text-xs font-semibold uppercase tracking-wide text-brand-300">+₹100 free</p>
               <h3 class="mt-4 text-lg font-semibold text-ivory-50">Welcome verification</h3>
               <p class="mt-2 text-sm leading-relaxed text-ivory-100/65">Verify your email to receive an instant ₹100 welcome credit.</p>
             </div>
-            <p class="mt-6 border-t border-white/10 pt-4 text-xs font-medium text-ivory-100/45">Added automatically on signup</p>
+            <p class="mt-6 border-t border-gray-600/50 pt-4 text-xs font-medium text-ivory-100/45">Added automatically on signup</p>
           </DreamCard>
           <DreamCard :glow="false" class="flex flex-col justify-between p-7">
             <div>
@@ -165,7 +117,7 @@ const creditsFaqs = [
               <h3 class="mt-4 text-lg font-semibold text-ivory-50">Refer and earn</h3>
               <p class="mt-2 text-sm leading-relaxed text-ivory-100/65">They get ₹150 off their first stay; you earn 150 credits when they check out.</p>
             </div>
-            <RouterLink to="/refer" class="link-underline mt-6 border-t border-white/10 pt-4 text-xs font-medium text-ivory-100/70 hover:text-ivory-50">Invite friends →</RouterLink>
+            <RouterLink to="/refer" class="link-underline mt-6 border-t border-gray-600/50 pt-4 text-xs font-medium text-ivory-100/70 hover:text-ivory-50">Invite friends →</RouterLink>
           </DreamCard>
           <DreamCard :glow="false" class="flex flex-col justify-between p-7">
             <div>
@@ -173,21 +125,13 @@ const creditsFaqs = [
               <h3 class="mt-4 text-lg font-semibold text-ivory-50">Membership cashback</h3>
               <p class="mt-2 text-sm leading-relaxed text-ivory-100/65">Members receive instant credit cashback after every booking.</p>
             </div>
-            <RouterLink to="/membership" class="link-underline mt-6 border-t border-white/10 pt-4 text-xs font-medium text-ivory-100/70 hover:text-ivory-50">View membership →</RouterLink>
-          </DreamCard>
-          <DreamCard :glow="false" class="flex flex-col justify-between p-7">
-            <div>
-              <p class="text-xs font-semibold uppercase tracking-wide text-brand-300">+₹200 protection</p>
-              <h3 class="mt-4 text-lg font-semibold text-ivory-50">Plan-change assurance</h3>
-              <p class="mt-2 text-sm leading-relaxed text-ivory-100/65">Connect your booking reference — a delay or reschedule over 45 minutes earns 200 emergency credits.</p>
-            </div>
-            <p class="mt-6 border-t border-white/10 pt-4 text-xs font-medium text-ivory-100/45">Automated delay alert</p>
+            <RouterLink to="/membership" class="link-underline mt-6 border-t border-gray-600/50 pt-4 text-xs font-medium text-ivory-100/70 hover:text-ivory-50">View membership →</RouterLink>
           </DreamCard>
         </div>
       </div>
     </section>
 
-    <section id="how-to-use" class="section-pad border-t border-white/8">
+    <section id="how-to-use" class="section-pad border-t border-gray-600/50">
       <div class="container-page">
         <SectionHeading
           eyebrow="How To Use"
@@ -205,55 +149,9 @@ const creditsFaqs = [
       </div>
     </section>
 
-    <section id="calculator" class="section-pad border-t border-white/8">
-      <div class="container-page mx-auto max-w-4xl">
-        <div class="rounded-3xl border border-white/10 bg-ink-900/60 p-8 sm:p-12">
-          <div class="mx-auto max-w-xl text-center">
-            <p class="eyebrow">Recharge Calculator</p>
-            <h2 class="mt-4 font-display text-3xl font-medium text-ivory-50 sm:text-4xl">Calculate your bonus</h2>
-            <p class="mt-2 text-sm text-ivory-100/65 sm:text-base">Larger recharges earn automatic bonus credits.</p>
-          </div>
 
-          <div class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <button
-              v-for="(tier, idx) in rechargeTiers"
-              :key="tier.amount"
-              type="button"
-              class="rounded-2xl border p-4 text-center transition-colors"
-              :class="selectedTierIdx === idx ? 'border-brand-400 bg-brand-400/10 text-ivory-50' : 'border-white/10 text-ivory-100/65 hover:border-white/25'"
-              @click="selectedTierIdx = idx"
-            >
-              <div class="text-xs font-semibold uppercase text-brand-300">{{ tier.label }}</div>
-              <div class="mt-1 font-display text-xl font-medium sm:text-2xl">₹{{ tier.amount.toLocaleString() }}</div>
-              <div class="mt-1 text-xs font-medium text-ivory-100/50">+{{ tier.bonusPercent }}% bonus</div>
-            </button>
-          </div>
 
-          <div class="mt-10 grid grid-cols-1 items-center gap-6 rounded-2xl border border-white/10 p-6 text-center sm:grid-cols-3 sm:p-8 sm:text-left">
-            <div>
-              <div class="text-xs font-semibold uppercase text-ivory-100/50">Bonus earned</div>
-              <div class="mt-1 font-display text-2xl font-medium text-ivory-50 sm:text-3xl">+₹{{ bonusCredits.toLocaleString() }}</div>
-            </div>
-            <div>
-              <div class="text-xs font-semibold uppercase text-ivory-100/50">Total credits</div>
-              <div class="mt-1 font-display text-2xl font-medium text-ivory-50 sm:text-3xl">₹{{ totalCredits.toLocaleString() }}</div>
-            </div>
-            <div class="sm:text-right">
-              <div class="text-xs font-semibold uppercase text-ivory-100/50">Estimated rest</div>
-              <div class="mt-1 font-display text-2xl font-medium text-ivory-50 sm:text-3xl">~{{ estimatedHours }} hrs</div>
-            </div>
-          </div>
-
-          <div class="mt-8 text-center">
-            <PrimaryButton as="RouterLink" to="/wallet" size="lg" class="w-full sm:w-auto">
-              Recharge ₹{{ selectedTier.amount.toLocaleString() }}
-            </PrimaryButton>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="faq" class="section-pad border-t border-white/8">
+    <section id="faq" class="section-pad border-t border-gray-600/50">
       <div class="container-page mx-auto max-w-3xl">
         <SectionHeading eyebrow="Credits FAQs" title="Common questions" align="center" class="mx-auto" />
         <div class="mt-12">

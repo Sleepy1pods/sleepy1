@@ -1,136 +1,128 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { usePageMeta } from '@/composables/usePageMeta'
-import SectionHeading from '@/components/common/SectionHeading.vue'
+import DreamCard from '@/components/common/DreamCard.vue'
 import FormField from '@/components/common/FormField.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
-import DreamCard from '@/components/common/DreamCard.vue'
 
 usePageMeta({
   title: 'Contact & Support',
-  description: 'Get in touch with Sleepy1 support — booking help, location assistance, and general enquiries. This is a frontend-only demo contact form.',
+  description: 'Get in touch with Sleepy1 support.',
 })
 
-const topics = [
-  'Booking assistance',
-  'Check-in / access issue',
-  'Payments & credits',
-  'Cancellation or reschedule',
-  'Corporate enquiry',
-  'Something else',
-]
-
-const form = reactive({ name: '', email: '', topic: topics[0], message: '' })
-const errors = ref<Partial<Record<'name' | 'email' | 'message', string>>>({})
+const form = reactive({ firstName: '', lastName: '', email: '', phone: '', message: '' })
 const isSubmitted = ref(false)
 const isSubmitting = ref(false)
 
-function validate() {
-  const next: typeof errors.value = {}
-  if (!form.name.trim()) next.name = 'Please enter your name.'
-  if (!/^\S+@\S+\.\S+$/.test(form.email)) next.email = 'Enter a valid email address.'
-  if (form.message.trim().length < 10) next.message = 'Please add a few more details (min. 10 characters).'
-  errors.value = next
-  return Object.keys(next).length === 0
-}
-
 async function submit() {
-  if (!validate()) return
   isSubmitting.value = true
   await new Promise((resolve) => setTimeout(resolve, 700))
   isSubmitting.value = false
   isSubmitted.value = true
 }
+
+function resetForm() {
+  form.firstName = ''
+  form.lastName = ''
+  form.email = ''
+  form.phone = ''
+  form.message = ''
+  isSubmitted.value = false
+}
 </script>
 
 <template>
-  <div class="contact-page">
+  <div class="contact-page bg-page min-h-screen">
     <div class="container-page max-w-6xl py-16 sm:py-20 lg:py-24">
-      <div class="max-w-2xl">
-        <SectionHeading
-          level="h1"
-          eyebrow="Support"
-          title="We're here to help"
-          description="Reach out for booking assistance, location access questions, or anything else. This form is a frontend-only demo — no message is transmitted."
-        />
+      <div class="mb-10 lg:mb-12">
+        <h2 class="text-4xl font-display font-bold text-primary reveal" style="--reveal-delay: 0ms">Contact Us</h2>
+        <p class="mt-3 text-lg text-secondary max-w-2xl reveal" style="--reveal-delay: 50ms">We're here to help. Send us a message and our support team will get back to you as soon as possible.</p>
       </div>
-
-      <div class="mt-12 grid gap-6 xl:grid-cols-[minmax(0,1.18fr)_minmax(340px,0.82fr)] xl:items-start">
-        <DreamCard class="support-panel p-6 sm:p-8">
-          <div class="flex flex-wrap items-end justify-between gap-4 border-b border-white/8 pb-6">
-            <div>
-              <p class="eyebrow">Support request</p>
-              <h2 class="mt-3 text-xl font-semibold text-ivory-50">Tell us what you need</h2>
-              <p class="mt-2 max-w-xl text-sm leading-relaxed text-ivory-100/60">
-                The details below help route your request to the right support queue and keep the response focused.
-              </p>
-            </div>
-            <div class="support-badge hidden shrink-0 rounded-2xl border border-brand-300/20 bg-brand-400/10 px-4 py-3 text-right md:block">
-              <p class="text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-200/80">Typical response</p>
-              <p class="mt-1 text-sm font-semibold text-ivory-50">Within 24 hours</p>
-            </div>
-          </div>
-
+      
+      <div class="grid gap-12 lg:grid-cols-[1fr_360px] lg:items-start">
+        
+        <!-- Form Section -->
+        <div class="bg-transparent">
+          
           <template v-if="!isSubmitted">
-            <form class="mt-6 grid gap-5 sm:grid-cols-2" @submit.prevent="submit">
-              <div class="sm:col-span-1">
-                <FormField v-model="form.name" label="Full name" required :error="errors.name" autocomplete="name" />
+            <form class="grid sm:grid-cols-2 gap-6" @submit.prevent="submit">
+              <div class="reveal sm:col-span-1" style="--reveal-delay: 100ms">
+                <FormField v-model="form.firstName" label="First Name" required />
               </div>
-              <div class="sm:col-span-1">
-                <FormField v-model="form.email" label="Email" type="email" required :error="errors.email" autocomplete="email" />
+              <div class="reveal sm:col-span-1" style="--reveal-delay: 150ms">
+                <FormField v-model="form.lastName" label="Last Name" required />
               </div>
-              <div class="sm:col-span-2">
-                <label for="topic" class="mb-2 block text-sm font-medium text-ivory-100/80">Topic</label>
-                <select id="topic" v-model="form.topic" class="support-select min-h-[44px] w-full rounded-xl border border-white/10 bg-ink-800/70 px-4 py-3 text-ivory-50 transition-colors focus:border-brand-400">
-                  <option v-for="t in topics" :key="t" :value="t">{{ t }}</option>
-                </select>
+              <div class="reveal sm:col-span-2" style="--reveal-delay: 200ms">
+                <FormField v-model="form.email" type="email" label="Email Address" required />
               </div>
-              <div class="sm:col-span-2">
-                <FormField v-model="form.message" label="Message" as="textarea" :rows="6" required :error="errors.message" />
+              <div class="reveal sm:col-span-2" style="--reveal-delay: 250ms">
+                <FormField v-model="form.phone" type="tel" label="Phone Number" required />
               </div>
-              <div class="sm:col-span-2 pt-1">
-                <PrimaryButton type="submit" :loading="isSubmitting" full-width>Send Message</PrimaryButton>
+              <div class="reveal sm:col-span-2" style="--reveal-delay: 300ms">
+                <FormField v-model="form.message" as="textarea" :rows="4" label="Your Message" required />
+              </div>
+              <div class="reveal sm:col-span-2 flex items-center justify-start gap-4 mt-4" style="--reveal-delay: 350ms">
+                <PrimaryButton type="submit" :loading="isSubmitting" class="w-full sm:w-auto">
+                  Submit Message
+                </PrimaryButton>
+                <button type="button" @click="resetForm" class="btn-base px-6 py-3 border border-theme text-primary hover:bg-black/5 dark:hover:bg-white/5 transition-colors w-full sm:w-auto">
+                  Reset
+                </button>
               </div>
             </form>
           </template>
+          
           <template v-else>
-            <div class="flex flex-col items-center justify-center py-12 text-center sm:py-16">
-              <span class="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-400/15 text-emerald-300 shadow-[0_0_0_1px_rgba(74,222,128,0.15)]">
-                <svg class="h-8 w-8" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            <div class="flex flex-col items-center justify-center py-16 text-center reveal card-surface rounded-3xl mt-4" style="--reveal-delay: 100ms">
+              <span class="flex h-20 w-20 items-center justify-center rounded-full bg-emerald-400/15 text-emerald-500 shadow-[0_0_0_1px_rgba(16,185,129,0.2)] mb-6 animate-fade-up">
+                <svg class="h-10 w-10" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
               </span>
-              <h3 class="mt-5 text-xl font-semibold text-ivory-50">Message sent</h3>
-              <p class="mt-2 max-w-sm text-sm leading-relaxed text-ivory-100/60">Thanks for reaching out — our support team typically responds within 24 hours. (Simulated for this demo.)</p>
-              <button type="button" class="mt-6 text-sm font-semibold text-brand-300 transition-colors hover:text-brand-200" @click="isSubmitted = false">Send another message</button>
+              <h3 class="text-2xl font-display font-semibold text-primary">Message Sent Successfully!</h3>
+              <p class="mt-3 text-secondary max-w-md">Thank you for reaching out to Sleepy1. Our support team will get back to you shortly.</p>
+              <button type="button" class="mt-8 text-sm font-semibold text-brand-500 hover:text-brand-600 dark:text-brand-400 dark:hover:text-brand-300 transition-colors underline underline-offset-4" @click="resetForm">
+                Send another message
+              </button>
             </div>
           </template>
-        </DreamCard>
-
-        <div class="grid gap-5">
-          <DreamCard class="support-card p-6 sm:p-7">
-            <h3 class="text-sm font-semibold uppercase tracking-[0.18em] text-ivory-100/50">Direct Contact</h3>
-            <div class="mt-4 space-y-2 text-sm leading-relaxed text-ivory-100/72">
-              <p>Email: <a href="mailto:sleepy1.pods@gmail.com" class="text-brand-300 transition-colors hover:text-brand-200">sleepy1.pods@gmail.com</a></p>
-              <p>Location: <span class="font-semibold text-ivory-50">IIIT Dharwad</span></p>
-              <p>Phone: <a href="tel:+911800123456" class="text-brand-300 transition-colors hover:text-brand-200">+91 1800-123-4567</a></p>
-              <p>Hours: 24/7 on campus and airside locations</p>
-            </div>
-          </DreamCard>
-
-          <DreamCard class="support-card p-6 sm:p-7">
-            <h3 class="text-sm font-semibold uppercase tracking-[0.18em] text-ivory-100/50">Location Assistance</h3>
-            <p class="mt-4 text-sm leading-relaxed text-ivory-100/65">
-              Sleepy1 pods are located at <strong class="text-ivory-50">IIIT Dharwad</strong>. For on-site assistance or access guidance, visit our campus pod cluster help point or email <a href="mailto:sleepy1.pods@gmail.com" class="text-brand-300 hover:underline">sleepy1.pods@gmail.com</a>.
-            </p>
-          </DreamCard>
-
-          <router-link to="/faq" class="group support-cta card-surface flex items-center justify-between gap-4 p-6 transition-all hover:border-brand-400/40">
-            <span>
-              <span class="block text-xs font-semibold uppercase tracking-[0.18em] text-brand-300/80">Need faster answers?</span>
-              <span class="mt-2 block text-sm font-semibold text-ivory-50">Browse FAQs first</span>
-            </span>
-            <span class="flex h-10 w-10 items-center justify-center rounded-full border border-brand-300/20 bg-brand-400/10 text-brand-200 transition-transform duration-300 group-hover:translate-x-0.5">→</span>
-          </router-link>
         </div>
+
+        <!-- Direct Contact Card -->
+        <div class="grid gap-6 reveal" style="--reveal-delay: 200ms">
+          <DreamCard class="support-card p-8 group hover:-translate-y-1 transition-all duration-300">
+            <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-500 dark:text-brand-400 mb-6 flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              Direct Contact
+            </h3>
+            
+            <div class="space-y-5 text-sm leading-relaxed text-secondary">
+              <div class="flex flex-col">
+                <span class="text-xs uppercase tracking-wider text-muted mb-1">Email</span>
+                <a href="mailto:sleepy1.pods@gmail.com" class="text-primary font-medium hover:text-brand-500 transition-colors">sleepy1.pods@gmail.com</a>
+              </div>
+              
+              <div class="flex flex-col">
+                <span class="text-xs uppercase tracking-wider text-muted mb-1">Location</span>
+                <span class="text-primary font-medium">IIIT Dharwad</span>
+              </div>
+              
+              <div class="flex flex-col">
+                <span class="text-xs uppercase tracking-wider text-muted mb-1">Phone</span>
+                <a href="tel:+911800123456" class="text-primary font-medium hover:text-brand-500 transition-colors">+91 1800-123-4567</a>
+              </div>
+              
+              <div class="flex flex-col pt-4 border-t border-theme">
+                <span class="text-xs uppercase tracking-wider text-muted mb-1">Operating Hours</span>
+                <span class="text-primary">24/7 on campus and airside locations</span>
+              </div>
+            </div>
+            
+            <!-- Decorative background element -->
+            <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-brand-400/10 rounded-full blur-3xl group-hover:bg-brand-400/20 transition-colors duration-500 pointer-events-none"></div>
+          </DreamCard>
+        </div>
+
       </div>
     </div>
   </div>
@@ -141,42 +133,18 @@ async function submit() {
   isolation: isolate;
 }
 
-.support-panel,
-.support-card,
-.support-cta {
+.support-card {
   position: relative;
   overflow: hidden;
 }
 
-.support-panel::before,
-.support-card::before,
-.support-cta::before {
+.support-card::before {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 35%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 40%);
   opacity: 0.9;
-}
-
-.support-select {
-  appearance: none;
-  background-image:
-    linear-gradient(45deg, transparent 50%, rgba(225, 231, 255, 0.65) 50%),
-    linear-gradient(135deg, rgba(225, 231, 255, 0.65) 50%, transparent 50%);
-  background-position:
-    calc(100% - 20px) 50%,
-    calc(100% - 14px) 50%;
-  background-size:
-    6px 6px,
-    6px 6px;
-  background-repeat: no-repeat;
-}
-
-@media (min-width: 1280px) {
-  .support-card {
-    min-height: 168px;
-  }
 }
 </style>
