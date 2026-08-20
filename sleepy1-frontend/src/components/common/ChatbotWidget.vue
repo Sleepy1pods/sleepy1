@@ -225,7 +225,8 @@ const sendMessage = async () => {
   @apply ml-1;
 }
 :deep(.markdown-content strong) {
-  @apply font-semibold text-primary;
+  @apply font-semibold;
+  color: var(--text-primary);
 }
 :deep(.markdown-content em) {
   @apply italic;

@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
 import { usePageMeta } from '@/composables/usePageMeta'
 import SectionHeading from '@/components/common/SectionHeading.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import SecondaryButton from '@/components/common/SecondaryButton.vue'
 import FAQAccordion from '@/components/common/FAQAccordion.vue'
-import AmenityIcon from '@/components/common/AmenityIcon.vue'
 import DreamCard from '@/components/common/DreamCard.vue'
 import CreditsHowToUseDeck from '@/components/credits/CreditsHowToUseDeck.vue'
 
