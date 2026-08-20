@@ -51,7 +51,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
 
 const isDark = ref(false)
 
@@ -69,9 +69,45 @@ const applyTheme = () => {
 
 
 
-const toggle = () => {
-  isDark.value = !isDark.value
-  applyTheme()
+const toggle = (event: MouseEvent) => {
+  const isAppearanceTransition = document.startViewTransition &&
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  if (!isAppearanceTransition) {
+    isDark.value = !isDark.value
+    applyTheme()
+    return
+  }
+
+  const x = event.clientX
+  const y = event.clientY
+  const endRadius = Math.hypot(
+    Math.max(x, innerWidth - x),
+    Math.max(y, innerHeight - y)
+  )
+
+  const transition = document.startViewTransition(async () => {
+    isDark.value = !isDark.value
+    applyTheme()
+    await nextTick()
+  })
+
+  transition.ready.then(() => {
+    const clipPath = [
+      `circle(0px at ${x}px ${y}px)`,
+      `circle(${endRadius}px at ${x}px ${y}px)`
+    ]
+    document.documentElement.animate(
+      {
+        clipPath: clipPath
+      },
+      {
+        duration: 500,
+        easing: 'ease-in-out',
+        pseudoElement: '::view-transition-new(root)'
+      }
+    )
+  })
 }
 
 onMounted(() => {
