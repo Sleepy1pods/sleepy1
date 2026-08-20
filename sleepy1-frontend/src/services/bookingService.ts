@@ -7,41 +7,22 @@ import { formatDate, generateBookingReference } from '@/utils/format'
 import { calculatePricing, getPodPriceForLocation } from '@/utils/pricing'
 import { creditService } from '@/services/creditService'
 
-let sessionBookings: Booking[] = []
+// No more local session mock logic
 
-function loadSessionBookings() {
-  try {
-    const stored = localStorage.getItem('sleepy1_session_bookings')
-    if (stored) {
-      sessionBookings = JSON.parse(stored)
-    } else {
-      sessionBookings = [...mockBookings]
-      saveSessionBookings()
-    }
-  } catch (e) {
-    sessionBookings = [...mockBookings]
-  }
-}
-
-function saveSessionBookings() {
-  try {
-    localStorage.setItem('sleepy1_session_bookings', JSON.stringify(sessionBookings))
-  } catch (e) {
-    console.error('Failed to save bookings to localStorage', e)
-  }
-}
-
-loadSessionBookings()
 export const bookingService = {
   async getExtras() {
     return delay(bookingExtras)
   },
 
   async getBookedSlots(date: string): Promise<string[]> {
-    loadSessionBookings() // Ensure fresh data from localStorage
-    return sessionBookings
-      .filter(b => b.date === date && b.status !== 'cancelled')
-      .map(b => b.checkIn)
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/bookings/availability?date=${date}`)
+      if (!res.ok) return []
+      const json = await res.json()
+      return json.data || []
+    } catch {
+      return []
+    }
   },
 
   async getAvailability(_locationId: string, date: string): Promise<TimeSlot[]> {
@@ -68,138 +49,146 @@ export const bookingService = {
   },
 
   async getMyBookings(): Promise<Booking[]> {
-    return sessionBookings
+    const token = localStorage.getItem('sleepy1_auth_token')
+    if (!token) return []
+
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/bookings/`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        credentials: 'include'
+      })
+
+      if (!res.ok) {
+        console.warn('Failed to fetch real bookings.')
+        return []
+      }
+
+      const json = await res.json()
+      const dbBookings = json.data || []
+      
+      const realBookings: Booking[] = dbBookings.map((dbB: any) => {
+        const isPast = new Date(dbB.checkInDate) < new Date(new Date().toDateString())
+        return {
+          id: dbB._id,
+          reference: `BK-${dbB._id.slice(-6).toUpperCase()}`,
+          locationId: 'loc-iiit-dharwad',
+          locationName: 'IIIT Dharwad Research Park',
+          podTypeId: 'pod-solo-rest',
+          podLabel: 'Pod 1',
+          podImage: 'pod-interior-1',
+          date: dbB.checkInDate,
+          checkIn: dbB.checkInTime,
+          checkOutDate: dbB.checkOutDate,
+          checkOutTime: dbB.checkOutTime,
+          durationHours: 1,
+          extras: [],
+          guest: {
+            fullName: dbB.name,
+            email: dbB.email,
+            phone: dbB.phone,
+            emergencyContactName: '',
+            emergencyContactPhone: '',
+            specialRequests: ''
+          },
+          price: {
+            basePrice: 500,
+            extrasTotal: 0,
+            serviceFee: 50,
+            taxes: 0,
+            discount: 0,
+            creditsApplied: 0,
+            couponDiscount: 0,
+            totalPayable: 550
+          },
+          paymentMethod: 'direct',
+          status: isPast ? 'completed' : 'upcoming',
+          createdAt: dbB.createdAt || new Date().toISOString(),
+          qrValue: `SLEEPY1-BOOKING-${dbB._id}`
+        }
+      })
+      
+      return realBookings
+    } catch (e) {
+      console.error('Error fetching real bookings', e)
+      return []
+    }
   },
 
   async getById(id: string): Promise<Booking | undefined> {
-    return sessionBookings.find(b => b.id === id)
+    const bookings = await this.getMyBookings()
+    return bookings.find(b => b.id === id)
   },
 
   async createFromDraft(draft: BookingDraft): Promise<Booking> {
-    const location = draft.locationId ? getLocationBySlug(draft.locationId) : undefined
-    const podType = draft.podTypeId ? getPodTypeById(draft.podTypeId) : undefined
+    const token = localStorage.getItem('sleepy1_auth_token')
+    if (!token) throw new Error('Must be logged in to book.')
 
-    const basePrice = getPodPriceForLocation(draft.podTypeId, draft.locationId) * draft.durationHours
-    const extrasList = bookingExtras.filter((e) => draft.extraIds.includes(e.id))
-    const extrasTotal = extrasList.reduce((sum, e) => sum + e.price, 0)
-    const price = calculatePricing({
-      basePrice,
-      extrasTotal,
-      couponCode: draft.couponCode,
-      creditsToApply: draft.creditsToApply,
+    const payload = {
+      name: draft.guest?.fullName || 'Guest',
+      email: draft.guest?.email || 'guest@example.com',
+      phone: draft.guest?.phone || '0000000000',
+      checkInDate: draft.date,
+      checkInTime: draft.checkIn,
+      checkOutDate: draft.date,
+      checkOutTime: draft.checkIn,
+      gender: 'Not specified'
+    }
+
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/bookings/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(payload),
+      credentials: 'include'
     })
 
-    const booking: Booking = {
-      id: `bk-${Date.now()}`,
-      reference: generateBookingReference(),
-      locationId: location?.id ?? 'loc-ndls',
-      locationName: location?.name ?? 'New Delhi Railway Station',
-      terminal: location?.terminal,
-      podTypeId: podType?.id ?? 'pod-solo-rest',
-      podLabel: `Pod ${Math.floor(Math.random() * 20) + 1}`,
-      podImage: podType?.image ?? 'pod-interior-1',
-      date: draft.date ?? formatDate(new Date().toISOString()),
-      checkIn: draft.checkIn ?? '10:00',
-      durationHours: draft.durationHours,
-      extras: extrasList,
-      guest: draft.guest ?? {
-        fullName: '',
-        email: '',
-        phone: '',
-        emergencyContactName: '',
-        emergencyContactPhone: '',
-        specialRequests: '',
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}))
+      throw new Error(err.message || 'Failed to create booking on backend')
+    }
+    
+    const dbBooking = (await res.json()).data
+    return {
+      id: dbBooking._id,
+      reference: `BK-${dbBooking._id.slice(-6).toUpperCase()}`,
+      locationId: 'loc-iiit-dharwad',
+      locationName: 'IIIT Dharwad Research Park',
+      podTypeId: 'pod-solo-rest',
+      podLabel: 'Pod 1',
+      podImage: 'pod-interior-1',
+      date: dbBooking.checkInDate,
+      checkIn: dbBooking.checkInTime,
+      checkOutDate: dbBooking.checkOutDate,
+      checkOutTime: dbBooking.checkOutTime,
+      durationHours: 1,
+      extras: [],
+      guest: draft.guest,
+      price: {
+        basePrice: 500, extrasTotal: 0, serviceFee: 50, taxes: 0, discount: 0, creditsApplied: 0, couponDiscount: 0, totalPayable: 550
       },
-      price,
       paymentMethod: draft.paymentMethod,
       status: 'upcoming',
-      createdAt: new Date().toISOString(),
-      qrValue: `SLEEPY1-BOOKING-PENDING-${Date.now()}`,
-    }
-    booking.qrValue = `SLEEPY1-BOOKING-${booking.reference}`
-
-    try {
-      const formatAmPm = (timeStr: string) => {
-        if (!timeStr) return ''
-        const [h, m] = timeStr.split(':').map(Number)
-        const period = h >= 12 ? 'PM' : 'AM'
-        const h12 = h % 12 || 12
-        return `${h12.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')} ${period}`
-      }
-
-      const payload = {
-        access_key: '72e47201-4ef5-45f9-a7f8-6fb82f2f3c53',
-        subject: 'New Pod Booking Request (Multi-Step Flow)',
-        reference: booking.reference,
-        location: booking.locationName,
-        podType: booking.podLabel,
-        checkInDate: booking.date,
-        checkInTime: formatAmPm(booking.checkIn),
-        durationHours: booking.durationHours,
-        guestName: booking.guest.fullName,
-        guestEmail: booking.guest.email,
-        guestPhone: booking.guest.phone,
-        totalPayable: booking.price.totalPayable,
-        paymentMethod: booking.paymentMethod
-      }
-
-      await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      })
-    } catch (e) {
-      console.error('Error submitting to Web3Forms:', e)
-    }
-
-    sessionBookings = [booking, ...sessionBookings]
-    saveSessionBookings()
-    return delay(booking, 500)
+      createdAt: dbBooking.createdAt || new Date().toISOString(),
+      qrValue: `SLEEPY1-BOOKING-${dbBooking._id}`
+    } as Booking
   },
 
   addMockBooking(date: string, checkIn: string) {
-    sessionBookings.push({
-      id: `mock-${Date.now()}`,
-      reference: 'MOCK',
-      locationId: 'mock',
-      locationName: 'Mock',
-      podTypeId: 'mock',
-      podLabel: 'Mock',
-      podImage: '',
-      date,
-      checkIn,
-      durationHours: 0.5,
-      extras: [],
-      guest: { fullName: '', email: '', phone: '', specialRequests: '', emergencyContactName: '', emergencyContactPhone: '' },
-      price: { basePrice: 0, extrasTotal: 0, serviceFee: 0, taxes: 0, discount: 0, creditsApplied: 0, couponDiscount: 0, totalPayable: 0 },
-      paymentMethod: 'direct',
-      status: 'upcoming',
-      createdAt: new Date().toISOString(),
-      qrValue: ''
-    })
-    saveSessionBookings()
+    // Deprecated. Do nothing.
   },
 
   async cancel(id: string): Promise<Booking | undefined> {
-    const target = sessionBookings.find((b) => b.id === id)
-    if (target && target.status !== 'cancelled' && target.price.creditsApplied > 0) {
-      await creditService.refund(
-        target.price.creditsApplied,
-        `Refund for cancelled booking ${target.reference}`,
-        target.reference,
-      )
-    }
-    sessionBookings = sessionBookings.map((b) => (b.id === id ? { ...b, status: 'cancelled' } : b))
-    saveSessionBookings()
-    return delay(sessionBookings.find((b) => b.id === id))
+    // API logic for cancel goes here. For now, we mock it by returning undefined since we don't have a backend route for it yet.
+    return undefined
   },
 
   async reschedule(id: string, date: string, checkIn: string): Promise<Booking | undefined> {
-    sessionBookings = sessionBookings.map((b) => (b.id === id ? { ...b, date, checkIn, status: 'upcoming' } : b))
-    saveSessionBookings()
-    return delay(sessionBookings.find((b) => b.id === id))
+    // API logic for reschedule goes here.
+    return undefined
   },
 }
