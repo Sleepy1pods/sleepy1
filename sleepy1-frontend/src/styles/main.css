@@ -14,29 +14,29 @@
     /* Light theme (default) */
     --bg:              #FFFFFF;
     --surface:         #F5F5F5;
-    --border:          #E0E0E0;
+    --border:          rgba(0, 0, 0, 0.1);
     --text-primary:    #0A0A0A;
-    --text-secondary:  #9E9E9E;
-    --text-muted:      #6B6B6B;
+    --text-secondary:  #4B5563;
+    --text-muted:      #6B7280;
     --cta-bg:          #0A0A0A;
     --cta-text:        #FFFFFF;
     /* For opacity utilities */
     --text-primary-rgb:   10 10 10;
-    --text-secondary-rgb: 158 158 158;
+    --text-secondary-rgb: 75 85 99;
     color-scheme: light;
   }
 
   .dark {
     --bg:              #0A0A0A;
     --surface:         #1A1A1A;
-    --border:          #2E2E2E;
+    --border:          rgba(255, 255, 255, 0.1);
     --text-primary:    #FFFFFF;
-    --text-secondary:  #9E9E9E;
-    --text-muted:      #6B6B6B;
+    --text-secondary:  #9CA3AF;
+    --text-muted:      #6B7280;
     --cta-bg:          #FFFFFF;
     --cta-text:        #0A0A0A;
     --text-primary-rgb:   255 255 255;
-    --text-secondary-rgb: 158 158 158;
+    --text-secondary-rgb: 156 163 175;
     color-scheme: dark;
   }
 

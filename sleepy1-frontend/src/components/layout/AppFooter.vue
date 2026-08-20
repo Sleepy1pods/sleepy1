@@ -46,8 +46,8 @@ async function subscribe() {
       <div class="grid grid-cols-1 gap-12 lg:grid-cols-[1.4fr_2fr] lg:gap-16">
         <!-- Brand, Newsletter & Socials -->
         <div>
-          <router-link to="/" class="flex items-center gap-2.5 text-lg font-bold tracking-[0.15em] text-white">
-            <img src="/Logo.png" alt="Sleepy1 Icon" class="h-9 w-9 object-contain" />
+          <router-link to="/" class="flex items-center gap-2.5 text-lg font-bold tracking-[0.15em] text-primary">
+            <img src="/Logo.png" alt="Sleepy1 Icon" class="h-9 w-9 object-contain dark:invert-0 invert" />
             SLEEPY1
           </router-link>
           <p class="mt-4 max-w-xs text-sm leading-relaxed text-ivory-100/75">
@@ -61,12 +61,12 @@ async function subscribe() {
               type="email"
               required
               placeholder="you@email.com"
-              class="min-h-[44px] w-full rounded-full border border-white/20 bg-ink-900 px-4 py-2.5 text-sm text-white placeholder:text-ivory-100/40 focus:border-brand-400"
+              class="min-h-[44px] w-full rounded-full border border-white/20 bg-ink-900 px-4 py-2.5 text-sm text-primary placeholder:text-secondary focus:border-brand-400"
             />
             <button
               type="submit"
               :disabled="isSubscribing"
-              class="btn-base shrink-0 bg-white px-5 py-2.5 text-sm font-semibold text-ink-950 transition-colors hover:bg-ivory-100 disabled:opacity-60 disabled:cursor-not-allowed"
+              class="btn-base shrink-0 bg-cta-fill px-5 py-2.5 text-sm font-semibold text-cta-text transition-colors hover:opacity-80 disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {{ isSubscribing ? '...' : 'Join' }}
             </button>
@@ -75,7 +75,7 @@ async function subscribe() {
           <div class="mt-4">
             <router-link
               to="/newsletter"
-              class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs font-medium text-ivory-100/90 transition-all hover:border-brand-400 hover:bg-white/10 hover:text-white"
+              class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs font-medium text-ivory-100/90 transition-all hover:border-brand-400 hover:bg-white/10 hover:text-primary"
             >
               <svg class="h-3.5 w-3.5 text-brand-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
@@ -118,10 +118,10 @@ async function subscribe() {
         <!-- Navigation Columns: Side-by-Side on Mobile (grid-cols-2) -->
         <div class="grid grid-cols-2 gap-8 sm:gap-12">
           <div v-for="column in footerColumns" :key="column.title">
-            <h3 class="font-display text-sm font-bold uppercase tracking-wider text-white">{{ column.title }}</h3>
+            <h3 class="font-display text-sm font-bold uppercase tracking-wider text-primary">{{ column.title }}</h3>
             <ul class="mt-4 space-y-2.5">
               <li v-for="item in column.items" :key="item.to">
-                <router-link :to="item.to" class="link-underline inline-block py-1 text-sm font-medium text-ivory-100/75 transition-colors hover:text-white">
+                <router-link :to="item.to" class="link-underline inline-block py-1 text-sm font-medium text-ivory-100/75 transition-colors hover:text-primary">
                   {{ item.label }}
                 </router-link>
               </li>

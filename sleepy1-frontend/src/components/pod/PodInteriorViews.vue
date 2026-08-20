@@ -9,6 +9,12 @@ const customModelUrl = ref<string>('/SleepPod1.glb')
 
 type ViewMode = 'interior' | 'exterior'
 const activeView = ref<ViewMode>('exterior')
+const isFullscreen = ref(false)
+watch(isFullscreen, (val) => {
+  if (val) {
+    setTimeout(() => window.dispatchEvent(new Event('resize')), 50)
+  }
+})
 // (auto-rotation removed per user request)
 const isLoadingModel = ref(false)
 // const currentAngleDegrees = ref(0) // Removed since badge was removed
@@ -655,144 +661,94 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <section id="pod-3d-experience" class="section-pad relative overflow-hidden bg-ink-950">
-    <!-- Ambient glow behind 3D canvas -->
-    <div class="absolute inset-0 pointer-events-none overflow-hidden">
-      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-brand-500/10 blur-3xl" />
-    </div>
-
-    <div class="container-page relative z-10">
-      <!-- Section Header -->
-      <div class="mx-auto max-w-2xl text-center">
-        <p class="eyebrow mb-4">Interactive 3D Experience</p>
-        <h2 class="text-3xl font-semibold text-ivory-50 sm:text-4xl lg:text-5xl text-balance leading-[1.1]">
-          Explore the Sleepy1 Pod in 3D
-        </h2>
-        <p class="mt-5 text-base text-ivory-100/70 sm:text-lg leading-relaxed">
-          Interact with our live 3D pod model — click and drag to rotate 360°, scroll to zoom, and explore both the exterior shell and interior cabin from any angle. Hover over objects inside to learn more!
-        </p>
-
-        <!-- View Mode Switcher (Exterior / Interior) -->
-        <div class="mt-8 flex justify-center gap-4">
-          <button
-            type="button"
-            class="flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-all duration-300"
-            :class="activeView === 'exterior'
-              ? 'bg-brand-400/15 text-brand-200 border border-brand-400/30 shadow-[0_0_15px_rgba(139,155,251,0.2)]'
-              : 'bg-white/5 text-ivory-100/50 border border-white/10 hover:bg-white/10 hover:text-ivory-100/80'"
-            @click="activeView = 'exterior'"
+  <section id="pod-3d-experience" class="section-pad relative">
+    <div class="container-page">
+      <!-- Preview Card -->
+      <div v-show="!isFullscreen" class="grid overflow-hidden rounded-2xl lg:grid-cols-[2fr_1fr] bg-[#1A1A1A] shadow-premium">
+        <div class="relative h-64 lg:h-[500px] w-full">
+          <img src="/pod4.png" alt="Pod Preview" class="h-full w-full object-cover" />
+        </div>
+        <div class="flex flex-col items-start justify-center p-10 bg-[#1A1A1A]">
+          <h3 class="text-3xl font-display text-white text-balance leading-tight">Unlock An Immersive Experience</h3>
+          <button 
+            @click="isFullscreen = true"
+            class="mt-8 flex items-center gap-2 border border-white/20 bg-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-black transition hover:bg-white/90"
           >
-            <span class="text-base">❖</span>
-            <span>3D Exterior Shell</span>
-          </button>
-          <button
-            type="button"
-            class="flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-all duration-300"
-            :class="activeView === 'interior'
-              ? 'bg-brand-400/15 text-brand-200 border border-brand-400/30 shadow-[0_0_15px_rgba(139,155,251,0.2)]'
-              : 'bg-white/5 text-ivory-100/50 border border-white/10 hover:bg-white/10 hover:text-ivory-100/80'"
-            @click="activeView = 'interior'"
-          >
-            <span class="text-base">✦</span>
-            <span>3D Interior Cabin</span>
+            EXPLORE IN 3D
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
           </button>
         </div>
       </div>
+    </div>
 
-      <!-- Main 3D Canvas + Info Layout -->
-      <div class="mt-14 grid gap-10 lg:grid-cols-[1.35fr_0.65fr] lg:items-center">
-        <!-- Left: Three.js 3D Interactive Viewport & Controls -->
-        <div class="flex flex-col gap-5">
-          <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-ink-900 shadow-2xl">
-            <!-- 3D WebGL Canvas Container -->
-            <div
-              ref="canvasContainer"
-              class="h-[380px] sm:h-[460px] md:h-auto md:aspect-[16/10] w-full relative select-none"
-              :class="activeView === 'interior' ? 'cursor-pointer' : 'cursor-grab active:cursor-grabbing'"
-              style="touch-action: none;"
-              aria-label="3D interactive model viewer"
-            >
-              <!-- Click-to-reveal Interactive Tooltip -->
-              <Transition name="tooltip-fade">
-                <div
-                  v-if="clickedLabel"
-                  class="pointer-events-none absolute z-50 whitespace-nowrap rounded-xl bg-ink-950/95 border border-brand-400/40 px-4 py-2 text-xs font-semibold text-brand-200 backdrop-blur-md shadow-2xl"
-                  :style="{ transform: `translate(${Math.min(mousePos.x + 16, 340)}px, ${mousePos.y - 44}px)` }"
-                >
-                  <div class="flex items-center gap-2">
-                    <span class="h-2 w-2 rounded-full bg-brand-400 animate-pulse flex-shrink-0"></span>
-                    <span>{{ clickedLabel }}</span>
-                  </div>
-                  <div class="absolute -bottom-1.5 left-5 h-3 w-3 rotate-45 rounded-sm bg-ink-950/95 border-r border-b border-brand-400/40"></div>
-                </div>
-              </Transition>
-            </div>
+    <!-- Fullscreen 3D View -->
+    <Teleport to="body">
+      <div 
+        v-show="isFullscreen" 
+        class="fixed inset-0 z-[100] flex flex-col bg-ink-950"
+      >
+      <!-- Top Bar -->
+      <div class="absolute top-0 left-0 right-0 z-50 flex p-6 pointer-events-none">
+        <button 
+          @click="isFullscreen = false" 
+          class="pointer-events-auto flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-black shadow-lg transition hover:bg-white/90"
+        >
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+          BACK
+        </button>
+      </div>
 
-            <!-- Mobile touch helper pill badge -->
-            <div class="absolute top-4 right-4 z-10 pointer-events-none sm:hidden rounded-full bg-brand-500/20 border border-brand-400/30 px-3 py-1 backdrop-blur-md">
-              <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-brand-200">👆 Touch & Drag 3D</span>
-            </div>
+      <!-- 3D WebGL Canvas Container -->
+      <div
+        ref="canvasContainer"
+        class="relative h-full w-full flex-1"
+        :class="activeView === 'interior' ? 'cursor-pointer' : 'cursor-grab active:cursor-grabbing'"
+        style="touch-action: none;"
+        aria-label="3D interactive model viewer"
+      >
+        <!-- Loading Spinner overlay if custom model is loading -->
+        <div
+          v-if="isLoadingModel"
+          class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-ink-950/80 text-ivory-50 backdrop-blur-sm"
+        >
+          <div class="h-8 w-8 animate-spin rounded-full border-2 border-brand-400 border-t-transparent" />
+          <p class="mt-3 text-xs font-mono uppercase tracking-wider text-brand-300">Loading 3D Model...</p>
+        </div>
 
-            <!-- Loading Spinner overlay if custom model is loading -->
-            <div
-              v-if="isLoadingModel"
-              class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-ink-950/80 text-ivory-50 backdrop-blur-sm"
-            >
-              <div class="h-8 w-8 animate-spin rounded-full border-2 border-brand-400 border-t-transparent" />
-              <p class="mt-3 text-xs font-mono uppercase tracking-wider text-brand-300">Loading 3D Model...</p>
-            </div>
-
-            <!-- HUD Badge Top-Left -->
-            <div class="absolute top-4 left-4 z-10 pointer-events-none flex items-center gap-2 rounded-full bg-ink-950/85 border border-white/10 px-3.5 py-1.5 backdrop-blur-md">
-              <span class="h-2 w-2 rounded-full bg-brand-400 animate-pulse" />
-              <span class="font-mono text-[11px] font-bold tracking-widest text-brand-300">
-                WEBGL 3D · {{ activeView === 'interior' ? 'CABIN VIEW' : 'EXTERIOR VIEW' }}
-              </span>
-            </div>
-
-            <!-- HUD Bottom-Right: click hint in interior -->
-            <div v-if="activeView === 'interior'" class="absolute bottom-4 right-4 z-10 pointer-events-none rounded-full bg-ink-950/85 border border-white/10 px-3.5 py-1 backdrop-blur-md">
-              <span class="font-mono text-xs text-brand-300">👆 Click objects to explore</span>
+        <!-- Tooltip -->
+        <Transition name="tooltip-fade">
+          <div
+            v-if="clickedLabel"
+            class="pointer-events-none absolute z-50 whitespace-nowrap rounded-xl bg-ink-950/95 border border-brand-400/40 px-4 py-2 text-xs font-semibold text-brand-200 backdrop-blur-md shadow-2xl"
+            :style="{ transform: `translate(${mousePos.x + 16}px, ${mousePos.y - 44}px)` }"
+          >
+            <div class="flex items-center gap-2">
+              <span class="h-2 w-2 rounded-full bg-brand-400 animate-pulse flex-shrink-0"></span>
+              <span>{{ clickedLabel }}</span>
             </div>
           </div>
-        </div>
+        </Transition>
+      </div>
 
-        <!-- Right: View Info & Features Checklist -->
-        <div class="space-y-6">
-          <Transition name="info-fade" mode="out-in">
-            <div :key="activeView" class="space-y-5">
-              <!-- Active view badge -->
-              <div class="inline-flex items-center gap-2 rounded-full border border-brand-400/25 bg-brand-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-brand-300">
-                <span>{{ activeView === 'interior' ? '✦' : '❖' }}</span>
-                <span>{{ viewMeta.label }}</span>
-              </div>
-
-              <h3 class="text-2xl font-semibold text-ivory-50 sm:text-3xl">
-                {{ viewMeta.tagline }}
-              </h3>
-
-              <p class="text-sm leading-relaxed text-ivory-100/60 sm:text-base">
-                {{ viewMeta.description }}
-              </p>
-
-              <!-- Features list -->
-              <ul class="space-y-3 pt-2">
-                <li
-                  v-for="(feat, i) in viewMeta.features"
-                  :key="i"
-                  class="flex items-center gap-3 text-sm text-ivory-100/80"
-                >
-                  <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-400/15 text-brand-300 text-xs font-bold">
-                    {{ i + 1 }}
-                  </span>
-                  <span>{{ feat }}</span>
-                </li>
-              </ul>
-            </div>
-          </Transition>
-        </div>
+      <!-- Bottom Bar (Toggles) -->
+      <div class="absolute bottom-8 left-8 z-50 flex gap-4">
+        <button
+          class="rounded-md px-6 py-3 text-xs font-bold uppercase tracking-wider transition backdrop-blur-md border-2 cursor-pointer border-white"
+          :class="activeView === 'interior' ? 'bg-white text-black shadow-xl' : 'bg-black/80 text-white hover:bg-white/10'"
+          @click="activeView = 'interior'"
+        >
+          INTERIOR
+        </button>
+        <button
+          class="rounded-md px-6 py-3 text-xs font-bold uppercase tracking-wider transition backdrop-blur-md border-2 cursor-pointer border-white"
+          :class="activeView === 'exterior' ? 'bg-white text-black shadow-xl' : 'bg-black/80 text-white hover:bg-white/10'"
+          @click="activeView = 'exterior'"
+        >
+          EXTERIOR
+        </button>
       </div>
     </div>
+    </Teleport>
   </section>
 </template>
 

@@ -19,14 +19,7 @@ usePageMeta({
 <template>
   <div class="about-page">
     <section class="section-pad">
-      <div class="container-page text-center">
-        <h1 class="text-balance font-display text-4xl font-medium text-ivory-50 sm:text-5xl">About Sleepy1</h1>
-        <p class="mx-auto mt-4 max-w-2xl text-lg text-ivory-100/65">
-          Making safe, private rest accessible wherever life makes people wait.
-        </p>
-      </div>
-
-      <div class="container-page">
+      <div class="container-page mt-8 sm:mt-12">
         <AboutStoryHero />
       </div>
     </section>
@@ -58,15 +51,7 @@ usePageMeta({
       </div>
     </section>
 
-    <section class="section-pad border-t border-white/8">
-      <div class="container-page">
-        <SectionHeading eyebrow="What we're solving" title="Waiting shouldn't mean discomfort" align="center" class="mx-auto" />
 
-        <div class="mt-12">
-          <AboutSolutionComparison />
-        </div>
-      </div>
-    </section>
 
     <section class="section-pad border-t border-white/8">
       <div class="container-page">
@@ -82,13 +67,7 @@ usePageMeta({
       </div>
     </section>
 
-    <section class="section-pad border-t border-white/8">
-      <div class="container-page">
-        <AboutDesignPhilosophy />
-      </div>
-    </section>
 
-    <HomeNewsletter />
 
     <section class="border-t border-white/8 py-24 text-center">
       <div class="container-page">

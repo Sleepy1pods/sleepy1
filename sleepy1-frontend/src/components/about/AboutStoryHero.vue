@@ -6,7 +6,7 @@ import PodVisual from '@/components/common/PodVisual.vue'
   <div class="mt-16 grid gap-10 lg:grid-cols-12 lg:items-center">
     <!-- Left Narrative Column (7 cols) -->
     <div class="lg:col-span-7">
-      <span class="eyebrow">Our Story</span>
+      <span class="eyebrow">The Beginning</span>
       <h2 class="mt-3 font-display text-3xl font-bold tracking-tight text-ivory-50 sm:text-4xl">
         Built for those who wait.
       </h2>
@@ -17,29 +17,13 @@ import PodVisual from '@/components/common/PodVisual.vue'
       </p>
 
       <!-- Minimalist Founding Principle Box -->
-      <div class="mt-8 border-l-2 border-brand-400/60 pl-5">
+      <div class="mt-8 border-l-2 border-theme pl-5">
         <p class="font-display text-base italic text-ivory-50">
-          "Rest is not a luxury — it is essential human infrastructure."
+          "Sleep is an investment in the energy you need to be effective tomorrow."
         </p>
-        <p class="mt-1 text-xs font-semibold uppercase tracking-widest text-ivory-100/40">
-          Sleepy1 Founding Principle
+        <p class="mt-2 text-xs font-semibold uppercase tracking-widest text-ivory-100/40">
+          — Tom Roth
         </p>
-      </div>
-
-      <!-- Architectural Metric Highlights -->
-      <div class="mt-8 grid grid-cols-3 gap-4 border-t border-white/10 pt-6">
-        <div>
-          <p class="font-display text-xl font-bold text-ivory-50">100%</p>
-          <p class="mt-0.5 text-xs text-ivory-100/50">Private Sanctuary</p>
-        </div>
-        <div>
-          <p class="font-display text-xl font-bold text-ivory-50">&lt;60s</p>
-          <p class="mt-0.5 text-xs text-ivory-100/50">Digital Check-in</p>
-        </div>
-        <div>
-          <p class="font-display text-xl font-bold text-ivory-50">24/7</p>
-          <p class="mt-0.5 text-xs text-ivory-100/50">Autonomous Access</p>
-        </div>
       </div>
     </div>
 

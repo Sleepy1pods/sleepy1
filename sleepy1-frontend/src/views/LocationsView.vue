@@ -34,18 +34,12 @@ const availableLocations = computed(() => store.filtered)
 
 <template>
   <div>
-    <section class="pb-4 pt-16">
-      <div class="container-page">
-        <SectionHeading level="h1" eyebrow="Pod Locations" title="Sleepy1 Rest Pod Locations" description="Search by city or browse the map to find your nearest Sleepy1 pod. Availability updates in real time once connected to live inventory." />
-      </div>
-    </section>
-
-    <div class="container-page pb-16">
-    <div class="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div class="container-page pb-16 pt-16">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <SearchInput
         :model-value="store.searchQuery"
         placeholder="Search by location or city..."
-        class="sm:max-w-sm"
+        class="w-full sm:max-w-lg"
         @update:model-value="store.setSearchQuery($event)"
       />
       <FilterChips :options="store.cities" :model-value="store.selectedCity" @update:model-value="store.setCity($event)" />
@@ -86,7 +80,7 @@ const availableLocations = computed(() => store.filtered)
     </div>
 
     <section class="mt-20">
-      <SectionHeading eyebrow="Building the Network" title="Environments where Sleepy1 can operate" description="Sleepy1 is designed for high-footfall spaces like campuses, stations, corporate parks, and other places where people wait or work long hours." />
+      <SectionHeading eyebrow="Building the Network" title="Environments where Sleepy1 can operate" />
       <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         <LocationEnvironmentCard v-for="env in locationEnvironments" :key="env.id" :environment="env" />
       </div>

@@ -48,8 +48,8 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       style="background-color: var(--bg); border-color: var(--border);"
     >
       <router-link to="/" class="flex items-center gap-2 text-lg font-semibold tracking-[0.15em]" :style="{ color: 'var(--text-primary)' }">
-        <img src="/Logo.png" alt="Sleepy1 Icon" class="h-9 w-9 object-contain" />
-        <img src="/Logo-text.png" alt="Sleepy1 Text" class="h-6 object-contain" />
+        <img src="/Logo.png" alt="Sleepy1 Icon" class="h-9 w-9 object-contain dark:invert-0 invert" />
+        <img src="/Logo-text.png" alt="Sleepy1 Text" class="h-6 object-contain dark:invert-0 invert" />
       </router-link>
 
       <nav class="hidden items-center gap-7 xl:gap-9 lg:flex" aria-label="Primary">
