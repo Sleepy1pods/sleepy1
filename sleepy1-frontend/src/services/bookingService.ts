@@ -1,11 +1,6 @@
-import { mockBookings, bookingExtras, generateTimeSlots } from '@/data/bookings'
+import { bookingExtras, generateTimeSlots } from '@/data/bookings'
 import type { Booking, BookingDraft, TimeSlot } from '@/types/booking'
-import { getLocationBySlug } from '@/data/locations'
-import { getPodTypeById } from '@/data/pods'
 import { delay } from '@/utils/delay'
-import { formatDate, generateBookingReference } from '@/utils/format'
-import { calculatePricing, getPodPriceForLocation } from '@/utils/pricing'
-import { creditService } from '@/services/creditService'
 
 // No more local session mock logic
 
@@ -178,16 +173,16 @@ export const bookingService = {
     } as Booking
   },
 
-  addMockBooking(date: string, checkIn: string) {
+  addMockBooking(_date: string, _checkIn: string) {
     // Deprecated. Do nothing.
   },
 
-  async cancel(id: string): Promise<Booking | undefined> {
+  async cancel(_id: string): Promise<Booking | undefined> {
     // API logic for cancel goes here. For now, we mock it by returning undefined since we don't have a backend route for it yet.
     return undefined
   },
 
-  async reschedule(id: string, date: string, checkIn: string): Promise<Booking | undefined> {
+  async reschedule(_id: string, _date: string, _checkIn: string): Promise<Booking | undefined> {
     // API logic for reschedule goes here.
     return undefined
   },

@@ -70,7 +70,7 @@ const applyTheme = () => {
 
 
 const toggle = (event: MouseEvent) => {
-  const isAppearanceTransition = document.startViewTransition &&
+  const isAppearanceTransition = 'startViewTransition' in document &&
     !window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   if (!isAppearanceTransition) {
