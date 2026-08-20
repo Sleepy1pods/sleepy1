@@ -39,6 +39,8 @@ async function submit() {
     await auth.register(form)
     ui.pushToast({ type: 'success', title: 'Account created', description: 'Welcome to Sleepy1.' })
     router.push('/')
+  } catch (error: any) {
+    ui.pushToast({ type: 'error', title: 'Registration failed', description: error.message || 'Please try again.' })
   } finally {
     isSubmitting.value = false
   }

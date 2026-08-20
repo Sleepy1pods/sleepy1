@@ -26,10 +26,15 @@ function validate() {
 async function submit() {
   if (!validate()) return
   isSubmitting.value = true
-  await authService.resetPassword('demo-token', form.password)
-  isSubmitting.value = false
-  ui.pushToast({ type: 'success', title: 'Password updated', description: 'You can now sign in with your new password.' })
-  router.push('/login')
+  try {
+    await authService.resetPassword('demo-token', form.password)
+    ui.pushToast({ type: 'success', title: 'Password updated', description: 'You can now sign in with your new password.' })
+    router.push('/login')
+  } catch (error: any) {
+    ui.pushToast({ type: 'error', title: 'Reset failed', description: error.message || 'Please try again.' })
+  } finally {
+    isSubmitting.value = false
+  }
 }
 </script>
 

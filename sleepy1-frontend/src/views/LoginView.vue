@@ -33,8 +33,8 @@ async function submit() {
     await auth.login({ email: form.email, password: form.password })
     ui.pushToast({ type: 'success', title: 'Welcome back', description: 'You are now signed in.' })
     router.push((route.query.redirect as string) || '/')
-  } catch {
-    ui.pushToast({ type: 'error', title: 'Sign in failed', description: 'Please check your details and try again.' })
+  } catch (error: any) {
+    ui.pushToast({ type: 'error', title: 'Sign in failed', description: error.message || 'Please check your details and try again.' })
   } finally {
     isSubmitting.value = false
   }
