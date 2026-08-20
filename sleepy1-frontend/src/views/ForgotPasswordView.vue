@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useUiStore } from '@/stores/ui'
 import { authService } from '@/services/authService'
 import { usePageMeta } from '@/composables/usePageMeta'
 import FormField from '@/components/common/FormField.vue'
@@ -9,6 +10,7 @@ import PrimaryButton from '@/components/common/PrimaryButton.vue'
 usePageMeta({ title: 'Forgot Password', description: 'Reset your Sleepy1 account password. Demo flow only.' })
 
 const router = useRouter()
+const ui = useUiStore()
 const email = ref('')
 const error = ref('')
 const isSubmitted = ref(false)
@@ -21,9 +23,14 @@ async function submit() {
   }
   error.value = ''
   isSubmitting.value = true
-  await authService.requestPasswordReset(email.value)
-  isSubmitting.value = false
-  isSubmitted.value = true
+  try {
+    await authService.requestPasswordReset(email.value)
+    isSubmitted.value = true
+  } catch (err: any) {
+    ui.pushToast({ type: 'error', title: 'Request failed', description: err.message || 'Please try again.' })
+  } finally {
+    isSubmitting.value = false
+  }
 }
 </script>
 

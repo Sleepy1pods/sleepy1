@@ -14,7 +14,7 @@ const steps: CheckoutStep[] = [
   {
     step: '01',
     title: 'Select your pod & hours',
-    description: 'Choose your preferred hub location, cabin type, and exact rest duration.',
+    description: 'Choose location, cabin type, and rest duration.',
     tag: 'Location Select',
     spec: '24/7 Autonomous Hubs',
     terminalType: 'booking',
@@ -22,7 +22,7 @@ const steps: CheckoutStep[] = [
   {
     step: '02',
     title: 'Use your balance',
-    description: 'At checkout, toggle "Use Wallet Balance" — deducted at an exact 1:1 rate.',
+    description: 'Toggle "Use Wallet Balance" at checkout.',
     tag: '1:1 Rupee Value',
     spec: 'Zero Checkout Fees',
     terminalType: 'wallet',
@@ -30,7 +30,7 @@ const steps: CheckoutStep[] = [
   {
     step: '03',
     title: 'Instant unlock QR',
-    description: 'Walk up to your private cabin and scan your dynamic QR code to unlock.',
+    description: 'Scan your dynamic QR code to unlock the cabin.',
     tag: 'Keyless Access',
     spec: 'Dynamic Access Key',
     terminalType: 'qr',

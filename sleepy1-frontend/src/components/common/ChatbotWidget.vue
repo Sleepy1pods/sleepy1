@@ -4,16 +4,16 @@
     <Transition name="fade-slide">
       <div 
         v-if="isOpen" 
-        class="mb-4 w-80 sm:w-96 bg-ink-900 border border-white/10 rounded-2xl shadow-2xl overflow-hidden flex flex-col"
+        class="mb-4 w-80 sm:w-96 bg-surface border border-theme rounded-2xl shadow-2xl overflow-hidden flex flex-col"
         style="height: 500px; max-height: calc(100vh - 120px);"
       >
         <!-- Header -->
-        <div class="bg-brand-600 px-4 py-3 flex justify-between items-center">
+        <div class="bg-cta-fill px-4 py-3 flex justify-between items-center">
           <div class="flex items-center space-x-2">
             <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
-            <h3 class="text-white font-medium">Sleepy1 Assistant</h3>
+            <h3 class="text-cta-text font-medium">Sleepy1 Assistant</h3>
           </div>
-          <button @click="isOpen = false" class="text-white/80 hover:text-white transition-colors">
+          <button @click="isOpen = false" class="text-cta-text opacity-80 hover:opacity-100 transition-opacity">
             <svg xmlns="http://www.w3.org/20svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -21,11 +21,11 @@
         </div>
 
         <!-- Messages Area -->
-        <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-ink-950" ref="messagesContainer">
+        <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-page" ref="messagesContainer">
           <div v-for="(msg, index) in messages" :key="index" class="flex" :class="msg.role === 'user' ? 'justify-end' : 'justify-start'">
             <div 
               class="max-w-[80%] rounded-2xl px-4 py-2 text-sm"
-              :class="msg.role === 'user' ? 'bg-brand-600 text-white rounded-br-none' : 'bg-ink-900 border border-white/10 text-white/90 rounded-bl-none'"
+              :class="msg.role === 'user' ? 'bg-cta-fill text-cta-text rounded-br-none' : 'bg-surface border border-theme text-primary rounded-bl-none'"
             >
               <p v-if="msg.role === 'user'" class="whitespace-pre-wrap">{{ msg.content }}</p>
               <div v-else class="markdown-content" v-html="formatMessage(msg.content)"></div>
@@ -33,29 +33,29 @@
           </div>
 
           <div v-if="isLoading" class="flex justify-start">
-            <div class="bg-ink-900 border border-white/10 rounded-2xl rounded-bl-none px-4 py-3">
-              <div class="flex space-x-1.5">
-                <div class="w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce" style="animation-delay: 0s"></div>
-                <div class="w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
-                <div class="w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+            <div class="bg-surface border border-theme rounded-2xl rounded-bl-none px-4 py-3">
+              <div class="flex space-x-1.5 text-primary">
+                <div class="w-1.5 h-1.5 bg-current opacity-50 rounded-full animate-bounce" style="animation-delay: 0s"></div>
+                <div class="w-1.5 h-1.5 bg-current opacity-50 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                <div class="w-1.5 h-1.5 bg-current opacity-50 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Input Area -->
-        <div class="p-3 bg-ink-900 border-t border-white/10">
+        <div class="p-3 bg-surface border-t border-theme">
           <form @submit.prevent="sendMessage" class="flex space-x-2">
             <input 
               v-model="newMessage"
               type="text" 
               placeholder="Ask me anything..." 
-              class="flex-1 bg-ink-950 border border-white/10 rounded-full px-4 py-2 text-sm text-white focus:outline-none focus:border-brand-600 transition-colors"
+              class="flex-1 bg-page border border-theme rounded-full px-4 py-2 text-sm text-primary placeholder:text-muted focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 focus:ring-2 focus:ring-brand-500/20 transition-all"
               :disabled="isLoading"
             />
             <button 
               type="submit" 
-              class="bg-brand-600 hover:bg-brand-700 text-white rounded-full p-2 w-10 h-10 flex items-center justify-center transition-colors disabled:opacity-50"
+              class="bg-cta-fill hover:opacity-85 text-cta-text rounded-full p-2 w-10 h-10 flex items-center justify-center transition-all disabled:opacity-50"
               :disabled="isLoading || !newMessage.trim()"
             >
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -74,13 +74,13 @@
       <!-- Actual Button -->
       <button 
         @click="isOpen = !isOpen"
-        class="relative w-14 h-14 bg-brand-600 hover:bg-brand-700 text-white rounded-full shadow-lg flex items-center justify-center transition-transform hover:scale-105 active:scale-95 z-10"
+        class="relative w-14 h-14 bg-cta-fill hover:opacity-90 text-cta-text rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-105 active:scale-95 z-10"
       >
         <img 
           v-if="!isOpen" 
           src="/Logo.png" 
           alt="Chat Assistant" 
-          class="h-8 w-8 object-contain" 
+          class="h-8 w-8 object-contain dark:invert invert-0" 
         />
         <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -225,7 +225,7 @@ const sendMessage = async () => {
   @apply ml-1;
 }
 :deep(.markdown-content strong) {
-  @apply font-semibold text-white;
+  @apply font-semibold text-primary;
 }
 :deep(.markdown-content em) {
   @apply italic;
