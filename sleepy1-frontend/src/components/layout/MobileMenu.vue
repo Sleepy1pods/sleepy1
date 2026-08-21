@@ -87,7 +87,7 @@ async function handleLogout() {
                   {{ item.label }}
                 </button>
                 <div class="my-2 h-px bg-white/10" />
-                <template v-if="auth.isAuthenticated">
+                <template v-if="auth.isAuthenticated && auth.user?.role !== 'admin'">
                   <button
                     v-for="item in loggedInNav"
                     :key="item.to"

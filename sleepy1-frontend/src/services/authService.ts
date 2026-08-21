@@ -9,10 +9,12 @@ import { delay } from '@/utils/delay'
  */
 const SESSION_KEY = 'sleepy1_mock_session'
 const TOKEN_KEY = 'sleepy1_auth_token'
+const rawUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+const API_URL = rawUrl.replace(/\/+$/, '')
 
 export const authService = {
   async login(credentials: AuthCredentials): Promise<User> {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
+    const res = await fetch(`${API_URL}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials),
@@ -36,6 +38,7 @@ export const authService = {
       email: userData.email,
       phone: userData.phone,
       avatarInitials: (userData.name || 'User').charAt(0).toUpperCase(),
+      role: userData.role || 'user',
     }
     
     localStorage.setItem(SESSION_KEY, JSON.stringify(user))
@@ -49,7 +52,7 @@ export const authService = {
       phone: payload.phone,
       password: payload.password
     }
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
+    const res = await fetch(`${API_URL}/api/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
@@ -73,6 +76,7 @@ export const authService = {
       email: userData.email || payload.email,
       phone: userData.phone || payload.phone,
       avatarInitials: (userData.name || payload.fullName).charAt(0).toUpperCase(),
+      role: userData.role || 'user',
     }
     localStorage.setItem(SESSION_KEY, JSON.stringify(user))
     return user
@@ -97,7 +101,7 @@ export const authService = {
   async logout(): Promise<void> {
     try {
       const token = localStorage.getItem(TOKEN_KEY)
-      await fetch(`${import.meta.env.VITE_API_URL}/api/auth/logout`, { 
+      await fetch(`${API_URL}/api/auth/logout`, { 
         method: 'POST',
         headers: token ? { 'Authorization': `Bearer ${token}` } : undefined,
         credentials: 'include'
@@ -125,7 +129,7 @@ export const authService = {
       const headers: any = { 'Content-Type': 'application/json' }
       if (token) headers['Authorization'] = `Bearer ${token}`
 
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/me`, {
+      const res = await fetch(`${API_URL}/api/auth/me`, {
         headers,
         credentials: 'include'
       })
@@ -140,6 +144,7 @@ export const authService = {
         email: userData.email,
         phone: userData.phone,
         avatarInitials: (userData.name || 'User').charAt(0).toUpperCase(),
+        role: userData.role || 'user',
       }
       localStorage.setItem(SESSION_KEY, JSON.stringify(user))
       return user

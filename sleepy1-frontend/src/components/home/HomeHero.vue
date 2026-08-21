@@ -6,7 +6,7 @@ import { useReducedMotion } from '@/composables/useReducedMotion'
 
 const prefersReducedMotion = useReducedMotion()
 
-const fullText = "Your Pod,\nYour Mood"
+const fullText = "Your Pod,\nYour Mode"
 const displayedText = ref('')
 const showCursor = ref(true)
 
@@ -49,7 +49,7 @@ onUnmounted(() => {
         <p class="eyebrow mb-7">Smart Rest Network</p>
         <h1
           class="font-display text-5xl font-bold leading-[1.2] sm:text-6xl lg:text-[4.5rem] min-h-[2.4em] lg:min-h-[2.4em]"
-          aria-label="Your Pod, Your Mood"
+          aria-label="Your Pod, Your Mode"
         >
           <span class="whitespace-pre-line text-primary">{{ displayedText }}</span>
           <span

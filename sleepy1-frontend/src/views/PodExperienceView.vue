@@ -3,7 +3,6 @@ import { usePageMeta } from '@/composables/usePageMeta'
 import PodFeatureAnatomy from '@/components/pod/PodFeatureAnatomy.vue'
 import PodInteriorViews from '@/components/pod/PodInteriorViews.vue'
 import PodModes from '@/components/pod/PodModes.vue'
-import PodPhotoGallery from '@/components/pod/PodPhotoGallery.vue'
 
 usePageMeta({
   title: 'The Sleep Pod — Features & 360° View',
@@ -21,8 +20,5 @@ usePageMeta({
 
     <!-- 360-Degree View Section (Interior & Exterior) -->
     <PodInteriorViews />
-
-    <!-- Photo Gallery -->
-    <PodPhotoGallery />
   </div>
 </template>

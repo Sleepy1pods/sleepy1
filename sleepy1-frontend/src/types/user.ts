@@ -6,6 +6,7 @@ export interface User {
   avatarInitials: string
   memberSince: string
   membershipTier: MembershipTierId
+  role?: 'user' | 'admin'
 }
 
 export type MembershipTierId = 'explorer' | 'traveller' | 'frequent-traveller' | 'elite'

@@ -5,6 +5,7 @@ declare module 'vue-router' {
   interface RouteMeta {
     requiresAuth?: boolean
     guestOnly?: boolean
+    requiresAdmin?: boolean
   }
 }
 
@@ -58,6 +59,21 @@ const router = createRouter({
     { path: '/legal/refund-policy', name: 'refund-policy', component: () => import('@/views/legal/RefundPolicyView.vue') },
     { path: '/legal/cookie-policy', name: 'cookie-policy', component: () => import('@/views/legal/CookiePolicyView.vue') },
 
+    { path: '/admin/login', name: 'admin-login', component: () => import('@/views/admin/AdminLoginView.vue'), meta: { guestOnly: true } },
+    { path: '/admin/register', name: 'admin-register', component: () => import('@/views/admin/AdminRegisterView.vue'), meta: { guestOnly: true } },
+    {
+      path: '/admin',
+      component: () => import('@/layouts/AdminLayout.vue'),
+      meta: { requiresAuth: true, requiresAdmin: true },
+      children: [
+        { path: '', redirect: '/admin/dashboard' },
+        { path: 'dashboard', name: 'admin-dashboard', component: () => import('@/views/admin/AdminDashboardView.vue') },
+        { path: 'bookings', name: 'admin-bookings', component: () => import('@/views/admin/AdminBookingsView.vue') },
+        { path: 'users', name: 'admin-users', component: () => import('@/views/admin/AdminUsersView.vue') },
+        { path: 'locations', name: 'admin-locations', component: () => import('@/views/admin/AdminLocationsView.vue') },
+      ]
+    },
+
     { path: '/:pathMatch(.*)*', name: 'not-found', component: () => import('@/views/NotFoundView.vue') },
   ],
 })
@@ -73,7 +89,18 @@ router.beforeEach((to) => {
     })
     return { path: '/login', query: { redirect: to.fullPath } }
   }
+  if (to.meta.requiresAdmin && auth.user?.role !== 'admin') {
+    const ui = useUiStore()
+    ui.pushToast({ type: 'error', title: 'Access Denied', description: 'Admin access only.' })
+    return { path: '/' }
+  }
   if (to.meta.guestOnly && auth.isAuthenticated) {
+    if (auth.user?.role === 'admin') {
+      if (to.path.startsWith('/admin')) {
+        return { path: '/admin/dashboard' }
+      }
+      return true
+    }
     return { path: '/' }
   }
   return true

@@ -41,3 +41,11 @@ export const protect = async (req: Request, res: Response, next: NextFunction) =
     res.status(401).json({ success: false, message: "Not authorized to access this route" });
   }
 };
+
+export const restrictToAdmin = (req: Request, res: Response, next: NextFunction) => {
+  if (req.user && req.user.role === 'admin') {
+    next();
+  } else {
+    res.status(403).json({ success: false, message: "Admin access only." });
+  }
+};

@@ -9,6 +9,7 @@ import authRoute from './modules/auth/auth.route.js';
 import bookingRoute from './modules/booking/booking.route.js';
 import newsletterRoute from './modules/newsletter/newsletter.route.js';
 import chatbotRoute from './modules/chatbot/chatbot.route.js';
+import adminRoute from './modules/admin/admin.route.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -40,11 +41,11 @@ app.get("/", (req, res) => {
   });
 });
 
-
 app.use('/api/auth', authRoute);
 app.use('/api/bookings', bookingRoute);
 app.use('/api/newsletter', newsletterRoute);
 app.use('/api/chatbot', chatbotRoute);
+app.use('/api/admin', adminRoute);
 
 app.listen(PORT, () => {
     connectDB();
