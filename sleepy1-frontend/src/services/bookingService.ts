@@ -3,6 +3,34 @@ import type { Booking, BookingDraft, TimeSlot } from '@/types/booking'
 import { delay } from '@/utils/delay'
 
 // No more local session mock logic
+function calculateDurationHours(inDateStr: string, inTimeStr: string, outDateStr: string, outTimeStr: string): number {
+  if (!inDateStr || !inTimeStr || !outDateStr || !outTimeStr) return 1;
+  try {
+    const parseAmPm = (timeStr: string, dateStr: string) => {
+      let [h, m, period] = [0, 0, ''];
+      const match = timeStr.match(/(\d+):(\d+)\s*(AM|PM)?/i);
+      if (match) {
+        h = parseInt(match[1]);
+        m = parseInt(match[2]);
+        period = match[3] ? match[3].toUpperCase() : '';
+      } else {
+        return new Date();
+      }
+      if (period === 'PM' && h !== 12) h += 12;
+      if (period === 'AM' && h === 12) h = 0;
+      
+      const d = new Date(`${dateStr}T00:00:00`);
+      d.setHours(h, m, 0, 0);
+      return d;
+    };
+    const inDate = parseAmPm(inTimeStr, inDateStr);
+    const outDate = parseAmPm(outTimeStr, outDateStr);
+    const diff = (outDate.getTime() - inDate.getTime()) / (1000 * 60 * 60);
+    return diff > 0 ? diff : 1;
+  } catch (e) {
+    return 1;
+  }
+}
 
 export const bookingService = {
   async getExtras() {
@@ -78,7 +106,7 @@ export const bookingService = {
           checkIn: dbB.checkInTime,
           checkOutDate: dbB.checkOutDate,
           checkOutTime: dbB.checkOutTime,
-          durationHours: 1,
+          durationHours: calculateDurationHours(dbB.checkInDate, dbB.checkInTime, dbB.checkOutDate, dbB.checkOutTime),
           extras: [],
           guest: {
             fullName: dbB.name,
@@ -160,7 +188,7 @@ export const bookingService = {
       checkIn: dbBooking.checkInTime,
       checkOutDate: dbBooking.checkOutDate,
       checkOutTime: dbBooking.checkOutTime,
-      durationHours: 1,
+      durationHours: calculateDurationHours(dbBooking.checkInDate, dbBooking.checkInTime, dbBooking.checkOutDate, dbBooking.checkOutTime),
       extras: [],
       guest: draft.guest,
       price: {

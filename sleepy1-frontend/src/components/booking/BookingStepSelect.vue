@@ -298,7 +298,7 @@ function proceed() {
             <div class="flex items-center gap-2 text-brand-300">
               <span class="hidden sm:block h-[1px] w-10 bg-brand-400/40"></span>
               <span class="rounded-full border border-brand-400/40 bg-brand-400/15 px-3.5 py-1.5 text-xs font-bold shadow-soft">
-                ⏱️ {{ duration }} Hour{{ duration > 1 ? 's' : '' }} Stay
+                ⏱️ {{ duration === 0.5 ? '30 Minute' : duration + ' Hour' + (duration > 1 ? 's' : '') }} Stay
               </span>
               <span class="hidden sm:block h-[1px] w-10 bg-brand-400/40"></span>
             </div>
@@ -385,7 +385,7 @@ function proceed() {
           <div class="rounded-xl border border-white/10 bg-ink-950/70 p-4">
             <div class="flex items-center justify-between">
               <label for="booking-duration" class="text-sm font-medium text-ivory-100/70">
-                Stay Duration: <span class="font-bold text-ivory-50">{{ duration }} hour{{ duration > 1 ? 's' : '' }}</span>
+                Stay Duration: <span class="font-bold text-ivory-50">{{ duration === 0.5 ? '30 minutes' : duration + ' hour' + (duration > 1 ? 's' : '') }}</span>
               </label>
               <span class="text-xs font-bold text-brand-300">
                 Total: {{ formatInr(flow.pricing.basePrice) }}
@@ -395,15 +395,15 @@ function proceed() {
               id="booking-duration"
               :value="duration"
               type="range"
-              min="1"
+              min="0.5"
               max="12"
-              step="1"
+              step="0.5"
               class="mt-3 w-full accent-brand-400"
               @input="updateDuration(Number(($event.target as HTMLInputElement).value))"
             />
             <div class="mt-2 flex flex-wrap gap-1.5 justify-between">
               <button
-                v-for="h in [1, 2, 3, 4, 6, 8, 12]"
+                v-for="h in [0.5, 1, 2, 3, 4, 6, 8, 12]"
                 :key="h"
                 type="button"
                 class="rounded-lg px-2 py-1 text-[11px] transition-colors border"
@@ -414,7 +414,7 @@ function proceed() {
                 "
                 @click="updateDuration(h)"
               >
-                {{ h }}h{{ h === 12 ? ' (Overnight)' : '' }}
+                {{ h === 0.5 ? '30m' : h + 'h' }}{{ h === 12 ? ' (Overnight)' : '' }}
               </button>
             </div>
           </div>
@@ -514,7 +514,7 @@ function proceed() {
               {{ flow.selectedPod?.name || 'Solo Rest Pod' }} · {{ flow.selectedLocation?.shortName || flow.selectedLocation?.name || 'IIITD' }}
             </p>
             <p class="text-xs text-ivory-100/60">
-              {{ selectedDate }} at {{ selectedTime }} · {{ duration }} hour{{ duration > 1 ? 's' : '' }} ·
+              {{ selectedDate }} at {{ selectedTime }} · {{ duration === 0.5 ? '30 minutes' : duration + ' hour' + (duration > 1 ? 's' : '') }} ·
               <span class="font-bold text-brand-300">Estimate: {{ formatInr(flow.pricing.basePrice) }}</span>
             </p>
           </div>

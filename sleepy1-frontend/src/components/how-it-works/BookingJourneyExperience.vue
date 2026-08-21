@@ -395,20 +395,20 @@ function simulateQRScan() {
                   <div class="flex items-center justify-between text-xs font-semibold">
                     <span class="text-ivory-100/60">Duration</span>
                     <span class="rounded bg-brand-500/20 px-2 py-0.5 font-bold text-brand-300">
-                      {{ simDurationHours }} Hours
+                      {{ simDurationHours === 0.5 ? '30 Mins' : simDurationHours + ' Hours' }}
                     </span>
                   </div>
                   <input
                     v-model.number="simDurationHours"
                     type="range"
-                    min="1"
+                    min="0.5"
                     max="8"
-                    step="1"
+                    step="0.5"
                     @click.stop
                     class="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-white/10 accent-brand-400"
                   />
                   <div class="mt-1 flex justify-between text-[10px] text-ivory-100/50 font-mono">
-                    <span>1h</span>
+                    <span>30m</span>
                     <span>2h</span>
                     <span>4h</span>
                     <span>6h</span>
