@@ -38,7 +38,7 @@ onMounted(() => {
       <div v-else-if="store.filtered.length === 0" class="empty-state">No locations found matching your search.</div>
       <div v-else v-for="loc in store.filtered" :key="loc.id" class="location-card">
         <div class="location-image">
-          <img :src="loc.heroImage || loc.image || '/iiit_dharwad.png'" :alt="loc.name" />
+          <img :src="loc.heroImage || '/iiit_dharwad.png'" :alt="loc.name" />
         </div>
         <div class="location-body">
           <div class="location-top">
@@ -46,7 +46,7 @@ onMounted(() => {
               <h3 class="location-name">{{ loc.name }}</h3>
               <p class="location-city">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                {{ loc.city }} — {{ loc.terminal || loc.hubType || loc.environment || 'Main Campus' }}
+                {{ loc.city }} — {{ loc.terminal || loc.hubType || 'Main Campus' }}
               </p>
             </div>
             <span class="badge badge-emerald">Active</span>
@@ -54,7 +54,7 @@ onMounted(() => {
           <div class="location-stats">
             <div class="stat-pill">
               <span class="stat-small-label">Total Pods</span>
-              <span class="stat-small-value">{{ loc.podCount || loc.totalPods || 5 }} Units</span>
+              <span class="stat-small-value">{{ loc.podCount || 5 }} Units</span>
             </div>
             <div class="stat-pill">
               <span class="stat-small-label">Availability</span>

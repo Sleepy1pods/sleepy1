@@ -29,11 +29,6 @@ async function handleLogout() {
   await authStore.logout()
   router.push('/admin/login')
 }
-
-function navClick(to: string) {
-  mobileMenuOpen.value = false
-  router.push(to)
-}
 </script>
 
 <template>
