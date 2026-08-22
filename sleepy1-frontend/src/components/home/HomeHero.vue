@@ -84,26 +84,21 @@ onMounted(() => {
         <!-- Right Column: Clean & Unobstructed 3D Pod (No Labels) -->
         <div class="lg:col-span-7 relative flex items-center justify-center lg:justify-end overflow-visible">
           <div
-            class="relative w-full max-w-6xl lg:max-w-none min-h-[360px] sm:min-h-[440px] lg:min-h-[560px] xl:min-h-[620px] flex items-center justify-center lg:justify-end">
+            class="relative w-full max-w-5xl lg:max-w-none min-h-[300px] sm:min-h-[360px] lg:min-h-[440px] xl:min-h-[480px] flex items-center justify-center lg:justify-end">
 
             <!-- Light Mode: High-Res Transparent 3D Pod -->
-            <img src="/pod-hero2.png" alt="Sleepy1 Smart Rest Pod"
-              class="block dark:hidden relative z-10 w-full h-full object-contain scale-[1.5] sm:scale-[2] lg:scale-[1.8] xl:scale-[1.7] filter drop-shadow-[0_25px_45px_rgba(0,0,0,0.14)] transition-transform duration-700 ease-out -translate-y-4 sm:-translate-y-6 lg:-translate-y-10 xl:-translate-y-12 lg:translate-x-6 xl:translate-x-8" />
+            <img src="/pod-hero-light.jpeg" alt="Sleepy1 Smart Rest Pod"
+              class="block dark:hidden relative z-10 w-full h-full object-contain scale-[1.1] sm:scale-[1.25] lg:scale-[1.2] xl:scale-[1.15] filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.12)] transition-transform duration-700 ease-out -translate-y-2 sm:-translate-y-3 lg:-translate-y-4 lg:translate-x-2" />
 
             <!-- Dark Mode: Studio 3D Pod Render -->
-            <img src="/pod-hero2.png" alt="Sleepy1 Smart Rest Pod"
-              class="hidden dark:block relative z-10 w-full h-full object-contain scale-[1.5] sm:scale-[2] lg:scale-[1.8] xl:scale-[1.7] filter drop-shadow-[0_30px_60px_rgba(0,0,0,0.9)] opacity-95 transition-transform duration-700 ease-out -translate-y-4 sm:-translate-y-6 lg:-translate-y-10 xl:-translate-y-12 lg:translate-x-6 xl:translate-x-8" />
+            <img src="/pod-hero-dark.jpeg" alt="Sleepy1 Smart Rest Pod"
+              class="hidden dark:block relative z-10 w-full h-full object-contain scale-[1.1] sm:scale-[1.25] lg:scale-[1.2] xl:scale-[1.15] filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.85)] opacity-95 transition-transform duration-700 ease-out -translate-y-2 sm:-translate-y-3 lg:-translate-y-4 lg:translate-x-2" />
           </div>
         </div>
 
       </div>
 
-      <!-- Bottom Disclaimer -->
-      <div class="w-full flex justify-end pt-4">
-        <p class="text-[11px] sm:text-xs text-muted font-mono text-right opacity-90">
-          *Instant booking • Available 24/7 • University & Corporate Hubs
-        </p>
-      </div>
+
     </div>
   </section>
 </template>

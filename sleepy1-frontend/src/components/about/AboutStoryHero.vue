@@ -50,7 +50,7 @@
         <!-- Framed Pod Visual -->
         <div class="relative overflow-hidden rounded-2xl border border-theme bg-page group-hover:shadow-[0_10px_30px_rgba(91,103,216,0.15)] transition-shadow duration-500">
           <img 
-            src="/pod3.png" 
+            src="/pod3.jpeg" 
             alt="Sleepy1 Gen-1 Rest Pod Exterior" 
             class="h-full min-h-[320px] w-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" 
           />

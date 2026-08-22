@@ -33,9 +33,10 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
     class="sticky top-0 z-50 w-full transition-all duration-300 ease-out"
     :class="isScrolled ? 'pt-2 px-3 sm:px-6' : 'pt-3 px-3 sm:pt-4 sm:px-6'"
   >
-    <div class="mx-auto flex max-w-7xl items-center justify-between gap-3">
-      <!-- 1. Left Island: Logo & Wordmark (Liquid Glass) -->
-      <div class="liquid-glass-island flex items-center px-4 py-2 sm:px-5 sm:py-2.5 flex-shrink-0">
+    <!-- Single Complete Unified Navbar -->
+    <div class="liquid-glass-nav mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 gap-3">
+      <!-- 1. Left: Logo & Wordmark -->
+      <div class="flex items-center flex-shrink-0">
         <router-link
           to="/"
           class="group flex items-center gap-2.5 text-lg font-semibold tracking-[0.15em] transition-opacity hover:opacity-90"
@@ -53,9 +54,9 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
         </router-link>
       </div>
 
-      <!-- 2. Center Island: Navigation Links (Liquid Glass) -->
+      <!-- 2. Center: Navigation Links -->
       <nav
-        class="liquid-glass-island hidden lg:flex items-center gap-1 xl:gap-1.5 px-2.5 py-1.5 xl:px-3.5 xl:py-2"
+        class="hidden lg:flex items-center gap-1 xl:gap-2"
         aria-label="Primary"
       >
         <router-link
@@ -69,36 +70,39 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
         </router-link>
       </nav>
 
-      <!-- 3. Right Island: Action Cluster (Liquid Glass) -->
-      <div class="liquid-glass-island flex items-center gap-2.5 sm:gap-3 px-3 py-1.5 sm:px-4 sm:py-2 flex-shrink-0">
+      <!-- 3. Right: Action Cluster -->
+      <div class="flex items-center gap-2.5 sm:gap-3 flex-shrink-0">
         <!-- Desktop controls -->
         <div class="hidden lg:flex items-center gap-3">
-          <!-- Customer User Menu OR Login Button -->
-          <UserMenu v-if="auth.isAuthenticated && auth.user?.role !== 'admin'" />
-          <router-link
-            v-else
-            to="/login"
-            class="liquid-btn inline-flex items-center gap-1.5 rounded-xl px-3.5 py-1.5 text-sm font-semibold text-zinc-800 dark:text-zinc-100 transition-all duration-200 hover:scale-105"
-          >
-            <svg class="w-4 h-4 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-            </svg>
-            Login
-          </router-link>
+          <!-- Theme Toggle (Kept Separate) -->
+          <ThemeToggle />
 
           <!-- Divider -->
           <div class="h-5 w-px bg-black/10 dark:bg-white/15" />
 
-          <!-- Theme Toggle -->
-          <ThemeToggle />
+          <!-- Auth & Booking Group (Kept Close Together) -->
+          <div class="flex items-center gap-2">
+            <!-- Customer User Menu OR Login Button -->
+            <UserMenu v-if="auth.isAuthenticated && auth.user?.role !== 'admin'" />
+            <router-link
+              v-else
+              to="/login"
+              class="liquid-btn inline-flex items-center gap-1.5 rounded-xl px-3.5 py-1.5 text-sm font-semibold text-zinc-800 dark:text-zinc-100 transition-all duration-200 hover:scale-105"
+            >
+              <svg class="w-4 h-4 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+              </svg>
+              Login
+            </router-link>
 
-          <!-- Book CTA Button -->
-          <PrimaryButton as="RouterLink" to="/quick-book" size="sm" class="shadow-lg shadow-black/20 hover:scale-105 transition-transform !py-1.5 !px-4 text-sm font-medium">
-            Book
-          </PrimaryButton>
+            <!-- Book CTA Button -->
+            <PrimaryButton as="RouterLink" to="/quick-book" size="sm" class="shadow-lg shadow-black/20 hover:scale-105 transition-transform !py-1.5 !px-4 text-sm font-medium">
+              Book
+            </PrimaryButton>
+          </div>
         </div>
 
-        <!-- Mobile controls inside right island -->
+        <!-- Mobile controls inside navbar -->
         <div class="flex lg:hidden items-center gap-2">
           <!-- Theme Toggle -->
           <ThemeToggle />
@@ -122,8 +126,8 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 </template>
 
 <style scoped>
-/* Liquid Glass Island Container */
-.liquid-glass-island {
+/* Single Unified Liquid Glass Navbar */
+.liquid-glass-nav {
   position: relative;
   border-radius: 1.25rem;
   backdrop-filter: blur(28px) saturate(200%) brightness(1.02);
@@ -133,12 +137,12 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 }
 
 /* Light Mode Liquid Glass */
-:root:not(.dark) .liquid-glass-island {
+:root:not(.dark) .liquid-glass-nav {
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.85) 0%,
-    rgba(255, 255, 255, 0.6) 45%,
-    rgba(240, 243, 248, 0.72) 100%
+    rgba(255, 255, 255, 0.65) 45%,
+    rgba(240, 243, 248, 0.75) 100%
   );
   border: 1px solid rgba(255, 255, 255, 0.8);
   box-shadow:
@@ -148,7 +152,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
     0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
-:root:not(.dark) .liquid-glass-island:hover {
+:root:not(.dark) .liquid-glass-nav:hover {
   border-color: rgba(255, 255, 255, 0.95);
   box-shadow:
     inset 0 1px 2px 0 rgba(255, 255, 255, 1),
@@ -158,12 +162,12 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 }
 
 /* Dark Mode Liquid Glass */
-:root.dark .liquid-glass-island {
+:root.dark .liquid-glass-nav {
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.09) 0%,
-    rgba(22, 22, 30, 0.7) 40%,
-    rgba(14, 14, 20, 0.82) 100%
+    rgba(22, 22, 30, 0.72) 40%,
+    rgba(14, 14, 20, 0.85) 100%
   );
   border: 1px solid rgba(255, 255, 255, 0.13);
   box-shadow:
@@ -173,7 +177,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
     0 6px 16px rgba(0, 0, 0, 0.35);
 }
 
-:root.dark .liquid-glass-island:hover {
+:root.dark .liquid-glass-nav:hover {
   border-color: rgba(255, 255, 255, 0.22);
   box-shadow:
     inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.4),
@@ -183,12 +187,12 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 }
 
 /* Specular light highlight pseudo-element */
-.liquid-glass-island::before {
+.liquid-glass-nav::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 10%;
-  right: 10%;
+  left: 5%;
+  right: 5%;
   height: 1px;
   background: linear-gradient(
     90deg,
@@ -200,7 +204,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   opacity: 0.7;
 }
 
-:root:not(.dark) .liquid-glass-island::before {
+:root:not(.dark) .liquid-glass-nav::before {
   background: linear-gradient(
     90deg,
     transparent 0%,
@@ -210,7 +214,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   opacity: 0.9;
 }
 
-/* Nav Links inside liquid pill */
+/* Nav Links inside liquid navbar */
 .liquid-nav-link:hover {
   color: #000000;
   background: rgba(0, 0, 0, 0.05);
