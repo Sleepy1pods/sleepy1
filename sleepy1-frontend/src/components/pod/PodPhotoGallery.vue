@@ -32,7 +32,7 @@ import SectionHeading from '@/components/common/SectionHeading.vue'
         </div>
 
         <div class="group relative overflow-hidden rounded-2xl aspect-[4/3] bg-ink-900 border border-white/5">
-          <img src="/pod3.png" alt="Pod Interior" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          <img src="/pod3.jpeg" alt="Pod Interior" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           <div class="absolute bottom-4 left-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             <p class="text-sm font-semibold tracking-wider text-ivory-50 uppercase">Cabin Interior</p>
