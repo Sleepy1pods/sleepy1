@@ -1,11 +1,10 @@
 import type { NavItem } from '@/types/common'
 
 export const primaryNav: NavItem[] = [
-  { label: 'About', to: '/about' },
-  { label: 'Locations', to: '/locations' },
   { label: 'Features', to: '/pod-experience' },
-  { label: 'Sleepy1 Credits', to: '/credits' },
+  { label: 'Locations', to: '/locations' },
   { label: 'Contact', to: '/contact' },
+  { label: 'About Us', to: '/about' },
 ]
 
 export const loggedInNav: NavItem[] = [
@@ -17,13 +16,12 @@ export const footerColumns: { title: string; items: NavItem[] }[] = [
   {
     title: 'Quick Links',
     items: [
-      { label: 'About', to: '/about' },
-      { label: 'Locations', to: '/locations' },
       { label: 'Features', to: '/pod-experience' },
-      { label: 'How it Works', to: '/how-it-works' },
-      { label: 'Sleepy1 Credits', to: '/credits' },
-      { label: 'Newsletter', to: '/newsletter' },
+      { label: 'Locations', to: '/locations' },
       { label: 'Contact', to: '/contact' },
+      { label: 'About Us', to: '/about' },
+      { label: 'How it Works', to: '/how-it-works' },
+      { label: 'Newsletter', to: '/newsletter' },
     ],
   },
   {
@@ -56,7 +54,9 @@ export const footerMoreLinks: NavItem[] = [
   { label: 'Corporate Solutions', to: '/corporate' },
 ]
 
-export const socialLinks: { label: string; href: string; icon: 'instagram' | 'linkedin' }[] = [
+export const socialLinks: { label: string; href: string; icon: 'instagram' | 'linkedin' | 'youtube' }[] = [
   { label: 'Instagram', href: 'https://www.instagram.com/sleepy1.pods/', icon: 'instagram' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/sleepy1pods?utm_source=share_via&utm_content=profile&utm_medium=member_android', icon: 'linkedin' },
+  { label: 'YouTube', href: 'https://www.youtube.com/@Sleepy1-d3v3u', icon: 'youtube' },
 ]
+

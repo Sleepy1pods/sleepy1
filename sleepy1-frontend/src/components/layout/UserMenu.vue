@@ -53,24 +53,30 @@ async function handleLogout() {
     <button
       ref="triggerEl"
       type="button"
-      class="flex h-11 items-center gap-2 rounded-full border border-white/10 pl-1.5 pr-3 text-sm font-medium text-ivory-100 hover:border-white/25"
+      class="flex h-8 items-center gap-2 rounded-full border border-black/10 dark:border-white/15 bg-black/[0.04] dark:bg-white/[0.06] pl-1 pr-3 text-xs sm:text-sm font-medium text-zinc-800 dark:text-zinc-100 hover:border-black/25 dark:hover:border-white/25 hover:bg-black/10 dark:hover:bg-white/10 transition-all"
       :aria-expanded="isOpen"
       aria-haspopup="menu"
       aria-controls="user-menu-dropdown"
       @click="toggleOpen"
     >
-      <span class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-400 text-xs font-semibold text-ink-950">
+      <span class="flex h-6 w-6 items-center justify-center rounded-full bg-brand-400 text-[11px] font-bold text-ink-950">
         {{ auth.user?.avatarInitials }}
       </span>
-      {{ auth.user?.fullName.split(' ')[0] }}
+      <span>{{ auth.user?.fullName.split(' ')[0] }}</span>
     </button>
     <Transition name="pop">
-      <div v-if="isOpen" id="user-menu-dropdown" ref="menuEl" role="menu" class="absolute right-0 mt-2 w-56 overflow-hidden rounded-2xl border border-white/10 bg-ink-800/95 py-2 shadow-premium backdrop-blur-xl">
-        <router-link to="/bookings" role="menuitem" class="block px-4 py-2.5 text-sm text-ivory-100/80 hover:bg-white/5" @click="isOpen = false">My Bookings</router-link>
-        <router-link to="/wallet" role="menuitem" class="block px-4 py-2.5 text-sm text-ivory-100/80 hover:bg-white/5" @click="isOpen = false">Credits Wallet</router-link>
-        <router-link to="/membership" role="menuitem" class="block px-4 py-2.5 text-sm text-ivory-100/80 hover:bg-white/5" @click="isOpen = false">Membership</router-link>
-        <div class="my-2 h-px bg-white/10" />
-        <button type="button" role="menuitem" class="block w-full px-4 py-2.5 text-left text-sm text-rose-300 hover:bg-white/5" @click="handleLogout">
+      <div
+        v-if="isOpen"
+        id="user-menu-dropdown"
+        ref="menuEl"
+        role="menu"
+        class="absolute left-0 sm:left-auto sm:right-0 top-full mt-2.5 w-56 overflow-hidden rounded-2xl border border-black/10 dark:border-white/10 bg-white/95 dark:bg-[#18181f]/95 py-2 shadow-2xl backdrop-blur-xl z-50"
+      >
+        <router-link to="/bookings" role="menuitem" class="block px-4 py-2.5 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-black/5 dark:hover:bg-white/5" @click="isOpen = false">My Bookings</router-link>
+        <router-link to="/wallet" role="menuitem" class="block px-4 py-2.5 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-black/5 dark:hover:bg-white/5" @click="isOpen = false">Credits Wallet</router-link>
+        <router-link to="/membership" role="menuitem" class="block px-4 py-2.5 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-black/5 dark:hover:bg-white/5" @click="isOpen = false">Membership</router-link>
+        <div class="my-2 h-px bg-black/10 dark:bg-white/10" />
+        <button type="button" role="menuitem" class="block w-full px-4 py-2.5 text-left text-sm font-medium text-rose-500 dark:text-rose-400 hover:bg-black/5 dark:hover:bg-white/5" @click="handleLogout">
           Log Out
         </button>
       </div>

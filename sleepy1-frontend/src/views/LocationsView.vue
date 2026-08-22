@@ -35,14 +35,14 @@ const availableLocations = computed(() => store.filtered)
 <template>
   <div>
     <div class="container-page pb-16 pt-16">
-    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
       <SearchInput
         :model-value="store.searchQuery"
-        placeholder="Search by location or city..."
-        class="w-full sm:max-w-lg"
+        placeholder="Search by location, landmark, campus or city..."
+        class="w-full lg:flex-1 lg:max-w-2xl xl:max-w-3xl"
         @update:model-value="store.setSearchQuery($event)"
       />
-      <FilterChips :options="store.cities" :model-value="store.selectedCity" @update:model-value="store.setCity($event)" />
+      <FilterChips :options="store.cities" :model-value="store.selectedCity" class="shrink-0" @update:model-value="store.setCity($event)" />
     </div>
 
     <div class="mt-10">

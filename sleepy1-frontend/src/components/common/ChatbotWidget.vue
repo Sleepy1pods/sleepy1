@@ -69,22 +69,25 @@
 
     <!-- Floating Button Container -->
     <div class="relative">
-      <!-- Pinging background/border animation when closed removed -->
-      
       <!-- Actual Button -->
       <button 
         @click="isOpen = !isOpen"
-        class="relative w-14 h-14 bg-cta-fill hover:opacity-90 text-cta-text rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-105 active:scale-95 z-10"
+        class="relative inline-flex items-center gap-2.5 px-4 py-3 bg-cta-fill hover:opacity-90 text-cta-text rounded-full shadow-2xl transition-all hover:scale-105 active:scale-95 z-10 border border-white/15"
       >
-        <img 
-          v-if="!isOpen" 
-          src="/Logo.png" 
-          alt="Chat Assistant" 
-          class="h-8 w-8 object-contain dark:invert invert-0" 
-        />
-        <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
+        <template v-if="!isOpen">
+          <img 
+            src="/Logo.png" 
+            alt="Sleepy1 Assistant" 
+            class="h-5 w-5 object-contain dark:invert invert-0" 
+          />
+          <span class="text-sm font-semibold tracking-wide">Need Help?</span>
+        </template>
+        <template v-else>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          <span class="text-sm font-semibold">Close</span>
+        </template>
       </button>
     </div>
   </div>
