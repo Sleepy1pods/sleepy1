@@ -12,9 +12,45 @@ export const impactStats: Stat[] = [
   { id: 'i4', value: '<60s', label: 'Average check-in time', isVerified: true },
 ]
 
-export const milestones: { year: string; title: string; description: string }[] = [
-  { year: '2025', title: 'Sleepy1 founded', description: 'Started with a single observation: people deserve better rest in busy public spaces.' },
-  { year: '2026', title: 'MVP developed and pilot testing', description: 'Pilot pods designed, developed, and tested across initial locations.' },
-  { year: '2026', title: 'Final product development', description: 'Refined engineering, acoustic insulation, and smart booking features for scale.' },
-  { year: '2027', title: 'Pods installed and nationwide growth', description: 'Expanding across universities, corporate parks, hospitals, and railway stations nationwide.' },
+export interface JourneyMilestone {
+  year: string
+  title: string
+  subtitle?: string
+  description: string
+  badge?: string
+}
+
+export const journeyTimeline: JourneyMilestone[] = [
+  {
+    year: '2025',
+    title: 'The Spark & Founding Sleepy1',
+    subtitle: 'From Frustration to Inception',
+    description: 'Born from late-night fatigue and the realization that public rest options are broken. Sketched initial cabin blueprints and assembled the core founding team.',
+    badge: 'Origin',
+  },
+  {
+    year: '2026',
+    title: 'MVP Prototyping & Pilot Testing',
+    subtitle: 'Real-World Validation',
+    description: 'Fabricated the first physical working pods and deployed pilot units at university campuses like IIIT Dharwad, logging 10,000+ guest rest hours.',
+    badge: 'Campus Pilot',
+  },
+  {
+    year: '2026',
+    title: 'Gen-1 Production Pods & Smart IoT',
+    subtitle: 'Refined Product Delivery',
+    description: 'Launched commercial Gen-1 pods with 40dB acoustic shells, laminar HEPA ventilation, automated UV-C sanitation cycles, and instant QR entry.',
+    badge: 'Production Launch',
+  },
+  {
+    year: '2027',
+    title: 'Nationwide Expansion & Transit Hubs',
+    subtitle: 'Scale & Ubiquity',
+    description: 'Scaling pod networks across high-traffic airports, central railway stations, tech parks, and hospital emergency waiting wings nationwide.',
+    badge: 'Upcoming Horizon',
+  },
 ]
+
+// Backward-compatible alias
+export const milestones = journeyTimeline
+

@@ -35,84 +35,106 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="hero-canvas relative w-full overflow-hidden select-none transition-colors duration-300">
-    <!-- Container Grid: Left Content + Right Crystal-Clear 3D Pod -->
-    <div
-      class="relative z-10 max-w-7xl mx-auto w-full px-6 sm:px-10 lg:px-12 pt-12 sm:pt-16 lg:pt-20 pb-8 min-h-[85vh] lg:min-h-[88vh] flex flex-col justify-between">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center flex-1 my-auto">
+  <section class="hero-canvas relative w-full overflow-hidden select-none min-h-[88vh] lg:min-h-[92vh] flex items-center">
+    <!-- Background Image: pure and crisp studio render -->
+    <div class="absolute inset-0 w-full h-full z-0 overflow-hidden">
+      <img
+        src="/p1.png"
+        alt="Sleepy1 Smart Rest Pod"
+        class="w-full h-full object-cover object-right lg:object-[center_right]"
+      />
+    </div>
 
-        <!-- Left Column: Automotive Showcase Typography -->
-        <div class="lg:col-span-5 z-20">
-          <!-- Eyebrow -->
-          <div class="flex items-center gap-3 mb-4">
-            <span class="h-[2px] w-6 bg-zinc-900 dark:bg-white"></span>
-            <p class="text-xs sm:text-sm font-bold tracking-[0.25em] text-zinc-600 dark:text-zinc-300 uppercase">
-              Smart Rest Network
-            </p>
-          </div>
+    <!-- Smooth bottom transition that seamlessly matches both light & dark themes -->
+    <div class="hero-bottom-blend absolute bottom-0 inset-x-0 h-24 sm:h-32 pointer-events-none z-10" />
 
-          <!-- Headline with Typing Animation ending in "." -->
-          <h1 class="uppercase leading-[0.95] font-display">
-            <span
-              class="block text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight text-primary whitespace-nowrap">
-              {{ displayedLine1 }}
-            </span>
-            <span
-              class="block text-4xl sm:text-5xl lg:text-6xl font-light tracking-[0.18em] text-secondary mt-2 whitespace-nowrap">
-              {{ displayedLine2 }}
-            </span>
-          </h1>
-
-          <!-- Description -->
-          <p class="mt-5 text-sm sm:text-base text-secondary leading-relaxed max-w-md font-light">
-            Smart, private rest pods across universities, corporate parks, hospitals, and railway stations.
+    <!-- Container Content -->
+    <div class="relative z-20 max-w-7xl mx-auto w-full px-6 sm:px-10 lg:px-12 py-16 sm:py-20 lg:py-24 flex flex-col justify-center">
+      <div class="max-w-2xl">
+        <!-- Eyebrow Pill -->
+        <div class="hero-eyebrow inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-3.5 py-1.5 mb-6">
+          <span class="h-2 w-2 rounded-full bg-brand-400 animate-pulse" />
+          <p class="hero-eyebrow-text text-xs sm:text-sm font-bold tracking-[0.25em] uppercase">
+            Smart Rest Network
           </p>
-
-          <!-- Action Buttons with Curved Pill Borders -->
-          <div class="mt-8 flex flex-wrap items-center gap-4 sm:gap-5">
-            <router-link to="/quick-book"
-              class="group relative inline-flex items-center gap-3 border-2 border-zinc-950 dark:border-white bg-zinc-950 dark:bg-white text-white dark:text-black hover:bg-zinc-800 dark:hover:bg-zinc-200 px-7 sm:px-8 py-3.5 sm:py-4 rounded-full text-xs sm:text-sm font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:scale-105 shadow-xl">
-              <span>Book Now</span>
-              <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
-              </svg>
-            </router-link>
-          </div>
         </div>
 
-        <!-- Right Column: Clean & Unobstructed 3D Pod (No Labels) -->
-        <div class="lg:col-span-7 relative flex items-center justify-center lg:justify-end overflow-visible">
-          <div
-            class="relative w-full max-w-5xl lg:max-w-none min-h-[300px] sm:min-h-[360px] lg:min-h-[440px] xl:min-h-[480px] flex items-center justify-center lg:justify-end">
+        <!-- Headline with Typing Animation -->
+        <h1 class="hero-heading uppercase leading-[0.95] font-display">
+          <span class="hero-title-main block text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight">
+            {{ displayedLine1 }}
+          </span>
+          <span class="hero-title-sub block text-4xl sm:text-5xl lg:text-6xl font-light tracking-[0.16em] mt-2">
+            {{ displayedLine2 }}
+          </span>
+        </h1>
 
-            <!-- Light Mode: High-Res Transparent 3D Pod -->
-            <img src="/pod-hero-light.jpeg" alt="Sleepy1 Smart Rest Pod"
-              class="block dark:hidden relative z-10 w-full h-full object-contain scale-[1.1] sm:scale-[1.25] lg:scale-[1.2] xl:scale-[1.15] filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.12)] transition-transform duration-700 ease-out -translate-y-2 sm:-translate-y-3 lg:-translate-y-4 lg:translate-x-2" />
+        <!-- Description -->
+        <p class="hero-desc mt-6 text-base sm:text-lg leading-relaxed max-w-xl font-normal">
+          Smart, private rest pods across universities, corporate parks, hospitals, and railway stations nationwide. Reserve in seconds, sleep in complete silence.
+        </p>
 
-            <!-- Dark Mode: Studio 3D Pod Render -->
-            <img src="/pod-hero-dark.jpeg" alt="Sleepy1 Smart Rest Pod"
-              class="hidden dark:block relative z-10 w-full h-full object-contain scale-[1.1] sm:scale-[1.25] lg:scale-[1.2] xl:scale-[1.15] filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.85)] opacity-95 transition-transform duration-700 ease-out -translate-y-2 sm:-translate-y-3 lg:-translate-y-4 lg:translate-x-2" />
-          </div>
+        <!-- Action Buttons -->
+        <div class="mt-9 flex flex-wrap items-center gap-4 sm:gap-5">
+          <router-link
+            to="/quick-book"
+            class="hero-book-btn group relative inline-flex items-center gap-3 bg-brand-400 hover:bg-brand-300 text-ink-950 px-8 py-4 rounded-full text-xs sm:text-sm font-bold tracking-[0.18em] uppercase transition-all duration-300 hover:scale-105 shadow-md"
+          >
+            <span>Book Now</span>
+            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+            </svg>
+          </router-link>
+
+          <router-link
+            to="/pod-experience"
+            class="hero-explore-btn inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-6 py-4 text-xs sm:text-sm font-semibold tracking-wider uppercase transition-all duration-300 hover:border-white/40 hover:bg-white/20 hover:scale-105"
+          >
+            <span>Explore The Pod</span>
+            <span>&rarr;</span>
+          </router-link>
         </div>
-
       </div>
-
-
     </div>
   </section>
 </template>
 
 <style scoped>
 .hero-canvas {
-  background-color: var(--bg) !important;
-  color: var(--text-primary) !important;
-  min-height: 85vh;
+  background-color: #0c0e12;
+  min-height: 88vh;
 }
 
 @media (min-width: 1024px) {
   .hero-canvas {
-    min-height: 88vh;
+    min-height: 92vh;
   }
+}
+
+/* Explicit high-contrast text styling immune to theme overrides */
+.hero-canvas .hero-heading,
+.hero-canvas .hero-title-main {
+  color: #FFFFFF !important;
+}
+
+.hero-canvas .hero-title-sub {
+  color: #93A5FF !important;
+}
+
+.hero-canvas .hero-eyebrow-text {
+  color: #FFFFFF !important;
+}
+
+.hero-canvas .hero-desc {
+  color: #E2E8F0 !important;
+}
+
+.hero-canvas .hero-explore-btn {
+  color: #FFFFFF !important;
+}
+
+/* Seamless bottom gradient blend for light and dark modes */
+.hero-bottom-blend {
+  background: linear-gradient(to bottom, rgba(12, 14, 18, 0) 0%, var(--bg) 100%);
 }
 </style>

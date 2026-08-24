@@ -2,75 +2,89 @@
 import { usePageMeta } from '@/composables/usePageMeta'
 import SectionHeading from '@/components/common/SectionHeading.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
-import DreamCard from '@/components/common/DreamCard.vue'
-import AboutMilestones from '@/components/about/AboutMilestones.vue'
+import AboutJourney from '@/components/about/AboutJourney.vue'
 import AboutStoryHero from '@/components/about/AboutStoryHero.vue'
+import AboutHowWeBuiltIt from '@/components/about/AboutHowWeBuiltIt.vue'
+import AboutTeam from '@/components/about/AboutTeam.vue'
 import AboutBrandValues from '@/components/about/AboutBrandValues.vue'
 
 usePageMeta({
-  title: 'About',
-  description: 'Sleepy1 is working to make safe, private rest more accessible in places where people travel, wait, and spend long hours — starting with campuses and hospitals, and expanding to more high-footfall locations.',
+  title: 'About Us',
+  description: 'Meet the creators behind Sleepy1, discover how the idea came to our minds, how we engineered our rest pods, and explore our journey.',
 })
 </script>
 
 <template>
   <div class="about-page">
+    <!-- 1. Origin Story: How the idea came to our minds -->
     <section class="section-pad">
-      <div class="container-page mt-8 sm:mt-12">
+      <div class="container-page mt-4 sm:mt-8">
         <AboutStoryHero />
       </div>
     </section>
 
-    <section class="section-pad border-t border-white/8">
-      <div class="container-page grid gap-6 sm:grid-cols-2">
-        <DreamCard :glow="false" class="group relative overflow-hidden p-8 transition-all duration-300 hover:border-white/20">
-          <div class="mb-4 flex items-center justify-between border-b border-white/5 pb-3">
-            <span class="eyebrow">01 · Mission</span>
-            <span class="h-1.5 w-1.5 rounded-full bg-brand-400/80" aria-hidden="true" />
-          </div>
-          <h2 class="font-display text-xl font-bold text-ivory-50 transition-colors group-hover:text-brand-300">Instant Sanctuary</h2>
-          <p class="mt-3 text-sm leading-relaxed text-ivory-100/70">
-            To give every traveller instant access to a private, comfortable space to rest — wherever their
-            journey takes them.
-          </p>
-        </DreamCard>
-        <DreamCard :glow="false" class="group relative overflow-hidden p-8 transition-all duration-300 hover:border-white/20">
-          <div class="mb-4 flex items-center justify-between border-b border-white/5 pb-3">
-            <span class="eyebrow">02 · Vision</span>
-            <span class="h-1.5 w-1.5 rounded-full bg-brand-400/80" aria-hidden="true" />
-          </div>
-          <h2 class="font-display text-xl font-bold text-ivory-50 transition-colors group-hover:text-brand-300">The Trusted Rest Network</h2>
-          <p class="mt-3 text-sm leading-relaxed text-ivory-100/70">
-            To become the most trusted rest network — smart booking, premium pod design, and a seamless
-            experience across every major transit hub.
-          </p>
-        </DreamCard>
+    <!-- 2. How We Built It: Engineering, IoT & Prototyping -->
+    <section class="section-pad border-t border-theme">
+      <div class="container-page">
+        <AboutHowWeBuiltIt />
       </div>
     </section>
 
+    <!-- 3. The People Who Built It: The Team -->
+    <section class="section-pad border-t border-theme">
+      <div class="container-page">
+        <AboutTeam />
+      </div>
+    </section>
 
+    <!-- 4. Mission & Vision -->
+    <section class="section-pad border-t border-theme">
+      <div class="container-page grid gap-6 sm:grid-cols-2">
+        <div class="card-surface p-8 transition-all duration-300">
+          <div class="mb-4 flex items-center justify-between border-b border-theme pb-3">
+            <span class="eyebrow">01 · Mission</span>
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+          </div>
+          <h2 class="font-display text-xl font-bold text-primary">Instant Sanctuary</h2>
+          <p class="mt-3 text-sm leading-relaxed text-secondary">
+            To give every student, commuter, patient attendant, and traveller instant access to a private, soundproof space to rest — whenever and wherever exhaustion strikes.
+          </p>
+        </div>
+        <div class="card-surface p-8 transition-all duration-300">
+          <div class="mb-4 flex items-center justify-between border-b border-theme pb-3">
+            <span class="eyebrow">02 · Vision</span>
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+          </div>
+          <h2 class="font-display text-xl font-bold text-primary">The Universal Rest Network</h2>
+          <p class="mt-3 text-sm leading-relaxed text-secondary">
+            To make micro-rest as ubiquitous and accessible as grabbing a coffee — through seamless IoT booking, medical-grade clean pods, and intelligent public infrastructure.
+          </p>
+        </div>
+      </div>
+    </section>
 
-    <section class="section-pad border-t border-white/8">
+    <!-- 5. Brand Values -->
+    <section class="section-pad border-t border-theme">
       <div class="container-page">
         <SectionHeading eyebrow="Brand Values" title="What guides every Sleepy1 pod" align="center" class="mx-auto" />
         <AboutBrandValues />
       </div>
     </section>
 
-    <section class="section-pad border-t border-white/8">
+    <!-- 6. Our Journey (Starting from 2025 up to 2027) -->
+    <section class="section-pad border-t border-theme">
       <div class="container-page">
-        <SectionHeading eyebrow="Milestones" title="Our journey so far" align="center" class="mx-auto" />
-        <AboutMilestones />
+        <SectionHeading eyebrow="Our Journey" title="From inception to our future horizons" align="center" class="mx-auto" />
+        <AboutJourney />
       </div>
     </section>
 
-
-
-    <section class="border-t border-white/8 py-24 text-center">
+    <!-- 7. Call To Action -->
+    <section class="border-t border-theme py-20 text-center">
       <div class="container-page">
-        <h2 class="text-balance font-display text-3xl font-medium text-ivory-50 sm:text-4xl">Join us in redefining rest.</h2>
-        <p class="mx-auto mt-3 max-w-lg text-ivory-100/65">Book your first Sleepy1 pod, or reach out about bringing Sleepy1 to your location.</p>
-        <div class="mt-8 flex justify-center">
+        <h2 class="text-balance font-display text-3xl font-bold text-primary sm:text-4xl">Join us in redefining rest.</h2>
+        <p class="mx-auto mt-3 max-w-lg text-secondary">Experience our Gen-1 rest pods, or reach out about bringing Sleepy1 to your campus or facility.</p>
+        <div class="mt-8 flex justify-center gap-4">
           <PrimaryButton as="RouterLink" to="/quick-book" size="lg">Book a pod</PrimaryButton>
         </div>
       </div>
