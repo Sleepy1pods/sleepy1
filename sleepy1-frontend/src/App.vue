@@ -25,7 +25,7 @@ watch(
       Skip to content
     </a>
     <template v-if="!isAdminRoute">
-      <AppHeader class="relative z-10" />
+      <AppHeader />
     </template>
     <main id="main-content" class="relative z-10 flex-1">
       <RouterView v-slot="{ Component, route: currentRoute }">

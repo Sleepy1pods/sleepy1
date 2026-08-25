@@ -52,14 +52,14 @@ onMounted(() => {
     <div class="relative z-20 max-w-7xl mx-auto w-full px-6 sm:px-10 lg:px-12 py-16 sm:py-20 lg:py-24 flex flex-col justify-center">
       <div class="max-w-2xl">
         <!-- Eyebrow Pill -->
-        <div class="hero-eyebrow inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-3.5 py-1.5 mb-6">
-          <span class="h-2 w-2 rounded-full bg-brand-400 animate-pulse" />
+        <div class="hero-eyebrow inline-flex items-center gap-2.5 rounded-full border border-white/25 bg-white/10 backdrop-blur-md px-3.5 py-1.5 mb-6">
+          <span class="h-2 w-2 rounded-full bg-white animate-pulse" />
           <p class="hero-eyebrow-text text-xs sm:text-sm font-bold tracking-[0.25em] uppercase">
             Smart Rest Network
           </p>
         </div>
 
-        <!-- Headline with Typing Animation -->
+        <!-- Headline with Typing Animation (Strictly Black and White) -->
         <h1 class="hero-heading uppercase leading-[0.95] font-display">
           <span class="hero-title-main block text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight">
             {{ displayedLine1 }}
@@ -74,11 +74,11 @@ onMounted(() => {
           Smart, private rest pods across universities, corporate parks, hospitals, and railway stations nationwide. Reserve in seconds, sleep in complete silence.
         </p>
 
-        <!-- Action Buttons -->
+        <!-- Action Buttons (Strictly Black and White) -->
         <div class="mt-9 flex flex-wrap items-center gap-4 sm:gap-5">
           <router-link
             to="/quick-book"
-            class="hero-book-btn group relative inline-flex items-center gap-3 bg-brand-400 hover:bg-brand-300 text-ink-950 px-8 py-4 rounded-full text-xs sm:text-sm font-bold tracking-[0.18em] uppercase transition-all duration-300 hover:scale-105 shadow-md"
+            class="hero-book-btn group relative inline-flex items-center gap-3 bg-white hover:bg-zinc-100 text-black px-8 py-4 rounded-full text-xs sm:text-sm font-bold tracking-[0.18em] uppercase transition-all duration-300 hover:scale-105 shadow-lg shadow-black/30"
           >
             <span>Book Now</span>
             <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -88,7 +88,7 @@ onMounted(() => {
 
           <router-link
             to="/pod-experience"
-            class="hero-explore-btn inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-6 py-4 text-xs sm:text-sm font-semibold tracking-wider uppercase transition-all duration-300 hover:border-white/40 hover:bg-white/20 hover:scale-105"
+            class="hero-explore-btn inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 backdrop-blur-md px-6 py-4 text-xs sm:text-sm font-semibold tracking-wider uppercase transition-all duration-300 hover:border-white/70 hover:bg-white/20 hover:scale-105"
           >
             <span>Explore The Pod</span>
             <span>&rarr;</span>
@@ -111,14 +111,15 @@ onMounted(() => {
   }
 }
 
-/* Explicit high-contrast text styling immune to theme overrides */
+/* Explicit high-contrast text styling - pure black and white */
 .hero-canvas .hero-heading,
 .hero-canvas .hero-title-main {
   color: #FFFFFF !important;
 }
 
 .hero-canvas .hero-title-sub {
-  color: #93A5FF !important;
+  color: #FFFFFF !important;
+  opacity: 0.95;
 }
 
 .hero-canvas .hero-eyebrow-text {

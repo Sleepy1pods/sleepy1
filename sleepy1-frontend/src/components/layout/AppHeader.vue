@@ -130,60 +130,82 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 .liquid-glass-nav {
   position: relative;
   border-radius: 1.25rem;
-  backdrop-filter: blur(28px) saturate(200%) brightness(1.02);
-  -webkit-backdrop-filter: blur(28px) saturate(200%) brightness(1.02);
+  backdrop-filter: blur(24px) saturate(190%) brightness(1.05);
+  -webkit-backdrop-filter: blur(24px) saturate(190%) brightness(1.05);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: visible;
 }
 
-/* Light Mode Liquid Glass */
-:root:not(.dark) .liquid-glass-nav {
+/* Light Mode Liquid Glass - Crisp Highlighted Border */
+:global(html:not(.dark)) .liquid-glass-nav,
+:global(:root:not(.dark)) .liquid-glass-nav {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.75) 0%,
+    rgba(255, 255, 255, 0.48) 45%,
+    rgba(240, 245, 255, 0.6) 100%
+  );
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.9),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.05),
+    0 12px 36px -4px rgba(0, 0, 0, 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+:global(html:not(.dark)) .liquid-glass-nav:hover,
+:global(:root:not(.dark)) .liquid-glass-nav:hover {
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.85) 0%,
-    rgba(255, 255, 255, 0.65) 45%,
-    rgba(240, 243, 248, 0.75) 100%
+    rgba(255, 255, 255, 0.58) 45%,
+    rgba(240, 245, 255, 0.7) 100%
   );
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-color: rgba(0, 0, 0, 0.22);
   box-shadow:
-    inset 0 1px 1.5px 0 rgba(255, 255, 255, 1),
-    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.04),
-    0 12px 30px -6px rgba(0, 0, 0, 0.08),
-    0 4px 12px rgba(0, 0, 0, 0.03);
-}
-
-:root:not(.dark) .liquid-glass-nav:hover {
-  border-color: rgba(255, 255, 255, 0.95);
-  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 1),
     inset 0 1px 2px 0 rgba(255, 255, 255, 1),
-    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.05),
-    0 16px 36px -6px rgba(0, 0, 0, 0.12),
-    0 6px 16px rgba(0, 0, 0, 0.04);
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.06),
+    0 16px 42px -4px rgba(0, 0, 0, 0.15),
+    0 6px 16px rgba(0, 0, 0, 0.05);
 }
 
-/* Dark Mode Liquid Glass */
-:root.dark .liquid-glass-nav {
+/* Dark Mode Liquid Glass - Luminous Highlighted Border */
+:global(html.dark) .liquid-glass-nav,
+:global(.dark) .liquid-glass-nav,
+:global(:root.dark) .liquid-glass-nav {
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.09) 0%,
-    rgba(22, 22, 30, 0.72) 40%,
-    rgba(14, 14, 20, 0.85) 100%
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(20, 20, 28, 0.48) 40%,
+    rgba(10, 10, 16, 0.58) 100%
   );
-  border: 1px solid rgba(255, 255, 255, 0.13);
+  border: 1.5px solid rgba(255, 255, 255, 0.32);
   box-shadow:
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.28),
-    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.45),
-    0 16px 40px -4px rgba(0, 0, 0, 0.55),
-    0 6px 16px rgba(0, 0, 0, 0.35);
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.5),
+    0 16px 40px -4px rgba(0, 0, 0, 0.6),
+    0 0 20px -2px rgba(255, 255, 255, 0.08);
 }
 
-:root.dark .liquid-glass-nav:hover {
-  border-color: rgba(255, 255, 255, 0.22);
+:global(html.dark) .liquid-glass-nav:hover,
+:global(.dark) .liquid-glass-nav:hover,
+:global(:root.dark) .liquid-glass-nav:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(24, 24, 34, 0.55) 40%,
+    rgba(14, 14, 22, 0.65) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.45);
   box-shadow:
-    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.2),
+    inset 0 1px 2.5px 0 rgba(255, 255, 255, 0.6),
     inset 0 -1px 2px 0 rgba(0, 0, 0, 0.5),
-    0 20px 45px -4px rgba(0, 0, 0, 0.65),
-    0 8px 20px rgba(0, 0, 0, 0.4);
+    0 20px 48px -4px rgba(0, 0, 0, 0.7),
+    0 0 24px -2px rgba(255, 255, 255, 0.14);
 }
 
 /* Specular light highlight pseudo-element */
@@ -204,7 +226,8 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   opacity: 0.7;
 }
 
-:root:not(.dark) .liquid-glass-nav::before {
+:global(html:not(.dark)) .liquid-glass-nav::before,
+:global(:root:not(.dark)) .liquid-glass-nav::before {
   background: linear-gradient(
     90deg,
     transparent 0%,
@@ -220,7 +243,8 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   background: rgba(0, 0, 0, 0.05);
 }
 
-:root.dark .liquid-nav-link:hover {
+:global(html.dark) .liquid-nav-link:hover,
+:global(.dark) .liquid-nav-link:hover {
   color: #ffffff;
   background: rgba(255, 255, 255, 0.08);
   box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.12);
@@ -234,7 +258,8 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.7), 0 2px 6px rgba(0, 0, 0, 0.05) !important;
 }
 
-:root.dark .active-liquid-link {
+:global(html.dark) .active-liquid-link,
+:global(.dark) .active-liquid-link {
   color: #ffffff !important;
   background: rgba(255, 255, 255, 0.14) !important;
   box-shadow:
@@ -254,13 +279,15 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   border-color: rgba(0, 0, 0, 0.15);
 }
 
-:root.dark .liquid-btn {
+:global(html.dark) .liquid-btn,
+:global(.dark) .liquid-btn {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
 }
 
-:root.dark .liquid-btn:hover {
+:global(html.dark) .liquid-btn:hover,
+:global(.dark) .liquid-btn:hover {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.22);
 }
