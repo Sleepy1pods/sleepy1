@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useUiStore } from '@/stores/ui'
 import { primaryNav } from '@/data/navigation'
@@ -10,7 +10,12 @@ import ThemeToggle from '@/components/common/ThemeToggle.vue'
 const auth = useAuthStore()
 const ui = useUiStore()
 const isScrolled = ref(false)
+const isDark = ref(false)
 let ticking = false
+
+function checkDark() {
+  isDark.value = document.documentElement.classList.contains('dark')
+}
 
 function onScroll() {
   if (!ticking) {
@@ -24,8 +29,25 @@ function onScroll() {
   }
 }
 
-onMounted(() => window.addEventListener('scroll', onScroll, { passive: true }))
-onUnmounted(() => window.removeEventListener('scroll', onScroll))
+// Watch for theme changes via MutationObserver
+let observer: MutationObserver | null = null
+
+onMounted(() => {
+  window.addEventListener('scroll', onScroll, { passive: true })
+  checkDark()
+  observer = new MutationObserver(checkDark)
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+})
+onUnmounted(() => {
+  window.removeEventListener('scroll', onScroll)
+  observer?.disconnect()
+})
+
+const navStyle = computed(() => ({
+  border: isDark.value
+    ? '1.5px solid rgba(255, 255, 255, 0.28)'
+    : '1.5px solid rgba(0, 0, 0, 0.13)',
+}))
 </script>
 
 <template>
@@ -33,8 +55,11 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
     class="sticky top-0 z-50 w-full transition-all duration-300 ease-out"
     :class="isScrolled ? 'pt-2 px-3 sm:px-6' : 'pt-3 px-3 sm:pt-4 sm:px-6'"
   >
-    <!-- Single Complete Unified Navbar -->
-    <div class="liquid-glass-nav mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 gap-3">
+    <!-- Floating Navbar with Visible Border (inline style) -->
+    <div
+      class="liquid-glass-nav mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 gap-3"
+      :style="navStyle"
+    >
       <!-- 1. Left: Logo & Wordmark -->
       <div class="flex items-center flex-shrink-0">
         <router-link
@@ -74,15 +99,9 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       <div class="flex items-center gap-2.5 sm:gap-3 flex-shrink-0">
         <!-- Desktop controls -->
         <div class="hidden lg:flex items-center gap-3">
-          <!-- Theme Toggle (Kept Separate) -->
           <ThemeToggle />
-
-          <!-- Divider -->
           <div class="h-5 w-px bg-black/10 dark:bg-white/15" />
-
-          <!-- Auth & Booking Group (Kept Close Together) -->
           <div class="flex items-center gap-2">
-            <!-- Customer User Menu OR Login Button -->
             <UserMenu v-if="auth.isAuthenticated && auth.user?.role !== 'admin'" />
             <router-link
               v-else
@@ -94,20 +113,15 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
               </svg>
               Login
             </router-link>
-
-            <!-- Book CTA Button -->
             <PrimaryButton as="RouterLink" to="/quick-book" size="sm" class="shadow-lg shadow-black/20 hover:scale-105 transition-transform !py-1.5 !px-4 text-sm font-medium">
               Book
             </PrimaryButton>
           </div>
         </div>
 
-        <!-- Mobile controls inside navbar -->
+        <!-- Mobile controls -->
         <div class="flex lg:hidden items-center gap-2">
-          <!-- Theme Toggle -->
           <ThemeToggle />
-
-          <!-- Mobile Menu Hamburger -->
           <button
             type="button"
             class="liquid-btn flex h-9 w-9 items-center justify-center rounded-xl transition-all text-zinc-800 dark:text-zinc-100"
@@ -126,7 +140,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 </template>
 
 <style scoped>
-/* Single Unified Liquid Glass Navbar */
+/* Floating Navbar Container — border is set via inline :style */
 .liquid-glass-nav {
   position: relative;
   border-radius: 1.25rem;
@@ -136,7 +150,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   overflow: visible;
 }
 
-/* Light Mode Liquid Glass - Crisp Highlighted Border */
+/* Light Mode Background & Shadows */
 :global(html:not(.dark)) .liquid-glass-nav,
 :global(:root:not(.dark)) .liquid-glass-nav {
   background: linear-gradient(
@@ -145,9 +159,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
     rgba(255, 255, 255, 0.48) 45%,
     rgba(240, 245, 255, 0.6) 100%
   );
-  border: 1.5px solid rgba(0, 0, 0, 0.15);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.9),
     inset 0 1px 2px 0 rgba(255, 255, 255, 1),
     inset 0 -1px 1px 0 rgba(0, 0, 0, 0.05),
     0 12px 36px -4px rgba(0, 0, 0, 0.1),
@@ -156,59 +168,41 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 
 :global(html:not(.dark)) .liquid-glass-nav:hover,
 :global(:root:not(.dark)) .liquid-glass-nav:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.85) 0%,
-    rgba(255, 255, 255, 0.58) 45%,
-    rgba(240, 245, 255, 0.7) 100%
-  );
-  border-color: rgba(0, 0, 0, 0.22);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 1),
     inset 0 1px 2px 0 rgba(255, 255, 255, 1),
     inset 0 -1px 2px 0 rgba(0, 0, 0, 0.06),
     0 16px 42px -4px rgba(0, 0, 0, 0.15),
     0 6px 16px rgba(0, 0, 0, 0.05);
 }
 
-/* Dark Mode Liquid Glass - Luminous Highlighted Border */
+/* Dark Mode Background & Shadows */
 :global(html.dark) .liquid-glass-nav,
 :global(.dark) .liquid-glass-nav,
 :global(:root.dark) .liquid-glass-nav {
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    rgba(20, 20, 28, 0.48) 40%,
-    rgba(10, 10, 16, 0.58) 100%
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(20, 20, 28, 0.6) 40%,
+    rgba(10, 10, 16, 0.7) 100%
   );
-  border: 1.5px solid rgba(255, 255, 255, 0.32);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.12),
-    inset 0 1px 2px 0 rgba(255, 255, 255, 0.45),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.25),
     inset 0 -1px 2px 0 rgba(0, 0, 0, 0.5),
     0 16px 40px -4px rgba(0, 0, 0, 0.6),
-    0 0 20px -2px rgba(255, 255, 255, 0.08);
+    0 0 20px -2px rgba(255, 255, 255, 0.06);
 }
 
 :global(html.dark) .liquid-glass-nav:hover,
 :global(.dark) .liquid-glass-nav:hover,
 :global(:root.dark) .liquid-glass-nav:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.14) 0%,
-    rgba(24, 24, 34, 0.55) 40%,
-    rgba(14, 14, 22, 0.65) 100%
-  );
-  border-color: rgba(255, 255, 255, 0.45);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.2),
-    inset 0 1px 2.5px 0 rgba(255, 255, 255, 0.6),
+    inset 0 1px 2.5px 0 rgba(255, 255, 255, 0.4),
     inset 0 -1px 2px 0 rgba(0, 0, 0, 0.5),
     0 20px 48px -4px rgba(0, 0, 0, 0.7),
-    0 0 24px -2px rgba(255, 255, 255, 0.14);
+    0 0 24px -2px rgba(255, 255, 255, 0.12);
 }
 
-/* Specular light highlight pseudo-element */
+/* Specular top-edge light highlight */
 .liquid-glass-nav::before {
   content: '';
   position: absolute;
@@ -224,6 +218,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   );
   pointer-events: none;
   opacity: 0.7;
+  z-index: 2;
 }
 
 :global(html:not(.dark)) .liquid-glass-nav::before,
@@ -237,7 +232,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   opacity: 0.9;
 }
 
-/* Nav Links inside liquid navbar */
+/* Nav Links */
 .liquid-nav-link:hover {
   color: #000000;
   background: rgba(0, 0, 0, 0.05);
@@ -250,7 +245,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.12);
 }
 
-/* Active Nav Link with specular liquid glass feel */
+/* Active Nav Link */
 .active-liquid-link {
   font-weight: 600 !important;
   color: #000000 !important;
@@ -267,7 +262,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
     0 2px 10px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Inner Liquid Buttons */
+/* Inner Buttons (Login, Hamburger) */
 .liquid-btn {
   background: rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(0, 0, 0, 0.08);
