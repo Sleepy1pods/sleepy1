@@ -9,6 +9,7 @@ import SecondaryButton from './SecondaryButton.vue'
 const props = defineProps<{ booking: Booking }>()
 defineEmits<{ cancel: []; reschedule: []; invoice: [] }>()
 
+
 const isPast = computed(() => props.booking.status === 'completed' || props.booking.status === 'cancelled')
 </script>
 
