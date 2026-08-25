@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, computed } from 'vue'
+import { watch, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
@@ -13,9 +13,16 @@ const ui = useUiStore()
 
 const isAdminRoute = computed(() => route.path.startsWith('/admin'))
 
+onMounted(() => {
+  window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+})
+
 watch(
   () => route.fullPath,
-  () => ui.closeMobileMenu(),
+  () => {
+    ui.closeMobileMenu()
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  },
 )
 </script>
 
