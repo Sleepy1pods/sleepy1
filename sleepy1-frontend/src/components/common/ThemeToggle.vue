@@ -134,7 +134,7 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
+<style>
 .theme-toggle-btn {
   width: 56px;
   height: 28px;
@@ -143,15 +143,15 @@ onMounted(() => {
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-:global(html.dark) .theme-toggle-btn,
-:global(.dark) .theme-toggle-btn {
+html.dark .theme-toggle-btn,
+.dark .theme-toggle-btn {
   background-color: rgba(255, 255, 255, 0.08) !important;
   border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 1px 2px rgba(0, 0, 0, 0.4) !important;
 }
 
-:global(html.dark) .theme-toggle-btn:hover,
-:global(.dark) .theme-toggle-btn:hover {
+html.dark .theme-toggle-btn:hover,
+.dark .theme-toggle-btn:hover {
   border-color: rgba(255, 255, 255, 0.65) !important;
 }
 
@@ -164,8 +164,8 @@ onMounted(() => {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
 }
 
-:global(html.dark) .toggle-knob,
-:global(.dark) .toggle-knob {
+html.dark .toggle-knob,
+.dark .toggle-knob {
   background-color: #ffffff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }

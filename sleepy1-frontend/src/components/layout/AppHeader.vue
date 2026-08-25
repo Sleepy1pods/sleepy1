@@ -57,7 +57,7 @@ const navStyle = computed(() => ({
   >
     <!-- Floating Navbar with Visible Border (inline style) -->
     <div
-      class="liquid-glass-nav mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 gap-3"
+      class="liquid-glass-nav mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 gap-3 backdrop-blur-2xl"
       :style="navStyle"
     >
       <!-- 1. Left: Logo & Wordmark -->
@@ -139,7 +139,7 @@ const navStyle = computed(() => ({
   </header>
 </template>
 
-<style scoped>
+<style>
 /* Floating Navbar Container — border is set via inline :style */
 .liquid-glass-nav {
   position: relative;
@@ -151,8 +151,8 @@ const navStyle = computed(() => ({
 }
 
 /* Light Mode Background & Shadows */
-:global(html:not(.dark)) .liquid-glass-nav,
-:global(:root:not(.dark)) .liquid-glass-nav {
+html:not(.dark) .liquid-glass-nav,
+:root:not(.dark) .liquid-glass-nav {
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.75) 0%,
@@ -166,8 +166,8 @@ const navStyle = computed(() => ({
     0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
-:global(html:not(.dark)) .liquid-glass-nav:hover,
-:global(:root:not(.dark)) .liquid-glass-nav:hover {
+html:not(.dark) .liquid-glass-nav:hover,
+:root:not(.dark) .liquid-glass-nav:hover {
   box-shadow:
     inset 0 1px 2px 0 rgba(255, 255, 255, 1),
     inset 0 -1px 2px 0 rgba(0, 0, 0, 0.06),
@@ -176,9 +176,9 @@ const navStyle = computed(() => ({
 }
 
 /* Dark Mode Background & Shadows */
-:global(html.dark) .liquid-glass-nav,
-:global(.dark) .liquid-glass-nav,
-:global(:root.dark) .liquid-glass-nav {
+html.dark .liquid-glass-nav,
+.dark .liquid-glass-nav,
+:root.dark .liquid-glass-nav {
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.06) 0%,
@@ -192,9 +192,9 @@ const navStyle = computed(() => ({
     0 0 20px -2px rgba(255, 255, 255, 0.06);
 }
 
-:global(html.dark) .liquid-glass-nav:hover,
-:global(.dark) .liquid-glass-nav:hover,
-:global(:root.dark) .liquid-glass-nav:hover {
+html.dark .liquid-glass-nav:hover,
+.dark .liquid-glass-nav:hover,
+:root.dark .liquid-glass-nav:hover {
   box-shadow:
     inset 0 1px 2.5px 0 rgba(255, 255, 255, 0.4),
     inset 0 -1px 2px 0 rgba(0, 0, 0, 0.5),
@@ -221,8 +221,8 @@ const navStyle = computed(() => ({
   z-index: 2;
 }
 
-:global(html:not(.dark)) .liquid-glass-nav::before,
-:global(:root:not(.dark)) .liquid-glass-nav::before {
+html:not(.dark) .liquid-glass-nav::before,
+:root:not(.dark) .liquid-glass-nav::before {
   background: linear-gradient(
     90deg,
     transparent 0%,
@@ -238,8 +238,8 @@ const navStyle = computed(() => ({
   background: rgba(0, 0, 0, 0.05);
 }
 
-:global(html.dark) .liquid-nav-link:hover,
-:global(.dark) .liquid-nav-link:hover {
+html.dark .liquid-nav-link:hover,
+.dark .liquid-nav-link:hover {
   color: #ffffff;
   background: rgba(255, 255, 255, 0.08);
   box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.12);
@@ -253,8 +253,8 @@ const navStyle = computed(() => ({
   box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.7), 0 2px 6px rgba(0, 0, 0, 0.05) !important;
 }
 
-:global(html.dark) .active-liquid-link,
-:global(.dark) .active-liquid-link {
+html.dark .active-liquid-link,
+.dark .active-liquid-link {
   color: #ffffff !important;
   background: rgba(255, 255, 255, 0.14) !important;
   box-shadow:
@@ -267,6 +267,7 @@ const navStyle = computed(() => ({
   background: rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(0, 0, 0, 0.08);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .liquid-btn:hover {
@@ -274,15 +275,15 @@ const navStyle = computed(() => ({
   border-color: rgba(0, 0, 0, 0.15);
 }
 
-:global(html.dark) .liquid-btn,
-:global(.dark) .liquid-btn {
+html.dark .liquid-btn,
+.dark .liquid-btn {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
 }
 
-:global(html.dark) .liquid-btn:hover,
-:global(.dark) .liquid-btn:hover {
+html.dark .liquid-btn:hover,
+.dark .liquid-btn:hover {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.22);
 }
