@@ -87,12 +87,15 @@ router.beforeEach((to) => {
       title: 'Authentication Required', 
       description: 'You must be logged in to access this page. Please log in first.' 
     })
+    if (to.path.startsWith('/admin')) {
+      return { path: '/admin/login', query: { redirect: to.fullPath } }
+    }
     return { path: '/login', query: { redirect: to.fullPath } }
   }
   if (to.meta.requiresAdmin && auth.user?.role !== 'admin') {
     const ui = useUiStore()
     ui.pushToast({ type: 'error', title: 'Access Denied', description: 'Admin access only.' })
-    return { path: '/' }
+    return { path: '/admin/login' }
   }
   if (to.meta.guestOnly && auth.isAuthenticated) {
     if (auth.user?.role === 'admin') {

@@ -45,12 +45,13 @@ export const authService = {
     return user
   },
 
-  async register(payload: RegisterPayload): Promise<User> {
+  async register(payload: RegisterPayload & { role?: string }): Promise<User> {
     const body = {
       name: payload.fullName,
       email: payload.email,
       phone: payload.phone,
-      password: payload.password
+      password: payload.password,
+      role: (payload as any).role || (window.location.pathname.includes('admin') ? 'admin' : 'user')
     }
     const res = await fetch(`${API_URL}/api/auth/register`, {
       method: 'POST',

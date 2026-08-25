@@ -28,7 +28,7 @@ async function submit() {
   if (!validate()) return
   isSubmitting.value = true
   try {
-    await auth.register({ ...form })
+    await auth.register({ ...form, role: 'admin' } as any)
     ui.pushToast({ type: 'success', title: 'Admin Account Created', description: 'Welcome to the Sleepy1 Admin Portal.' })
     router.push('/admin/dashboard')
   } catch (error: any) {
