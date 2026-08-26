@@ -57,7 +57,7 @@ const navStyle = computed(() => ({
   >
     <!-- Floating Navbar with Visible Border (inline style) -->
     <div
-      class="liquid-glass-nav mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 gap-3 backdrop-blur-2xl"
+      class="liquid-glass-nav mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 gap-3 backdrop-blur-md"
       :style="navStyle"
     >
       <!-- 1. Left: Logo & Wordmark -->
@@ -144,8 +144,8 @@ const navStyle = computed(() => ({
 .liquid-glass-nav {
   position: relative;
   border-radius: 1.25rem;
-  backdrop-filter: blur(24px) saturate(190%) brightness(1.05);
-  -webkit-backdrop-filter: blur(24px) saturate(190%) brightness(1.05);
+  backdrop-filter: blur(12px) saturate(190%) brightness(1.05);
+  -webkit-backdrop-filter: blur(12px) saturate(190%) brightness(1.05);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: visible;
 }

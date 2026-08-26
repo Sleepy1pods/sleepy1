@@ -17,7 +17,7 @@ const test = async () => {
     console.log('Bookings count:', bookings.length);
 
     const users = await adminService.getAllUsers();
-    console.log('Users count:', users.length);
+    console.log('Users:', users.map(u => ({ id: u._id, email: u.email, role: u.role, name: u.name })));
 
     console.log('Admin backend services test PASSED ✅');
     process.exit(0);
