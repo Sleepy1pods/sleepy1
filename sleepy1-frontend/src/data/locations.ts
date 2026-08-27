@@ -12,7 +12,7 @@ export const locations: Location[] = [
     slug: 'iiit-dharwad',
     name: 'IIIT Dharwad',
     shortName: 'IIITD',
-    hubType: 'university',
+    hubType: 'institute',
     city: 'Dharwad',
     state: 'Karnataka',
     terminal: 'Main Campus',

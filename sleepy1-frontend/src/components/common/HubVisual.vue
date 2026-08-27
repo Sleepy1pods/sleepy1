@@ -28,7 +28,8 @@ const columnCount = computed(() => {
     case 'mall': return 8
     case 'business-district': return 5
     case 'hospital': return 3
-    case 'university': return 5
+    case 'university':
+    case 'institute': return 5
     case 'convention-centre': return 8
     case 'tourist': return 4
     case 'highway-rest-stop': return 3

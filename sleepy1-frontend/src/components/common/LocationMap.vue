@@ -15,7 +15,7 @@ let markers: L.Marker[] = []
 
 function getPodIcon(hubType: string) {
   let colors = ['#8b9bfb', '#a08ce0'];
-  if (hubType === 'university') colors = ['#60a5fa', '#2563eb']; // Blue
+  if (hubType === 'university' || hubType === 'institute') colors = ['#60a5fa', '#2563eb']; // Blue
   else if (hubType === 'hospital') colors = ['#4ade80', '#16a34a']; // Green
   else if (hubType === 'corporate') colors = ['#9ca3af', '#4b5563']; // Grey
   else if (hubType === 'railway') colors = ['#fb923c', '#ea580c']; // Orange

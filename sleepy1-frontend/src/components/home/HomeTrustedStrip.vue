@@ -92,7 +92,7 @@ function handlePointerEnd(event: PointerEvent) {
             <div>
               <div class="mb-3 flex items-center gap-2">
                 <span class="rounded-full bg-brand-500/20 border border-brand-400/30 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-brand-300 backdrop-blur-md">
-                  {{ loc.hubType || 'University' }}
+                  {{ loc.hubType || 'Institute' }}
                 </span>
                 <span v-if="loc.availablePods > 0" class="flex items-center gap-1.5 text-xs font-medium text-emerald-400 backdrop-blur-md bg-ink-950/30 px-2.5 py-1 rounded-full border border-emerald-500/20">
                   <span class="relative flex h-2 w-2">
