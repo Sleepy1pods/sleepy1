@@ -15,7 +15,7 @@ const config: Record<string, { label: string; classes: string }> = {
   cancelled: { label: 'Cancelled', classes: 'bg-rose-400/15 text-rose-300 border-rose-400/30' },
   high: { label: 'High Availability', classes: 'bg-emerald-400/15 text-emerald-300 border-emerald-400/30' },
   medium: { label: 'Limited Availability', classes: 'bg-amber-400/15 text-amber-300 border-amber-400/30' },
-  low: { label: 'Few Pods Left', classes: 'bg-orange-400/15 text-orange-300 border-orange-400/30' },
+  low: { label: '1 Pod Left', classes: 'bg-orange-400/15 text-orange-300 border-orange-400/30' },
   full: { label: 'Fully Booked', classes: 'bg-rose-400/15 text-rose-300 border-rose-400/30' },
 }
 

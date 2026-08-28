@@ -34,7 +34,7 @@ const mapUrl = computed(() => {
       <p v-if="location.terminal" class="mt-0.5 text-sm text-ivory-100/50">{{ location.terminal }}</p>
 
       <div class="mt-4 flex items-center gap-4 text-sm text-ivory-100/60">
-        <span>{{ location.availablePods }}/{{ location.podCount }} pods free</span>
+        <span>{{ location.availablePods }} {{ location.availablePods === 1 ? 'pod' : 'pods' }} free</span>
         <span aria-hidden="true">·</span>
         <span>From ₹{{ location.startingPricePerHour }}/hr</span>
       </div>

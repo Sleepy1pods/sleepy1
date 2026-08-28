@@ -27,8 +27,8 @@ class AdminService {
         terminal: 'Main Campus',
         heroImage: '/iiit_dharwad.png',
         podCount: 5,
-        availablePods: 5,
-        availability: 'High',
+        availablePods: 1,
+        availability: 'Low',
         rating: '4.9 ⭐',
         status: 'Active'
       }
