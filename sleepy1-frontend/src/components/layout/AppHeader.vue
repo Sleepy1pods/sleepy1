@@ -233,41 +233,82 @@ html:not(.dark) .liquid-glass-nav::before,
 }
 
 /* Nav Links */
+.liquid-nav-link {
+  position: relative;
+  background: transparent !important;
+}
+
+.liquid-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0px;
+  left: 0.875rem;
+  width: calc(100% - 1.75rem);
+  height: 1.5px;
+  background: #000000;
+  border-radius: 9999px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+}
+
 .liquid-nav-link:hover {
   color: #000000;
-  background: rgba(0, 0, 0, 0.05);
+}
+
+.liquid-nav-link:hover::after {
+  transform: scaleX(1);
 }
 
 html.dark .liquid-nav-link:hover,
 .dark .liquid-nav-link:hover {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+html.dark .liquid-nav-link::after,
+.dark .liquid-nav-link::after {
+  background: #ffffff;
+  box-shadow: none !important;
 }
 
 /* Active Nav Link */
 .active-liquid-link {
   font-weight: 600 !important;
   color: #000000 !important;
-  background: rgba(0, 0, 0, 0.08) !important;
-  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.7), 0 2px 6px rgba(0, 0, 0, 0.05) !important;
+}
+
+.active-liquid-link::after {
+  transform: scaleX(1);
 }
 
 html.dark .active-liquid-link,
 .dark .active-liquid-link {
   color: #ffffff !important;
-  background: rgba(255, 255, 255, 0.14) !important;
-  box-shadow:
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.3),
-    0 2px 10px rgba(0, 0, 0, 0.3) !important;
 }
 
 /* Inner Buttons (Login, Hamburger) */
 .liquid-btn {
+  position: relative;
   background: rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(0, 0, 0, 0.08);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+}
+
+.liquid-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0.875rem;
+  width: calc(100% - 1.75rem);
+  height: 1.5px;
+  background: #000000;
+  border-radius: 9999px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
 }
 
 .liquid-btn:hover {
@@ -275,11 +316,21 @@ html.dark .active-liquid-link,
   border-color: rgba(0, 0, 0, 0.15);
 }
 
+.liquid-btn:hover::after {
+  transform: scaleX(1);
+}
+
 html.dark .liquid-btn,
 .dark .liquid-btn {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+html.dark .liquid-btn::after,
+.dark .liquid-btn::after {
+  background: #ffffff;
+  box-shadow: none !important;
 }
 
 html.dark .liquid-btn:hover,

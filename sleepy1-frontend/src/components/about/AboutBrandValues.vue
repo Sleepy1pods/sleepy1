@@ -25,17 +25,11 @@ const values: ValueItem[] = [
     tag: 'Seconds, Not Mins',
     description: 'Booking, check-in, and check-out are designed to take seconds, not minutes.',
   },
-  {
-    number: '04',
-    title: 'Everywhere you wait',
-    tag: 'Hub Expansion',
-    description: 'Campuses first, then stations, malls, and business districts.',
-  },
 ]
 </script>
 
 <template>
-  <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+  <div class="mt-14 grid gap-6 md:grid-cols-3">
     <div
       v-for="v in values"
       :key="v.title"
@@ -69,14 +63,6 @@ const values: ValueItem[] = [
         <p class="mt-3 text-sm leading-relaxed text-secondary">
           {{ v.description }}
         </p>
-      </div>
-
-      <!-- Minimalist Bottom Architectural Spec Line -->
-      <div class="mt-8 flex items-center justify-between border-t border-theme pt-4">
-        <span class="text-[11px] font-medium uppercase tracking-wider text-muted">
-          Core Pillar
-        </span>
-        <span class="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
       </div>
     </div>
   </div>

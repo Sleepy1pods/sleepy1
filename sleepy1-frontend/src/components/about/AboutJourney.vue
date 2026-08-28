@@ -60,25 +60,17 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="timelineRef" class="relative mx-auto mt-10 max-w-4xl pb-4">
-    <!-- Header Indicator / Direction Pill -->
-    <div class="mb-8 flex items-center justify-center gap-2">
-      <span class="inline-flex items-center gap-2 rounded-full border border-theme bg-surface px-4 py-1 text-xs font-semibold uppercase tracking-widest text-primary">
-        <span class="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-        2025 Inception &rarr; 2027 Horizon
-      </span>
-    </div>
-
+  <div ref="timelineRef" class="relative mx-auto mt-12 max-w-4xl pb-4">
     <!-- Base Timeline Spine Line -->
     <div
-      class="pointer-events-none absolute bottom-6 left-4 top-16 w-px -translate-x-1/2 bg-black/10 dark:bg-white/10 sm:left-28"
+      class="pointer-events-none absolute bottom-6 left-4 top-5 w-px -translate-x-1/2 bg-black/10 dark:bg-white/10 sm:left-28"
       aria-hidden="true"
     />
 
     <!-- Scroll-Driven Animated Active Progress Line with Glowing Gradient -->
     <div
-      class="pointer-events-none absolute left-4 top-16 w-[2px] -translate-x-1/2 bg-gradient-to-b from-brand-300 via-brand-400 to-brand-500 shadow-[0_0_14px_rgba(139,155,251,0.9)] transition-all duration-150 ease-out sm:left-28"
-      :style="{ height: `${Math.round(scrollProgress * 100)}%`, maxHeight: 'calc(100% - 72px)' }"
+      class="pointer-events-none absolute left-4 top-5 w-[2px] -translate-x-1/2 bg-gradient-to-b from-brand-300 via-brand-400 to-brand-500 shadow-[0_0_14px_rgba(139,155,251,0.9)] transition-all duration-150 ease-out sm:left-28"
+      :style="{ height: `${Math.round(scrollProgress * 100)}%`, maxHeight: 'calc(100% - 24px)' }"
       aria-hidden="true"
     />
 
