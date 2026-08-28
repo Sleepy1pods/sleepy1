@@ -37,16 +37,16 @@ export const journeyTimeline: JourneyMilestone[] = [
   },
   {
     year: '2026',
-    title: 'Gen-1 Production Pods & Smart IoT',
-    subtitle: 'Refined Product Delivery',
-    description: 'Launched commercial Gen-1 pods with 40dB acoustic shells, laminar HEPA ventilation, automated UV-C sanitation cycles, and instant QR entry.',
-    badge: 'Production Launch',
+    title: 'Version - 1 Production',
+    subtitle: 'Coming Soon',
+    description: 'Version - 1 production coming soon.',
+    badge: 'Coming Soon',
   },
   {
     year: '2027',
-    title: 'Nationwide Expansion & Transit Hubs',
+    title: 'Nationwide Expansion',
     subtitle: 'Scale & Ubiquity',
-    description: 'Scaling pod networks across high-traffic airports, central railway stations, tech parks, and hospital emergency waiting wings nationwide.',
+    description: 'Scaling pod network across high traffic public places.',
     badge: 'Upcoming Horizon',
   },
 ]

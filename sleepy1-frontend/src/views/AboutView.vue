@@ -22,41 +22,39 @@ usePageMeta({
       </div>
     </section>
 
-    <!-- 2. The People Who Built It: The Team -->
+    <!-- 3. Mission & Vision -->
     <section class="section-pad border-t border-theme">
-      <div class="container-page">
-        <AboutTeam />
-      </div>
-    </section>
-
-    <!-- 4. Mission & Vision -->
-    <section class="section-pad border-t border-theme">
-      <div class="container-page">
-        <div class="grid gap-12 lg:grid-cols-2 lg:gap-20">
+      <div class="container-page max-w-5xl">
+        <div class="space-y-16 lg:space-y-20">
+          <!-- Mission -->
           <div>
-            <h2 class="font-display text-2xl font-bold tracking-tight text-primary sm:text-3xl lg:text-4xl">
-              Our Mission
-            </h2>
-            <p class="mt-2 text-lg font-semibold text-brand-400 sm:text-xl">
+            <span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-400">Our Mission</span>
+            <h2 class="mt-2 font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl">
               Instant Sanctuary
-            </p>
-            <p class="mt-4 text-base leading-relaxed text-secondary sm:text-lg">
+            </h2>
+            <p class="mt-5 text-lg font-normal leading-relaxed text-secondary sm:text-xl lg:text-2xl text-balance">
               To give every student, commuter, patient attendant, and traveller instant access to a private, soundproof space to rest — whenever and wherever exhaustion strikes.
             </p>
           </div>
 
-          <div>
-            <h2 class="font-display text-2xl font-bold tracking-tight text-primary sm:text-3xl lg:text-4xl">
-              Our Vision
-            </h2>
-            <p class="mt-2 text-lg font-semibold text-brand-400 sm:text-xl">
+          <!-- Vision -->
+          <div class="border-t border-theme/60 pt-16 lg:pt-20">
+            <span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-400">Our Vision</span>
+            <h2 class="mt-2 font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl">
               The Universal Rest Network
-            </p>
-            <p class="mt-4 text-base leading-relaxed text-secondary sm:text-lg">
+            </h2>
+            <p class="mt-5 text-lg font-normal leading-relaxed text-secondary sm:text-xl lg:text-2xl text-balance">
               To make micro-rest as ubiquitous and accessible as grabbing a coffee — through seamless IoT booking, medical-grade clean pods, and intelligent public infrastructure.
             </p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- 3. The People Who Built It: The Team -->
+    <section class="section-pad border-t border-theme">
+      <div class="container-page">
+        <AboutTeam />
       </div>
     </section>
 
