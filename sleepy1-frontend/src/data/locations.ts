@@ -24,7 +24,7 @@ export const locations: Location[] = [
     availability: 'low',
     startingPricePerHour: 0,
     amenityIds: ['wifi', 'charging', 'mattress'],
-    operatingHours: { opens: '00:00', closes: '23:59', is24x7: true },
+    operatingHours: { opens: '10:00', closes: '22:00', is24x7: false },
     geo: { lat: 15.3930, lng: 75.0236 },
     instructions: ['Located near the main academic block.'],
     nearbyFacilities: [{ label: 'Cafeteria', distanceMeters: 50, type: 'food' }],

@@ -109,12 +109,12 @@ function resetForm() {
               
               <div class="flex flex-col">
                 <span class="text-xs uppercase tracking-wider text-muted mb-1">Phone</span>
-                <a href="tel:+911800123456" class="text-primary font-medium hover:text-brand-500 transition-colors">+91 1800-123-4567</a>
+                <a href="tel:+919773112388" class="text-primary font-medium hover:text-brand-500 transition-colors">+91 9773112388</a>
               </div>
               
               <div class="flex flex-col pt-4 border-t border-theme">
                 <span class="text-xs uppercase tracking-wider text-muted mb-1">Operating Hours</span>
-                <span class="text-primary">24/7 on campus and airside locations</span>
+                <span class="text-primary font-medium">10:00 AM – 10:00 PM</span>
               </div>
             </div>
             
