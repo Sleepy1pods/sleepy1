@@ -3,57 +3,45 @@ import { ref, onMounted, onUnmounted } from 'vue'
 
 interface ModeItem {
   id: string
-  num: string
+  badge: string
   name: string
-  tagline: string
   description: string
   color: string
-  accentBorder: string
   glowColor: string
   image: string
   align: 'left' | 'right'
-  specs: string[]
 }
 
 const modes: ModeItem[] = [
   {
     id: 'blue',
-    num: '01',
+    badge: 'Mode 01 | Entertainment & Acoustic Immersion',
     name: 'Blue Mode',
-    tagline: 'Entertainment & Acoustic Immersion',
-    description: 'Entertainment capabilities — watch movies or shows with premium Active Noise Cancelling (ANC) headphones under an immersive electric-blue fiber-optic star ceiling.',
+    description: 'Entertainment capabilities - Watch movies or shows with premium Active Noise Cancelling (ANC) headphones under an immersive electric-blue fiber-optic star ceiling.',
     color: '#3b82f6',
-    accentBorder: 'border-blue-500/40',
-    glowColor: 'rgba(59, 130, 246, 0.4)',
-    image: '/mode-star-blue.jpg',
+    glowColor: 'rgba(59, 130, 246, 0.45)',
+    image: '/blue.png',
     align: 'left',
-    specs: ['Blue Star Ceiling', 'ANC Headphones', 'Cinema Screen', 'Acoustic Soundproofing'],
   },
   {
     id: 'red',
-    num: '02',
+    badge: 'Mode 02 | Workstation & Focused Productivity',
     name: 'Red Mode',
-    tagline: 'Workstation & Focused Productivity',
-    description: 'Work mode — plug in your laptop or secondary device, stay fully focused with dedicated charging ports under a crimson-red fiber-optic star ceiling.',
+    description: 'Work mode - Plug in your laptop or secondary device, stay fully focused with dedicated charging ports under a fiery-red fiber-optic star ceiling.',
     color: '#ef4444',
-    accentBorder: 'border-rose-500/40',
-    glowColor: 'rgba(239, 68, 68, 0.4)',
-    image: '/mode-star-red.jpg',
+    glowColor: 'rgba(239, 68, 68, 0.45)',
+    image: '/red.png',
     align: 'right',
-    specs: ['Red Star Ceiling', 'Laptop Workstation Desk', 'Rapid Power Outlets', 'Anti-Glare Lighting'],
   },
   {
     id: 'white',
-    num: '03',
+    badge: 'Mode 03 | Sleep Mode & Deep Recovery',
     name: 'White Mode',
-    tagline: 'Sleep Mode & Deep Recovery',
-    description: 'Sleep mode — drift off comfortably with an eye mask on, surrounded by a serene white fiber-optic starry night ceiling and gentle ambient perimeter glow.',
-    color: '#f4f4f5',
-    accentBorder: 'border-zinc-300/40 dark:border-white/30',
-    glowColor: 'rgba(255, 255, 255, 0.3)',
-    image: '/mode-star-white.jpg',
+    description: 'Sleep mode - Drift off comfortably with an eye mask on, surrounded by a serene white fiber-optic starry night ceiling glow.',
+    color: '#ffffff',
+    glowColor: 'rgba(255, 255, 255, 0.35)',
+    image: '/white.png',
     align: 'left',
-    specs: ['White Star Ceiling', 'Silk Eye Mask', 'Memory Foam Bed', 'Circadian Soft Glow'],
   },
 ]
 
@@ -95,31 +83,31 @@ onUnmounted(() => {
         class="mode-fullscreen-section relative w-full min-h-[85vh] lg:min-h-[92vh] flex items-center overflow-hidden border-t border-white/10"
         :class="mode.align === 'right' ? 'justify-end' : 'justify-start'"
       >
-        <!-- 1. Star View Image Layer: Comes from RIGHT (for left content) or LEFT (for right content) -->
+        <!-- Star Light Ceiling Image Layer -->
         <div 
           class="absolute inset-0 w-full h-full transition-all duration-1000 ease-out will-change-transform"
           :class="[
             visibleSections[mode.id]
               ? 'opacity-100 translate-x-0 scale-100'
-              : (mode.align === 'right' ? 'opacity-0 -translate-x-24 scale-105' : 'opacity-0 translate-x-24 scale-105')
+              : (mode.align === 'right' ? 'opacity-0 -translate-x-20 scale-105' : 'opacity-0 translate-x-20 scale-105')
           ]"
         >
           <img 
             :src="mode.image" 
-            :alt="`${mode.name} Star View`" 
+            :alt="`${mode.name} Star Light Ceiling`" 
             class="h-full w-full object-cover object-center select-none"
           />
 
-          <!-- Directional Gradient Overlays for crisp contrast -->
+          <!-- Directional Gradient Overlays for crisp readability -->
           <div 
             v-if="mode.align === 'left'"
-            class="absolute inset-0 bg-gradient-to-r from-black/95 via-black/60 to-transparent w-full lg:w-3/4 left-0"
+            class="absolute inset-0 bg-gradient-to-r from-black/95 via-black/60 to-transparent w-full lg:w-3/4 left-0 pointer-events-none"
           />
           <div 
             v-else
-            class="absolute inset-0 bg-gradient-to-l from-black/95 via-black/60 to-transparent w-full lg:w-3/4 right-0"
+            class="absolute inset-0 bg-gradient-to-l from-black/95 via-black/60 to-transparent w-full lg:w-3/4 right-0 pointer-events-none"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40 pointer-events-none" />
         </div>
 
         <!-- Ambient Color Radial Glow -->
@@ -132,65 +120,44 @@ onUnmounted(() => {
           }"
         />
 
-        <!-- 2. Minimalist Corner Text HUD (Not a card, stuck to bottom corner) -->
+        <!-- Clean, Perfectly Aligned Text Overlay HUD -->
         <div 
-          class="absolute bottom-8 sm:bottom-12 lg:bottom-14 z-20 max-w-md sm:max-w-lg transition-all duration-1000 ease-out will-change-transform"
+          class="relative z-20 max-w-lg sm:max-w-xl py-12 px-6 sm:px-12 lg:px-16 transition-all duration-1000 ease-out will-change-transform"
           :class="[
-            mode.align === 'right' 
-              ? 'right-6 sm:right-12 lg:right-16 text-left' 
-              : 'left-6 sm:left-12 lg:left-16 text-left',
             visibleSections[mode.id]
               ? 'opacity-100 translate-x-0'
-              : (mode.align === 'right' ? 'opacity-0 translate-x-20' : 'opacity-0 -translate-x-20')
+              : (mode.align === 'right' ? 'opacity-0 translate-x-16' : 'opacity-0 -translate-x-16')
           ]"
         >
-          <!-- Mode Indicator Badge -->
-          <div class="flex items-center gap-3 mb-2.5">
+          <!-- Mode Top Badge -->
+          <div class="flex items-center gap-2.5 mb-3">
             <span 
-              class="flex h-2.5 w-2.5 rounded-full shadow-lg animate-ping-slow"
+              class="flex h-2.5 w-2.5 rounded-full shadow-lg animate-ping-slow shrink-0"
               :style="{ backgroundColor: mode.color }"
             />
             <span 
-              class="font-mono text-xs font-bold uppercase tracking-[0.25em]"
+              class="font-mono text-xs sm:text-sm font-semibold uppercase tracking-[0.18em]"
               :style="{ color: mode.color }"
             >
-              Mode {{ mode.num }}
-            </span>
-            <span class="h-3 w-px bg-white/20" />
-            <span class="text-[11px] font-semibold tracking-widest uppercase text-zinc-400">
-              {{ mode.tagline }}
+              {{ mode.badge }}
             </span>
           </div>
 
-          <!-- Title -->
-          <h3 class="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white drop-shadow-md">
+          <!-- Mode Title -->
+          <h3 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white drop-shadow-md">
             {{ mode.name }}
           </h3>
 
-          <!-- Description -->
-          <p class="mt-2 text-xs sm:text-sm leading-relaxed text-zinc-300 font-light max-w-md drop-shadow">
+          <!-- Mode Description -->
+          <p class="mt-3.5 text-sm sm:text-base leading-relaxed text-zinc-200 font-normal drop-shadow max-w-lg">
             {{ mode.description }}
           </p>
 
-          <!-- Compact Feature Specs Pills -->
-          <div class="mt-4 flex flex-wrap gap-1.5 sm:gap-2">
-            <span 
-              v-for="spec in mode.specs" 
-              :key="spec"
-              class="inline-flex items-center gap-1 rounded-full border border-white/20 bg-black/40 px-2.5 py-0.5 text-[11px] font-medium text-zinc-200 backdrop-blur-md"
-            >
-              <svg class="w-3 h-3" :style="{ color: mode.color }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-              </svg>
-              {{ spec }}
-            </span>
-          </div>
-
-          <!-- Booking Action -->
-          <div class="mt-5">
+          <!-- Action Button -->
+          <div class="mt-6">
             <router-link
               to="/quick-book"
-              class="inline-flex items-center gap-2 rounded-full bg-white text-zinc-950 hover:bg-zinc-200 px-5 py-2 text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:scale-105 shadow-xl"
+              class="inline-flex items-center gap-2 rounded-full bg-white text-zinc-950 hover:bg-zinc-200 px-6 py-2.5 text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:scale-105 shadow-xl"
             >
               <span>Book {{ mode.name }}</span>
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
