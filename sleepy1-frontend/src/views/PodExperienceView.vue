@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { usePageMeta } from '@/composables/usePageMeta'
 import PodModes from '@/components/pod/PodModes.vue'
+import PodFeatureCallouts from '@/components/pod/PodFeatureCallouts.vue'
 import PodInteriorViews from '@/components/pod/PodInteriorViews.vue'
 
 usePageMeta({
@@ -13,6 +14,9 @@ usePageMeta({
   <div>
     <!-- 3 Modes Section (Blue, Red, White Star Ceiling Modes) -->
     <PodModes />
+
+    <!-- Interactive Pod Architecture & Feature Callouts (Hotspots & Connectors) -->
+    <PodFeatureCallouts />
 
     <!-- 360-Degree View Section (Interior & Exterior) -->
     <PodInteriorViews />

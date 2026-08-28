@@ -9,18 +9,21 @@ const steps = [
     title: 'Choose a pod',
     description: 'Pick a location, date, and how long you need.',
     image: '/step1.jpeg',
+    imageClass: 'object-center',
   },
   {
     stepNumber: '02',
     title: 'Scan to enter',
     description: 'Show your QR code at the door. No desk, no keys.',
     image: '/step2.jpeg',
+    imageClass: 'object-center',
   },
   {
     stepNumber: '03',
     title: 'Rest, then go',
     description: 'The pod locks behind you and checks you out automatically.',
-    image: '/step3.jpeg',
+    image: '/step3.png',
+    imageClass: 'object-[center_32%] brightness-105',
   },
 ]
 
@@ -44,9 +47,10 @@ const revealTargets = steps.map((_, i) => useScrollReveal(0.15, i * 100))
               :src="step.image"
               :alt="step.title"
               class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              :class="step.imageClass"
               loading="lazy"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
 
             <!-- Floating Step Badge -->
             <span class="absolute top-3.5 left-3.5 inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-black/65 backdrop-blur-md px-3 py-1 text-[11px] font-bold tracking-widest text-white uppercase shadow-md">
