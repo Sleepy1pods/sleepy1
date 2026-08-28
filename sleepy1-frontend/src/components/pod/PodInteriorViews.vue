@@ -441,6 +441,9 @@ function loadModel() {
   }
 }
 
+let cameraAnimFrameId: number | null = null
+let isCustomCameraAnimating = false
+
 function updateCameraForMode(mode: ViewMode) {
   if (!camera || !controls) return
   const isMobile = window.innerWidth < 640
@@ -451,11 +454,14 @@ function updateCameraForMode(mode: ViewMode) {
   }
 }
 
-function animateCameraTo(targetPos: THREE.Vector3, targetLook: THREE.Vector3) {
+function animateCameraTo(targetPos: THREE.Vector3, targetLook: THREE.Vector3, duration = 800) {
   if (!camera || !controls) return
+  if (cameraAnimFrameId !== null) {
+    cancelAnimationFrame(cameraAnimFrameId)
+    cameraAnimFrameId = null
+  }
   const startPos = camera.position.clone()
   const startLook = controls.target.clone()
-  const duration = 800
   const startTime = performance.now()
 
   function step(time: number) {
@@ -468,13 +474,17 @@ function animateCameraTo(targetPos: THREE.Vector3, targetLook: THREE.Vector3) {
     controls?.update()
 
     if (progress < 1) {
-      requestAnimationFrame(step)
+      cameraAnimFrameId = requestAnimationFrame(step)
+    } else {
+      cameraAnimFrameId = null
+      isCustomCameraAnimating = false
     }
   }
-  requestAnimationFrame(step)
+  cameraAnimFrameId = requestAnimationFrame(step)
 }
 
 watch(activeView, (newMode) => {
+  if (isCustomCameraAnimating) return
   updateCameraForMode(newMode)
 })
 
@@ -515,8 +525,7 @@ function onCanvasClick(event: MouseEvent) {
 interface AmenityItem {
   id: string
   title: string
-  category: string
-  icon: string
+  subtitle?: string
   description: string
   keywords: string[]
   fallbackOffset?: { pos: [number, number, number]; look: [number, number, number] }
@@ -525,104 +534,99 @@ interface AmenityItem {
 const amenities: AmenityItem[] = [
   {
     id: 'bed',
-    title: 'Ergonomic Bed & Blanket',
-    category: 'Rest & Comfort',
-    icon: '🛏️',
+    title: 'Ergonomic Bed',
+    subtitle: 'Zero-G',
     description: 'Memory-foam mattress, organic cotton blanket and ergonomic head pillow.',
     keywords: ['pillow', 'matress', 'bed_01', 'blanket01', 'bed'],
     fallbackOffset: { pos: [0, 0.15, 1.3], look: [0, -0.35, -0.2] },
   },
   {
     id: 'projector',
-    title: 'Ceiling Projector Display',
-    category: 'Entertainment',
-    icon: '📽️',
-    description: 'HD projector engineered for immersive streaming straight onto the pod ceiling.',
+    title: 'Projector',
+    subtitle: 'HD Streaming',
+    description: 'Ceiling-mounted HD cinema projection system for video and ambient display.',
     keywords: ['projector', 'projector supportt', 'projector.001'],
     fallbackOffset: { pos: [0, 0.05, 1.2], look: [0, 0.85, -0.2] },
   },
   {
-    id: 'control-tab',
-    title: 'Smart Touch Tablet',
-    category: 'Intelligence',
-    icon: '📱',
-    description: 'Wall-mounted control panel for mood presets, lighting, AC, and door locks.',
+    id: 'control-panel',
+    title: 'Smart Control Panel',
+    subtitle: 'Touch UI',
+    description: 'Wall-mounted tablet interface for lighting modes, AC temperature, and privacy locks.',
     keywords: ['control tab', 'screen2', 'control tab.001', 'control'],
     fallbackOffset: { pos: [0.15, 0.1, 0.9], look: [0.45, 0.05, -0.1] },
   },
   {
-    id: 'lights',
-    title: 'Ambient Lighting & Stars',
-    category: 'Atmosphere',
-    icon: '✨',
-    description: 'Bespoke starry ceiling fiber optics and custom circadian LED mood strips.',
+    id: 'star-ceiling',
+    title: 'Star Ceiling',
+    subtitle: 'Fiber-Optic',
+    description: 'Bespoke starry ceiling fiber optics paired with circadian LED mood strips.',
     keywords: ['led', 'led strips', 'ambient_light'],
     fallbackOffset: { pos: [0, 0.15, 1.1], look: [0, 0.65, 0] },
   },
   {
-    id: 'climate',
-    title: 'AC & HEPA Airflow',
-    category: 'Air & Climate',
-    icon: '❄️',
-    description: 'Silent cassette AC paired with continuous hospital-grade air filtration.',
-    keywords: ['cassette ac', 'exhaust fan', 'vent', 'ac'],
-    fallbackOffset: { pos: [-0.15, 0.2, 1.1], look: [-0.3, 0.75, -0.2] },
-  },
-  {
-    id: 'desk',
-    title: 'Foldable Work Desk',
-    category: 'Productivity',
-    icon: '💻',
-    description: 'Integrated drop-leaf desk shelf designed for laptops, books, and tablets.',
+    id: 'work-desk',
+    title: 'Foldable Work desk',
+    subtitle: 'Drop-Leaf',
+    description: 'Drop-down sturdy ergonomic surface engineered for laptops and note-taking.',
     keywords: ['table', 'desk'],
     fallbackOffset: { pos: [0.15, 0.1, 1.0], look: [-0.45, -0.1, 0.1] },
   },
   {
-    id: 'audio',
-    title: 'Spatial Audio Speakers',
-    category: 'Sound Sanctuary',
-    icon: '🎧',
-    description: 'Acoustic spatial speaker system delivering immersive, soothing soundscapes.',
+    id: 'spatial-audio',
+    title: 'Spatial Audio',
+    subtitle: 'Hi-Fi Sound',
+    description: 'Spatial acoustic speaker drivers delivering soothing, immersive audio landscapes.',
     keywords: ['speaker', 'headphone', 'audio'],
     fallbackOffset: { pos: [0.1, 0.2, 1.0], look: [0.4, 0.2, -0.1] },
   },
   {
-    id: 'charging',
-    title: 'Fast Charging & Power',
-    category: 'Convenience',
-    icon: '⚡',
-    description: 'Universal 220V power outlets and high-speed USB-C fast charging ports.',
+    id: 'fast-charging',
+    title: 'Fast charging',
+    subtitle: 'Universal',
+    description: 'High-speed USB-C charging ports and universal AC power sockets.',
     keywords: ['switchboard', 'charge', 'socket'],
     fallbackOffset: { pos: [0.1, 0.05, 0.9], look: [-0.45, -0.15, 0.2] },
   },
   {
-    id: 'hooks',
-    title: 'Coat & Bag Hooks',
-    category: 'Storage',
-    icon: '🧥',
-    description: 'Convenient hanging hooks to keep garments, jackets, and bags off the floor.',
-    keywords: ['hook', 'hook_01_1', 'hook_02_0', 'hanger'],
-    fallbackOffset: { pos: [0.1, 0.25, 1.0], look: [0.45, 0.45, 0] },
-  },
-  {
-    id: 'safety',
+    id: 'emergency',
     title: 'Emergency Assistance',
-    category: 'Security',
-    icon: '🚨',
-    description: 'Instant manual quick-release egress and one-touch emergency alert button.',
+    subtitle: 'Quick SOS',
+    description: 'Instant manual egress release handle and one-touch emergency alert beacon.',
     keywords: ['emergstop', 'smoke detector', 'fire detector'],
     fallbackOffset: { pos: [0.05, 0.2, 1.0], look: [0.35, 0.35, -0.25] },
+  },
+  {
+    id: 'ac',
+    title: 'AC',
+    subtitle: 'HEPA Climate',
+    description: 'Ultra-quiet cassette AC climate regulation with hospital-grade HEPA air filtration.',
+    keywords: ['cassette ac', 'exhaust fan', 'vent', 'ac'],
+    fallbackOffset: { pos: [-0.15, 0.2, 1.1], look: [-0.3, 0.75, -0.2] },
   },
 ]
 
 const selectedAmenity = ref<AmenityItem | null>(null)
 const isPanelCollapsed = ref(false)
 
+function toggleAmenity(amenity: AmenityItem) {
+  if (selectedAmenity.value?.id === amenity.id) {
+    selectedAmenity.value = null
+    resetZoomView()
+  } else {
+    zoomToAmenity(amenity)
+  }
+}
+
 function zoomToAmenity(amenity: AmenityItem) {
   selectedAmenity.value = amenity
+  isCustomCameraAnimating = true
   activeView.value = 'interior'
 
-  if (!podGroup || !camera || !controls) return
+  if (!podGroup || !camera || !controls) {
+    isCustomCameraAnimating = false
+    return
+  }
 
   // Search for matching 3D object in scene
   let targetMesh: THREE.Object3D | null = null
@@ -658,24 +662,22 @@ function zoomToAmenity(amenity: AmenityItem) {
     }
 
     const targetPos = new THREE.Vector3(camX, camY, camZ)
-    animateCameraTo(targetPos, targetLook)
+    animateCameraTo(targetPos, targetLook, 850)
   } else if (amenity.fallbackOffset) {
     const { pos, look } = amenity.fallbackOffset
     animateCameraTo(
       new THREE.Vector3(pos[0], pos[1], pos[2]),
-      new THREE.Vector3(look[0], look[1], look[2])
+      new THREE.Vector3(look[0], look[1], look[2]),
+      850
     )
+  } else {
+    isCustomCameraAnimating = false
   }
-
-  clickedLabel.value = `${amenity.icon} ${amenity.title}`
-  if (clickedLabelTimer) clearTimeout(clickedLabelTimer)
-  clickedLabelTimer = setTimeout(() => {
-    clickedLabel.value = null
-  }, 3500)
 }
 
 function resetZoomView() {
   selectedAmenity.value = null
+  isCustomCameraAnimating = false
   updateCameraForMode(activeView.value)
 }
 
@@ -851,20 +853,6 @@ onBeforeUnmount(() => {
             <div class="h-8 w-8 animate-spin rounded-full border-2 border-brand-400 border-t-transparent" />
             <p class="mt-3 text-xs font-mono uppercase tracking-wider text-brand-300">Loading 3D Model...</p>
           </div>
-
-          <!-- Tooltip / Label Overlay -->
-          <Transition name="tooltip-fade">
-            <div
-              v-if="clickedLabel"
-              class="pointer-events-none absolute z-50 whitespace-nowrap rounded-xl bg-black/90 border border-brand-400/50 px-4 py-2.5 text-xs font-semibold text-white backdrop-blur-md shadow-2xl"
-              :style="{ transform: `translate(${mousePos.x + 16}px, ${mousePos.y - 44}px)` }"
-            >
-              <div class="flex items-center gap-2">
-                <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0"></span>
-                <span>{{ clickedLabel }}</span>
-              </div>
-            </div>
-          </Transition>
         </div>
 
         <!-- Bottom-Left Bar (Interior / Exterior Toggles & Reset) -->
@@ -872,14 +860,14 @@ onBeforeUnmount(() => {
           <button
             class="rounded-xl px-5 sm:px-6 py-2.5 sm:py-3 text-xs font-bold uppercase tracking-wider transition backdrop-blur-md border border-white/20 cursor-pointer"
             :class="activeView === 'interior' ? 'bg-white text-black shadow-xl scale-105' : 'bg-black/80 text-white hover:bg-white/10'"
-            @click="activeView = 'interior'; selectedAmenity = null"
+            @click="activeView = 'interior'; selectedAmenity = null; isCustomCameraAnimating = false"
           >
             INTERIOR
           </button>
           <button
             class="rounded-xl px-5 sm:px-6 py-2.5 sm:py-3 text-xs font-bold uppercase tracking-wider transition backdrop-blur-md border border-white/20 cursor-pointer"
             :class="activeView === 'exterior' ? 'bg-white text-black shadow-xl scale-105' : 'bg-black/80 text-white hover:bg-white/10'"
-            @click="activeView = 'exterior'; selectedAmenity = null"
+            @click="activeView = 'exterior'; selectedAmenity = null; isCustomCameraAnimating = false"
           >
             EXTERIOR
           </button>
@@ -901,75 +889,73 @@ onBeforeUnmount(() => {
             v-show="!isPanelCollapsed"
             class="absolute top-18 sm:top-6 bottom-20 sm:bottom-6 right-3 sm:right-6 z-40 w-72 sm:w-80 max-w-[calc(100vw-1.5rem)] flex flex-col pointer-events-auto"
           >
-            <div class="flex flex-col h-full rounded-2xl border border-white/15 bg-black/80 p-4 backdrop-blur-xl shadow-2xl overflow-hidden">
-              <!-- Panel Header -->
-              <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-3 shrink-0">
-                <div>
-                  <div class="flex items-center gap-2">
-                    <h4 class="font-display text-sm font-bold text-white tracking-wide">Pod Amenities</h4>
-                    <span class="rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-mono font-semibold text-brand-300">
-                      {{ amenities.length }}
-                    </span>
+            <div class="flex flex-col h-full rounded-xl border border-[#2b3340] bg-[#11141c]/95 backdrop-blur-xl shadow-2xl overflow-hidden">
+              <!-- Top Model Selector Card -->
+              <div class="p-3 pb-0">
+                <div class="rounded-lg border border-[#2b3340] bg-[#161c26] px-3.5 py-2 flex items-center justify-between">
+                  <div>
+                    <span class="block text-[10px] font-semibold uppercase tracking-wider text-zinc-400">Model</span>
+                    <span class="font-display text-xs sm:text-sm font-bold text-white tracking-wide">Sleepy1 Pod</span>
                   </div>
-                  <p class="text-[11px] text-zinc-400 mt-0.5">Click any amenity to zoom & inspect</p>
+                  <svg class="h-4 w-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
                 </div>
+              </div>
 
+              <!-- Tab Header with White Accent Line -->
+              <div class="mt-3 bg-[#181e28] border-b-2 border-white py-2.5 px-4 flex items-center justify-between">
+                <span class="text-xs font-bold uppercase tracking-wider text-white">Features & Amenities</span>
                 <button
                   v-if="selectedAmenity"
                   @click="resetZoomView"
-                  class="rounded-lg border border-white/20 bg-white/10 px-2 py-1 text-[10px] font-medium text-white hover:bg-white/20 transition"
+                  class="text-[10px] font-medium text-zinc-400 hover:text-white transition uppercase tracking-wider"
                 >
                   Reset
                 </button>
               </div>
 
-              <!-- Scrollable List of Amenities -->
-              <div class="flex-1 overflow-y-auto space-y-2 pr-1 custom-scrollbar">
-                <button
+              <!-- Accordion List of Features (No Icons, Smooth Downward Expansion) -->
+              <div class="flex-1 overflow-y-auto custom-scrollbar bg-[#11141c]">
+                <div
                   v-for="amenity in amenities"
                   :key="amenity.id"
-                  @click="zoomToAmenity(amenity)"
-                  class="w-full text-left rounded-xl p-3 transition-all duration-200 group border flex items-start gap-3 cursor-pointer"
-                  :class="[
-                    selectedAmenity?.id === amenity.id
-                      ? 'bg-white text-black border-white shadow-lg ring-2 ring-brand-400/50 scale-[1.02]'
-                      : 'bg-white/5 hover:bg-white/10 text-white border-white/10 hover:border-white/25'
-                  ]"
+                  class="border-b border-[#202734] last:border-b-0"
                 >
-                  <span class="text-xl shrink-0 p-1.5 rounded-lg bg-black/20 group-hover:scale-110 transition-transform">
-                    {{ amenity.icon }}
-                  </span>
+                  <button
+                    type="button"
+                    @click="toggleAmenity(amenity)"
+                    class="w-full py-3.5 px-4 flex items-center justify-between transition-colors text-left group cursor-pointer"
+                    :class="selectedAmenity?.id === amenity.id ? 'bg-[#19212e]' : 'hover:bg-white/[0.03]'"
+                  >
+                    <span
+                      class="text-xs sm:text-sm font-medium tracking-wide transition-colors"
+                      :class="selectedAmenity?.id === amenity.id ? 'text-white font-semibold' : 'text-zinc-300 group-hover:text-white'"
+                    >
+                      {{ amenity.title }}
+                    </span>
 
-                  <div class="min-w-0 flex-1">
-                    <div class="flex items-center justify-between gap-1">
-                      <h5 
-                        class="text-xs font-bold truncate transition-colors"
-                        :class="selectedAmenity?.id === amenity.id ? 'text-black' : 'text-white'"
-                      >
-                        {{ amenity.title }}
-                      </h5>
+                    <div class="flex items-center">
                       <span 
-                        class="text-[9px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded-full shrink-0"
-                        :class="selectedAmenity?.id === amenity.id ? 'bg-black/10 text-black' : 'bg-white/10 text-zinc-400'"
+                        class="text-base font-light text-zinc-400 group-hover:text-white transition-all duration-200 w-4 text-center leading-none select-none"
                       >
-                        {{ amenity.category }}
+                        {{ selectedAmenity?.id === amenity.id ? '−' : '+' }}
                       </span>
                     </div>
+                  </button>
 
-                    <p 
-                      class="text-[11px] mt-1 leading-snug line-clamp-2"
-                      :class="selectedAmenity?.id === amenity.id ? 'text-zinc-700' : 'text-zinc-400'"
+                  <!-- Downward expanding accordion section -->
+                  <Transition name="accordion-down">
+                    <div
+                      v-if="selectedAmenity?.id === amenity.id"
+                      class="overflow-hidden bg-[#19212e]"
                     >
-                      {{ amenity.description }}
-                    </p>
-
-                    <!-- Active state indicator -->
-                    <div v-if="selectedAmenity?.id === amenity.id" class="mt-2 flex items-center gap-1 text-[10px] font-bold text-brand-600">
-                      <span class="h-1.5 w-1.5 rounded-full bg-brand-500 animate-ping"></span>
-                      <span>Zoomed in 3D</span>
+                      <div class="px-4 pb-3.5 pt-1 text-xs text-zinc-300 font-normal leading-relaxed border-t border-white/5">
+                        <p>{{ amenity.description }}</p>
+                      </div>
                     </div>
-                  </div>
-                </button>
+                  </Transition>
+                </div>
               </div>
             </div>
           </aside>
@@ -980,6 +966,20 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
+.accordion-down-enter-active,
+.accordion-down-leave-active {
+  transition: max-height 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease;
+  max-height: 120px;
+  overflow: hidden;
+}
+
+.accordion-down-enter-from,
+.accordion-down-leave-to {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 5px;
 }

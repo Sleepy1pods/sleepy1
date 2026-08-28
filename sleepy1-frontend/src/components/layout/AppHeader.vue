@@ -289,26 +289,10 @@ html.dark .active-liquid-link,
 
 /* Inner Buttons (Login, Hamburger) */
 .liquid-btn {
-  position: relative;
   background: rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(0, 0, 0, 0.08);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-}
-
-.liquid-btn::after {
-  content: '';
-  position: absolute;
-  bottom: 2px;
-  left: 0.875rem;
-  width: calc(100% - 1.75rem);
-  height: 1.5px;
-  background: #000000;
-  border-radius: 9999px;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-  pointer-events: none;
 }
 
 .liquid-btn:hover {
@@ -316,21 +300,11 @@ html.dark .active-liquid-link,
   border-color: rgba(0, 0, 0, 0.15);
 }
 
-.liquid-btn:hover::after {
-  transform: scaleX(1);
-}
-
 html.dark .liquid-btn,
 .dark .liquid-btn {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
-}
-
-html.dark .liquid-btn::after,
-.dark .liquid-btn::after {
-  background: #ffffff;
-  box-shadow: none !important;
 }
 
 html.dark .liquid-btn:hover,
