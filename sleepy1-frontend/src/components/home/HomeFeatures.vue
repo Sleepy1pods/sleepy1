@@ -22,9 +22,9 @@ const revealTargets = features.map((_, i) => useScrollReveal(0.1, i * 60))
       <SectionHeading eyebrow="Features" title="Every pod, fully equipped" align="center" class="mx-auto" description="Smart technology and hospitality-grade comfort, built into every Sleepy1 pod." />
       <div class="mt-14 grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         <div v-for="(feature, i) in features" :key="feature.title" :ref="(el) => { if (el) revealTargets[i].value = el as HTMLElement }">
-          <DreamCard :glow="false" class="flex h-full flex-col items-center gap-3 p-6 text-center">
-            <span class="flex h-12 w-12 items-center justify-center rounded-full bg-brand-400/10 text-brand-300">
-              <AmenityIcon :icon="feature.icon" size="h-6 w-6" />
+          <DreamCard :glow="false" class="flex h-full flex-col items-center gap-3 p-6 text-center group hover:border-white/20 transition-all duration-300">
+            <span class="flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-transform duration-300 group-hover:scale-110 shadow-sm">
+              <AmenityIcon :icon="feature.icon" size="h-6 w-6" class="text-white" />
             </span>
             <h3 class="text-sm font-semibold text-ivory-50">{{ feature.title }}</h3>
           </DreamCard>
