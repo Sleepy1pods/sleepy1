@@ -33,7 +33,7 @@ usePageMeta({
               Instant Sanctuary
             </h2>
             <p class="mt-5 text-lg font-normal leading-relaxed text-secondary sm:text-xl lg:text-2xl text-balance">
-              To give every student, commuter, patient attendant, and traveller instant access to a private, soundproof space to rest — whenever and wherever exhaustion strikes.
+              To give every student, commuter, patient attendant, and traveller instant access to a private, soundproof space to rest whenever and wherever exhaustion strikes.
             </p>
           </div>
 
@@ -44,7 +44,7 @@ usePageMeta({
               The Universal Rest Network
             </h2>
             <p class="mt-5 text-lg font-normal leading-relaxed text-secondary sm:text-xl lg:text-2xl text-balance">
-              To make micro-rest as ubiquitous and accessible as grabbing a coffee — through seamless IoT booking, medical-grade clean pods, and intelligent public infrastructure.
+              To make micro rest as ubiquitous and accessible as grabbing a coffee through seamless IoT booking, medical grade clean pods, and intelligent public infrastructure.
             </p>
           </div>
         </div>

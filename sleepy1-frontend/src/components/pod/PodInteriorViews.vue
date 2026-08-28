@@ -796,7 +796,7 @@ onBeforeUnmount(() => {
       <!-- Preview Card -->
       <div v-show="!isFullscreen" class="grid overflow-hidden rounded-2xl lg:grid-cols-[2fr_1fr] bg-[#1A1A1A] shadow-premium">
         <div class="relative h-64 lg:h-[500px] w-full">
-          <img src="/pod4.png" alt="Pod Preview" class="h-full w-full object-cover" />
+          <img src="/p5.png" alt="Pod Preview" class="h-full w-full object-cover" />
         </div>
         <div class="flex flex-col items-start justify-center p-10 bg-[#1A1A1A]">
           <h3 class="text-3xl font-display text-white text-balance leading-tight">Unlock An Immersive Experience</h3>

@@ -22,20 +22,6 @@
       <p class="mt-4 text-sm leading-relaxed text-secondary sm:text-base">
         We saw the same painful reality everywhere: people curled up uncomfortably on cold metal benches, using backpacks as makeshift pillows, desperately trying to sleep under harsh fluorescent lights and constant public noise.
       </p>
-
-      <!-- The Realization Card -->
-      <div class="card-surface mt-6 p-6">
-        <div class="flex items-center gap-2.5">
-          <span class="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">?</span>
-          <h3 class="text-xs font-bold uppercase tracking-wider text-primary">The Question That Sparked It All</h3>
-        </div>
-        <p class="mt-3 font-display text-lg font-medium italic text-primary sm:text-xl">
-          "Why is sleep binary? Why must you either pay ₹4,000+ for a 24-hour hotel room you barely need, or suffer exhausted in public?"
-        </p>
-        <p class="mt-3 text-xs leading-relaxed text-secondary">
-          We realized that millions of people don't need a luxury suite — they just need 60 to 120 minutes of complete silence, a clean memory-foam bed, fresh air, and absolute privacy right where they are.
-        </p>
-      </div>
     </div>
 
     <!-- Right Framed Architectural Pod Showcase (5 cols) -->
@@ -65,12 +51,6 @@
             alt="Sleepy1 Gen-1 Rest Pod Exterior" 
             class="h-full min-h-[320px] w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" 
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-          
-          <div class="absolute bottom-4 left-4 right-4 text-xs text-white">
-            <p class="font-display font-bold">Private Sanctuary Pod</p>
-            <p class="text-white/80 text-[11px] mt-0.5">Designed, engineered, and fabricated for maximum rest efficiency.</p>
-          </div>
         </div>
 
         <!-- Architectural Footer Spec Bar -->

@@ -23,100 +23,53 @@ const activeFilter = ref<'all' | 'leadership' | 'engineering' | 'design_ops'>('a
 
 const teamMembers: TeamMember[] = [
   {
-    id: 'aarav-sharma',
-    name: 'Aarav Sharma',
-    role: 'Founder & Chief Executive Officer',
+    id: 'sukruth-hs',
+    name: 'Sukruth H S',
+    role: 'Co-Founder & Team Lead',
     category: 'leadership',
-    tagline: 'Turning public exhaustion into instant, accessible rest sanctuaries.',
-    bio: 'Conceived the original Sleepy1 rest pod after experiencing grueling late-night waits during university study nights and transit layovers. Leads overall vision, capital strategy, and institutional partnerships.',
-    focus: ['Vision & Strategy', 'Spatial Architecture', 'Ecosystem Growth'],
-    initials: 'AS',
+    tagline: 'Spearheading team execution and turning the vision of accessible rest pods into reality.',
+    bio: 'Co-founded Sleepy1 and leads overall team direction, strategic partnerships, project execution, and product rollout across public hubs and academic institutions.',
+    focus: ['Team Leadership', 'Product Strategy', 'Execution & Operations'],
+    initials: 'SH',
     avatarBg: 'from-brand-400 via-indigo-500 to-brand-600',
     links: {
       linkedin: 'https://linkedin.com',
       github: 'https://github.com',
-      email: 'aarav@sleepy1.com',
-      twitter: 'https://x.com',
+      email: 'sukruth@sleepy1.com',
     }
   },
   {
-    id: 'elena-rostova',
-    name: 'Dr. Elena Rostova',
-    role: 'Chief Acoustic & Ergonomics Architect',
-    category: 'engineering',
-    tagline: 'Engineering complete psychoacoustic silence inside bustling public halls.',
-    bio: 'Specialist in architectural acoustic isolation and human biomechanics. Developed the 40dB decoupled acoustic shell and the zero-gravity contour mattress that eliminates spinal pressure points.',
-    focus: ['Acoustic Physics', 'Zero-G Biomechanics', 'HEPA-13 Thermodynamics'],
-    initials: 'ER',
-    avatarBg: 'from-emerald-400 via-teal-500 to-cyan-600',
-    links: {
-      linkedin: 'https://linkedin.com',
-      email: 'elena@sleepy1.com',
-    }
-  },
-  {
-    id: 'rohan-deshmukh',
-    name: 'Rohan Deshmukh',
-    role: 'VP of Embedded Systems & IoT',
-    category: 'engineering',
-    tagline: 'Sub-second cryptographic QR access with battery-backed safety fail-safes.',
-    bio: 'Engineered our custom edge microcontroller board, real-time presence sensors, automated UV-C disinfection controller, and zero-latency Bluetooth/NFC synchronization.',
-    focus: ['Embedded C++', 'Edge IoT Gateway', 'Sub-second QR Access'],
-    initials: 'RD',
+    id: 'rupesh-sai-sundhar',
+    name: 'V V Rupesh Sai Sundhar',
+    role: 'Co-Founder & Design and Strategy',
+    category: 'leadership',
+    tagline: 'Crafting human-centric rest environments and long-term brand strategy.',
+    bio: 'Co-founded Sleepy1 to reimagine micro-rest. Drives core industrial design aesthetics, user experience architecture, spatial ergonomics, and strategic growth.',
+    focus: ['Design & Ergonomics', 'Brand Strategy', 'Spatial Experience'],
+    initials: 'RS',
     avatarBg: 'from-amber-400 via-orange-500 to-rose-600',
     links: {
       linkedin: 'https://linkedin.com',
       github: 'https://github.com',
-      email: 'rohan@sleepy1.com',
+      email: 'rupesh@sleepy1.com',
     }
   },
   {
-    id: 'ananya-iyer',
-    name: 'Ananya Iyer',
-    role: 'Head of Hospitality & Operations',
-    category: 'design_ops',
-    tagline: 'Guaranteeing five-star hotel hygiene standards for every single stay.',
-    bio: 'Oversees our campus and hospital property deployments, round-the-clock sanitation protocols, rapid linen refresh workflows, and continuous guest happiness programs.',
-    focus: ['Hospitality Operations', 'UV-C Hygiene Protocols', 'Partner Management'],
-    initials: 'AI',
-    avatarBg: 'from-purple-400 via-pink-500 to-rose-500',
-    links: {
-      linkedin: 'https://linkedin.com',
-      email: 'ananya@sleepy1.com',
-    }
-  },
-  {
-    id: 'vikramaditya-roy',
-    name: 'Vikramaditya Roy',
-    role: 'Lead Industrial Designer',
-    category: 'design_ops',
-    tagline: 'Designing tranquil, minimalist aesthetics inside a compact 2.2m footprint.',
-    bio: 'Pioneered the aerodynamic outer aluminum skin, acoustic double-pane curved door, and indirect circadian LED lighting system that simulates natural sunrise and sunset rhythms.',
-    focus: ['Industrial CAD', 'Circadian LED Halo', 'Modular Manufacturing'],
-    initials: 'VR',
-    avatarBg: 'from-sky-400 via-blue-500 to-indigo-600',
-    links: {
-      linkedin: 'https://linkedin.com',
-      github: 'https://github.com',
-      email: 'vikram@sleepy1.com',
-    }
-  },
-  {
-    id: 'priya-nambiar',
-    name: 'Priya Nambiar',
-    role: 'Lead Cloud & Web Architect',
+    id: 'thanish-kumar',
+    name: 'Bandi Thanish Kumar',
+    role: 'CTO & Hardware and Electronics',
     category: 'engineering',
-    tagline: 'Frictionless 60-second bookings and instant digital credit top-ups.',
-    bio: 'Architected the high-concurrency booking microservices, Sleepy1 Credits digital wallet engine, and instant keyless web portal with zero mandatory app downloads.',
-    focus: ['Vue 3 / TypeScript', 'Distributed Cloud APIs', 'Digital Wallet & NFC'],
-    initials: 'PN',
-    avatarBg: 'from-teal-400 via-emerald-500 to-green-600',
+    tagline: 'Architecting intelligent embedded hardware and IoT pod infrastructure.',
+    bio: 'Leads hardware engineering, micro-climate controls, electrical systems, power distribution, and edge IoT microcontroller integration powering every smart pod.',
+    focus: ['Hardware Engineering', 'Embedded Systems', 'IoT Architecture'],
+    initials: 'TK',
+    avatarBg: 'from-emerald-400 via-teal-500 to-cyan-600',
     links: {
       linkedin: 'https://linkedin.com',
       github: 'https://github.com',
-      email: 'priya@sleepy1.com',
+      email: 'thanish@sleepy1.com',
     }
-  }
+  },
 ]
 
 const filteredMembers = computed(() => {
@@ -152,7 +105,7 @@ const filteredMembers = computed(() => {
               : 'border border-theme bg-surface text-secondary hover:text-primary'
           ]"
         >
-          All Builders ({{ teamMembers.length }})
+          All Founders ({{ teamMembers.length }})
         </button>
         <button
           type="button"
@@ -164,7 +117,7 @@ const filteredMembers = computed(() => {
               : 'border border-theme bg-surface text-secondary hover:text-primary'
           ]"
         >
-          Leadership
+          Leadership & Strategy
         </button>
         <button
           type="button"
@@ -176,19 +129,7 @@ const filteredMembers = computed(() => {
               : 'border border-theme bg-surface text-secondary hover:text-primary'
           ]"
         >
-          Engineering & IoT
-        </button>
-        <button
-          type="button"
-          @click="activeFilter = 'design_ops'"
-          class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all duration-200"
-          :class="[
-            activeFilter === 'design_ops'
-              ? 'bg-cta-fill text-cta-text shadow-md font-bold'
-              : 'border border-theme bg-surface text-secondary hover:text-primary'
-          ]"
-        >
-          Design & Operations
+          Hardware & Tech
         </button>
       </div>
     </div>
