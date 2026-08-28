@@ -51,7 +51,7 @@ async function subscribe() {
             SLEEPY1
           </router-link>
           <p class="mt-4 max-w-xs text-sm leading-relaxed text-ivory-100/75">
-            Smart private rest pods across universities, corporate parks, hospitals, and railway stations nationwide.
+            Smart private rest pods in various high footfall public spaces.
           </p>
           <form class="mt-6 flex max-w-xs gap-2" @submit.prevent="subscribe">
             <label for="footer-email" class="sr-only">Email address</label>

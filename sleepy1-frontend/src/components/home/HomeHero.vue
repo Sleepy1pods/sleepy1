@@ -71,7 +71,7 @@ onMounted(() => {
 
         <!-- Description -->
         <p class="hero-desc mt-6 text-base sm:text-lg leading-relaxed max-w-xl font-normal">
-          Smart, private rest pods across universities, corporate parks, hospitals, and railway stations nationwide. Reserve in seconds, sleep in complete silence.
+          Smart private rest pods in various high footfall public spaces. Reserve in seconds, sleep in complete silence.
         </p>
 
         <!-- Action Buttons (Strictly Black and White) -->
