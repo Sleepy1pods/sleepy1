@@ -1,8 +1,16 @@
 <script setup lang="ts">
 import { useScrollReveal } from '@/composables/useScrollReveal'
 
-const leftReveal = useScrollReveal(0.15, 0)
-const rightReveal = useScrollReveal(0.15, 100)
+const leftEl = useScrollReveal(0.15, 0)
+const rightEl = useScrollReveal(0.15, 100)
+
+function setLeftRef(el: any) {
+  if (el) leftEl.value = el as HTMLElement
+}
+
+function setRightRef(el: any) {
+  if (el) rightEl.value = el as HTMLElement
+}
 </script>
 
 <template>
@@ -29,7 +37,7 @@ const rightReveal = useScrollReveal(0.15, 100)
         
         <!-- Left Side: First Line "STEP INSIDE," -->
         <div 
-          ref="leftReveal" 
+          :ref="setLeftRef" 
           class="lg:col-span-4 flex flex-col justify-center text-left lg:text-right"
         >
           <h2 class="pod-exp-heading font-display uppercase tracking-tight">
@@ -44,7 +52,7 @@ const rightReveal = useScrollReveal(0.15, 100)
 
         <!-- Right Side: Second Line "AND THE WORLD OUTSIDE GOES QUIET." -->
         <div 
-          ref="rightReveal" 
+          :ref="setRightRef" 
           class="lg:col-span-4 flex flex-col justify-center text-left"
         >
           <h2 class="pod-exp-heading font-display uppercase tracking-tight">
