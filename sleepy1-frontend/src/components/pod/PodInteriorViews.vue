@@ -643,7 +643,7 @@ onBeforeUnmount(() => {
           <h3 class="text-3xl font-display text-white text-balance leading-tight">Unlock An Immersive Experience</h3>
           <button 
             @click="isFullscreen = true"
-            class="mt-8 flex items-center gap-2 border border-white/20 bg-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-black transition hover:bg-white/90"
+            class="mt-8 flex items-center gap-2 rounded-full border border-white/20 bg-white px-6 py-3 text-xs font-bold uppercase tracking-wider text-black transition hover:bg-white/90 hover:scale-105 shadow-md"
           >
             EXPLORE IN 3D
             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>

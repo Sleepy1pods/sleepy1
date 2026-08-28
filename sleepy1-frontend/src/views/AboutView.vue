@@ -4,7 +4,6 @@ import SectionHeading from '@/components/common/SectionHeading.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import AboutJourney from '@/components/about/AboutJourney.vue'
 import AboutStoryHero from '@/components/about/AboutStoryHero.vue'
-import AboutHowWeBuiltIt from '@/components/about/AboutHowWeBuiltIt.vue'
 import AboutTeam from '@/components/about/AboutTeam.vue'
 import AboutBrandValues from '@/components/about/AboutBrandValues.vue'
 
@@ -23,14 +22,7 @@ usePageMeta({
       </div>
     </section>
 
-    <!-- 2. How We Built It: Engineering, IoT & Prototyping -->
-    <section class="section-pad border-t border-theme">
-      <div class="container-page">
-        <AboutHowWeBuiltIt />
-      </div>
-    </section>
-
-    <!-- 3. The People Who Built It: The Team -->
+    <!-- 2. The People Who Built It: The Team -->
     <section class="section-pad border-t border-theme">
       <div class="container-page">
         <AboutTeam />

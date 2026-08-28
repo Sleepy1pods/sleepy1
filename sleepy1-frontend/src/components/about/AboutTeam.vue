@@ -288,27 +288,5 @@ const filteredMembers = computed(() => {
       </div>
     </div>
 
-    <!-- Founding DNA Callout Banner -->
-    <div class="card-surface mt-12 overflow-hidden p-6 sm:p-8">
-      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <span class="text-xs font-bold uppercase tracking-wider text-primary">Our Shared DNA</span>
-          <h3 class="mt-1 font-display text-xl font-bold text-primary">
-            Engineered by students, hardware hackers & designers who refuse to accept broken rest.
-          </h3>
-          <p class="mt-2 text-xs leading-relaxed text-secondary max-w-2xl">
-            Every millimeter of our pod acoustics, every line of smart lock code, and every sanitation routine was tested through live trials across campuses like IIIT Dharwad and pilot transport hubs.
-          </p>
-        </div>
-        <div class="shrink-0">
-          <RouterLink
-            to="/contact"
-            class="btn-base bg-cta-fill text-cta-text px-5 py-2.5 text-xs font-semibold hover:opacity-90 transition-all shadow-sm"
-          >
-            Say Hello to Our Team &rarr;
-          </RouterLink>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
