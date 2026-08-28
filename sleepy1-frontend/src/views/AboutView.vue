@@ -39,26 +39,31 @@ usePageMeta({
 
     <!-- 4. Mission & Vision -->
     <section class="section-pad border-t border-theme">
-      <div class="container-page grid gap-6 sm:grid-cols-2">
-        <div class="card-surface p-8 transition-all duration-300">
-          <div class="mb-4 flex items-center justify-between border-b border-theme pb-3">
-            <span class="eyebrow">01 · Mission</span>
-            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+      <div class="container-page">
+        <div class="grid gap-12 lg:grid-cols-2 lg:gap-20">
+          <div>
+            <h2 class="font-display text-2xl font-bold tracking-tight text-primary sm:text-3xl lg:text-4xl">
+              Our Mission
+            </h2>
+            <p class="mt-2 text-lg font-semibold text-brand-400 sm:text-xl">
+              Instant Sanctuary
+            </p>
+            <p class="mt-4 text-base leading-relaxed text-secondary sm:text-lg">
+              To give every student, commuter, patient attendant, and traveller instant access to a private, soundproof space to rest — whenever and wherever exhaustion strikes.
+            </p>
           </div>
-          <h2 class="font-display text-xl font-bold text-primary">Instant Sanctuary</h2>
-          <p class="mt-3 text-sm leading-relaxed text-secondary">
-            To give every student, commuter, patient attendant, and traveller instant access to a private, soundproof space to rest — whenever and wherever exhaustion strikes.
-          </p>
-        </div>
-        <div class="card-surface p-8 transition-all duration-300">
-          <div class="mb-4 flex items-center justify-between border-b border-theme pb-3">
-            <span class="eyebrow">02 · Vision</span>
-            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+
+          <div>
+            <h2 class="font-display text-2xl font-bold tracking-tight text-primary sm:text-3xl lg:text-4xl">
+              Our Vision
+            </h2>
+            <p class="mt-2 text-lg font-semibold text-brand-400 sm:text-xl">
+              The Universal Rest Network
+            </p>
+            <p class="mt-4 text-base leading-relaxed text-secondary sm:text-lg">
+              To make micro-rest as ubiquitous and accessible as grabbing a coffee — through seamless IoT booking, medical-grade clean pods, and intelligent public infrastructure.
+            </p>
           </div>
-          <h2 class="font-display text-xl font-bold text-primary">The Universal Rest Network</h2>
-          <p class="mt-3 text-sm leading-relaxed text-secondary">
-            To make micro-rest as ubiquitous and accessible as grabbing a coffee — through seamless IoT booking, medical-grade clean pods, and intelligent public infrastructure.
-          </p>
         </div>
       </div>
     </section>

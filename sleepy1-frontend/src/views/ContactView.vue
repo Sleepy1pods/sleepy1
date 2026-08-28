@@ -109,7 +109,10 @@ function resetForm() {
               
               <div class="flex flex-col">
                 <span class="text-xs uppercase tracking-wider text-muted mb-1">Phone</span>
-                <a href="tel:+919773112388" class="text-primary font-medium hover:text-brand-500 transition-colors">+91 9773112388</a>
+                <div class="flex flex-col gap-1">
+                  <a href="tel:+919773112388" class="text-primary font-medium hover:text-brand-500 transition-colors">+91 9773112388</a>
+                  <a href="tel:+919606984328" class="text-primary font-medium hover:text-brand-500 transition-colors">+91 9606984328</a>
+                </div>
               </div>
               
               <div class="flex flex-col pt-4 border-t border-theme">
