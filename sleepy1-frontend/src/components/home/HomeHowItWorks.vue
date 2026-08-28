@@ -5,19 +5,22 @@ import { useScrollReveal } from '@/composables/useScrollReveal'
 
 const steps = [
   {
+    stepNumber: '01',
     title: 'Choose a pod',
     description: 'Pick a location, date, and how long you need.',
-    icon: 'M12 21c-4.5-3-8-6.5-8-11a8 8 0 0116 0c0 4.5-3.5 8-8 11z M12 13a2.5 2.5 0 100-5 2.5 2.5 0 000 5z',
+    image: '/step1.jpeg',
   },
   {
+    stepNumber: '02',
     title: 'Scan to enter',
     description: 'Show your QR code at the door. No desk, no keys.',
-    icon: 'M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm12 0h1v1m3 0h1v6h-6v-1m0-4h4',
+    image: '/step2.jpeg',
   },
   {
+    stepNumber: '03',
     title: 'Rest, then go',
     description: 'The pod locks behind you and checks you out automatically.',
-    icon: 'M4.5 4v16M4.5 4h11l-2.5 4 2.5 4h-11',
+    image: '/step3.jpeg',
   },
 ]
 
@@ -28,14 +31,39 @@ const revealTargets = steps.map((_, i) => useScrollReveal(0.15, i * 100))
   <section class="section-pad">
     <div class="container-page">
       <SectionHeading eyebrow="Booking Guide" title="Three steps to rest" align="center" class="mx-auto" />
-      <div class="mt-14 grid gap-10 md:grid-cols-3">
-        <div v-for="(step, i) in steps" :key="step.title" :ref="(el) => { if (el) revealTargets[i].value = el as HTMLElement }" class="text-center">
-          <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-white/10">
-            <svg class="h-6 w-6 text-brand-300" viewBox="0 0 24 24" fill="none"><path :d="step.icon" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-          </span>
-          <p class="mt-5 text-xs font-semibold uppercase tracking-[0.18em] text-ivory-100/40">Step {{ i + 1 }}</p>
-          <h3 class="mt-2 text-lg font-semibold text-ivory-50">{{ step.title }}</h3>
-          <p class="mt-2 text-sm leading-relaxed text-ivory-100/60">{{ step.description }}</p>
+      <div class="mt-14 grid gap-6 md:grid-cols-3 lg:gap-8">
+        <div
+          v-for="(step, i) in steps"
+          :key="step.title"
+          :ref="(el) => { if (el) revealTargets[i].value = el as HTMLElement }"
+          class="card-surface group relative flex flex-col overflow-hidden rounded-2xl border border-theme bg-surface shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
+        >
+          <!-- Image container with smooth hover zoom & step badge -->
+          <div class="relative h-56 sm:h-60 w-full overflow-hidden bg-black/5 dark:bg-white/5">
+            <img
+              :src="step.image"
+              :alt="step.title"
+              class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none" />
+
+            <!-- Floating Step Badge -->
+            <span class="absolute top-3.5 left-3.5 inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-black/65 backdrop-blur-md px-3 py-1 text-[11px] font-bold tracking-widest text-white uppercase shadow-md">
+              <span class="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              Step {{ i + 1 }}
+            </span>
+          </div>
+
+          <!-- Card Content -->
+          <div class="flex flex-1 flex-col p-6 sm:p-7">
+            <h3 class="font-display text-xl font-bold text-primary transition-colors group-hover:text-brand-400">
+              {{ step.title }}
+            </h3>
+            <p class="mt-2.5 text-sm leading-relaxed text-secondary">
+              {{ step.description }}
+            </p>
+          </div>
         </div>
       </div>
       <div class="mt-14 flex justify-center">
