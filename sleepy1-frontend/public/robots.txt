@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: /sitemap.xml
+User-agent: Googlebot-Image
+Allow: /
+
+Sitemap: https://www.sleepy1pods.com/sitemap.xml

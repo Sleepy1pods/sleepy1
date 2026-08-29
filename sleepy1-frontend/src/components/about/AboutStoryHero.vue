@@ -27,36 +27,15 @@
     <!-- Right Framed Architectural Pod Showcase (5 cols) -->
     <div class="lg:col-span-5">
       <div
-        class="card-surface group relative overflow-hidden p-4 shadow-soft transition-all duration-500 hover:shadow-lg"
+        class="card-surface group relative overflow-hidden p-2 sm:p-3 shadow-soft transition-all duration-500 hover:shadow-lg"
       >
-        <!-- Architectural Spec Header Bar -->
-        <div class="mb-3 flex items-center justify-between px-1">
-          <div class="flex items-center gap-2">
-            <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
-            <span class="text-[11px] font-semibold uppercase tracking-wider text-secondary">
-              Gen-1 Smart Pod · Architecture
-            </span>
-          </div>
-          <span
-            class="rounded-full border border-theme bg-surface px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-primary"
-          >
-            Built In-House
-          </span>
-        </div>
-
         <!-- Framed Pod Visual -->
         <div class="relative overflow-hidden rounded-2xl border border-theme bg-surface">
           <img 
             src="/pod3.jpeg" 
             alt="Sleepy1 Gen-1 Rest Pod Exterior" 
-            class="h-full min-h-[320px] w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" 
+            class="h-full min-h-[340px] w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" 
           />
-        </div>
-
-        <!-- Architectural Footer Spec Bar -->
-        <div class="mt-3 flex items-center justify-between border-t border-theme px-1 pt-3 text-xs text-secondary">
-          <span>Acoustic Glass · Smart QR Lock</span>
-          <span class="font-mono text-[11px] text-primary font-semibold">2.2m × 1.4m Footprint</span>
         </div>
       </div>
     </div>

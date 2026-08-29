@@ -54,7 +54,7 @@ onMounted(() => {
           <div class="location-stats">
             <div class="stat-pill">
               <span class="stat-small-label">Total Pods</span>
-              <span class="stat-small-value">{{ loc.podCount || 5 }} Units</span>
+              <span class="stat-small-value">{{ (loc.podCount !== undefined ? loc.podCount : 1) }} {{ (loc.podCount === 1 || loc.podCount === undefined ? 'Unit' : 'Units') }}</span>
             </div>
             <div class="stat-pill">
               <span class="stat-small-label">Availability</span>

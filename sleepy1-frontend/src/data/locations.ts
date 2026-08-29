@@ -19,7 +19,7 @@ export const locations: Location[] = [
     isDemoData: false,
     heroImage: '/iiit_dharwad.png',
     galleryImages: ['/iiit_dharwad.png'],
-    podCount: 5,
+    podCount: 1,
     availablePods: 1,
     availability: 'low',
     startingPricePerHour: 0,

@@ -75,7 +75,7 @@ function handlePointerEnd(event: PointerEvent) {
         v-for="loc in locations"
         :key="loc.id"
         :to="`/locations/${loc.slug}`"
-        class="group relative block w-full max-w-3xl overflow-hidden rounded-3xl border border-white/10 bg-ink-900 shadow-premium transition-all duration-300 hover:border-brand-500/30 hover:shadow-[0_8px_30px_rgba(139,155,251,0.12)] hover:-translate-y-1"
+        class="group relative block w-full max-w-3xl overflow-hidden rounded-3xl border border-black/10 dark:border-white/10 bg-black shadow-premium transition-all duration-300 hover:border-brand-500/40 hover:shadow-[0_12px_36px_rgba(0,0,0,0.25)] hover:-translate-y-1"
       >
         <div class="aspect-[21/9] w-full overflow-hidden sm:aspect-[21/8]">
           <img
@@ -85,32 +85,33 @@ function handlePointerEnd(event: PointerEvent) {
             loading="lazy"
           />
         </div>
-        <div class="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/50 to-transparent opacity-95"></div>
+        <!-- Dark gradient back shadow under the text so image remains vibrant and 100% visible -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent pointer-events-none"></div>
         
-        <div class="absolute bottom-0 left-0 p-6 sm:p-8 w-full">
+        <div class="absolute bottom-0 left-0 p-6 sm:p-8 w-full z-10">
           <div class="flex items-end justify-between">
             <div>
               <div class="mb-3 flex items-center gap-2">
-                <span class="rounded-full bg-brand-500/20 border border-brand-400/30 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-brand-300 backdrop-blur-md">
+                <span class="rounded-full bg-brand-500/30 border border-brand-300/40 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-md shadow-sm">
                   {{ loc.hubType || 'Institute' }}
                 </span>
-                <span v-if="loc.availablePods > 0" class="flex items-center gap-1.5 text-xs font-medium text-emerald-400 backdrop-blur-md bg-ink-950/30 px-2.5 py-1 rounded-full border border-emerald-500/20">
+                <span v-if="loc.availablePods > 0" class="flex items-center gap-1.5 text-xs font-medium text-emerald-300 backdrop-blur-md bg-black/50 px-2.5 py-1 rounded-full border border-emerald-400/30 shadow-sm">
                   <span class="relative flex h-2 w-2">
                     <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-                    <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+                    <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
                   </span>
                   Available
                 </span>
               </div>
-              <h3 class="font-display text-2xl font-semibold text-ivory-50 sm:text-3xl">
+              <h3 class="font-display text-2xl font-bold text-white sm:text-3xl drop-shadow-md">
                 {{ loc.name }}
               </h3>
-              <p class="mt-1 text-sm text-ivory-100/70">
+              <p class="mt-1 text-sm text-white/85 drop-shadow-sm font-medium">
                 {{ loc.city }}, {{ loc.state }}
               </p>
             </div>
             
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-white/5 border border-white/10 text-ivory-50 backdrop-blur-md transition-all duration-300 group-hover:bg-brand-500 group-hover:border-brand-500 group-hover:text-ink-950 group-hover:shadow-[0_0_20px_rgba(139,155,251,0.4)] shrink-0">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 border border-white/30 text-white backdrop-blur-md transition-all duration-300 group-hover:bg-brand-500 group-hover:border-brand-500 group-hover:text-black group-hover:shadow-[0_0_20px_rgba(139,155,251,0.5)] shrink-0">
               <span class="text-xl leading-none transition-transform duration-300 group-hover:-rotate-45">→</span>
             </div>
           </div>
