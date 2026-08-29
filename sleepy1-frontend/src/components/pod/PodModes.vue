@@ -80,7 +80,7 @@ onUnmounted(() => {
         v-for="mode in modes"
         :key="mode.id"
         :data-mode-id="mode.id"
-        class="mode-fullscreen-section relative w-full min-h-[85vh] lg:min-h-[92vh] flex items-center overflow-hidden border-t border-white/10"
+        class="mode-fullscreen-section relative w-full min-h-[85vh] lg:min-h-[92vh] flex items-center overflow-hidden bg-black -mt-px first:mt-0"
         :class="mode.align === 'right' ? 'justify-end' : 'justify-start'"
       >
         <!-- Star Light Ceiling Image Layer -->

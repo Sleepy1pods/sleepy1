@@ -21,30 +21,30 @@ const leftFeatures: FeatureItem[] = [
     description: 'Immersive starry night sky ceiling for deep relaxation and mood enhancement.',
     icon: 'star',
     side: 'left',
-    targetX: 36,
-    targetY: 22,
+    targetX: 43,
+    targetY: 9,
     topOffset: 'top-[15px]',
   },
   {
-    id: 'mobility',
+    id: 'entertainment',
     number: '02',
-    title: 'Mobility & Portability',
-    description: 'Engineered with a modular, relocatable frame and industrial hinges for rapid deployment.',
-    icon: 'mobility',
+    title: 'Foldable Work Desk',
+    description: 'Retractable desk for focused work; stows flush into the wall when not in use.',
+    icon: 'display',
     side: 'left',
-    targetX: 17,
-    targetY: 52,
+    targetX: 15,
+    targetY: 48,
     topOffset: 'top-[255px]',
   },
   {
-    id: 'entertainment',
+    id: 'mobility',
     number: '03',
-    title: 'Entertainment Capabilities',
-    description: 'HD entertainment screen paired with spatial acoustics and active noise cancelling for total immersion.',
-    icon: 'display',
+    title: 'Mobility & Portability',
+    description: 'Heavy-duty 360° caster wheels and modular frame engineered for effortless relocation and swift deployment.',
+    icon: 'mobility',
     side: 'left',
-    targetX: 19,
-    targetY: 66,
+    targetX: 20,
+    targetY: 100,
     topOffset: 'top-[495px]',
   },
 ]
@@ -57,8 +57,8 @@ const rightFeatures: FeatureItem[] = [
     description: 'Ceiling-mounted HD cinema projection system for immersive movies, entertainment, and ambient visuals.',
     icon: 'projector',
     side: 'right',
-    targetX: 49.5,
-    targetY: 26,
+    targetX: 48,
+    targetY: 18,
     topOffset: 'top-[15px]',
   },
   {
@@ -68,7 +68,7 @@ const rightFeatures: FeatureItem[] = [
     description: 'Intuitive smart control to effortlessly adjust ambient mood lighting, airflow, and privacy locks.',
     icon: 'control',
     side: 'right',
-    targetX: 65,
+    targetX: 75,
     targetY: 52,
     topOffset: 'top-[255px]',
   },
@@ -79,13 +79,14 @@ const rightFeatures: FeatureItem[] = [
     description: 'Hospitality-grade memory foam mattress with ergonomic head pillow and plush fleece blanket.',
     icon: 'mattress',
     side: 'right',
-    targetX: 65.5,
-    targetY: 81.5,
+    targetX: 50,
+    targetY: 78,
     topOffset: 'top-[495px]',
   },
 ]
 
 const hoveredId = ref<string | null>(null)
+const isDark = ref(false)
 
 const containerRef = ref<HTMLElement | null>(null)
 const anchorRefs = ref<Record<string, HTMLElement>>({})
@@ -98,6 +99,10 @@ function setAnchorRef(id: string, el: any) {
 
 function setDotRef(id: string, el: any) {
   if (el) dotRefs.value[id] = el as HTMLElement
+}
+
+function updateTheme() {
+  isDark.value = document.documentElement.classList.contains('dark')
 }
 
 function calculateFixedLines() {
@@ -120,8 +125,8 @@ function calculateFixedLines() {
     const x2 = dotRect.left + dotRect.width / 2 - containerRect.left
     const y2 = dotRect.top + dotRect.height / 2 - containerRect.top
 
-    if (item.id === 'mobility' || item.id === 'smart-control') {
-      // Direct clean horizontal connection
+    if (item.id === 'entertainment' || item.id === 'smart-control') {
+      // Direct clean horizontal connection for middle items
       paths[item.id] = `M ${x1} ${y1} L ${x2} ${y2}`
     } else {
       // Clean bent line (horizontal elbow -> angled into pod hotspot)
@@ -134,8 +139,13 @@ function calculateFixedLines() {
 }
 
 let resizeObserver: ResizeObserver | null = null
+let themeObserver: MutationObserver | null = null
 
 onMounted(() => {
+  updateTheme()
+  themeObserver = new MutationObserver(updateTheme)
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+
   nextTick(() => {
     calculateFixedLines()
     setTimeout(calculateFixedLines, 50)
@@ -154,6 +164,7 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('resize', calculateFixedLines)
   resizeObserver?.disconnect()
+  themeObserver?.disconnect()
 })
 
 function onHover(id: string) {
@@ -166,7 +177,7 @@ function onLeave() {
 </script>
 
 <template>
-  <section class="relative w-full overflow-hidden bg-black py-16 sm:py-24 select-none text-white transition-colors duration-300">
+  <section class="relative w-full overflow-hidden bg-page dark:bg-black py-16 sm:py-24 select-none text-primary dark:text-white transition-colors duration-300">
     <div class="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-12">
       
       <!-- Desktop Interactive Showcase Layout (lg+) with Fixed Geometry -->
@@ -191,10 +202,10 @@ function onLeave() {
               v-if="linePaths[item.id]"
               :d="linePaths[item.id]"
               fill="none"
-              :stroke="hoveredId === item.id ? '#ffffff' : '#727a9c'"
+              :stroke="hoveredId === item.id ? (isDark ? '#ffffff' : '#0a0a0a') : (isDark ? '#727a9c' : '#94a3b8')"
               :stroke-width="hoveredId === item.id ? 2.2 : 1.4"
-              :stroke-opacity="hoveredId === item.id ? 1 : hoveredId !== null ? 0.15 : 0.65"
-              :filter="hoveredId === item.id ? 'url(#glow-white)' : undefined"
+              :stroke-opacity="hoveredId === item.id ? 1 : hoveredId !== null ? 0.15 : (isDark ? 0.65 : 0.85)"
+              :filter="hoveredId === item.id && isDark ? 'url(#glow-white)' : undefined"
               stroke-linecap="round"
               stroke-linejoin="round"
               class="transition-all duration-300"
@@ -217,10 +228,10 @@ function onLeave() {
               class="relative rounded-2xl border transition-all duration-300 backdrop-blur-md cursor-pointer w-full"
               :class="[
                 hoveredId === item.id
-                  ? 'border-white/50 bg-[#161822] shadow-[0_12px_36px_rgba(0,0,0,0.9)] z-40 opacity-100'
+                  ? 'border-black/40 dark:border-white/50 bg-white dark:bg-[#161822] shadow-[0_12px_36px_rgba(0,0,0,0.12)] dark:shadow-[0_12px_36px_rgba(0,0,0,0.9)] z-40 opacity-100'
                   : hoveredId !== null
-                    ? 'border-white/5 bg-[#101117]/50 opacity-30 z-20'
-                    : 'border-[#262833] bg-[#121319]/90 hover:border-white/25 opacity-100 z-20'
+                    ? 'border-theme/40 bg-surface/40 opacity-30 z-20'
+                    : 'border-theme bg-surface/90 hover:border-black/25 dark:hover:border-white/25 opacity-100 z-20 shadow-soft'
               ]"
             >
               <!-- Right Edge Fixed Connection Anchor Dot (Aligned with 68px header center, 100% immovable) -->
@@ -229,11 +240,11 @@ function onLeave() {
                 class="absolute -right-[7px] top-[34px] -translate-y-1/2 h-3.5 w-3.5 rounded-full border-2 transition-all duration-300 z-50 flex items-center justify-center pointer-events-none"
                 :class="[
                   hoveredId === item.id
-                    ? 'border-white bg-white shadow-[0_0_12px_rgba(255,255,255,1)] scale-125'
-                    : 'border-[#5a6280] bg-[#7882a8]'
+                    ? 'border-black dark:border-white bg-black dark:bg-white shadow-[0_0_12px_rgba(0,0,0,0.35)] dark:shadow-[0_0_12px_rgba(255,255,255,1)] scale-125'
+                    : 'border-slate-400 dark:border-[#5a6280] bg-slate-200 dark:bg-[#7882a8]'
                 ]"
               >
-                <div class="h-1 w-1 rounded-full bg-white" />
+                <div class="h-1 w-1 rounded-full bg-white dark:bg-black" />
               </div>
 
               <!-- Card Header Row (Fixed 68px height) -->
@@ -241,20 +252,20 @@ function onLeave() {
                 <div class="flex items-center gap-3 min-w-0">
                   <!-- Icon Box -->
                   <div
-                    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#2c2f3d] bg-[#1a1c26] text-[#9ba4c4] transition-colors"
-                    :class="hoveredId === item.id ? 'border-white/30 text-white bg-white/10' : ''"
+                    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-theme bg-white dark:bg-[#1a1c26] text-secondary transition-colors"
+                    :class="hoveredId === item.id ? 'border-black/30 dark:border-white/30 text-primary dark:text-white bg-black/5 dark:bg-white/10' : ''"
                   >
                     <!-- 01 Star Ceiling -->
                     <svg v-if="item.icon === 'star'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 3C12 7.97 7.97 12 3 12C7.97 12 12 16.03 12 21C12 16.03 16.03 12 21 12C16.03 12 12 7.97 12 3Z" />
                     </svg>
-                    <!-- 02 Mobility & Portability -->
+                    <!-- 02/03 Mobility & Portability -->
                     <svg v-else-if="item.icon === 'mobility'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
                       <polyline points="3.27 6.96 12 12.01 20.73 6.96" stroke-linecap="round" stroke-linejoin="round" />
                       <line x1="12" y1="22.08" x2="12" y2="12" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <!-- 03 Entertainment Capabilities -->
+                    <!-- 02/03 Entertainment / Foldable desk -->
                     <svg v-else-if="item.icon === 'display'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                       <rect x="3" y="4" width="18" height="12" rx="2" stroke-linecap="round" stroke-linejoin="round" />
                       <line x1="8" y1="20" x2="16" y2="20" stroke-linecap="round" />
@@ -262,15 +273,15 @@ function onLeave() {
                     </svg>
                   </div>
 
-                  <span class="font-display text-[14px] sm:text-[15px] font-medium tracking-tight text-white leading-snug">
+                  <span class="font-display text-[14px] sm:text-[15px] font-semibold tracking-tight text-primary dark:text-white leading-snug">
                     {{ item.title }}
                   </span>
                 </div>
 
                 <!-- Number Capsule -->
                 <span
-                  class="flex h-6 px-2.5 shrink-0 items-center justify-center rounded-full border border-[#2b2d39] bg-[#1a1b23] text-[11px] font-mono font-medium text-[#7d859f] transition-all"
-                  :class="hoveredId === item.id ? 'border-white/30 text-white bg-white/10' : ''"
+                  class="flex h-6 px-2.5 shrink-0 items-center justify-center rounded-full border border-theme bg-surface text-[11px] font-mono font-medium text-secondary transition-all"
+                  :class="hoveredId === item.id ? 'border-black/30 dark:border-white/30 text-primary dark:text-white bg-black/5 dark:bg-white/10' : ''"
                 >
                   {{ item.number }}
                 </span>
@@ -281,8 +292,8 @@ function onLeave() {
                 class="overflow-hidden transition-all duration-300 px-4"
                 :class="hoveredId === item.id ? 'max-h-28 pb-4 opacity-100' : 'max-h-0 pb-0 opacity-0'"
               >
-                <div class="h-px w-full bg-white/10 mb-2.5" />
-                <p class="text-xs leading-relaxed text-zinc-300 font-normal">
+                <div class="h-px w-full bg-black/10 dark:bg-white/10 mb-2.5" />
+                <p class="text-xs leading-relaxed text-secondary font-normal">
                   {{ item.description }}
                 </p>
               </div>
@@ -294,7 +305,7 @@ function onLeave() {
         <div class="relative flex-1 flex items-center justify-center max-w-[560px] mx-4 h-[580px] z-10">
           
           <!-- Pod Image Container -->
-          <div class="relative w-full max-w-[450px] rounded-[32px] overflow-hidden border border-[#2e313d] bg-zinc-950 shadow-[0_20px_60px_rgba(0,0,0,0.9)]">
+          <div class="relative w-full max-w-[450px] rounded-[32px] overflow-hidden border border-theme bg-surface dark:bg-zinc-950 shadow-[0_20px_60px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.9)]">
             <img
               src="/pod2.png"
               alt="Sleepy1 Pod"
@@ -304,7 +315,7 @@ function onLeave() {
 
             <!-- Top SLEEPY1 POD Title Badge inside Image -->
             <div class="absolute top-4 inset-x-0 text-center pointer-events-none">
-              <span class="text-[10px] font-mono tracking-[0.35em] text-[#7d859f] font-semibold">
+              <span class="text-[10px] font-mono tracking-[0.35em] text-secondary font-semibold">
                 SLEEPY1 POD
               </span>
             </div>
@@ -346,10 +357,10 @@ function onLeave() {
               class="relative rounded-2xl border transition-all duration-300 backdrop-blur-md cursor-pointer w-full"
               :class="[
                 hoveredId === item.id
-                  ? 'border-white/50 bg-[#161822] shadow-[0_12px_36px_rgba(0,0,0,0.9)] z-40 opacity-100'
+                  ? 'border-black/40 dark:border-white/50 bg-white dark:bg-[#161822] shadow-[0_12px_36px_rgba(0,0,0,0.12)] dark:shadow-[0_12px_36px_rgba(0,0,0,0.9)] z-40 opacity-100'
                   : hoveredId !== null
-                    ? 'border-white/5 bg-[#101117]/50 opacity-30 z-20'
-                    : 'border-[#262833] bg-[#121319]/90 hover:border-white/25 opacity-100 z-20'
+                    ? 'border-theme/40 bg-surface/40 opacity-30 z-20'
+                    : 'border-theme bg-surface/90 hover:border-black/25 dark:hover:border-white/25 opacity-100 z-20 shadow-soft'
               ]"
             >
               <!-- Left Edge Fixed Connection Anchor Dot (Aligned with 68px header center, 100% immovable) -->
@@ -358,11 +369,11 @@ function onLeave() {
                 class="absolute -left-[7px] top-[34px] -translate-y-1/2 h-3.5 w-3.5 rounded-full border-2 transition-all duration-300 z-50 flex items-center justify-center pointer-events-none"
                 :class="[
                   hoveredId === item.id
-                    ? 'border-white bg-white shadow-[0_0_12px_rgba(255,255,255,1)] scale-125'
-                    : 'border-[#5a6280] bg-[#7882a8]'
+                    ? 'border-black dark:border-white bg-black dark:bg-white shadow-[0_0_12px_rgba(0,0,0,0.35)] dark:shadow-[0_0_12px_rgba(255,255,255,1)] scale-125'
+                    : 'border-slate-400 dark:border-[#5a6280] bg-slate-200 dark:bg-[#7882a8]'
                 ]"
               >
-                <div class="h-1 w-1 rounded-full bg-white" />
+                <div class="h-1 w-1 rounded-full bg-white dark:bg-black" />
               </div>
 
               <!-- Card Header Row (Fixed 68px height) -->
@@ -370,8 +381,8 @@ function onLeave() {
                 <div class="flex items-center gap-3 min-w-0">
                   <!-- Icon Box -->
                   <div
-                    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#2c2f3d] bg-[#1a1c26] text-[#9ba4c4] transition-colors"
-                    :class="hoveredId === item.id ? 'border-white/30 text-white bg-white/10' : ''"
+                    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-theme bg-white dark:bg-[#1a1c26] text-secondary transition-colors"
+                    :class="hoveredId === item.id ? 'border-black/30 dark:border-white/30 text-primary dark:text-white bg-black/5 dark:bg-white/10' : ''"
                   >
                     <!-- 04 HD Projector -->
                     <svg v-if="item.icon === 'projector'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -394,15 +405,15 @@ function onLeave() {
                     </svg>
                   </div>
 
-                  <span class="font-display text-[14px] sm:text-[15px] font-medium tracking-tight text-white leading-snug">
+                  <span class="font-display text-[14px] sm:text-[15px] font-semibold tracking-tight text-primary dark:text-white leading-snug">
                     {{ item.title }}
                   </span>
                 </div>
 
                 <!-- Number Capsule -->
                 <span
-                  class="flex h-6 px-2.5 shrink-0 items-center justify-center rounded-full border border-[#2b2d39] bg-[#1a1b23] text-[11px] font-mono font-medium text-[#7d859f] transition-all"
-                  :class="hoveredId === item.id ? 'border-white/30 text-white bg-white/10' : ''"
+                  class="flex h-6 px-2.5 shrink-0 items-center justify-center rounded-full border border-theme bg-surface text-[11px] font-mono font-medium text-secondary transition-all"
+                  :class="hoveredId === item.id ? 'border-black/30 dark:border-white/30 text-primary dark:text-white bg-black/5 dark:bg-white/10' : ''"
                 >
                   {{ item.number }}
                 </span>
@@ -413,8 +424,8 @@ function onLeave() {
                 class="overflow-hidden transition-all duration-300 px-4"
                 :class="hoveredId === item.id ? 'max-h-28 pb-4 opacity-100' : 'max-h-0 pb-0 opacity-0'"
               >
-                <div class="h-px w-full bg-white/10 mb-2.5" />
-                <p class="text-xs leading-relaxed text-zinc-300 font-normal">
+                <div class="h-px w-full bg-black/10 dark:bg-white/10 mb-2.5" />
+                <p class="text-xs leading-relaxed text-secondary font-normal">
                   {{ item.description }}
                 </p>
               </div>
@@ -427,7 +438,7 @@ function onLeave() {
       <!-- Mobile / Tablet Presentation (< lg) -->
       <div class="lg:hidden flex flex-col gap-6">
         <!-- Pod Image with interactive hotspots -->
-        <div class="relative mx-auto w-full max-w-[420px] rounded-2xl overflow-hidden border border-[#2e313d] bg-zinc-950 shadow-2xl">
+        <div class="relative mx-auto w-full max-w-[420px] rounded-2xl overflow-hidden border border-theme bg-surface dark:bg-zinc-950 shadow-2xl">
           <img
             src="/pod2.png"
             alt="Sleepy1 Pod"
@@ -464,17 +475,17 @@ function onLeave() {
             class="text-left rounded-xl border p-4 transition-all duration-200 backdrop-blur-md"
             :class="[
               hoveredId === item.id
-                ? 'border-white/50 bg-[#161822] text-white shadow-lg'
+                ? 'border-black/40 dark:border-white/50 bg-white dark:bg-[#161822] text-primary dark:text-white shadow-lg'
                 : hoveredId !== null
-                  ? 'border-white/5 bg-[#101117]/40 opacity-40 text-zinc-400'
-                  : 'border-[#262833] bg-[#121319]/90 text-zinc-300'
+                  ? 'border-theme/40 bg-surface/40 opacity-40 text-muted'
+                  : 'border-theme bg-surface/90 text-secondary'
             ]"
           >
             <div class="flex items-center justify-between gap-2">
-              <span class="font-display font-medium text-sm text-white">{{ item.title }}</span>
-              <span class="font-mono text-xs text-[#7d859f]">#{{ item.number }}</span>
+              <span class="font-display font-semibold text-sm text-primary dark:text-white">{{ item.title }}</span>
+              <span class="font-mono text-xs text-secondary">#{{ item.number }}</span>
             </div>
-            <p v-if="hoveredId === item.id" class="mt-2 text-xs leading-relaxed text-zinc-300">
+            <p v-if="hoveredId === item.id" class="mt-2 text-xs leading-relaxed text-secondary">
               {{ item.description }}
             </p>
           </button>

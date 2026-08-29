@@ -150,10 +150,6 @@ const filteredMembers = computed(() => {
             >
               {{ member.initials }}
             </div>
-            
-            <span class="rounded-full border border-theme bg-surface px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-muted">
-              Verified Builder
-            </span>
           </div>
 
           <!-- Name & Role -->

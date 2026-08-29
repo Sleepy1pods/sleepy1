@@ -38,7 +38,7 @@ usePageMeta({
           </div>
 
           <!-- Vision -->
-          <div class="border-t border-theme/60 pt-16 lg:pt-20">
+          <div>
             <span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-400">Our Vision</span>
             <h2 class="mt-2 font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl">
               The Universal Rest Network

@@ -794,18 +794,41 @@ onBeforeUnmount(() => {
   <section id="pod-3d-experience" class="section-pad relative">
     <div class="container-page">
       <!-- Preview Card -->
-      <div v-show="!isFullscreen" class="grid overflow-hidden rounded-2xl lg:grid-cols-[2fr_1fr] bg-[#1A1A1A] shadow-premium">
-        <div class="relative h-64 lg:h-[500px] w-full">
-          <img src="/p5.png" alt="Pod Preview" class="h-full w-full object-cover" />
+      <div v-show="!isFullscreen" class="grid overflow-hidden rounded-3xl border border-theme bg-surface shadow-premium lg:grid-cols-[1.6fr_1fr] transition-colors duration-300">
+        <!-- Left Column: Pod Image (fills box seamlessly) -->
+        <div class="relative w-full h-72 sm:h-80 lg:h-full min-h-[300px] lg:min-h-[380px] bg-[#f8f9fa] dark:bg-[#0b0c10] border-b lg:border-b-0 lg:border-r border-theme overflow-hidden">
+          <!-- Light Theme Image -->
+          <img
+            src="/pod-hero-light.jpeg"
+            alt="Sleepy1 Pod Preview"
+            class="h-full w-full object-cover object-center dark:hidden block select-none"
+          />
+          <!-- Dark Theme Image -->
+          <img
+            src="/p5.png"
+            alt="Sleepy1 Pod Preview"
+            class="h-full w-full object-cover object-center dark:block hidden select-none"
+          />
         </div>
-        <div class="flex flex-col items-start justify-center p-10 bg-[#1A1A1A]">
-          <h3 class="text-3xl font-display text-white text-balance leading-tight">Unlock An Immersive Experience</h3>
+
+        <!-- Right Column: Interactive CTA -->
+        <div class="flex flex-col items-start justify-center p-8 sm:p-10 lg:p-12 bg-surface">
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold tracking-widest uppercase bg-black/5 dark:bg-white/10 text-secondary border border-theme mb-3">
+            <span class="h-1.5 w-1.5 rounded-full bg-brand-500 animate-pulse" />
+            360° Exploration
+          </span>
+          <h3 class="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-primary text-balance leading-tight">
+            Unlock An Immersive Experience
+          </h3>
+          <p class="mt-3 text-xs sm:text-sm leading-relaxed text-secondary max-w-sm">
+            Step inside our 3D rest pod to examine the ergonomics, climate controls, ambient lighting, and acoustic insulation.
+          </p>
           <button 
             @click="isFullscreen = true"
-            class="mt-8 flex items-center gap-2 rounded-full border border-white/20 bg-white px-6 py-3 text-xs font-bold uppercase tracking-wider text-black transition hover:bg-white/90 hover:scale-105 shadow-md"
+            class="mt-6 sm:mt-8 inline-flex items-center gap-2.5 rounded-full bg-cta-fill px-6 sm:px-7 py-3 sm:py-3.5 text-xs font-bold uppercase tracking-wider text-cta-text transition-all duration-200 hover:scale-105 shadow-md cursor-pointer"
           >
-            EXPLORE IN 3D
-            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+            <span>EXPLORE IN 3D</span>
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
           </button>
         </div>
       </div>
