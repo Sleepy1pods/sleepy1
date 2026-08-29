@@ -21,9 +21,9 @@ const leftFeatures: FeatureItem[] = [
     description: 'Immersive starry night sky ceiling for deep relaxation and mood enhancement.',
     icon: 'star',
     side: 'left',
-    targetX: 43,
-    targetY: 9,
-    topOffset: 'top-[15px]',
+    targetX: 38,
+    targetY: 10,
+    topOffset: 'top-[12px]',
   },
   {
     id: 'entertainment',
@@ -34,7 +34,7 @@ const leftFeatures: FeatureItem[] = [
     side: 'left',
     targetX: 15,
     targetY: 48,
-    topOffset: 'top-[255px]',
+    topOffset: 'top-[235px]',
   },
   {
     id: 'mobility',
@@ -43,9 +43,9 @@ const leftFeatures: FeatureItem[] = [
     description: 'Heavy-duty 360° caster wheels and modular frame engineered for effortless relocation and swift deployment.',
     icon: 'mobility',
     side: 'left',
-    targetX: 20,
-    targetY: 100,
-    topOffset: 'top-[495px]',
+    targetX: 28,
+    targetY: 99,
+    topOffset: 'top-[455px]',
   },
 ]
 
@@ -57,9 +57,9 @@ const rightFeatures: FeatureItem[] = [
     description: 'Ceiling-mounted HD cinema projection system for immersive movies, entertainment, and ambient visuals.',
     icon: 'projector',
     side: 'right',
-    targetX: 48,
-    targetY: 18,
-    topOffset: 'top-[15px]',
+    targetX: 51,
+    targetY: 17,
+    topOffset: 'top-[12px]',
   },
   {
     id: 'smart-control',
@@ -68,9 +68,9 @@ const rightFeatures: FeatureItem[] = [
     description: 'Intuitive smart control to effortlessly adjust ambient mood lighting, airflow, and privacy locks.',
     icon: 'control',
     side: 'right',
-    targetX: 75,
+    targetX: 71,
     targetY: 52,
-    topOffset: 'top-[255px]',
+    topOffset: 'top-[235px]',
   },
   {
     id: 'comfort-mattress',
@@ -79,9 +79,9 @@ const rightFeatures: FeatureItem[] = [
     description: 'Hospitality-grade memory foam mattress with ergonomic head pillow and plush fleece blanket.',
     icon: 'mattress',
     side: 'right',
-    targetX: 50,
-    targetY: 78,
-    topOffset: 'top-[495px]',
+    targetX: 52,
+    targetY: 76,
+    topOffset: 'top-[455px]',
   },
 ]
 
@@ -125,14 +125,9 @@ function calculateFixedLines() {
     const x2 = dotRect.left + dotRect.width / 2 - containerRect.left
     const y2 = dotRect.top + dotRect.height / 2 - containerRect.top
 
-    if (item.id === 'entertainment' || item.id === 'smart-control') {
-      // Direct clean horizontal connection for middle items
-      paths[item.id] = `M ${x1} ${y1} L ${x2} ${y2}`
-    } else {
-      // Clean bent line (horizontal elbow -> angled into pod hotspot)
-      const bendX = x1 + (x2 - x1) * 0.42
-      paths[item.id] = `M ${x1} ${y1} L ${bendX} ${y1} L ${x2} ${y2}`
-    }
+    // Clean bent line (horizontal elbow -> angled directly into pod hotspot)
+    const bendX = x1 + (x2 - x1) * 0.44
+    paths[item.id] = `M ${x1} ${y1} L ${bendX} ${y1} L ${x2} ${y2}`
   })
 
   linePaths.value = paths
@@ -181,7 +176,7 @@ function onLeave() {
     <div class="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-12">
       
       <!-- Desktop Interactive Showcase Layout (lg+) with Fixed Geometry -->
-      <div ref="containerRef" class="hidden lg:flex items-center justify-between relative min-h-[620px] h-[620px] w-full">
+      <div ref="containerRef" class="hidden lg:flex items-center justify-between relative min-h-[560px] h-[560px] w-full">
         
         <!-- SVG Fixed Precision Connecting Lines (Z-30: Placed ABOVE Pod Image) -->
         <svg
@@ -214,7 +209,7 @@ function onLeave() {
         </svg>
 
         <!-- Left Column: 3 FIXED Position Slots (01, 02, 03) -->
-        <div class="relative w-[300px] xl:w-[320px] h-[580px] z-20 shrink-0">
+        <div class="relative w-[280px] xl:w-[310px] h-[530px] z-20 shrink-0">
           <div
             v-for="item in leftFeatures"
             :key="item.id"
@@ -302,10 +297,10 @@ function onLeave() {
         </div>
 
         <!-- Center Pod Column (Pod image + Hotspots) -->
-        <div class="relative flex-1 flex items-center justify-center max-w-[560px] mx-4 h-[580px] z-10">
+        <div class="relative flex-1 flex items-center justify-center max-w-[460px] mx-4 h-[530px] z-10">
           
           <!-- Pod Image Container -->
-          <div class="relative w-full max-w-[450px] rounded-[32px] overflow-hidden border border-theme bg-surface dark:bg-zinc-950 shadow-[0_20px_60px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.9)]">
+          <div class="relative w-full max-w-[340px] rounded-[28px] overflow-hidden border border-theme bg-surface dark:bg-zinc-950 shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.9)]">
             <img
               src="/pod2.png"
               alt="Sleepy1 Pod"
@@ -343,7 +338,7 @@ function onLeave() {
         </div>
 
         <!-- Right Column: 3 FIXED Position Slots (04, 05, 06) -->
-        <div class="relative w-[300px] xl:w-[320px] h-[580px] z-20 shrink-0">
+        <div class="relative w-[280px] xl:w-[310px] h-[530px] z-20 shrink-0">
           <div
             v-for="item in rightFeatures"
             :key="item.id"
@@ -438,7 +433,7 @@ function onLeave() {
       <!-- Mobile / Tablet Presentation (< lg) -->
       <div class="lg:hidden flex flex-col gap-6">
         <!-- Pod Image with interactive hotspots -->
-        <div class="relative mx-auto w-full max-w-[420px] rounded-2xl overflow-hidden border border-theme bg-surface dark:bg-zinc-950 shadow-2xl">
+        <div class="relative mx-auto w-full max-w-[320px] rounded-2xl overflow-hidden border border-theme bg-surface dark:bg-zinc-950 shadow-2xl">
           <img
             src="/pod2.png"
             alt="Sleepy1 Pod"

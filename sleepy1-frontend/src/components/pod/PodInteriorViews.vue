@@ -794,7 +794,7 @@ onBeforeUnmount(() => {
   <section id="pod-3d-experience" class="section-pad relative">
     <div class="container-page">
       <!-- Preview Card -->
-      <div v-show="!isFullscreen" class="grid overflow-hidden rounded-3xl border border-theme bg-surface shadow-premium lg:grid-cols-[1.6fr_1fr] transition-colors duration-300">
+      <div v-show="!isFullscreen" class="grid overflow-hidden rounded-3xl bg-surface shadow-premium lg:grid-cols-[1.6fr_1fr] transition-colors duration-300">
         <!-- Left Column: Pod Image (fills box seamlessly) -->
         <div class="relative w-full h-72 sm:h-80 lg:h-full min-h-[300px] lg:min-h-[380px] bg-[#f8f9fa] dark:bg-[#0b0c10] border-b lg:border-b-0 lg:border-r border-theme overflow-hidden">
           <!-- Light Theme Image -->
