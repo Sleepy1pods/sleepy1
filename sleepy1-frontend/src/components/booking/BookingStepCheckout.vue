@@ -40,6 +40,7 @@ onMounted(() => {
 
 const walletBalance = computed(() => credits.wallet?.balance ?? 0)
 const balanceAfterRedemption = computed(() => walletBalance.value - flow.draft.creditsToApply)
+const agreeToTerms = ref(true)
 
 const methods: { id: PaymentMethod; label: string; description: string; badge?: string }[] = [
   { id: 'razorpay', label: 'Razorpay (UPI, GPay, PhonePe, Cards, NetBanking)', description: 'Real Razorpay Checkout · Supports Google Pay, PhonePe, Paytm, RuPay, Visa.', badge: 'Recommended' },
@@ -78,6 +79,15 @@ function removeCoupon() {
 }
 
 async function payNow() {
+  if (!agreeToTerms.value) {
+    ui.pushToast({
+      type: 'error',
+      title: 'Terms Required',
+      description: 'Please agree to the Terms & Conditions to complete your booking.',
+    })
+    return
+  }
+
   if (flow.draft.paymentMethod === 'razorpay' || flow.draft.paymentMethod === 'hybrid' || flow.draft.paymentMethod === 'direct') {
     isPaying.value = true
     const loaded = await loadRazorpayScript()
@@ -345,7 +355,23 @@ async function executePaymentConfirm() {
             :total-payable="flow.pricing.totalPayable"
           />
 
-          <div class="mt-6">
+          <!-- Terms & Conditions Acceptance Checkbox -->
+          <div class="mt-4 flex items-center gap-2.5 px-1">
+            <input
+              id="checkout-agree-terms"
+              v-model="agreeToTerms"
+              type="checkbox"
+              class="h-4 w-4 rounded border-zinc-300 text-black focus:ring-black dark:border-zinc-700 dark:bg-zinc-800"
+            />
+            <label for="checkout-agree-terms" class="text-xs text-zinc-600 dark:text-zinc-400 select-none">
+              I agree to the
+              <router-link to="/legal/terms" target="_blank" class="font-semibold text-zinc-900 dark:text-white underline hover:opacity-80">
+                Sleepy1 Terms & Conditions
+              </router-link>.
+            </label>
+          </div>
+
+          <div class="mt-4">
             <PrimaryButton
               size="lg"
               full-width

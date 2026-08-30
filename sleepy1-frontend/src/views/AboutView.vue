@@ -22,8 +22,8 @@ usePageMeta({
       </div>
     </section>
 
-    <!-- 3. Mission & Vision -->
-    <section class="section-pad border-t border-theme">
+    <!-- 2. Mission & Vision -->
+    <section class="section-pad">
       <div class="container-page max-w-5xl">
         <div class="space-y-16 lg:space-y-20">
           <!-- Mission -->
@@ -52,30 +52,30 @@ usePageMeta({
     </section>
 
     <!-- 3. The People Who Built It: The Team -->
-    <section class="section-pad border-t border-theme">
+    <section class="section-pad">
       <div class="container-page">
         <AboutTeam />
       </div>
     </section>
 
-    <!-- 5. Brand Values -->
-    <section class="section-pad border-t border-theme">
+    <!-- 4. Brand Values -->
+    <section class="section-pad">
       <div class="container-page">
         <SectionHeading eyebrow="Brand Values" title="What guides every Sleepy1 pod" align="center" class="mx-auto" />
         <AboutBrandValues />
       </div>
     </section>
 
-    <!-- 6. Our Journey (Starting from 2025 up to 2027) -->
-    <section class="section-pad border-t border-theme">
+    <!-- 5. Our Journey (Starting from 2025 up to 2027) -->
+    <section class="section-pad">
       <div class="container-page">
         <SectionHeading eyebrow="Our Journey" title="From inception to our future horizons" align="center" class="mx-auto" />
         <AboutJourney />
       </div>
     </section>
 
-    <!-- 7. Call To Action -->
-    <section class="border-t border-theme py-20 text-center">
+    <!-- 6. Call To Action -->
+    <section class="py-20 text-center">
       <div class="container-page">
         <h2 class="text-balance font-display text-3xl font-bold text-primary sm:text-4xl">Join us in redefining rest.</h2>
         <p class="mx-auto mt-3 max-w-lg text-secondary">Experience our Gen-1 rest pods, or reach out about bringing Sleepy1 to your campus or facility.</p>

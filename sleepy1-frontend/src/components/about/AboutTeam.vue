@@ -33,9 +33,7 @@ const teamMembers: TeamMember[] = [
     initials: 'SH',
     avatarBg: 'from-brand-400 via-indigo-500 to-brand-600',
     links: {
-      linkedin: 'https://linkedin.com',
-      github: 'https://github.com',
-      email: 'sukruth@sleepy1.com',
+      linkedin: 'https://www.linkedin.com/in/sukruth-h-s-175370380',
     }
   },
   {
@@ -49,9 +47,7 @@ const teamMembers: TeamMember[] = [
     initials: 'RS',
     avatarBg: 'from-amber-400 via-orange-500 to-rose-600',
     links: {
-      linkedin: 'https://linkedin.com',
-      github: 'https://github.com',
-      email: 'rupesh@sleepy1.com',
+      linkedin: 'https://www.linkedin.com/in/rupesh-sai-sundhar-v-v-924b57363',
     }
   },
   {
@@ -65,9 +61,7 @@ const teamMembers: TeamMember[] = [
     initials: 'TK',
     avatarBg: 'from-emerald-400 via-teal-500 to-cyan-600',
     links: {
-      linkedin: 'https://linkedin.com',
-      github: 'https://github.com',
-      email: 'thanish@sleepy1.com',
+      linkedin: 'https://www.linkedin.com/in/thanish-kumar-ba7464380',
     }
   },
 ]
@@ -82,10 +76,7 @@ const filteredMembers = computed(() => {
   <div class="mt-8">
     <!-- Header Paragraph Description -->
     <div class="mx-auto max-w-3xl text-center">
-      <div class="inline-flex items-center gap-2 rounded-full border border-theme bg-surface px-3.5 py-1 text-xs font-semibold uppercase tracking-widest text-primary">
-        <span class="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-        Meet Our Team
-      </div>
+      
       <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl">
         The minds behind the sleep revolution
       </h2>
@@ -182,7 +173,7 @@ const filteredMembers = computed(() => {
           </div>
         </div>
 
-        <!-- Card Footer with Social/Contact links -->
+        <!-- Card Footer with LinkedIn link only -->
         <div class="mt-6 flex items-center justify-between border-t border-theme pt-4 text-xs">
           <span class="text-[11px] font-medium text-muted">Connect</span>
           <div class="flex items-center gap-3 text-secondary">
@@ -191,33 +182,11 @@ const filteredMembers = computed(() => {
               :href="member.links.linkedin"
               target="_blank"
               rel="noopener noreferrer"
-              class="transition-colors hover:text-primary"
+              class="transition-colors hover:text-primary flex items-center justify-center p-1 rounded-md hover:bg-black/5 dark:hover:bg-white/10"
               aria-label="LinkedIn Profile"
             >
               <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.66 1.66 0 0 0-1.66 1.66 1.66 1.66 0 0 0 1.66 1.66 1.66 1.66 0 0 0 1.66-1.66 1.66 1.66 0 0 0-1.66-1.66Z" />
-              </svg>
-            </a>
-            <a
-              v-if="member.links.github"
-              :href="member.links.github"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="transition-colors hover:text-primary"
-              aria-label="GitHub Profile"
-            >
-              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z" />
-              </svg>
-            </a>
-            <a
-              v-if="member.links.email"
-              :href="`mailto:${member.links.email}`"
-              class="transition-colors hover:text-primary"
-              aria-label="Send Email"
-            >
-              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
             </a>
           </div>

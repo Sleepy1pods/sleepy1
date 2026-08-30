@@ -791,41 +791,42 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <section id="pod-3d-experience" class="section-pad relative">
-    <div class="container-page">
-      <!-- Preview Card -->
-      <div v-show="!isFullscreen" class="grid overflow-hidden rounded-3xl bg-surface shadow-premium lg:grid-cols-[1.6fr_1fr] transition-colors duration-300">
-        <!-- Left Column: Pod Image (fills box seamlessly) -->
-        <div class="relative w-full h-72 sm:h-80 lg:h-full min-h-[300px] lg:min-h-[380px] bg-[#f8f9fa] dark:bg-[#0b0c10] border-b lg:border-b-0 lg:border-r border-theme overflow-hidden">
-          <!-- Light Theme Image -->
-          <img
-            src="/pod-hero-light.jpeg"
-            alt="Sleepy1 Pod Preview"
-            class="h-full w-full object-cover object-center dark:hidden block select-none"
-          />
-          <!-- Dark Theme Image -->
-          <img
-            src="/p5.png"
-            alt="Sleepy1 Pod Preview"
-            class="h-full w-full object-cover object-center dark:block hidden select-none"
-          />
+  <section id="pod-3d-experience" class="w-full relative overflow-hidden bg-[var(--bg)] py-16 sm:py-24 transition-colors duration-300">
+    <div v-show="!isFullscreen" class="w-full max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-14">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center w-full">
+        <!-- Left Column: Pod Image (Wide, full horizontal space, seamlessly unboxed) -->
+        <div class="lg:col-span-7 relative w-full flex items-center justify-center">
+          <div class="relative w-full overflow-hidden flex items-center justify-center">
+            <!-- Light Theme Image -->
+            <img
+              src="/pod-hero-light.jpeg"
+              alt="Sleepy1 Pod 3D Preview"
+              class="w-full max-h-[560px] object-contain object-center dark:hidden block select-none transition-transform duration-700 hover:scale-[1.02]"
+            />
+            <!-- Dark Theme Image -->
+            <img
+              src="/p5.png"
+              alt="Sleepy1 Pod 3D Preview"
+              class="w-full max-h-[560px] object-contain object-center dark:block hidden select-none transition-transform duration-700 hover:scale-[1.02]"
+            />
+          </div>
         </div>
 
         <!-- Right Column: Interactive CTA -->
-        <div class="flex flex-col items-start justify-center p-8 sm:p-10 lg:p-12 bg-surface">
-          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold tracking-widest uppercase bg-black/5 dark:bg-white/10 text-secondary border border-theme mb-3">
+        <div class="lg:col-span-5 flex flex-col items-start justify-center">
+          <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] font-bold tracking-widest uppercase bg-black/5 dark:bg-white/10 text-secondary border border-theme mb-4 backdrop-blur-md">
             <span class="h-1.5 w-1.5 rounded-full bg-brand-500 animate-pulse" />
             360° Exploration
           </span>
-          <h3 class="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-primary text-balance leading-tight">
+          <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-primary tracking-tight text-balance leading-tight">
             Unlock An Immersive Experience
-          </h3>
-          <p class="mt-3 text-xs sm:text-sm leading-relaxed text-secondary max-w-sm">
+          </h2>
+          <p class="mt-4 text-sm sm:text-base leading-relaxed text-secondary max-w-lg">
             Step inside our 3D rest pod to examine the ergonomics, climate controls, ambient lighting, and acoustic insulation.
           </p>
           <button 
             @click="isFullscreen = true"
-            class="mt-6 sm:mt-8 inline-flex items-center gap-2.5 rounded-full bg-cta-fill px-6 sm:px-7 py-3 sm:py-3.5 text-xs font-bold uppercase tracking-wider text-cta-text transition-all duration-200 hover:scale-105 shadow-md cursor-pointer"
+            class="mt-7 sm:mt-9 inline-flex items-center gap-2.5 rounded-full bg-cta-fill px-7 sm:px-8 py-3.5 sm:py-4 text-xs font-bold uppercase tracking-wider text-cta-text transition-all duration-200 hover:scale-105 shadow-xl cursor-pointer"
           >
             <span>EXPLORE IN 3D</span>
             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
@@ -910,24 +911,11 @@ onBeforeUnmount(() => {
         <Transition name="panel-slide">
           <aside 
             v-show="!isPanelCollapsed"
-            class="absolute top-18 sm:top-6 bottom-20 sm:bottom-6 right-3 sm:right-6 z-40 w-72 sm:w-80 max-w-[calc(100vw-1.5rem)] flex flex-col pointer-events-auto"
+            class="absolute top-18 sm:top-6 right-3 sm:right-6 z-40 w-72 sm:w-80 max-w-[calc(100vw-1.5rem)] max-h-[calc(100vh-6rem)] sm:max-h-[calc(100vh-4rem)] flex flex-col pointer-events-auto"
           >
-            <div class="flex flex-col h-full rounded-xl border border-[#2b3340] bg-[#11141c]/95 backdrop-blur-xl shadow-2xl overflow-hidden">
-              <!-- Top Model Selector Card -->
-              <div class="p-3 pb-0">
-                <div class="rounded-lg border border-[#2b3340] bg-[#161c26] px-3.5 py-2 flex items-center justify-between">
-                  <div>
-                    <span class="block text-[10px] font-semibold uppercase tracking-wider text-zinc-400">Model</span>
-                    <span class="font-display text-xs sm:text-sm font-bold text-white tracking-wide">Sleepy1 Pod</span>
-                  </div>
-                  <svg class="h-4 w-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </div>
-              </div>
-
+            <div class="flex flex-col max-h-full rounded-xl border border-[#2b3340] bg-[#11141c]/95 backdrop-blur-xl shadow-2xl overflow-hidden">
               <!-- Tab Header with White Accent Line -->
-              <div class="mt-3 bg-[#181e28] border-b-2 border-white py-2.5 px-4 flex items-center justify-between">
+              <div class="bg-[#181e28] border-b-2 border-white py-2.5 px-4 flex items-center justify-between">
                 <span class="text-xs font-bold uppercase tracking-wider text-white">Features & Amenities</span>
                 <button
                   v-if="selectedAmenity"
@@ -939,7 +927,7 @@ onBeforeUnmount(() => {
               </div>
 
               <!-- Accordion List of Features (No Icons, Smooth Downward Expansion) -->
-              <div class="flex-1 overflow-y-auto custom-scrollbar bg-[#11141c]">
+              <div class="overflow-y-auto custom-scrollbar bg-[#11141c]">
                 <div
                   v-for="amenity in amenities"
                   :key="amenity.id"

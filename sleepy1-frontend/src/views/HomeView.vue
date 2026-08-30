@@ -33,7 +33,6 @@ usePageMeta({
           <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div class="max-w-2xl">
               <div class="inline-flex items-center gap-2 rounded-full border border-theme bg-surface px-3.5 py-1 text-xs font-semibold text-primary uppercase tracking-widest mb-3">
-                <span>💳</span>
                 <span>Sleepy1 Credits</span>
               </div>
               <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-primary font-display">

@@ -33,7 +33,7 @@ const values: ValueItem[] = [
     <div
       v-for="v in values"
       :key="v.title"
-      class="card-surface group relative flex flex-col justify-between overflow-hidden p-6 shadow-soft transition-all duration-300 hover:-translate-y-1 sm:p-7"
+      class="card-surface relative flex flex-col justify-between overflow-hidden p-6 shadow-soft sm:p-7"
     >
       <!-- Subtle Background Watermark Numeral -->
       <span

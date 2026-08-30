@@ -14,11 +14,11 @@ const typeLabel: Record<string, string> = {
 }
 
 const typeColor: Record<string, string> = {
-  purchased: 'text-emerald-300',
-  redeemed: 'text-rose-300',
+  purchased: 'text-emerald-400 font-bold',
+  redeemed: 'text-rose-500 font-bold',
   expired: 'text-ivory-100/40',
-  refunded: 'text-brand-300',
-  promotional: 'text-amber-300',
+  refunded: 'text-emerald-400 font-bold',
+  promotional: 'text-emerald-400 font-bold',
 }
 </script>
 
@@ -26,7 +26,7 @@ const typeColor: Record<string, string> = {
   <EmptyState
     v-if="transactions.length === 0"
     title="No transactions yet"
-    description="Purchases, redemptions, and refunds will show up here."
+    description="Your credit purchases and redemptions will appear here."
   />
   <div v-else class="card-surface divide-y divide-white/8">
     <div v-for="tx in transactions" :key="tx.id" class="flex items-center justify-between gap-4 p-5">
@@ -37,7 +37,7 @@ const typeColor: Record<string, string> = {
         </p>
       </div>
       <div class="text-right">
-        <p :class="['text-sm font-semibold', typeColor[tx.type]]">{{ tx.amount > 0 ? '+' : '' }}{{ tx.amount }}</p>
+        <p :class="['text-sm', typeColor[tx.type]]">{{ tx.amount > 0 ? '+' : '' }}{{ tx.amount }}</p>
         <p class="text-xs text-ivory-100/40">{{ typeLabel[tx.type] }}</p>
       </div>
     </div>

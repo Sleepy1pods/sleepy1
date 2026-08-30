@@ -2,18 +2,18 @@
   <!-- Symmetrically aligned theme switch -->
   <button
     type="button"
-    class="relative inline-flex h-7 w-14 flex-shrink-0 cursor-pointer items-center rounded-full transition-all duration-300 ease-in-out focus:outline-none theme-toggle-btn"
+    class="relative inline-flex h-[38px] w-[66px] flex-shrink-0 cursor-pointer items-center rounded-full transition-all duration-300 ease-in-out focus:outline-none theme-toggle-btn"
     :style="toggleStyle"
     @click="toggle"
     role="switch"
     :aria-checked="isDark"
     :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
   >
-    <!-- Background Track with perfectly centered icons in two 28px columns -->
+    <!-- Background Track with perfectly centered icons in two 32px columns -->
     <span class="grid w-full h-full grid-cols-2 pointer-events-none items-center">
       <!-- Left icon (Sun background) -->
       <span class="flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 transition-opacity duration-200" :class="isDark ? 'opacity-40 text-zinc-400' : 'opacity-0'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-opacity duration-200" :class="isDark ? 'opacity-40 text-zinc-400' : 'opacity-0'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="5"/>
           <line x1="12" y1="1" x2="12" y2="3"/>
           <line x1="12" y1="21" x2="12" y2="23"/>
@@ -28,19 +28,19 @@
 
       <!-- Right icon (Moon background) -->
       <span class="flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 transition-opacity duration-200" :class="!isDark ? 'opacity-40 text-zinc-600' : 'opacity-0'" viewBox="0 0 24 24" fill="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-opacity duration-200" :class="!isDark ? 'opacity-40 text-zinc-600' : 'opacity-0'" viewBox="0 0 24 24" fill="currentColor">
           <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
         </svg>
       </span>
     </span>
 
-    <!-- Sliding Knob (24px x 24px with 2px margin on all sides) -->
+    <!-- Sliding Knob (28px x 28px with 3.5px margin on all sides) -->
     <span
-      class="absolute left-0.5 top-0.5 flex h-6 w-6 items-center justify-center rounded-full shadow-md transition-transform duration-300 ease-out pointer-events-none toggle-knob"
-      :class="isDark ? 'translate-x-7' : 'translate-x-0'"
+      class="absolute left-[3.5px] top-[3.5px] flex h-[29px] w-[29px] items-center justify-center rounded-full shadow-md transition-transform duration-300 ease-out pointer-events-none toggle-knob"
+      :class="isDark ? 'translate-x-[30px]' : 'translate-x-0'"
     >
-      <!-- Sun icon inside knob (Light mode) -->
-      <svg v-if="!isDark" xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Sun icon inside knob (Light mode) - Black icon -->
+      <svg v-if="!isDark" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-zinc-950" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="5"/>
         <line x1="12" y1="1" x2="12" y2="3"/>
         <line x1="12" y1="21" x2="12" y2="23"/>
@@ -53,7 +53,7 @@
       </svg>
 
       <!-- Moon icon inside knob (Dark mode) -->
-      <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-zinc-900" viewBox="0 0 24 24" fill="currentColor">
+      <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-zinc-900" viewBox="0 0 24 24" fill="currentColor">
         <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
       </svg>
     </span>
@@ -136,8 +136,8 @@ onMounted(() => {
 
 <style>
 .theme-toggle-btn {
-  width: 56px;
-  height: 28px;
+  width: 66px;
+  height: 38px;
   background-color: rgba(0, 0, 0, 0.06);
   border: 1.5px solid rgba(0, 0, 0, 0.2) !important;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -156,10 +156,10 @@ html.dark .theme-toggle-btn:hover,
 }
 
 .toggle-knob {
-  top: 1px;
-  left: 1px;
-  width: 23px;
-  height: 23px;
+  top: 3.5px;
+  left: 3.5px;
+  width: 29px;
+  height: 29px;
   background-color: #ffffff;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
 }

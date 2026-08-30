@@ -129,19 +129,7 @@ onUnmounted(() => {
               : (mode.align === 'right' ? 'opacity-0 translate-x-16' : 'opacity-0 -translate-x-16')
           ]"
         >
-          <!-- Mode Top Badge -->
-          <div class="flex items-center gap-2.5 mb-3">
-            <span 
-              class="flex h-2.5 w-2.5 rounded-full shadow-lg animate-ping-slow shrink-0"
-              :style="{ backgroundColor: mode.color }"
-            />
-            <span 
-              class="font-mono text-xs sm:text-sm font-semibold uppercase tracking-[0.18em]"
-              :style="{ color: mode.color }"
-            >
-              {{ mode.badge }}
-            </span>
-          </div>
+          
 
           <!-- Mode Title -->
           <h3 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white drop-shadow-md">
@@ -153,18 +141,6 @@ onUnmounted(() => {
             {{ mode.description }}
           </p>
 
-          <!-- Action Button -->
-          <div class="mt-6">
-            <router-link
-              to="/quick-book"
-              class="inline-flex items-center gap-2 rounded-full bg-white text-zinc-950 hover:bg-zinc-200 px-6 py-2.5 text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:scale-105 shadow-xl"
-            >
-              <span>Book {{ mode.name }}</span>
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </router-link>
-          </div>
         </div>
       </div>
     </div>

@@ -25,16 +25,29 @@
       </p>
     </div>
 
-    <!-- Right Framed Architectural Pod Showcase (5 cols) -->
-    <div class="lg:col-span-5">
-      <div
-        class="card-surface group relative overflow-hidden p-2 sm:p-3 shadow-soft transition-all duration-500 hover:shadow-lg">
-        <!-- Framed Pod Visual -->
-        <div class="relative overflow-hidden rounded-2xl border border-theme bg-surface">
-          <img src="/pod3.jpeg" alt="Sleepy1 Gen-1 Rest Pod Exterior"
-            class="h-full min-h-[340px] w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
-        </div>
+    <!-- Right Seamless Architectural Pod Showcase (5 cols) -->
+    <div class="lg:col-span-5 flex items-center justify-center">
+      <div class="relative w-[320px] sm:w-[380px] lg:w-[420px] h-[380px] rounded-lg sm:h-[440px] lg:h-[480px] overflow-hidden flex items-center justify-center about-pod-container">
+        <!-- Light Theme Image: p4.png -->
+        <img
+          src="/p4.png"
+          alt="Sleepy1 Gen-1 Rest Pod Exterior"
+          class="h-full w-full object-cover object-center scale-[1.1] dark:hidden block select-none transition-transform duration-700"
+        />
+        <!-- Dark Theme Image: p3.png -->
+        <img
+          src="/p3.png"
+          alt="Sleepy1 Gen-1 Rest Pod Exterior"
+          class="h-full w-full object-cover object-center scale-[1.1] dark:block hidden select-none transition-transform duration-700"
+        />
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.about-pod-container {
+  -webkit-mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 65%, transparent 100%);
+  mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 65%, transparent 100%);
+}
+</style>

@@ -9,7 +9,6 @@ export const primaryNav: NavItem[] = [
 
 export const loggedInNav: NavItem[] = [
   { label: 'My Bookings', to: '/bookings' },
-  { label: 'Wallet', to: '/wallet' },
 ]
 
 export const footerColumns: { title: string; items: NavItem[] }[] = [
@@ -27,11 +26,11 @@ export const footerColumns: { title: string; items: NavItem[] }[] = [
   {
     title: 'Legal',
     items: [
-      { label: 'Privacy Policy', to: '/legal/privacy-policy' },
       { label: 'Terms & Conditions', to: '/legal/terms' },
-      { label: 'Cancellation Policy', to: '/legal/cancellation-policy' },
-      { label: 'Refund Policy', to: '/legal/refund-policy' },
-      { label: 'Cookie Policy', to: '/legal/cookie-policy' },
+      { label: 'Cancellation & Refund Policy', to: '/legal/cancellation-policy' },
+      { label: 'Privacy Policy', to: '/legal/privacy-policy' },
+      { label: 'Safety Guidelines', to: '/legal/safety-guidelines' },
+      { label: 'Contact Us', to: '/contact' },
     ],
   },
 ]
@@ -41,9 +40,6 @@ export const footerMoreLinks: NavItem[] = [
   { label: 'Login', to: '/login' },
   { label: 'Create Account', to: '/register' },
   { label: 'My Bookings', to: '/bookings' },
-  { label: 'Credits Wallet', to: '/wallet' },
-  { label: 'Membership', to: '/membership' },
-  { label: 'Gift Sleep Credits', to: '/gift-credits' },
   { label: 'Offers & Promotions', to: '/offers' },
   { label: 'Newsletter', to: '/newsletter' },
   { label: 'Refer & Earn', to: '/refer' },

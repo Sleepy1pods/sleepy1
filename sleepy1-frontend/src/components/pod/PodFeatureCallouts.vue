@@ -172,9 +172,16 @@ function onLeave() {
 </script>
 
 <template>
-  <section class="relative w-full overflow-hidden bg-page dark:bg-black py-16 sm:py-24 select-none text-primary dark:text-white transition-colors duration-300">
+  <section class="relative w-full overflow-hidden bg-[var(--bg)] py-16 sm:py-24 select-none text-primary dark:text-white transition-colors duration-300">
     <div class="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-12">
       
+      <!-- Section Heading matching both themes -->
+      <div class="text-center mb-10 sm:mb-14 lg:mb-16">
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight uppercase text-primary dark:text-white">
+          SLEEPY1 POD
+        </h2>
+      </div>
+
       <!-- Desktop Interactive Showcase Layout (lg+) with Fixed Geometry -->
       <div ref="containerRef" class="hidden lg:flex items-center justify-between relative min-h-[560px] h-[560px] w-full">
         
@@ -307,13 +314,6 @@ function onLeave() {
               class="w-full h-auto object-cover select-none"
               loading="eager"
             />
-
-            <!-- Top SLEEPY1 POD Title Badge inside Image -->
-            <div class="absolute top-4 inset-x-0 text-center pointer-events-none">
-              <span class="text-[10px] font-mono tracking-[0.35em] text-secondary font-semibold">
-                SLEEPY1 POD
-              </span>
-            </div>
 
             <!-- Hotspot Glowing Interactive Dots directly on the Pod Image (Z-40: On top of lines and image) -->
             <div

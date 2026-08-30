@@ -30,16 +30,14 @@ const router = createRouter({
     { path: '/support', redirect: '/contact' },
 
     { path: '/book', name: 'book', component: () => import('@/views/BookingView.vue'), meta: { requiresAuth: true } },
-    { path: '/quick-book', name: 'quick-book', component: () => import('@/views/QuickBookingView.vue'), meta: { requiresAuth: true } },
+    { path: '/quick-book', name: 'quick-book', component: () => import('@/views/QuickBookingView.vue') },
     { path: '/bookings', name: 'my-bookings', component: () => import('@/views/MyBookingsView.vue'), meta: { requiresAuth: true } },
     { path: '/bookings/:id', name: 'booking-detail', component: () => import('@/views/BookingDetailView.vue'), meta: { requiresAuth: true } },
 
-    { path: '/wallet', name: 'wallet', component: () => import('@/views/CreditsWalletView.vue'), meta: { requiresAuth: true } },
-    { path: '/credits', name: 'credits-guide', component: () => import('@/views/CreditsGuideView.vue') },
-    { path: '/membership', name: 'membership', component: () => import('@/views/MembershipView.vue') },
-
-    { path: '/corporate', name: 'corporate', component: () => import('@/views/CorporateView.vue') },
-    { path: '/gift-credits', name: 'gift-credits', component: () => import('@/views/GiftCreditsView.vue') },
+    { path: '/wallet', redirect: '/' },
+    { path: '/credits', redirect: '/' },
+    { path: '/membership', redirect: '/' },
+    { path: '/gift-credits', redirect: '/' },
     { path: '/offers', name: 'offers', component: () => import('@/views/OffersView.vue') },
     { path: '/newsletter', name: 'newsletter', component: () => import('@/views/NewsletterView.vue') },
     { path: '/refer', name: 'refer', component: () => import('@/views/ReferEarnView.vue') },
@@ -56,7 +54,9 @@ const router = createRouter({
     { path: '/legal/privacy-policy', name: 'privacy-policy', component: () => import('@/views/legal/PrivacyPolicyView.vue') },
     { path: '/legal/terms', name: 'terms', component: () => import('@/views/legal/TermsView.vue') },
     { path: '/legal/cancellation-policy', name: 'cancellation-policy', component: () => import('@/views/legal/CancellationPolicyView.vue') },
+    { path: '/legal/cancellation-refund-policy', redirect: '/legal/cancellation-policy' },
     { path: '/legal/refund-policy', name: 'refund-policy', component: () => import('@/views/legal/RefundPolicyView.vue') },
+    { path: '/legal/safety-guidelines', name: 'safety-guidelines', component: () => import('@/views/legal/SafetyGuidelinesView.vue') },
     { path: '/legal/cookie-policy', name: 'cookie-policy', component: () => import('@/views/legal/CookiePolicyView.vue') },
 
     { path: '/admin/login', name: 'admin-login', component: () => import('@/views/admin/AdminLoginView.vue'), meta: { guestOnly: true } },

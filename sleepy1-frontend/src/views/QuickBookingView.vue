@@ -22,7 +22,8 @@ const form = reactive({
   checkinDate: `${todayDate.getFullYear()}-${(todayDate.getMonth() + 1).toString().padStart(2, '0')}-${todayDate.getDate().toString().padStart(2, '0')}`,
   checkinTime: '',
   checkoutDate: '',
-  checkoutTime: ''
+  checkoutTime: '',
+  agreeTerms: true
 })
 
 const displayDate = computed(() => {
@@ -57,8 +58,8 @@ watch([() => form.checkinDate, () => form.checkinTime], ([newDate, newTime]) => 
     const checkinObj = new Date(`${newDate}T00:00:00`)
     checkinObj.setHours(hours, minutes)
     
-    // Add exactly 30 minutes duration
-    checkinObj.setMinutes(checkinObj.getMinutes() + 30)
+    // Add exactly 1 hour (60 minutes) duration
+    checkinObj.setHours(checkinObj.getHours() + 1)
     
     const outYear = checkinObj.getFullYear()
     const outMonth = (checkinObj.getMonth() + 1).toString().padStart(2, '0')
@@ -93,8 +94,9 @@ watch(() => form.checkinDate, async (newDate) => {
   }
 }, { immediate: true })
 
+// 1-hour slots starting from 10:00 AM to 10:00 PM (10 to 21 start hours)
 const timeOptions = []
-for (let i = 0; i < 24; i++) {
+for (let i = 10; i < 22; i++) {
   const h24 = i.toString().padStart(2, '0')
   const period = i >= 12 ? 'PM' : 'AM'
   const h12 = i === 0 ? 12 : i > 12 ? i - 12 : i
@@ -107,11 +109,7 @@ for (let i = 0; i < 24; i++) {
 
   timeOptions.push({
     value: `${h24}:00`,
-    label: `${h12Str}:00 ${period} - ${h12Str}:30 ${period}`
-  })
-  timeOptions.push({
-    value: `${h24}:30`,
-    label: `${h12Str}:30 ${period} - ${h12NextStr}:00 ${nextHourPeriod}`
+    label: `${h12Str}:00 ${period} - ${h12NextStr}:00 ${nextHourPeriod}`
   })
 }
 
@@ -203,14 +201,14 @@ async function submit() {
     <form class="card-surface p-6 sm:p-10 space-y-8" @submit.prevent="submit">
       <!-- Personal Details -->
       <div>
-        <h2 class="text-lg font-medium text-ivory-50 mb-5 border-b border-white/10 pb-2">Personal Details</h2>
+        <h2 class="text-lg font-medium text-zinc-900 dark:text-white mb-5 border-b border-black/10 dark:border-white/10 pb-2">Personal Details</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <FormField v-model="form.name" label="Full Name" required />
           <FormField v-model="form.email" label="Email Address" type="email" required />
           <FormField v-model="form.phone" label="Phone Number" type="tel" required />
           
           <div>
-            <label class="mb-2 block text-sm font-medium text-ivory-100/80">Gender <span class="text-brand-300">*</span></label>
+            <label class="mb-2 block text-sm font-medium text-zinc-700 dark:text-zinc-300">Gender <span class="text-zinc-400 dark:text-zinc-500">*</span></label>
             <CustomSelect v-model="form.gender" :options="genderOptions" placeholder="Select Gender" />
           </div>
         </div>
@@ -218,30 +216,26 @@ async function submit() {
 
       <!-- Booking Schedule -->
       <div>
-        <div class="mb-5 border-b border-white/10 pb-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <h2 class="text-lg font-medium text-ivory-50">Booking Schedule</h2>
-          <span class="inline-flex items-center rounded-full bg-brand-500/10 px-3 py-1 text-xs font-medium text-brand-300 ring-1 ring-inset ring-brand-500/20">
-            <svg class="mr-1.5 h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            Fixed 30-minute duration
-          </span>
+        <div class="mb-5 border-b border-black/10 dark:border-white/10 pb-2">
+          <h2 class="text-lg font-medium text-zinc-900 dark:text-white">Booking Schedule</h2>
         </div>
         <div class="space-y-6">
           <div class="max-w-xs">
-            <label class="mb-2 block text-sm font-medium text-ivory-100/80">Select Check-in Date <span class="text-brand-300">*</span></label>
-            <div class="flex items-center justify-between rounded-xl border border-white/10 bg-ink-800/60 p-2">
-              <button type="button" @click="changeDate(-1)" class="p-2 text-ivory-100 hover:text-brand-300 hover:bg-white/5 rounded-lg transition-colors">
+            <label class="mb-2 block text-sm font-medium text-zinc-700 dark:text-zinc-300">Select Check-in Date <span class="text-zinc-400 dark:text-zinc-500">*</span></label>
+            <div class="flex items-center justify-between rounded-xl border border-black/10 dark:border-white/15 bg-black/[0.03] dark:bg-white/[0.04] p-2">
+              <button type="button" @click="changeDate(-1)" class="p-2 text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition-colors">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
               </button>
-              <div class="text-center font-medium text-ivory-50 flex-1">{{ displayDate }}</div>
-              <button type="button" @click="changeDate(1)" class="p-2 text-ivory-100 hover:text-brand-300 hover:bg-white/5 rounded-lg transition-colors">
+              <div class="text-center font-semibold text-zinc-900 dark:text-white flex-1">{{ displayDate }}</div>
+              <button type="button" @click="changeDate(1)" class="p-2 text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition-colors">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
               </button>
             </div>
           </div>
           
           <div v-if="form.checkinDate" class="animate-fade-in">
-            <label class="mb-3 block text-sm font-medium text-ivory-100/80">Available Time Slots <span class="text-brand-300">*</span></label>
-            <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 max-h-56 overflow-y-auto pr-2 custom-scrollbar pb-2">
+            <label class="mb-3 block text-sm font-medium text-zinc-700 dark:text-zinc-300">Available Time Slots <span class="text-zinc-400 dark:text-zinc-500">*</span></label>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-h-64 overflow-y-auto pr-2 custom-scrollbar pb-2">
               <button 
                 v-for="slot in timeOptions" 
                 :key="slot.value"
@@ -249,44 +243,93 @@ async function submit() {
                 :disabled="bookedSlots.includes(slot.value) || isSlotPast(slot.value)"
                 @click="form.checkinTime = slot.value"
                 :class="[
-                  'relative py-3 px-1 rounded-xl border transition-all text-center flex flex-col items-center justify-center gap-1 overflow-hidden',
+                  'relative py-3 px-2 rounded-xl border transition-all text-center flex flex-col items-center justify-center gap-1 overflow-hidden',
                   (bookedSlots.includes(slot.value) || isSlotPast(slot.value))
-                    ? 'cursor-not-allowed border-red-500/20 bg-red-500/5'
+                    ? 'cursor-not-allowed border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02] opacity-40'
                     : form.checkinTime === slot.value 
-                      ? 'bg-brand-500 border-brand-400 text-white shadow-[0_0_12px_rgba(var(--color-brand-500),0.4)] scale-[1.03] z-10' 
-                      : 'bg-ink-800/60 border-white/10 text-ivory-100 hover:border-brand-500/50 hover:bg-ink-700/80 hover:-translate-y-0.5'
+                      ? 'active-slot-btn scale-[1.02] z-10 font-bold shadow-md' 
+                      : 'inactive-slot-btn'
                 ]"
               >
-                <span class="whitespace-nowrap font-semibold text-[14px] z-10" :class="(bookedSlots.includes(slot.value) || isSlotPast(slot.value)) ? 'opacity-30 text-ivory-100' : ''">{{ slot.label.split(' - ')[0] }}</span>
-                <span class="text-[11px] z-10" :class="(bookedSlots.includes(slot.value) || isSlotPast(slot.value)) ? 'opacity-20' : 'opacity-70'">to {{ slot.label.split(' - ')[1] }}</span>
+                <span class="whitespace-nowrap font-semibold text-[14px] z-10">{{ slot.label.split(' - ')[0] }}</span>
+                <span class="text-[11px] z-10" :class="form.checkinTime === slot.value ? 'opacity-85' : 'opacity-60'">to {{ slot.label.split(' - ')[1] }}</span>
                 
-                <div v-if="bookedSlots.includes(slot.value)" class="absolute inset-0 flex items-center justify-center bg-ink-900/60 backdrop-blur-[1px] z-20">
-                  <span class="text-[11px] font-bold uppercase tracking-widest text-red-500 rotate-[-12deg] border border-red-500/50 px-1.5 py-0.5 rounded-sm bg-ink-900/90 shadow-lg">Booked</span>
+                <div v-if="bookedSlots.includes(slot.value)" class="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[1px] z-20">
+                  <span class="text-[11px] font-bold uppercase tracking-widest text-red-400 rotate-[-12deg] border border-red-500/50 px-1.5 py-0.5 rounded-sm bg-black/80 shadow-lg">Booked</span>
                 </div>
-                <div v-else-if="isSlotPast(slot.value)" class="absolute inset-0 flex items-center justify-center bg-ink-900/40 backdrop-blur-[1px] z-20">
-                  <span class="text-[11px] font-bold uppercase tracking-widest text-ivory-100/50 rotate-[-12deg] px-1.5 py-0.5 rounded-sm bg-ink-900/90">Past</span>
+                <div v-else-if="isSlotPast(slot.value)" class="absolute inset-0 flex items-center justify-center bg-black/20 dark:bg-black/50 backdrop-blur-[1px] z-20">
+                  <span class="text-[11px] font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 rotate-[-12deg] px-1.5 py-0.5 rounded-sm bg-black/80">Past</span>
                 </div>
               </button>
             </div>
-            <p v-if="!form.checkinTime" class="mt-3 text-xs text-rose-400/80">Please select a time slot to continue.</p>
+            <p v-if="!form.checkinTime" class="mt-3 text-xs text-zinc-500">Please select a time slot to continue.</p>
           </div>
 
-          <div v-if="form.checkinTime && form.checkoutTime" class="rounded-xl bg-brand-500/10 border border-brand-500/20 p-5 flex items-center justify-between animate-fade-in">
+          <div v-if="form.checkinTime && form.checkoutTime" class="rounded-xl bg-black/[0.03] dark:bg-white/[0.05] border border-black/10 dark:border-white/15 p-5 flex items-center justify-between animate-fade-in">
             <div>
-              <p class="text-[11px] text-ivory-100/60 uppercase tracking-wider mb-1 font-semibold">Check-out Schedule</p>
-              <p class="text-sm font-medium text-brand-300">{{ form.checkoutDate }} at {{ timeOptions.find(t => t.value === form.checkoutTime)?.label.split(' - ')[0] || form.checkoutTime }}</p>
+              <p class="text-[11px] text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-1 font-semibold">Check-out Schedule</p>
+              <p class="text-sm font-semibold text-zinc-900 dark:text-white">{{ form.checkoutDate }} at {{ timeOptions.find(t => t.value === form.checkoutTime)?.label.split(' - ')[0] || form.checkoutTime }}</p>
             </div>
             <div class="text-right">
-              <p class="text-[11px] text-ivory-100/60 uppercase tracking-wider mb-1 font-semibold">Duration</p>
-              <p class="text-sm font-medium text-ivory-50">30 Minutes</p>
+              <p class="text-[11px] text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-1 font-semibold">Duration</p>
+              <p class="text-sm font-semibold text-zinc-900 dark:text-white">1 Hour</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="pt-4 flex justify-center">
+      <!-- Terms Acceptance Checkbox -->
+      <div class="flex items-center gap-3 pt-1">
+        <input
+          id="terms-checkbox"
+          v-model="form.agreeTerms"
+          type="checkbox"
+          required
+          class="h-4 w-4 rounded border-zinc-300 text-black focus:ring-black dark:border-zinc-700 dark:bg-zinc-800"
+        />
+        <label for="terms-checkbox" class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 select-none">
+          I agree to the
+          <router-link to="/legal/terms" target="_blank" class="font-semibold text-zinc-900 dark:text-white underline hover:opacity-80">
+            Sleepy1 Terms & Conditions
+          </router-link>.
+        </label>
+      </div>
+
+      <div class="pt-2 flex justify-center">
         <PrimaryButton type="submit" :loading="isSubmitting" size="lg" class="w-full sm:w-auto">Confirm Booking</PrimaryButton>
       </div>
     </form>
   </div>
 </template>
+
+<style scoped>
+.active-slot-btn {
+  background-color: var(--cta-bg) !important;
+  color: var(--cta-text) !important;
+  border-color: var(--cta-bg) !important;
+}
+
+.inactive-slot-btn {
+  background-color: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.12);
+  color: #18181b;
+}
+
+.inactive-slot-btn:hover {
+  border-color: rgba(0, 0, 0, 0.35);
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+html.dark .inactive-slot-btn,
+.dark .inactive-slot-btn {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #f4f4f5;
+}
+
+html.dark .inactive-slot-btn:hover,
+.dark .inactive-slot-btn:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+</style>

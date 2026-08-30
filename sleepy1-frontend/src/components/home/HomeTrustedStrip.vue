@@ -111,8 +111,8 @@ function handlePointerEnd(event: PointerEvent) {
               </p>
             </div>
             
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 border border-white/30 text-white backdrop-blur-md transition-all duration-300 group-hover:bg-brand-500 group-hover:border-brand-500 group-hover:text-black group-hover:shadow-[0_0_20px_rgba(139,155,251,0.5)] shrink-0">
-              <span class="text-xl leading-none transition-transform duration-300 group-hover:-rotate-45">→</span>
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-[#7084ff] border border-[#8da0ff]/60 text-zinc-950 shadow-md backdrop-blur-md transition-all duration-300 group-hover:bg-white group-hover:border-white group-hover:text-black group-hover:shadow-[0_0_25px_rgba(255,255,255,0.75)] group-hover:scale-105 group-active:bg-white group-active:border-white group-active:text-black hover:bg-white hover:border-white hover:text-black active:bg-white active:border-white active:text-black shrink-0">
+              <span class="text-xl leading-none transition-transform duration-300 -rotate-45 font-bold">→</span>
             </div>
           </div>
         </div>

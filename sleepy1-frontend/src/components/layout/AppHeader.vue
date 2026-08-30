@@ -3,7 +3,6 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useUiStore } from '@/stores/ui'
 import { primaryNav } from '@/data/navigation'
-import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import UserMenu from '@/components/layout/UserMenu.vue'
 import ThemeToggle from '@/components/common/ThemeToggle.vue'
 
@@ -98,24 +97,27 @@ const navStyle = computed(() => ({
       <!-- 3. Right: Action Cluster -->
       <div class="flex items-center gap-2.5 sm:gap-3 flex-shrink-0">
         <!-- Desktop controls -->
-        <div class="hidden lg:flex items-center gap-3">
+        <div class="hidden lg:flex items-center gap-3.5 flex-shrink-0">
           <ThemeToggle />
-          <div class="h-5 w-px bg-black/10 dark:bg-white/15" />
-          <div class="flex items-center gap-2">
+          <div class="h-6 w-px bg-black/10 dark:bg-white/15 flex-shrink-0" />
+          <div class="flex items-center gap-2.5 flex-shrink-0">
             <UserMenu v-if="auth.isAuthenticated && auth.user?.role !== 'admin'" />
             <router-link
               v-else
               to="/login"
-              class="liquid-btn inline-flex items-center gap-1.5 rounded-xl px-3.5 py-1.5 text-sm font-semibold text-zinc-800 dark:text-zinc-100 transition-all duration-200 hover:scale-105"
+              class="liquid-btn inline-flex h-[38px] flex-shrink-0 whitespace-nowrap items-center gap-2 rounded-full px-4.5 text-sm font-semibold text-zinc-800 dark:text-zinc-100 transition-all duration-200 hover:scale-105"
             >
               <svg class="w-4 h-4 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
               </svg>
-              Login
+              <span>Login</span>
             </router-link>
-            <PrimaryButton as="RouterLink" to="/quick-book" size="sm" class="shadow-lg shadow-black/20 hover:scale-105 transition-transform !py-1.5 !px-4 text-sm font-medium">
+            <router-link
+              to="/quick-book"
+              class="inline-flex h-[38px] min-w-[88px] flex-shrink-0 whitespace-nowrap items-center justify-center rounded-full bg-cta-fill px-6 text-sm font-bold text-cta-text transition-all duration-200 hover:scale-105 shadow-md hover:opacity-90 tracking-wide"
+            >
               Book
-            </PrimaryButton>
+            </router-link>
           </div>
         </div>
 

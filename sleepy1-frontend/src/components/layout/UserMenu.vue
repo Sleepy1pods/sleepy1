@@ -49,17 +49,17 @@ async function handleLogout() {
 </script>
 
 <template>
-  <div ref="rootEl" class="relative">
+  <div ref="rootEl" class="relative flex-shrink-0">
     <button
       ref="triggerEl"
       type="button"
-      class="flex h-8 items-center gap-2 rounded-full border border-black/10 dark:border-white/15 bg-black/[0.04] dark:bg-white/[0.06] pl-1 pr-3 text-xs sm:text-sm font-medium text-zinc-800 dark:text-zinc-100 hover:border-black/25 dark:hover:border-white/25 hover:bg-black/10 dark:hover:bg-white/10 transition-all"
+      class="flex h-[38px] flex-shrink-0 whitespace-nowrap items-center gap-2.5 rounded-full border border-black/10 dark:border-white/15 bg-black/[0.04] dark:bg-white/[0.06] pl-1.5 pr-4 text-sm font-semibold text-zinc-800 dark:text-zinc-100 hover:border-black/25 dark:hover:border-white/25 hover:bg-black/10 dark:hover:bg-white/10 transition-all shadow-sm"
       :aria-expanded="isOpen"
       aria-haspopup="menu"
       aria-controls="user-menu-dropdown"
       @click="toggleOpen"
     >
-      <span class="flex h-6 w-6 items-center justify-center rounded-full bg-brand-400 text-[11px] font-bold text-ink-950">
+      <span class="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 text-xs font-bold shadow-sm">
         {{ auth.user?.avatarInitials }}
       </span>
       <span>{{ auth.user?.fullName.split(' ')[0] }}</span>
@@ -73,8 +73,6 @@ async function handleLogout() {
         class="absolute left-0 sm:left-auto sm:right-0 top-full mt-2.5 w-56 overflow-hidden rounded-2xl border border-black/10 dark:border-white/10 bg-white/95 dark:bg-[#18181f]/95 py-2 shadow-2xl backdrop-blur-xl z-50"
       >
         <router-link to="/bookings" role="menuitem" class="block px-4 py-2.5 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-black/5 dark:hover:bg-white/5" @click="isOpen = false">My Bookings</router-link>
-        <router-link to="/wallet" role="menuitem" class="block px-4 py-2.5 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-black/5 dark:hover:bg-white/5" @click="isOpen = false">Credits Wallet</router-link>
-        <router-link to="/membership" role="menuitem" class="block px-4 py-2.5 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-black/5 dark:hover:bg-white/5" @click="isOpen = false">Membership</router-link>
         <div class="my-2 h-px bg-black/10 dark:bg-white/10" />
         <button type="button" role="menuitem" class="block w-full px-4 py-2.5 text-left text-sm font-medium text-rose-500 dark:text-rose-400 hover:bg-black/5 dark:hover:bg-white/5" @click="handleLogout">
           Log Out

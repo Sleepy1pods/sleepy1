@@ -12,7 +12,7 @@ const paths: Record<AmenityIcon, string> = {
   mattress: 'M3 10h18v9H3v-9zM3 10a4 4 0 014-4h10a4 4 0 014 4M7 14h3',
   noise: 'M11 5L6 9H3v6h3l5 4V5zM16 8a5 5 0 010 8',
   shower: 'M4 12h16M6 12V7a4 4 0 018 0v1M8 16v2m4-2v2m4-2v2',
-  climate: 'M12 2v20M5 7l14 10M19 7L5 17M12 12a2 2 0 100 .01',
+  climate: 'M2 12h20M12 2v20M20 16l-4-4 4-4M4 8l4 4-4 4M16 4l-4 4-4-4M8 20l4-4 4 4',
   housekeeping: 'M5 4l14 14M8 4h8l2 5H6l2-5zM4 12h16l-1.5 8h-13L4 12z',
   display: 'M3 4h18v13H3V4zM8 21h8M12 17v4',
   star: 'M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z',
