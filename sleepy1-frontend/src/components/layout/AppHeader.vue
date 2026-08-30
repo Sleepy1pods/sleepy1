@@ -105,12 +105,9 @@ const navStyle = computed(() => ({
             <router-link
               v-else
               to="/login"
-              class="liquid-btn inline-flex h-[38px] flex-shrink-0 whitespace-nowrap items-center gap-2 rounded-full px-4.5 text-sm font-semibold text-zinc-800 dark:text-zinc-100 transition-all duration-200 hover:scale-105"
+              class="liquid-btn inline-flex h-[38px] min-w-[84px] flex-shrink-0 whitespace-nowrap items-center justify-center rounded-full px-5 text-sm font-semibold text-zinc-800 dark:text-zinc-100 transition-all duration-200 hover:scale-105 hover:text-black dark:hover:text-white"
             >
-              <svg class="w-4 h-4 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-              </svg>
-              <span>Login</span>
+              Login
             </router-link>
             <router-link
               to="/quick-book"
