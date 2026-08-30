@@ -6,22 +6,22 @@ import { useScrollReveal } from '@/composables/useScrollReveal'
 const steps = [
   {
     stepNumber: '1',
-    title: 'Book Your Pod',
-    description: 'Reserve on our website or through our app.',
+    title: 'Choose a pod',
+    description: 'Pick a location, date, and how long you need.',
     image: '/step1.jpeg',
     imageClass: 'object-center',
   },
   {
     stepNumber: '2',
-    title: 'Zzz You Soon',
-    description: 'Complete your self check-in and head to your Sleep Station.',
+    title: 'Scan to enter',
+    description: 'Show your QR code at the door. No desk, no keys.',
     image: '/step2.jpeg',
     imageClass: 'object-center',
   },
   {
     stepNumber: '3',
-    title: 'Sweet Dreams',
-    description: 'Put your phone on vibrate, get cozy, and unwind.',
+    title: 'Rest, then go',
+    description: 'The pod locks behind you and checks you out automatically.',
     image: '/step3.png',
     imageClass: 'object-[center_32%] brightness-105',
   },
