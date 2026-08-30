@@ -141,8 +141,66 @@ export const bookingService = {
   },
 
   async getById(id: string): Promise<Booking | undefined> {
+    const token = localStorage.getItem('sleepy1_auth_token')
+    if (token && id && !id.startsWith('demo-')) {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/bookings/${id}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          credentials: 'include'
+        })
+        if (res.ok) {
+          const json = await res.json()
+          const dbB = json.data
+          if (dbB) {
+            const isPast = new Date(dbB.checkInDate) < new Date(new Date().toDateString())
+            return {
+              id: dbB._id,
+              reference: `BK-${dbB._id.slice(-6).toUpperCase()}`,
+              locationId: 'loc-iiit-dharwad',
+              locationName: 'IIIT Dharwad Research Park',
+              podTypeId: 'pod-solo-rest',
+              podLabel: 'Pod 1',
+              podImage: 'pod-interior-1',
+              date: dbB.checkInDate,
+              checkIn: dbB.checkInTime,
+              checkOutDate: dbB.checkOutDate,
+              checkOutTime: dbB.checkOutTime,
+              durationHours: calculateDurationHours(dbB.checkInDate, dbB.checkInTime, dbB.checkOutDate, dbB.checkOutTime),
+              extras: [],
+              guest: {
+                fullName: dbB.name,
+                email: dbB.email,
+                phone: dbB.phone,
+                emergencyContactName: '',
+                emergencyContactPhone: '',
+                specialRequests: ''
+              },
+              price: {
+                basePrice: 500,
+                extrasTotal: 0,
+                serviceFee: 50,
+                taxes: 0,
+                discount: 0,
+                creditsApplied: 0,
+                couponDiscount: 0,
+                totalPayable: 550
+              },
+              paymentMethod: 'direct',
+              status: isPast ? 'completed' : 'upcoming',
+              createdAt: dbB.createdAt || new Date().toISOString(),
+              qrValue: `SLEEPY1-BOOKING-${dbB._id}`
+            }
+          }
+        }
+      } catch (e) {
+        console.warn('Direct getById fetch failed, using fallback', e)
+      }
+    }
     const bookings = await this.getMyBookings()
-    return bookings.find(b => b.id === id)
+    return bookings.find(b => b.id === id || b.reference === id || b.id.toUpperCase().endsWith(id.toUpperCase()) || id.toUpperCase().endsWith(b.id.toUpperCase()))
   },
 
   async createFromDraft(draft: BookingDraft): Promise<Booking> {

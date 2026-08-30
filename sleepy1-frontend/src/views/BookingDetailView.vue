@@ -97,7 +97,7 @@ async function cancelBooking() {
               <dt class="mb-1 text-sm text-ivory-100/60 sm:mb-0">Phone Number</dt>
               <dd class="font-medium text-ivory-50">{{ booking.guest.phone }}</dd>
             </div>
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/5 pb-4">
+            <div v-if="booking.guest.specialRequests && booking.guest.specialRequests.includes(':')" class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/5 pb-4">
               <dt class="mb-1 text-sm text-ivory-100/60 sm:mb-0 capitalize">{{ booking.guest.specialRequests.split(':')[0] }}</dt>
               <dd class="font-medium text-ivory-50 capitalize">{{ booking.guest.specialRequests.split(':')[1]?.trim() }}</dd>
             </div>

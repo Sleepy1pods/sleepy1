@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { useBookingFlowStore } from '@/stores/bookingFlow'
 import { useCreditsStore } from '@/stores/credits'
 import { useUiStore } from '@/stores/ui'
@@ -13,6 +14,7 @@ import HubVisual from '@/components/common/HubVisual.vue'
 const flow = useBookingFlowStore()
 const credits = useCreditsStore()
 const ui = useUiStore()
+const router = useRouter()
 
 const isPaying = ref(false)
 const couponInput = ref(flow.draft.couponCode ?? '')
@@ -172,11 +174,22 @@ async function executePaymentConfirm() {
     if (flow.draft.creditsToApply > 0) {
       await credits.redeemCredits(flow.draft.creditsToApply, `Redeemed for ${flow.selectedLocation?.name ?? 'Sleepy1 booking'}`)
     }
-    await flow.confirmBooking()
+    const createdBooking = await flow.confirmBooking()
     ui.pushToast({
       type: 'success',
       title: 'Success!',
       description: 'Your pod is successfully booked.',
+    })
+    if (createdBooking?.id) {
+      router.push(`/bookings/${createdBooking.id}`)
+    } else {
+      router.push('/bookings')
+    }
+  } catch (err: any) {
+    ui.pushToast({
+      type: 'error',
+      title: 'Booking Error',
+      description: err?.message || 'Failed to complete booking.'
     })
   } finally {
     isPaying.value = false

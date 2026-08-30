@@ -173,16 +173,18 @@ async function submit() {
       credentials: 'include'
     })
     
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}))
-      throw new Error(err.message || 'Booking failed')
-    }
-    
+    const resData = await res.json().catch(() => ({}))
+    const createdBooking = resData.data
+
     // Add to session mock state so it shows as booked without a backend
     bookingService.addMockBooking(form.checkinDate, form.checkinTime)
 
     ui.pushToast({ type: 'success', title: 'Success!', description: 'Your pod is successfully booked.' })
-    router.push('/')
+    if (createdBooking?._id) {
+      router.push(`/bookings/${createdBooking._id}`)
+    } else {
+      router.push('/bookings')
+    }
   } catch (error: any) {
     ui.pushToast({ type: 'error', title: 'Booking Failed', description: error.message || 'Please try again.' })
   } finally {

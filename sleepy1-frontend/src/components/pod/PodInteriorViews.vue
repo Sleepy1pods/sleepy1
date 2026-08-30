@@ -794,30 +794,32 @@ onBeforeUnmount(() => {
   <section id="pod-3d-experience" class="w-full relative overflow-hidden bg-[var(--bg)] py-16 sm:py-24 transition-colors duration-300">
     <div v-show="!isFullscreen" class="w-full max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-14">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center w-full">
-        <!-- Left Column: Pod Image (Wide, full horizontal space, seamlessly unboxed) -->
+        <!-- Left Column: Pod Image (Seamlessly integrated with feathered edge masks) -->
         <div class="lg:col-span-7 relative w-full flex items-center justify-center">
-          <div class="relative w-full overflow-hidden flex items-center justify-center">
-            <!-- Light Theme Image -->
+          <div class="relative w-full overflow-hidden flex items-center justify-center pod-hero-preview-box">
+            <!-- Light Theme Image (Seamless feathered blend) -->
             <img
               src="/pod-hero-light.jpeg"
               alt="Sleepy1 Pod 3D Preview"
-              class="w-full max-h-[560px] object-contain object-center dark:hidden block select-none transition-transform duration-700 hover:scale-[1.02]"
+              class="w-full max-h-[560px] object-contain object-center dark:hidden block select-none transition-transform duration-700 hover:scale-[1.02] pod-masked-img"
             />
             <!-- Dark Theme Image -->
             <img
               src="/p5.png"
               alt="Sleepy1 Pod 3D Preview"
-              class="w-full max-h-[560px] object-contain object-center dark:block hidden select-none transition-transform duration-700 hover:scale-[1.02]"
+              class="w-full max-h-[560px] object-contain object-center dark:block hidden select-none transition-transform duration-700 hover:scale-[1.02] pod-masked-img"
             />
+
+            <!-- Seamless edge gradient feathering on all 4 sides -->
+            <div class="absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-[var(--bg)] to-transparent pointer-events-none z-10" />
+            <div class="absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-[var(--bg)] to-transparent pointer-events-none z-10" />
+            <div class="absolute inset-x-0 top-0 h-16 sm:h-24 bg-gradient-to-b from-[var(--bg)] to-transparent pointer-events-none z-10" />
+            <div class="absolute inset-x-0 bottom-0 h-16 sm:h-24 bg-gradient-to-t from-[var(--bg)] to-transparent pointer-events-none z-10" />
           </div>
         </div>
 
-        <!-- Right Column: Interactive CTA -->
+        <!-- Right Column: Interactive CTA (Removed 360 Exploration tag) -->
         <div class="lg:col-span-5 flex flex-col items-start justify-center">
-          <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] font-bold tracking-widest uppercase bg-black/5 dark:bg-white/10 text-secondary border border-theme mb-4 backdrop-blur-md">
-            <span class="h-1.5 w-1.5 rounded-full bg-brand-500 animate-pulse" />
-            360° Exploration
-          </span>
           <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-primary tracking-tight text-balance leading-tight">
             Unlock An Immersive Experience
           </h2>
@@ -977,6 +979,11 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
+.pod-masked-img {
+  -webkit-mask-image: radial-gradient(ellipse 78% 78% at 50% 50%, black 50%, transparent 95%);
+  mask-image: radial-gradient(ellipse 78% 78% at 50% 50%, black 50%, transparent 95%);
+}
+
 .accordion-down-enter-active,
 .accordion-down-leave-active {
   transition: max-height 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease;
