@@ -43,12 +43,16 @@ onMounted(() => {
         src="/p2.jpeg"
         alt="Sleepy1 Smart Rest Pod"
         class="w-full h-full object-cover object-right lg:object-[center_right] dark:hidden block"
+        fetchpriority="high"
+        decoding="async"
       />
       <!-- Dark Theme Image -->
       <img
         src="/p1.png"
         alt="Sleepy1 Smart Rest Pod"
         class="w-full h-full object-cover object-right lg:object-[center_right] dark:block hidden"
+        fetchpriority="high"
+        decoding="async"
       />
     </div>
 

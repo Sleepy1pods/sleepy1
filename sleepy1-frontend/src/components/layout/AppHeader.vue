@@ -69,11 +69,15 @@ const navStyle = computed(() => ({
             src="/Logo.png"
             alt="Sleepy1 Icon"
             class="h-8 w-8 object-contain transition-transform duration-300 group-hover:scale-105 dark:invert-0 invert drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)]"
+            fetchpriority="high"
+            decoding="async"
           />
           <img
             src="/Logo-text.png"
             alt="Sleepy1 Text"
             class="h-5 sm:h-5.5 object-contain dark:invert-0 invert"
+            fetchpriority="high"
+            decoding="async"
           />
         </router-link>
       </div>

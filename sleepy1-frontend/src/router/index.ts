@@ -30,7 +30,7 @@ const router = createRouter({
     { path: '/support', redirect: '/contact' },
 
     { path: '/book', name: 'book', component: () => import('@/views/BookingView.vue'), meta: { requiresAuth: true } },
-    { path: '/quick-book', name: 'quick-book', component: () => import('@/views/QuickBookingView.vue') },
+    { path: '/quick-book', name: 'quick-book', component: () => import('@/views/QuickBookingView.vue'), meta: { requiresAuth: true } },
     { path: '/bookings', name: 'my-bookings', component: () => import('@/views/MyBookingsView.vue'), meta: { requiresAuth: true } },
     { path: '/bookings/:id', name: 'booking-detail', component: () => import('@/views/BookingDetailView.vue'), meta: { requiresAuth: true } },
 

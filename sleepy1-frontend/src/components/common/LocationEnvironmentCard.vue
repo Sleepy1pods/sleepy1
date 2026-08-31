@@ -15,6 +15,7 @@ defineProps<{ environment: LocationEnvironment }>()
         :alt="`${environment.label} environment`"
         class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         loading="lazy"
+        decoding="async"
       />
       <HubVisual v-else :hub-type="environment.hubType" :id="environment.id" class="h-full w-full" rounded="rounded-none" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink-950/85 via-ink-950/20 to-transparent" />

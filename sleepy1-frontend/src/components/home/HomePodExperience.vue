@@ -23,12 +23,16 @@ function setRightRef(el: any) {
         src="/p4.png"
         alt="Sleepy1 Smart Rest Pod"
         class="w-full h-full object-contain object-center dark:hidden block transition-transform duration-700 max-w-[1400px]"
+        loading="lazy"
+        decoding="async"
       />
       <!-- Dark Theme Image: p3.png -->
       <img
         src="/p3.png"
         alt="Sleepy1 Smart Rest Pod"
         class="w-full h-full object-contain object-center dark:block hidden transition-transform duration-700 max-w-[1400px]"
+        loading="lazy"
+        decoding="async"
       />
 
       <!-- Atmospheric edge vignettes for seamless blend on left, right, top, bottom -->

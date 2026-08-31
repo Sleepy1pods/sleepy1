@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useBookingFlowStore } from '@/stores/bookingFlow'
 import { useCreditsStore } from '@/stores/credits'
+import { useAuthStore } from '@/stores/auth'
 import { useUiStore } from '@/stores/ui'
 import type { PaymentMethod } from '@/types/booking'
 import { formatInr, formatDateLong } from '@/utils/format'
@@ -13,6 +14,7 @@ import HubVisual from '@/components/common/HubVisual.vue'
 
 const flow = useBookingFlowStore()
 const credits = useCreditsStore()
+const auth = useAuthStore()
 const ui = useUiStore()
 const router = useRouter()
 
@@ -34,6 +36,16 @@ function loadRazorpayScript(): Promise<boolean> {
 }
 
 onMounted(() => {
+  if (!auth.isAuthenticated) {
+    ui.pushToast({
+      type: 'error',
+      title: 'Authentication Required',
+      description: 'You must be logged in to book a pod. Please log in first.',
+    })
+    router.push({ path: '/login', query: { redirect: router.currentRoute.value.fullPath } })
+    return
+  }
+
   credits.fetchWallet()
   if (!flow.draft.paymentMethod || flow.draft.paymentMethod === 'direct') {
     flow.setPaymentMethod('razorpay')
@@ -81,6 +93,16 @@ function removeCoupon() {
 }
 
 async function payNow() {
+  if (!auth.isAuthenticated) {
+    ui.pushToast({
+      type: 'error',
+      title: 'Authentication Required',
+      description: 'You must be logged in to book a pod. Please log in first.',
+    })
+    router.push({ path: '/login', query: { redirect: router.currentRoute.value.fullPath } })
+    return
+  }
+
   if (!agreeToTerms.value) {
     ui.pushToast({
       type: 'error',
@@ -220,7 +242,7 @@ async function executePaymentConfirm() {
           <div class="p-6 space-y-4">
             <div class="flex items-center gap-4">
               <div class="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl">
-                <img v-if="(flow.selectedLocation?.heroImage || '').startsWith('/')" :src="flow.selectedLocation?.heroImage" class="h-full w-full object-cover" alt="Location hero image" />
+                <img v-if="(flow.selectedLocation?.heroImage || '').startsWith('/')" :src="flow.selectedLocation?.heroImage" class="h-full w-full object-cover" alt="Location hero image" loading="lazy" decoding="async" />
                 <HubVisual
                   v-else
                   :hub-type="flow.selectedLocation?.hubType || 'railway'"

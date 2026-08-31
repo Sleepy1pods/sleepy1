@@ -46,8 +46,8 @@ async function submit() {
     <div class="w-full max-w-md">
       <div class="mb-8 text-center flex flex-col items-center gap-3">
         <div class="flex items-center gap-2">
-          <img src="/Logo.png" alt="Sleepy1" class="h-10 w-10 object-contain dark:invert-0 invert" />
-          <img src="/Logo-text.png" alt="Sleepy1" class="h-6 object-contain dark:invert-0 invert" />
+          <img src="/Logo.png" alt="Sleepy1" class="h-10 w-10 object-contain dark:invert-0 invert" loading="lazy" decoding="async" />
+          <img src="/Logo-text.png" alt="Sleepy1" class="h-6 object-contain dark:invert-0 invert" loading="lazy" decoding="async" />
         </div>
         <div class="mt-2">
           <h1 class="text-2xl font-bold tracking-tight" style="color: var(--text-primary);">Admin Portal</h1>

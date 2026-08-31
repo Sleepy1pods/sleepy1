@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { reactive, ref, watch, computed } from 'vue'
+import { reactive, ref, watch, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 import { useUiStore } from '@/stores/ui'
 import { bookingService } from '@/services/bookingService'
 import { usePageMeta } from '@/composables/usePageMeta'
@@ -10,20 +11,39 @@ import PrimaryButton from '@/components/common/PrimaryButton.vue'
 
 usePageMeta({ title: 'Quick Book', description: 'Quickly book a pod in seconds.' })
 
+const auth = useAuthStore()
 const ui = useUiStore()
 const router = useRouter()
 
 const todayDate = new Date()
 const form = reactive({
-  name: '',
-  email: '',
-  phone: '',
+  name: auth.user?.fullName || '',
+  email: auth.user?.email || '',
+  phone: auth.user?.phone || '',
   gender: '',
   checkinDate: `${todayDate.getFullYear()}-${(todayDate.getMonth() + 1).toString().padStart(2, '0')}-${todayDate.getDate().toString().padStart(2, '0')}`,
   checkinTime: '',
   checkoutDate: '',
   checkoutTime: '',
   agreeTerms: true
+})
+
+onMounted(() => {
+  if (!auth.isAuthenticated) {
+    ui.pushToast({
+      type: 'error',
+      title: 'Authentication Required',
+      description: 'You must be logged in to book a pod. Please log in first.'
+    })
+    router.push({ path: '/login', query: { redirect: '/quick-book' } })
+    return
+  }
+
+  if (auth.user) {
+    if (auth.user.fullName && !form.name) form.name = auth.user.fullName
+    if (auth.user.email && !form.email) form.email = auth.user.email
+    if (auth.user.phone && !form.phone) form.phone = auth.user.phone
+  }
 })
 
 const displayDate = computed(() => {
@@ -134,6 +154,16 @@ const isSlotPast = (slotValue: string) => {
 }
 
 async function submit() {
+  if (!auth.isAuthenticated) {
+    ui.pushToast({
+      type: 'error',
+      title: 'Authentication Required',
+      description: 'You must be logged in to book a pod. Please log in first.'
+    })
+    router.push({ path: '/login', query: { redirect: '/quick-book' } })
+    return
+  }
+
   if (!form.checkinTime) {
     ui.pushToast({ type: 'error', title: 'Missing Time Slot', description: 'Please select an available time slot before booking.' })
     return

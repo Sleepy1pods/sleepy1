@@ -802,12 +802,16 @@ onBeforeUnmount(() => {
               src="/pod-hero-light.jpeg"
               alt="Sleepy1 Pod 3D Preview"
               class="w-full max-h-[560px] object-contain object-center dark:hidden block select-none transition-transform duration-700 hover:scale-[1.02] pod-masked-img"
+              loading="lazy"
+              decoding="async"
             />
             <!-- Dark Theme Image -->
             <img
               src="/p5.png"
               alt="Sleepy1 Pod 3D Preview"
               class="w-full max-h-[560px] object-contain object-center dark:block hidden select-none transition-transform duration-700 hover:scale-[1.02] pod-masked-img"
+              loading="lazy"
+              decoding="async"
             />
 
             <!-- Seamless edge gradient feathering on all 4 sides -->

@@ -38,7 +38,7 @@ onMounted(() => {
       <div v-else-if="store.filtered.length === 0" class="empty-state">No locations found matching your search.</div>
       <div v-else v-for="loc in store.filtered" :key="loc.id" class="location-card">
         <div class="location-image">
-          <img :src="loc.heroImage || '/iiit_dharwad.png'" :alt="loc.name" />
+          <img :src="loc.heroImage || '/iiit_dharwad.png'" :alt="loc.name" loading="lazy" decoding="async" />
         </div>
         <div class="location-body">
           <div class="location-top">

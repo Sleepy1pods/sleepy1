@@ -33,12 +33,16 @@
           src="/p4.png"
           alt="Sleepy1 Gen-1 Rest Pod Exterior"
           class="h-full w-full object-cover object-center scale-[1.1] dark:hidden block select-none transition-transform duration-700"
+          loading="lazy"
+          decoding="async"
         />
         <!-- Dark Theme Image: p3.png -->
         <img
           src="/p3.png"
           alt="Sleepy1 Gen-1 Rest Pod Exterior"
           class="h-full w-full object-cover object-center scale-[1.1] dark:block hidden select-none transition-transform duration-700"
+          loading="lazy"
+          decoding="async"
         />
       </div>
     </div>

@@ -50,6 +50,7 @@ const revealTargets = steps.map((_, i) => useScrollReveal(0.15, i * 100))
               class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
               :class="step.imageClass"
               loading="lazy"
+              decoding="async"
             />
             <div class="absolute inset-0 bg-black/10 dark:bg-black/20 pointer-events-none transition-opacity duration-300 group-hover:opacity-0" />
           </div>

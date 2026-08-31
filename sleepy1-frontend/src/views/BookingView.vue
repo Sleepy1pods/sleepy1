@@ -41,7 +41,7 @@ const activeComponent = computed(() => stepComponents[flow.currentStep])
 onMounted(() => {
   if (!auth.isAuthenticated) {
     ui.pushToast({ type: 'error', title: 'Authentication Required', description: 'You must be logged in to book a pod. Please log in first.' })
-    router.push('/login')
+    router.push({ path: '/login', query: { redirect: route.fullPath } })
     return
   }
 

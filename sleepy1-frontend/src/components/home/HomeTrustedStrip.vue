@@ -83,6 +83,7 @@ function handlePointerEnd(event: PointerEvent) {
             :alt="loc.name"
             class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             loading="lazy"
+            decoding="async"
           />
         </div>
         <!-- Dark gradient back shadow under the text so image remains vibrant and 100% visible -->

@@ -57,7 +57,7 @@ async function submit() {
         <PrimaryButton type="submit" :loading="isSubmitting" full-width>Sign In</PrimaryButton>
       </form>
       <p class="mt-6 text-center text-sm text-ivory-100/55">
-        New to Sleepy1? <router-link to="/register" class="font-semibold text-brand-300 hover:text-brand-200">Create an account</router-link>
+        New to Sleepy1? <router-link :to="{ path: '/register', query: route.query }" class="font-semibold text-brand-300 hover:text-brand-200">Create an account</router-link>
       </p>
     </div>
   </div>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useUiStore } from '@/stores/ui'
 import { usePageMeta } from '@/composables/usePageMeta'
@@ -12,6 +12,7 @@ usePageMeta({ title: 'Create Account', description: 'Create a Sleepy1 account to
 const auth = useAuthStore()
 const ui = useUiStore()
 const router = useRouter()
+const route = useRoute()
 
 const form = reactive({ fullName: '', email: '', phone: '', password: '' })
 const errors = ref<Partial<Record<keyof typeof form, string>>>({})
@@ -38,7 +39,7 @@ async function submit() {
   try {
     await auth.register(form)
     ui.pushToast({ type: 'success', title: 'Account created', description: 'Welcome to Sleepy1.' })
-    router.push('/')
+    router.push((route.query.redirect as string) || '/')
   } catch (error: any) {
     ui.pushToast({ type: 'error', title: 'Registration failed', description: error.message || 'Please try again.' })
   } finally {
@@ -62,7 +63,7 @@ async function submit() {
         <PrimaryButton type="submit" :loading="isSubmitting" full-width>Create Account</PrimaryButton>
       </form>
       <p class="mt-6 text-center text-sm text-ivory-100/55">
-        Already have an account? <router-link to="/login" class="font-semibold text-brand-300 hover:text-brand-200">Sign in</router-link>
+        Already have an account? <router-link :to="{ path: '/login', query: route.query }" class="font-semibold text-brand-300 hover:text-brand-200">Sign in</router-link>
       </p>
     </div>
   </div>

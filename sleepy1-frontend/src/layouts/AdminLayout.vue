@@ -37,8 +37,8 @@ async function handleLogout() {
     <aside class="admin-sidebar">
       <div class="admin-sidebar-header">
         <router-link to="/admin/dashboard" class="admin-logo-link">
-          <img src="/Logo.png" alt="Sleepy1" class="admin-logo-icon dark:invert-0 invert" />
-          <img src="/Logo-text.png" alt="Sleepy1" class="admin-logo-text dark:invert-0 invert" />
+          <img src="/Logo.png" alt="Sleepy1" class="admin-logo-icon dark:invert-0 invert" loading="lazy" decoding="async" />
+          <img src="/Logo-text.png" alt="Sleepy1" class="admin-logo-text dark:invert-0 invert" loading="lazy" decoding="async" />
         </router-link>
       </div>
 
@@ -78,8 +78,8 @@ async function handleLogout() {
     <!-- Mobile Header -->
     <header class="admin-mobile-header">
       <router-link to="/admin/dashboard" class="admin-logo-link">
-        <img src="/Logo.png" alt="Sleepy1" class="admin-logo-icon dark:invert-0 invert" />
-        <img src="/Logo-text.png" alt="Sleepy1" class="admin-logo-text dark:invert-0 invert" />
+        <img src="/Logo.png" alt="Sleepy1" class="admin-logo-icon dark:invert-0 invert" loading="lazy" decoding="async" />
+        <img src="/Logo-text.png" alt="Sleepy1" class="admin-logo-text dark:invert-0 invert" loading="lazy" decoding="async" />
       </router-link>
       <div class="admin-mobile-actions">
         <ThemeToggle />

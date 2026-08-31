@@ -312,7 +312,8 @@ function onLeave() {
               src="/pod2.png"
               alt="Sleepy1 Pod"
               class="w-full h-auto object-cover select-none"
-              loading="eager"
+              loading="lazy"
+              decoding="async"
             />
 
             <!-- Hotspot Glowing Interactive Dots directly on the Pod Image (Z-40: On top of lines and image) -->
@@ -438,6 +439,8 @@ function onLeave() {
             src="/pod2.png"
             alt="Sleepy1 Pod"
             class="w-full h-auto object-cover select-none"
+            loading="lazy"
+            decoding="async"
           />
           <button
             v-for="item in [...leftFeatures, ...rightFeatures]"

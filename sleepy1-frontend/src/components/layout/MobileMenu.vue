@@ -55,7 +55,7 @@ async function handleLogout() {
             <div class="flex flex-1 flex-col">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                  <img src="/Logo.png" alt="Sleepy1 Icon" class="h-8 w-8 object-contain" />
+                  <img src="/Logo.png" alt="Sleepy1 Icon" class="h-8 w-8 object-contain" loading="lazy" decoding="async" />
                   <span class="text-lg font-semibold tracking-[0.15em] text-ivory-50">SLEEPY1</span>
                 </div>
                 <div class="flex items-center gap-3">

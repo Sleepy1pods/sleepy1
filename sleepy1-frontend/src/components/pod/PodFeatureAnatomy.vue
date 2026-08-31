@@ -153,7 +153,7 @@ const activeHoverId = ref<string | null>(null)
         
         <!-- 1. CENTER SLEEP POD ILLUSTRATION (Centered X=380..820, Y=140..590) -->
         <div class="absolute top-[140px] left-[380px] w-[440px] h-[450px] rounded-3xl overflow-hidden border border-white/15 bg-ink-900">
-          <img src="/pod2.png" alt="Sleepy1 Pod" class="h-full w-full object-cover" />
+          <img src="/pod2.png" alt="Sleepy1 Pod" class="h-full w-full object-cover" loading="lazy" decoding="async" />
           <div class="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-transparent to-ink-950/30 pointer-events-none" />
 
           <!-- SLEEPY1 POD watermark badge -->
@@ -269,7 +269,7 @@ const activeHoverId = ref<string | null>(null)
         
         <!-- Pod Image with all Beacon Dots -->
         <div class="relative w-full max-w-md mx-auto aspect-square rounded-3xl overflow-hidden border border-white/15 bg-ink-900">
-          <img src="/pod2.png" alt="Sleepy1 Pod" class="h-full w-full object-cover" />
+          <img src="/pod2.png" alt="Sleepy1 Pod" class="h-full w-full object-cover" loading="lazy" decoding="async" />
           <div class="absolute inset-0 bg-gradient-to-t from-ink-950/80 via-transparent to-transparent pointer-events-none" />
 
           <!-- All Dots on Mobile Pod -->

@@ -79,6 +79,8 @@
             src="/Logo.png" 
             alt="Sleepy1 Assistant" 
             class="h-5 w-5 object-contain dark:invert invert-0" 
+            loading="lazy"
+            decoding="async"
           />
           <span class="text-sm font-semibold tracking-wide">Need Help?</span>
         </template>

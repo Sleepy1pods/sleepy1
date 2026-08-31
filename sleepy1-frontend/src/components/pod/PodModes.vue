@@ -96,6 +96,8 @@ onUnmounted(() => {
             :src="mode.image" 
             :alt="`${mode.name} Star Light Ceiling`" 
             class="h-full w-full object-cover object-center select-none"
+            loading="lazy"
+            decoding="async"
           />
 
           <!-- Directional Gradient Overlays for crisp readability -->

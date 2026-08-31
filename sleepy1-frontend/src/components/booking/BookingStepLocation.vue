@@ -46,7 +46,7 @@ function select(slug: string) {
         @click="select(loc.slug)"
       >
         <div class="relative h-28">
-          <img v-if="loc.heroImage.startsWith('/')" :src="loc.heroImage" class="h-full w-full object-cover" alt="Location hero image" />
+          <img v-if="loc.heroImage.startsWith('/')" :src="loc.heroImage" class="h-full w-full object-cover" alt="Location hero image" loading="lazy" decoding="async" />
           <HubVisual v-else :hub-type="loc.hubType" :id="loc.heroImage" class="h-full w-full" rounded="rounded-none" />
           <div class="absolute left-2 top-2"><StatusBadge :status="loc.availability" /></div>
         </div>
