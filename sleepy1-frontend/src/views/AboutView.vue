@@ -16,8 +16,8 @@ usePageMeta({
 <template>
   <div class="about-page">
     <!-- 1. Origin Story: How the idea came to our minds -->
-    <section class="section-pad">
-      <div class="container-page mt-4 sm:mt-8">
+    <section class="section-pad bg-[#e8e8ea] dark:bg-[#0c0c0e] border-b border-black/5 dark:border-white/5 transition-colors duration-500 overflow-hidden">
+      <div class="container-page">
         <AboutStoryHero />
       </div>
     </section>

@@ -38,7 +38,7 @@ function handlePointerEnd(event: PointerEvent) {
 </script>
 
 <template>
-  <section class="border-y border-white/8 py-10">
+  <section class="py-10">
     <div class="container-page mb-5 flex items-center justify-between">
       <p class="eyebrow">Currently at</p>
       <router-link to="/locations" class="link-underline text-xs font-medium text-ivory-100/60 hover:text-ivory-50">View all locations →</router-link>
@@ -75,7 +75,7 @@ function handlePointerEnd(event: PointerEvent) {
         v-for="loc in locations"
         :key="loc.id"
         :to="`/locations/${loc.slug}`"
-        class="group relative block w-full max-w-3xl overflow-hidden rounded-3xl border border-black/10 dark:border-white/10 bg-black shadow-premium transition-all duration-300 hover:border-brand-500/40 hover:shadow-[0_12px_36px_rgba(0,0,0,0.25)] hover:-translate-y-1"
+        class="group relative block w-full max-w-3xl overflow-hidden rounded-3xl border border-black/10 dark:border-white/10 bg-black shadow-premium transition-all duration-300 hover:border-white/30 hover:shadow-[0_12px_36px_rgba(0,0,0,0.25)] hover:-translate-y-1"
       >
         <div class="aspect-[21/9] w-full overflow-hidden sm:aspect-[21/8]">
           <img
@@ -93,7 +93,7 @@ function handlePointerEnd(event: PointerEvent) {
           <div class="flex items-end justify-between">
             <div>
               <div class="mb-3 flex items-center gap-2">
-                <span class="rounded-full bg-brand-500/30 border border-brand-300/40 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-md shadow-sm">
+                <span class="rounded-full bg-white/15 border border-white/20 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-md shadow-sm">
                   {{ loc.hubType || 'Institute' }}
                 </span>
                 <span v-if="loc.availablePods > 0" class="flex items-center gap-1.5 text-xs font-medium text-emerald-300 backdrop-blur-md bg-black/50 px-2.5 py-1 rounded-full border border-emerald-400/30 shadow-sm">
@@ -112,7 +112,7 @@ function handlePointerEnd(event: PointerEvent) {
               </p>
             </div>
             
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-[#7084ff] border border-[#8da0ff]/60 text-zinc-950 shadow-md backdrop-blur-md transition-all duration-300 group-hover:bg-white group-hover:border-white group-hover:text-black group-hover:shadow-[0_0_25px_rgba(255,255,255,0.75)] group-hover:scale-105 group-active:bg-white group-active:border-white group-active:text-black hover:bg-white hover:border-white hover:text-black active:bg-white active:border-white active:text-black shrink-0">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 border border-white/30 text-white shadow-md backdrop-blur-md transition-all duration-300 group-hover:bg-white group-hover:border-white group-hover:text-black group-hover:shadow-[0_0_25px_rgba(255,255,255,0.75)] group-hover:scale-105 group-active:bg-white group-active:border-white group-active:text-black hover:bg-white hover:border-white hover:text-black active:bg-white active:border-white active:text-black shrink-0">
               <span class="text-xl leading-none transition-transform duration-300 -rotate-45 font-bold">→</span>
             </div>
           </div>

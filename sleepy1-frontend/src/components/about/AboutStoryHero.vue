@@ -3,13 +3,11 @@
 </script>
 
 <template>
-  <div class="mt-6 grid gap-10 lg:grid-cols-12 lg:items-center">
-    <!-- Left Narrative Column (7 cols) -->
-    <div class="lg:col-span-7">
-
-
+  <div class="grid gap-10 lg:grid-cols-12 lg:items-center">
+    <!-- Left Narrative Column (6 cols) -->
+    <div class="lg:col-span-6">
       <h1
-        class="mt-4 font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl lg:leading-tight">
+        class="font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl lg:leading-tight">
         How the idea came to our minds.
       </h1>
 
@@ -25,33 +23,25 @@
       </p>
     </div>
 
-    <!-- Right Seamless Architectural Pod Showcase (5 cols) -->
-    <div class="lg:col-span-5 flex items-center justify-center">
-      <div class="relative w-[320px] sm:w-[380px] lg:w-[420px] h-[380px] rounded-lg sm:h-[440px] lg:h-[480px] overflow-hidden flex items-center justify-center about-pod-container">
-        <!-- Light Theme Image: p4.png -->
-        <img
-          src="/p4.png"
-          alt="Sleepy1 Gen-1 Rest Pod Exterior"
-          class="h-full w-full object-cover object-center scale-[1.1] dark:hidden block select-none transition-transform duration-700"
-          loading="lazy"
-          decoding="async"
-        />
-        <!-- Dark Theme Image: p3.png -->
-        <img
-          src="/p3.png"
-          alt="Sleepy1 Gen-1 Rest Pod Exterior"
-          class="h-full w-full object-cover object-center scale-[1.1] dark:block hidden select-none transition-transform duration-700"
-          loading="lazy"
-          decoding="async"
-        />
+    <!-- Right Seamless Architectural Pod Showcase (6 cols) -->
+    <div class="lg:col-span-6 flex items-center justify-center">
+      <div
+        class="relative w-full max-w-[660px] aspect-[16/10] sm:aspect-[16/9] flex items-center justify-center select-none pointer-events-none about-pod-stage">
+        <!-- Light Theme Real Image: p4.png -->
+        <img src="/p4.png" alt="Sleepy1 Gen-1 Rest Pod Exterior"
+          class="w-full h-full object-contain object-center dark:hidden block transition-transform duration-700"
+          loading="lazy" decoding="async" />
+        <!-- Dark Theme Real Image: p3.png -->
+        <img src="/p3.png" alt="Sleepy1 Gen-1 Rest Pod Exterior"
+          class="w-full h-full object-contain object-center dark:block hidden transition-transform duration-700"
+          loading="lazy" decoding="async" />
+
+        <!-- Atmospheric edge blending that softly bridges studio edges into the section background -->
+        <div class="absolute inset-y-0 left-0 w-16 sm:w-24 bg-gradient-to-r from-[#e8e8ea] dark:from-[#0c0c0e] to-transparent pointer-events-none" />
+        <div class="absolute inset-y-0 right-0 w-16 sm:w-24 bg-gradient-to-l from-[#e8e8ea] dark:from-[#0c0c0e] to-transparent pointer-events-none" />
+        <div class="absolute inset-x-0 top-0 h-12 sm:h-16 bg-gradient-to-b from-[#e8e8ea] dark:from-[#0c0c0e] to-transparent pointer-events-none" />
+        <div class="absolute inset-x-0 bottom-0 h-10 sm:h-14 bg-gradient-to-t from-[#e8e8ea] dark:from-[#0c0c0e] to-transparent pointer-events-none" />
       </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-.about-pod-container {
-  -webkit-mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 65%, transparent 100%);
-  mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 65%, transparent 100%);
-}
-</style>
