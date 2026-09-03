@@ -47,7 +47,7 @@ async function subscribe() {
         <!-- Brand, Newsletter & Socials -->
         <div>
           <router-link to="/" class="flex items-center gap-2.5 text-lg font-bold tracking-[0.15em] text-primary">
-            <img src="/Logo.png" alt="Sleepy1 Icon" class="h-9 w-9 object-contain dark:invert-0 invert" loading="lazy" decoding="async" />
+            <img src="/Logo.png" alt="Sleepy1 Icon" class="h-9 w-9 object-contain" loading="lazy" decoding="async" />
             SLEEPY1
           </router-link>
           <p class="mt-4 max-w-xs text-sm leading-relaxed text-ivory-100/75">
