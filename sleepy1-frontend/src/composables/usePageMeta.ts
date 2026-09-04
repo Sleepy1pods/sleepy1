@@ -7,7 +7,7 @@ interface PageMetaOptions {
   image?: string
 }
 
-const DEFAULT_OG_IMAGE = '/Logo.png'
+const DEFAULT_OG_IMAGE = '/icon-512.png'
 
 function setMetaTag(name: string, content: string, attr: 'name' | 'property' = 'name') {
   let el = document.querySelector<HTMLMetaElement>(`meta[${attr}="${name}"]`)
