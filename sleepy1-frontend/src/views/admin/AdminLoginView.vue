@@ -59,18 +59,7 @@ async function submit() {
         <FormField v-model="form.password" label="Password" type="password" required :error="errors.password" autocomplete="current-password" />
         <PrimaryButton type="submit" :loading="isSubmitting" full-width>Sign In</PrimaryButton>
         
-        <!-- Quick Auto-Fill for Mentor Demo -->
-        <div class="pt-2 border-t" style="border-color: var(--border);">
-          <button
-            type="button"
-            class="w-full text-xs py-2 px-3 rounded-lg flex items-center justify-between transition-colors"
-            style="background-color: var(--bg); color: var(--text-secondary); border: 1px dashed var(--border);"
-            @click="form.email = 'admin@sleepy1.com'; form.password = 'admin123';"
-          >
-            <span>💡 <strong>Demo Admin:</strong> admin@sleepy1.com</span>
-            <span class="text-brand-500 font-medium hover:underline">Auto-fill</span>
-          </button>
-        </div>
+
       </form>
       <p class="mt-6 text-center text-sm" style="color: var(--text-muted);">
         Need an admin account? <router-link to="/admin/register" class="font-semibold text-brand-500 hover:opacity-80">Register</router-link>
