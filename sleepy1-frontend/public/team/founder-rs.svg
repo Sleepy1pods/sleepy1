@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="grad-founder-rs" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="50%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#e11d48" />
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="64" ry="64" fill="url(#grad-founder-rs)" />
+  <text x="128" y="134" 
+        font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Nunito', sans-serif" 
+        font-size="94" 
+        font-weight="800" 
+        fill="#ffffff" 
+        text-anchor="middle" 
+        dominant-baseline="central"
+        letter-spacing="1px">RS</text>
+</svg>

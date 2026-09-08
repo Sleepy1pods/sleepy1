@@ -24,14 +24,26 @@ function applyGoogleTranslate(targetLang: Locale) {
   const domain = window.location.hostname
   const cookieVal = targetLang === 'en' ? '' : `/en/${targetLang}`
 
-  // 1. Set Google Translate cookies
-  document.cookie = `googtrans=${cookieVal}; path=/; max-age=31536000`
-  if (domain && domain !== 'localhost') {
-    document.cookie = `googtrans=${cookieVal}; domain=${domain}; path=/; max-age=31536000`
-    const parts = domain.split('.')
-    if (parts.length > 2) {
-      const rootDomain = parts.slice(-2).join('.')
-      document.cookie = `googtrans=${cookieVal}; domain=.${rootDomain}; path=/; max-age=31536000`
+  // 1. Set or clear Google Translate cookies
+  if (targetLang === 'en') {
+    document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+    if (domain && domain !== 'localhost') {
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=${domain}; path=/;`
+      const parts = domain.split('.')
+      if (parts.length > 2) {
+        const rootDomain = parts.slice(-2).join('.')
+        document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=.${rootDomain}; path=/;`
+      }
+    }
+  } else {
+    document.cookie = `googtrans=${cookieVal}; path=/; max-age=31536000`
+    if (domain && domain !== 'localhost') {
+      document.cookie = `googtrans=${cookieVal}; domain=${domain}; path=/; max-age=31536000`
+      const parts = domain.split('.')
+      if (parts.length > 2) {
+        const rootDomain = parts.slice(-2).join('.')
+        document.cookie = `googtrans=${cookieVal}; domain=.${rootDomain}; path=/; max-age=31536000`
+      }
     }
   }
 

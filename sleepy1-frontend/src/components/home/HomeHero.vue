@@ -1,36 +1,79 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { useI18n } from '@/composables/useI18n'
+
+const { locale, t } = useI18n()
 
 // Typing Animation
-const line1Text = 'YOUR POD'
-const line2Text = 'YOUR MODE.'
 const displayedLine1 = ref('')
 const displayedLine2 = ref('')
+let activeTimeouts: ReturnType<typeof setTimeout>[] = []
 
-onMounted(() => {
+function clearTimeouts() {
+  activeTimeouts.forEach(clearTimeout)
+  activeTimeouts = []
+}
+
+function getSegments(text: string, lang: string): string[] {
+  if (typeof Intl !== 'undefined' && Intl.Segmenter) {
+    try {
+      const segmenter = new Intl.Segmenter(lang, { granularity: 'grapheme' })
+      return Array.from(segmenter.segment(text)).map((s) => s.segment)
+    } catch {
+      // fallback
+    }
+  }
+  return Array.from(text)
+}
+
+function startTyping() {
+  clearTimeouts()
+  displayedLine1.value = ''
+  displayedLine2.value = ''
+
+  const line1Text = t('hero.line1')
+  const line2Text = t('hero.line2')
+  const lang = locale.value || 'en'
+
+  const seg1 = getSegments(line1Text, lang)
+  const seg2 = getSegments(line2Text, lang)
+
   let i = 0
   let j = 0
-  const typeSpeed = 75
+  const typeSpeed = 70
 
   const typeLine1 = () => {
-    if (i < line1Text.length) {
-      displayedLine1.value += line1Text.charAt(i)
+    if (i < seg1.length) {
+      displayedLine1.value += seg1[i]
       i++
-      setTimeout(typeLine1, typeSpeed)
+      activeTimeouts.push(setTimeout(typeLine1, typeSpeed))
     } else {
-      setTimeout(typeLine2, 160)
+      activeTimeouts.push(setTimeout(typeLine2, 160))
     }
   }
 
   const typeLine2 = () => {
-    if (j < line2Text.length) {
-      displayedLine2.value += line2Text.charAt(j)
+    if (j < seg2.length) {
+      displayedLine2.value += seg2[j]
       j++
-      setTimeout(typeLine2, typeSpeed)
+      activeTimeouts.push(setTimeout(typeLine2, typeSpeed))
     }
   }
 
-  setTimeout(typeLine1, 200)
+  activeTimeouts.push(setTimeout(typeLine1, 150))
+}
+
+onMounted(() => {
+  startTyping()
+})
+
+onUnmounted(() => {
+  clearTimeouts()
+})
+
+// Re-run typing smoothly if language changes while on page
+watch(locale, () => {
+  startTyping()
 })
 </script>
 
@@ -68,8 +111,8 @@ onMounted(() => {
     <!-- Container Content -->
     <div class="relative z-20 max-w-7xl mx-auto w-full px-6 sm:px-10 lg:px-12 py-16 sm:py-20 lg:py-24 flex flex-col justify-center">
       <div class="max-w-2xl">
-        <!-- Headline with Typing Animation -->
-        <h1 class="hero-heading uppercase leading-[0.95] font-display">
+        <!-- Headline with Multilingual Typing Animation -->
+        <h1 class="hero-heading uppercase leading-[0.95] font-display notranslate select-none" translate="no">
           <span class="hero-title-main block text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight">
             {{ displayedLine1 }}
           </span>
@@ -80,16 +123,17 @@ onMounted(() => {
 
         <!-- Description -->
         <p class="hero-desc mt-6 text-base sm:text-lg leading-relaxed max-w-xl font-normal">
-          Smart private rest pods in various high footfall public spaces. Reserve in seconds, sleep in complete silence.
+          {{ t('hero.desc') }}
         </p>
 
         <!-- Action Buttons -->
         <div class="mt-9 flex flex-wrap items-center gap-4 sm:gap-5">
           <router-link
             to="/quick-book"
-            class="hero-book-btn group relative inline-flex items-center gap-3 px-8 py-4 rounded-full text-xs sm:text-sm font-bold tracking-[0.18em] uppercase transition-all duration-300 hover:scale-105 shadow-lg shadow-black/15 dark:shadow-black/40"
+            class="hero-book-btn group relative inline-flex items-center gap-3 px-8 py-4 rounded-full text-xs sm:text-sm font-bold tracking-[0.18em] uppercase transition-all duration-300 hover:scale-105 shadow-lg shadow-black/15 dark:shadow-black/40 notranslate"
+            translate="no"
           >
-            <span>Book Now</span>
+            <span>{{ t('hero.bookNow') }}</span>
             <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
             </svg>
@@ -97,9 +141,10 @@ onMounted(() => {
 
           <router-link
             to="/pod-experience"
-            class="hero-explore-btn inline-flex items-center gap-2 rounded-full backdrop-blur-md px-6 py-4 text-xs sm:text-sm font-semibold tracking-wider uppercase transition-all duration-300 hover:scale-105 shadow-sm"
+            class="hero-explore-btn inline-flex items-center gap-2 rounded-full backdrop-blur-md px-6 py-4 text-xs sm:text-sm font-semibold tracking-wider uppercase transition-all duration-300 hover:scale-105 shadow-sm notranslate"
+            translate="no"
           >
-            <span>Explore The Pod</span>
+            <span>{{ t('hero.explorePod') }}</span>
             <span>&rarr;</span>
           </router-link>
         </div>

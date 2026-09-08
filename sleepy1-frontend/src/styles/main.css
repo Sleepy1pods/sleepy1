@@ -98,6 +98,9 @@
   ::selection {
     background-color: var(--cta-bg);
     color: var(--cta-text);
+    text-shadow: none !important;
+    box-shadow: none !important;
+    filter: none !important;
   }
 
   :focus-visible {
@@ -242,9 +245,30 @@ body {
   position: static !important;
 }
 
-.goog-text-highlight {
-  background: none !important;
+.goog-text-highlight,
+font.goog-text-highlight,
+span.goog-text-highlight,
+[class*="goog-text-highlight"],
+[class*="VIpgJd"] {
+  background: transparent !important;
+  background-color: transparent !important;
   box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  border: none !important;
+  outline: none !important;
+}
+
+.goog-text-highlight::selection,
+font.goog-text-highlight::selection,
+span.goog-text-highlight::selection,
+[class*="goog-text-highlight"]::selection,
+[class*="VIpgJd"]::selection {
+  background-color: var(--cta-bg) !important;
+  color: var(--cta-text) !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  filter: none !important;
 }
 
 #google_translate_element {

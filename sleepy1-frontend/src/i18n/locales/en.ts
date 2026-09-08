@@ -59,4 +59,11 @@ export const en: TranslationSchema = {
     newsletterPlaceholder: 'Enter your email',
     subscribe: 'Subscribe',
   },
+  hero: {
+    line1: 'YOUR POD',
+    line2: 'YOUR MODE.',
+    desc: 'Smart private rest pods in various high footfall public spaces. Reserve in seconds, sleep in complete silence.',
+    bookNow: 'Book Now',
+    explorePod: 'Explore The Pod',
+  },
 }

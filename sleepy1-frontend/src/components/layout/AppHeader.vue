@@ -96,14 +96,16 @@ const navStyle = computed(() => ({
 
       <!-- 2. Center: Navigation Links -->
       <nav
-        class="hidden lg:flex items-center gap-1 xl:gap-2"
+        class="hidden lg:flex items-center gap-1 xl:gap-2 select-none notranslate"
+        translate="no"
         aria-label="Primary"
       >
         <router-link
           v-for="item in primaryNav"
           :key="item.to"
           :to="item.to"
-          class="liquid-nav-link rounded-xl px-3.5 py-1.5 text-sm font-medium text-zinc-600 dark:text-zinc-300 transition-all duration-200"
+          class="liquid-nav-link select-none rounded-xl px-3.5 py-1.5 text-sm font-medium text-zinc-600 dark:text-zinc-300 transition-all duration-200 notranslate"
+          translate="no"
           active-class="active-liquid-link"
         >
           {{ getNavLabel(item) }}
@@ -122,13 +124,15 @@ const navStyle = computed(() => ({
             <router-link
               v-else
               to="/login"
-              class="liquid-btn inline-flex h-[38px] min-w-[84px] flex-shrink-0 whitespace-nowrap items-center justify-center rounded-full px-5 text-sm font-semibold text-zinc-800 dark:text-zinc-100 transition-all duration-200 hover:scale-105 hover:text-black dark:hover:text-white"
+              class="liquid-btn inline-flex h-[38px] min-w-[84px] flex-shrink-0 whitespace-nowrap items-center justify-center rounded-full px-5 text-sm font-semibold text-zinc-800 dark:text-zinc-100 transition-all duration-200 hover:scale-105 hover:text-black dark:hover:text-white notranslate"
+              translate="no"
             >
               {{ t('nav.login') }}
             </router-link>
             <router-link
               to="/quick-book"
-              class="inline-flex h-[38px] min-w-[88px] flex-shrink-0 whitespace-nowrap items-center justify-center rounded-full bg-cta-fill px-6 text-sm font-bold text-cta-text transition-all duration-200 hover:scale-105 shadow-md hover:opacity-90 tracking-wide"
+              class="inline-flex h-[38px] min-w-[88px] flex-shrink-0 whitespace-nowrap items-center justify-center rounded-full bg-cta-fill px-6 text-sm font-bold text-cta-text transition-all duration-200 hover:scale-105 shadow-md hover:opacity-90 tracking-wide notranslate"
+              translate="no"
             >
               {{ t('nav.book') }}
             </router-link>
@@ -253,6 +257,9 @@ html:not(.dark) .liquid-glass-nav::before,
 .liquid-nav-link {
   position: relative;
   background: transparent !important;
+  user-select: none !important;
+  text-shadow: none !important;
+  filter: none !important;
 }
 
 .liquid-nav-link::after {
@@ -272,6 +279,8 @@ html:not(.dark) .liquid-glass-nav::before,
 
 .liquid-nav-link:hover {
   color: #000000;
+  text-shadow: none !important;
+  filter: none !important;
 }
 
 .liquid-nav-link:hover::after {
@@ -281,6 +290,8 @@ html:not(.dark) .liquid-glass-nav::before,
 html.dark .liquid-nav-link:hover,
 .dark .liquid-nav-link:hover {
   color: #ffffff;
+  text-shadow: none !important;
+  filter: none !important;
 }
 
 html.dark .liquid-nav-link::after,
@@ -293,6 +304,8 @@ html.dark .liquid-nav-link::after,
 .active-liquid-link {
   font-weight: 600 !important;
   color: #000000 !important;
+  text-shadow: none !important;
+  filter: none !important;
 }
 
 .active-liquid-link::after {
@@ -302,6 +315,8 @@ html.dark .liquid-nav-link::after,
 html.dark .active-liquid-link,
 .dark .active-liquid-link {
   color: #ffffff !important;
+  text-shadow: none !important;
+  filter: none !important;
 }
 
 /* Inner Buttons (Login, Hamburger) */

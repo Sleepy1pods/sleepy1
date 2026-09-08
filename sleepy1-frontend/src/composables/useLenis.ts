@@ -4,6 +4,8 @@ import Lenis, { type ScrollToOptions } from 'lenis'
 let lenisInstance: Lenis | null = null
 const isInitialized = ref(false)
 let globalClickListenerAttached = false
+let resizeObserver: ResizeObserver | null = null
+let mutationObserver: MutationObserver | null = null
 
 /**
  * Initializes the global Lenis smooth scroll instance.
@@ -26,13 +28,8 @@ export function initLenis(): Lenis | null {
     wheelMultiplier: 1.0,
     touchMultiplier: 1.15,
     prevent: (node: HTMLElement) => {
-      // Prevent Lenis smooth scroll on elements with data-lenis-prevent, horizontal tables, or leaflet maps
-      return (
-        node.hasAttribute('data-lenis-prevent') ||
-        Boolean(node.closest('[data-lenis-prevent]')) ||
-        Boolean(node.closest('.table-scroll')) ||
-        Boolean(node.closest('.leaflet-container'))
-      )
+      // Only prevent on Leaflet map container to allow map zooming without scrolling
+      return Boolean(node.closest('.leaflet-container'))
     },
   })
 
@@ -58,6 +55,24 @@ export function initLenis(): Lenis | null {
     globalClickListenerAttached = true
   }
 
+  // Set up continuous ResizeObserver to recalculate limit on dynamic image loads, route changes, or content growth
+  if (typeof ResizeObserver !== 'undefined') {
+    resizeObserver?.disconnect()
+    let resizeTimer: ReturnType<typeof setTimeout> | null = null
+    resizeObserver = new ResizeObserver(() => {
+      if (resizeTimer) clearTimeout(resizeTimer)
+      resizeTimer = setTimeout(() => {
+        lenisInstance?.resize()
+      }, 30)
+    })
+
+    if (document.documentElement) resizeObserver.observe(document.documentElement)
+    if (document.body) resizeObserver.observe(document.body)
+  }
+
+  // Also listen to image load / window load events to ensure full document height is registered
+  window.addEventListener('load', () => lenisInstance?.resize(), { passive: true })
+
   isInitialized.value = true
   return lenisInstance
 }
@@ -73,6 +88,10 @@ export function getLenis(): Lenis | null {
  * Destroys the Lenis instance and cleans up classes/listeners.
  */
 export function destroyLenis() {
+  resizeObserver?.disconnect()
+  resizeObserver = null
+  mutationObserver?.disconnect()
+  mutationObserver = null
   if (lenisInstance) {
     lenisInstance.destroy()
     lenisInstance = null

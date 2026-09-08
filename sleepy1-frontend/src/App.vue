@@ -17,8 +17,10 @@ const isAdminRoute = computed(() => route.path.startsWith('/admin'))
 onMounted(() => {
   const lenis = initLenis()
   if (lenis) {
+    lenis.start()
     lenis.scrollTo(0, { immediate: true })
     lenis.resize()
+    ;[100, 300, 600, 1200, 2000].forEach((ms) => setTimeout(() => lenis.resize(), ms))
   } else {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }
@@ -28,14 +30,16 @@ watch(
   () => route.fullPath,
   () => {
     ui.closeMobileMenu()
+    document.body.style.overflow = ''
     const lenis = getLenis()
     if (lenis) {
+      lenis.start()
       if (!route.hash) {
         lenis.scrollTo(0, { immediate: true })
       }
       nextTick(() => {
         lenis.resize()
-        setTimeout(() => lenis.resize(), 150)
+        ;[50, 150, 300, 600, 1200].forEach((ms) => setTimeout(() => lenis.resize(), ms))
       })
     } else if (!route.hash) {
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' })

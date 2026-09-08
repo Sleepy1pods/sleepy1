@@ -2,7 +2,7 @@ import type { TranslationSchema } from '../types'
 
 export const kn: TranslationSchema = {
   nav: {
-    features: 'ಮುಖ್ಯಾಂಶಗಳು',
+    features: 'ವೈಶಿಷ್ಟ್ಯಗಳು',
     locations: 'ಸ್ಥಳಗಳು',
     contact: 'ಸಂಪರ್ಕಿಸಿ',
     about: 'ನಮ್ಮ ಬಗ್ಗೆ',
@@ -58,5 +58,12 @@ export const kn: TranslationSchema = {
     newsletterDesc: 'ವಿಶ್ರಾಂತಿ ಸಲಹೆಗಳು ಮತ್ತು ಹೊಸ ಹಬ್ ಉದ್ಘಾಟನೆಗಳಿಗಾಗಿ ಚಂದಾದಾರರಾಗಿ.',
     newsletterPlaceholder: 'ನಿಮ್ಮ ಇಮೇಲ್ ನಮೂದಿಸಿ',
     subscribe: 'ಚಂದಾದಾರರಾಗಿ',
+  },
+  hero: {
+    line1: 'ನಿಮ್ಮ ಪಾಡ್',
+    line2: 'ನಿಮ್ಮ ಮೋಡ್.',
+    desc: 'ಹೆಚ್ಚು ಜನನಿಬಿಡ ಸಾರ್ವಜನಿಕ ಸ್ಥಳಗಳಲ್ಲಿ ಅತ್ಯಾಧುನಿಕ ಖಾಸಗಿ ವಿಶ್ರಾಂತಿ ಪಾಡ್‌ಗಳು. ಸೆಕೆಂಡುಗಳಲ್ಲಿ ಬುಕ್ ಮಾಡಿ, ಸಂಪೂರ್ಣ ಶಾಂತಿಯಲ್ಲಿ ನಿದ್ರಿಸಿ.',
+    bookNow: 'ಈಗಲೇ ಬುಕ್ ಮಾಡಿ',
+    explorePod: 'ಪಾಡ್ ಅನ್ನು ಅನ್ವೇಷಿಸಿ',
   },
 }

@@ -11,6 +11,7 @@ interface TeamMember {
   focus: string[]
   initials: string
   avatarBg: string
+  avatarImage: string
   links: {
     linkedin?: string
     github?: string
@@ -32,6 +33,7 @@ const teamMembers: TeamMember[] = [
     focus: ['Team Leadership', 'Product Strategy', 'Execution & Operations'],
     initials: 'SH',
     avatarBg: 'from-brand-400 via-indigo-500 to-brand-600',
+    avatarImage: '/team/founder-sh.png',
     links: {
       linkedin: 'https://www.linkedin.com/in/sukruth-h-s-175370380',
     }
@@ -46,6 +48,7 @@ const teamMembers: TeamMember[] = [
     focus: ['Design & Ergonomics', 'Brand Strategy', 'Spatial Experience'],
     initials: 'RS',
     avatarBg: 'from-amber-400 via-orange-500 to-rose-600',
+    avatarImage: '/team/founder-rs.png',
     links: {
       linkedin: 'https://www.linkedin.com/in/rupesh-sai-sundhar-v-v-924b57363',
     }
@@ -60,6 +63,7 @@ const teamMembers: TeamMember[] = [
     focus: ['Hardware Engineering', 'Embedded Systems', 'IoT Architecture'],
     initials: 'TK',
     avatarBg: 'from-emerald-400 via-teal-500 to-cyan-600',
+    avatarImage: '/team/founder-tk.png',
     links: {
       linkedin: 'https://www.linkedin.com/in/thanish-kumar-ba7464380',
     }
@@ -133,14 +137,18 @@ const filteredMembers = computed(() => {
         class="card-surface group relative flex flex-col justify-between overflow-hidden p-6 shadow-soft transition-all duration-300 hover:-translate-y-1 sm:p-7"
       >
         <div>
-          <!-- Avatar Icon Badge with Gradient -->
+          <!-- Avatar Icon Image with baked-in initials to prevent language translation -->
           <div class="flex items-center justify-between">
-            <div
-              class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br shadow-md text-lg font-bold text-white transition-transform duration-300 group-hover:scale-105"
-              :class="member.avatarBg"
-            >
-              {{ member.initials }}
-            </div>
+            <img
+              :src="member.avatarImage"
+              alt=""
+              aria-hidden="true"
+              width="56"
+              height="56"
+              class="h-14 w-14 rounded-2xl shadow-md object-cover select-none transition-transform duration-300 group-hover:scale-105 notranslate pointer-events-none"
+              translate="no"
+              loading="lazy"
+            />
           </div>
 
           <!-- Name & Role -->

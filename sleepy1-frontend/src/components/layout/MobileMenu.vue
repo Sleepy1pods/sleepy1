@@ -74,9 +74,9 @@ async function handleLogout() {
           >
             <div class="flex flex-1 flex-col">
               <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <img src="/Logo.png" alt="Sleepy1 Icon" class="h-8 w-8 object-contain" loading="lazy" decoding="async" />
-                  <span class="text-lg font-semibold tracking-[0.15em] text-ivory-50">SLEEPY1</span>
+                <div class="flex items-center gap-2 notranslate select-none" translate="no">
+                  <img src="/Logo.png" alt="Sleepy1 Icon" class="h-8 w-8 object-contain dark:invert-0 invert" loading="lazy" decoding="async" />
+                  <img src="/Logo-text.png" alt="Sleepy1" class="h-5 object-contain dark:invert-0 invert" loading="lazy" decoding="async" />
                 </div>
                 <div class="flex items-center gap-2 sm:gap-3">
                   <LanguageSelector />
@@ -88,7 +88,7 @@ async function handleLogout() {
               </div>
 
               <div v-if="auth.isAuthenticated" class="mt-6 flex items-center gap-3 rounded-2xl bg-white/5 p-4">
-                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-brand-400 text-sm font-semibold text-ink-950">
+                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-brand-400 text-sm font-semibold text-ink-950 notranslate select-none" translate="no">
                   {{ auth.user?.avatarInitials }}
                 </span>
                 <div>
@@ -97,12 +97,13 @@ async function handleLogout() {
                 </div>
               </div>
 
-              <div class="mt-8 flex-1 space-y-1 overflow-y-auto" data-lenis-prevent>
+              <div class="mt-8 flex-1 space-y-1 overflow-y-auto notranslate select-none" translate="no" data-lenis-prevent>
                 <button
                   v-for="item in primaryNav"
                   :key="item.to"
                   type="button"
-                  class="block w-full min-h-[44px] rounded-xl px-3 py-3 text-left text-base font-medium text-ivory-100/85 hover:bg-white/5"
+                  class="block w-full min-h-[44px] rounded-xl px-3 py-3 text-left text-base font-medium text-ivory-100/85 hover:bg-white/5 notranslate"
+                  translate="no"
                   @click="navigateAndClose(item.to)"
                 >
                   {{ getNavLabel(item) }}
@@ -113,19 +114,21 @@ async function handleLogout() {
                     v-for="item in loggedInNav"
                     :key="item.to"
                     type="button"
-                    class="block w-full min-h-[44px] rounded-xl px-3 py-3 text-left text-base font-medium text-ivory-100/85 hover:bg-white/5"
+                    class="block w-full min-h-[44px] rounded-xl px-3 py-3 text-left text-base font-medium text-ivory-100/85 hover:bg-white/5 notranslate"
+                    translate="no"
                     @click="navigateAndClose(item.to)"
                   >
                     {{ getNavLabel(item) }}
                   </button>
-                  <button type="button" class="block w-full min-h-[44px] rounded-xl px-3 py-3 text-left text-base font-medium text-rose-300 hover:bg-white/5" @click="handleLogout">
+                  <button type="button" class="block w-full min-h-[44px] rounded-xl px-3 py-3 text-left text-base font-medium text-rose-300 hover:bg-white/5 notranslate" translate="no" @click="handleLogout">
                     {{ t('nav.logout') }}
                   </button>
                 </template>
                 <button
                   v-else
                   type="button"
-                  class="block w-full min-h-[44px] rounded-xl px-3 py-3 text-left text-base font-medium text-ivory-100/85 hover:bg-white/5"
+                  class="block w-full min-h-[44px] rounded-xl px-3 py-3 text-left text-base font-medium text-ivory-100/85 hover:bg-white/5 notranslate"
+                  translate="no"
                   @click="navigateAndClose('/login')"
                 >
                   {{ t('nav.login') }}

@@ -803,6 +803,8 @@ function stopRenderLoop() {
 }
 
 onBeforeUnmount(() => {
+  const lenis = getLenis()
+  lenis?.start()
   stopRenderLoop()
   window.removeEventListener('resize', onResize)
   window.removeEventListener('pointermove', onPointerMove)

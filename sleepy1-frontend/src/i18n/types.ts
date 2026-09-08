@@ -66,4 +66,11 @@ export interface TranslationSchema {
     newsletterPlaceholder: string
     subscribe: string
   }
+  hero: {
+    line1: string
+    line2: string
+    desc: string
+    bookNow: string
+    explorePod: string
+  }
 }

@@ -48,9 +48,21 @@ async function subscribe() {
       <div class="grid grid-cols-1 gap-12 lg:grid-cols-[1.4fr_2fr] lg:gap-16">
         <!-- Brand, Newsletter & Socials -->
         <div>
-          <router-link to="/" class="flex items-center gap-2.5 text-lg font-bold tracking-[0.15em] text-primary">
-            <img src="/Logo.png" alt="Sleepy1 Icon" class="h-9 w-9 object-contain" loading="lazy" decoding="async" />
-            SLEEPY1
+          <router-link to="/" class="flex items-center gap-2.5 text-lg font-bold tracking-[0.15em] text-primary select-none notranslate" translate="no">
+            <img
+              src="/Logo.png"
+              alt="Sleepy1 Icon"
+              class="h-9 w-9 object-contain dark:invert-0 invert transition-transform duration-300 hover:scale-105"
+              loading="lazy"
+              decoding="async"
+            />
+            <img
+              src="/Logo-text.png"
+              alt="Sleepy1"
+              class="h-5.5 sm:h-6 object-contain dark:invert-0 invert"
+              loading="lazy"
+              decoding="async"
+            />
           </router-link>
           <p class="mt-4 max-w-xs text-sm leading-relaxed text-ivory-100/75">
             {{ t('footer.tagline') }}
