@@ -8,11 +8,23 @@ import { useFocusTrap } from '@/composables/useFocusTrap'
 import { getLenis } from '@/composables/useLenis'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import ThemeToggle from '@/components/common/ThemeToggle.vue'
+import LanguageSelector from '@/components/common/LanguageSelector.vue'
+import { useI18n } from '@/composables/useI18n'
 
 const ui = useUiStore()
 const auth = useAuthStore()
 const router = useRouter()
+const { t } = useI18n()
 const panelRef = ref<HTMLElement | null>(null)
+
+function getNavLabel(item: { label: string; to: string }) {
+  if (item.to === '/pod-experience') return t('nav.features')
+  if (item.to === '/locations') return t('nav.locations')
+  if (item.to === '/contact') return t('nav.contact')
+  if (item.to === '/about') return t('nav.about')
+  if (item.to === '/bookings') return t('nav.myBookings')
+  return item.label
+}
 
 const { activate, deactivate } = useFocusTrap(panelRef)
 
@@ -66,10 +78,11 @@ async function handleLogout() {
                   <img src="/Logo.png" alt="Sleepy1 Icon" class="h-8 w-8 object-contain" loading="lazy" decoding="async" />
                   <span class="text-lg font-semibold tracking-[0.15em] text-ivory-50">SLEEPY1</span>
                 </div>
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 sm:gap-3">
+                  <LanguageSelector />
                   <ThemeToggle />
-                  <button type="button" aria-label="Close menu" class="flex h-11 w-11 items-center justify-center rounded-full text-ivory-100 hover:bg-white/10" @click="ui.closeMobileMenu()">
-                    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+                  <button type="button" :aria-label="t('nav.closeMenu')" class="flex h-9 w-9 items-center justify-center rounded-full text-ivory-100 hover:bg-white/10" @click="ui.closeMobileMenu()">
+                    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
                   </button>
                 </div>
               </div>
@@ -92,7 +105,7 @@ async function handleLogout() {
                   class="block w-full min-h-[44px] rounded-xl px-3 py-3 text-left text-base font-medium text-ivory-100/85 hover:bg-white/5"
                   @click="navigateAndClose(item.to)"
                 >
-                  {{ item.label }}
+                  {{ getNavLabel(item) }}
                 </button>
                 <div class="my-2 h-px bg-white/10" />
                 <template v-if="auth.isAuthenticated && auth.user?.role !== 'admin'">
@@ -103,10 +116,10 @@ async function handleLogout() {
                     class="block w-full min-h-[44px] rounded-xl px-3 py-3 text-left text-base font-medium text-ivory-100/85 hover:bg-white/5"
                     @click="navigateAndClose(item.to)"
                   >
-                    {{ item.label }}
+                    {{ getNavLabel(item) }}
                   </button>
                   <button type="button" class="block w-full min-h-[44px] rounded-xl px-3 py-3 text-left text-base font-medium text-rose-300 hover:bg-white/5" @click="handleLogout">
-                    Log Out
+                    {{ t('nav.logout') }}
                   </button>
                 </template>
                 <button
@@ -115,16 +128,13 @@ async function handleLogout() {
                   class="block w-full min-h-[44px] rounded-xl px-3 py-3 text-left text-base font-medium text-ivory-100/85 hover:bg-white/5"
                   @click="navigateAndClose('/login')"
                 >
-                  Login
+                  {{ t('nav.login') }}
                 </button>
               </div>
 
               <PrimaryButton as="RouterLink" to="/quick-book" full-width @click="ui.closeMobileMenu()">
-                Book a Pod
+                {{ t('nav.book') }}
               </PrimaryButton>
-              <!-- <PrimaryButton as="a" href="https://docs.google.com/forms/your-form-link-here" target="_blank" full-width @click="ui.closeMobileMenu()">
-                Book a Pod
-              </PrimaryButton> -->
             </div>
           </nav>
         </Transition>

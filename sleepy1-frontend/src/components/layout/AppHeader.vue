@@ -5,9 +5,21 @@ import { useUiStore } from '@/stores/ui'
 import { primaryNav } from '@/data/navigation'
 import UserMenu from '@/components/layout/UserMenu.vue'
 import ThemeToggle from '@/components/common/ThemeToggle.vue'
+import LanguageSelector from '@/components/common/LanguageSelector.vue'
+import { useI18n } from '@/composables/useI18n'
 
 const auth = useAuthStore()
 const ui = useUiStore()
+const { t } = useI18n()
+
+function getNavLabel(item: { label: string; to: string }) {
+  if (item.to === '/pod-experience') return t('nav.features')
+  if (item.to === '/locations') return t('nav.locations')
+  if (item.to === '/contact') return t('nav.contact')
+  if (item.to === '/about') return t('nav.about')
+  return item.label
+}
+
 const isScrolled = ref(false)
 const isDark = ref(false)
 let ticking = false
@@ -94,14 +106,15 @@ const navStyle = computed(() => ({
           class="liquid-nav-link rounded-xl px-3.5 py-1.5 text-sm font-medium text-zinc-600 dark:text-zinc-300 transition-all duration-200"
           active-class="active-liquid-link"
         >
-          {{ item.label }}
+          {{ getNavLabel(item) }}
         </router-link>
       </nav>
 
       <!-- 3. Right: Action Cluster -->
-      <div class="flex items-center gap-2.5 sm:gap-3 flex-shrink-0">
+      <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
         <!-- Desktop controls -->
-        <div class="hidden lg:flex items-center gap-3.5 flex-shrink-0">
+        <div class="hidden lg:flex items-center gap-2.5 xl:gap-3.5 flex-shrink-0">
+          <LanguageSelector />
           <ThemeToggle />
           <div class="h-6 w-px bg-black/10 dark:bg-white/15 flex-shrink-0" />
           <div class="flex items-center gap-2.5 flex-shrink-0">
@@ -111,24 +124,25 @@ const navStyle = computed(() => ({
               to="/login"
               class="liquid-btn inline-flex h-[38px] min-w-[84px] flex-shrink-0 whitespace-nowrap items-center justify-center rounded-full px-5 text-sm font-semibold text-zinc-800 dark:text-zinc-100 transition-all duration-200 hover:scale-105 hover:text-black dark:hover:text-white"
             >
-              Login
+              {{ t('nav.login') }}
             </router-link>
             <router-link
               to="/quick-book"
               class="inline-flex h-[38px] min-w-[88px] flex-shrink-0 whitespace-nowrap items-center justify-center rounded-full bg-cta-fill px-6 text-sm font-bold text-cta-text transition-all duration-200 hover:scale-105 shadow-md hover:opacity-90 tracking-wide"
             >
-              Book
+              {{ t('nav.book') }}
             </router-link>
           </div>
         </div>
 
         <!-- Mobile controls -->
-        <div class="flex lg:hidden items-center gap-2">
+        <div class="flex lg:hidden items-center gap-1.5 sm:gap-2">
+          <LanguageSelector />
           <ThemeToggle />
           <button
             type="button"
             class="liquid-btn flex h-9 w-9 items-center justify-center rounded-xl transition-all text-zinc-800 dark:text-zinc-100"
-            aria-label="Open menu"
+            :aria-label="t('nav.openMenu')"
             :aria-expanded="ui.isMobileMenuOpen"
             @click="ui.openMobileMenu()"
           >

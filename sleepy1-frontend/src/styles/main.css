@@ -216,3 +216,39 @@ html.lenis body {
   will-change: transform;
   transform: translateZ(0);
 }
+
+/* ── Seamless Full-Site Auto-Translator Styling (Hide Google UI & prevent layout shift) ── */
+body > .skiptranslate,
+iframe.skiptranslate,
+iframe[class*="goog"],
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+iframe.goog-te-banner-frame,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover,
+.VIpgJd-ZVi9od-OR95微-bN97Pc,
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  height: 0 !important;
+}
+
+body {
+  top: 0px !important;
+  position: static !important;
+}
+
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+#google_translate_element {
+  display: none !important;
+}
+
+

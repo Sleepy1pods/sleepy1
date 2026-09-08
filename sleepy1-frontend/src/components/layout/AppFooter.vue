@@ -2,8 +2,10 @@
 import { ref } from 'vue'
 import { footerColumns, socialLinks } from '@/data/navigation'
 import { useUiStore } from '@/stores/ui'
+import { useI18n } from '@/composables/useI18n'
 
 const ui = useUiStore()
+const { t } = useI18n()
 const email = ref('')
 const isSubscribing = ref(false)
 
@@ -51,7 +53,7 @@ async function subscribe() {
             SLEEPY1
           </router-link>
           <p class="mt-4 max-w-xs text-sm leading-relaxed text-ivory-100/75">
-            Smart private rest pods in various high footfall public spaces.
+            {{ t('footer.tagline') }}
           </p>
           <form class="mt-6 flex max-w-xs gap-2" @submit.prevent="subscribe">
             <label for="footer-email" class="sr-only">Email address</label>
@@ -60,7 +62,7 @@ async function subscribe() {
               v-model="email"
               type="email"
               required
-              placeholder="you@email.com"
+              :placeholder="t('footer.newsletterPlaceholder')"
               class="min-h-[44px] w-full rounded-full border border-white/20 bg-ink-900 px-4 py-2.5 text-sm text-primary placeholder:text-secondary focus:border-brand-400"
             />
             <button
@@ -68,7 +70,7 @@ async function subscribe() {
               :disabled="isSubscribing"
               class="btn-base shrink-0 bg-cta-fill px-5 py-2.5 text-sm font-semibold text-cta-text transition-colors hover:opacity-80 disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {{ isSubscribing ? '...' : 'Join' }}
+              {{ isSubscribing ? '...' : t('footer.subscribe') }}
             </button>
           </form>
 
@@ -130,7 +132,9 @@ async function subscribe() {
         <!-- Navigation Columns: Side-by-Side on Mobile (grid-cols-2) -->
         <div class="grid grid-cols-2 gap-8 sm:gap-12">
           <div v-for="column in footerColumns" :key="column.title">
-            <h3 class="font-display text-sm font-bold uppercase tracking-wider text-primary">{{ column.title }}</h3>
+            <h3 class="font-display text-sm font-bold uppercase tracking-wider text-primary">
+              {{ column.title === 'Quick Links' ? t('footer.quickLinks') : column.title === 'Legal' ? t('footer.legal') : column.title }}
+            </h3>
             <ul class="mt-4 space-y-2.5">
               <li v-for="item in column.items" :key="item.to">
                 <router-link :to="item.to" class="link-underline inline-block py-1 text-sm font-medium text-ivory-100/75 transition-colors hover:text-primary">
@@ -144,7 +148,7 @@ async function subscribe() {
 
       <!-- Footer Bottom Copyright -->
       <div class="mt-12 text-xs font-medium text-ivory-100/60">
-        <p>© 2026 Sleepy1. Your Pod, Your Mode.</p>
+        <p>© 2026 Sleepy1. {{ t('common.allRightsReserved') }}</p>
       </div>
     </div>
   </footer>
