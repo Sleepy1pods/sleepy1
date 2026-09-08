@@ -55,7 +55,7 @@ function proceed() {
       <div>
         <p class="mb-2 text-sm font-medium text-ivory-100/70">Available check-in times</p>
         <LoadingSkeleton v-if="isLoading" variant="line" :count="1" />
-        <div v-else class="grid max-h-64 grid-cols-4 gap-2 overflow-y-auto pr-1 sm:grid-cols-6">
+        <div v-else data-lenis-prevent class="grid max-h-64 grid-cols-4 gap-2 overflow-y-auto pr-1 sm:grid-cols-6">
           <button
             v-for="slot in slots"
             :key="slot.time"

@@ -5,6 +5,7 @@ import { useUiStore } from '@/stores/ui'
 import { useAuthStore } from '@/stores/auth'
 import { primaryNav, loggedInNav } from '@/data/navigation'
 import { useFocusTrap } from '@/composables/useFocusTrap'
+import { getLenis } from '@/composables/useLenis'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import ThemeToggle from '@/components/common/ThemeToggle.vue'
 
@@ -19,8 +20,14 @@ watch(
   () => ui.isMobileMenuOpen,
   (open) => {
     document.body.style.overflow = open ? 'hidden' : ''
-    if (open) activate()
-    else deactivate()
+    const lenis = getLenis()
+    if (open) {
+      lenis?.stop()
+      activate()
+    } else {
+      lenis?.start()
+      deactivate()
+    }
   },
 )
 
@@ -50,6 +57,7 @@ async function handleLogout() {
             v-if="ui.isMobileMenuOpen"
             ref="panelRef"
             aria-label="Mobile"
+            data-lenis-prevent
             class="absolute inset-y-0 right-0 flex w-full max-w-sm flex-col overflow-hidden bg-ink-900 p-6 shadow-premium"
           >
             <div class="flex flex-1 flex-col">
@@ -76,7 +84,7 @@ async function handleLogout() {
                 </div>
               </div>
 
-              <div class="mt-8 flex-1 space-y-1 overflow-y-auto">
+              <div class="mt-8 flex-1 space-y-1 overflow-y-auto" data-lenis-prevent>
                 <button
                   v-for="item in primaryNav"
                   :key="item.to"

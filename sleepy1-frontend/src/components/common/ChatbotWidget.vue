@@ -21,7 +21,7 @@
         </div>
 
         <!-- Messages Area -->
-        <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-page" ref="messagesContainer">
+        <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-page" ref="messagesContainer" data-lenis-prevent>
           <div v-for="(msg, index) in messages" :key="index" class="flex" :class="msg.role === 'user' ? 'justify-end' : 'justify-start'">
             <div 
               class="max-w-[80%] rounded-2xl px-4 py-2 text-sm"

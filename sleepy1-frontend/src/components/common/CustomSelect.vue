@@ -49,7 +49,7 @@ onUnmounted(() => document.removeEventListener('click', handleClickOutside))
       <svg class="h-4 w-4 text-ivory-100/50 transition-transform duration-200" :class="{ 'rotate-180': isOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
     </button>
     
-    <div v-if="isOpen" class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-xl border border-white/10 bg-ink-900 shadow-lg p-1 custom-scrollbar">
+    <div v-if="isOpen" data-lenis-prevent class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-xl border border-white/10 bg-ink-900 shadow-lg p-1 custom-scrollbar">
       <div
         v-for="option in options"
         :key="option.value"

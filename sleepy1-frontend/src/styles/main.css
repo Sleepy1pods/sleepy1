@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+@import 'lenis/dist/lenis.css';
 
 @tailwind base;
 @tailwind components;
@@ -42,7 +43,7 @@
 
   /* ── GLOBAL overrides: every element inherits theme ── */
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     background-color: var(--bg) !important;
     color: var(--text-primary) !important;
   }
@@ -194,4 +195,24 @@
 }
 ::view-transition-new(root) {
   z-index: 9999 !important;
+}
+
+/* ── Lenis Smooth Scrolling Optimizations & GPU Composite Layers ── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* Promote fixed/floating elements to composite layers to prevent scroll repaints */
+.liquid-glass-nav {
+  will-change: transform;
+  transform: translateZ(0);
 }

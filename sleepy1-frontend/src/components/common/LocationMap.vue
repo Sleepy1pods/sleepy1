@@ -68,6 +68,7 @@ onUnmounted(() => {
 <template>
   <div
     ref="mapContainer"
+    data-lenis-prevent
     class="w-full overflow-hidden rounded-2xl border border-white/10 [&_.leaflet-control-attribution]:bg-ink-950/70 [&_.leaflet-control-attribution]:text-ivory-100/50"
     :style="{ height }"
     role="application"

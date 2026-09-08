@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, computed, onMounted } from 'vue'
+import { watch, computed, onMounted, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
@@ -7,6 +7,7 @@ import MobileMenu from '@/components/layout/MobileMenu.vue'
 import ToastNotification from '@/components/common/ToastNotification.vue'
 import ChatbotWidget from '@/components/common/ChatbotWidget.vue'
 import { useUiStore } from '@/stores/ui'
+import { initLenis, getLenis } from '@/composables/useLenis'
 
 const route = useRoute()
 const ui = useUiStore()
@@ -14,14 +15,31 @@ const ui = useUiStore()
 const isAdminRoute = computed(() => route.path.startsWith('/admin'))
 
 onMounted(() => {
-  window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  const lenis = initLenis()
+  if (lenis) {
+    lenis.scrollTo(0, { immediate: true })
+    lenis.resize()
+  } else {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }
 })
 
 watch(
   () => route.fullPath,
   () => {
     ui.closeMobileMenu()
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+    const lenis = getLenis()
+    if (lenis) {
+      if (!route.hash) {
+        lenis.scrollTo(0, { immediate: true })
+      }
+      nextTick(() => {
+        lenis.resize()
+        setTimeout(() => lenis.resize(), 150)
+      })
+    } else if (!route.hash) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+    }
   },
 )
 </script>

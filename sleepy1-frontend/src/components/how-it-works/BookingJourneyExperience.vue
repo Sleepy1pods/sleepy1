@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { podTypes } from '@/data/pods'
 import { getAmenitiesByIds } from '@/data/amenities'
+import { useLenis, getLenis } from '@/composables/useLenis'
 import PodVisual from '@/components/common/PodVisual.vue'
 import HubVisual from '@/components/common/HubVisual.vue'
 import AmenityIcon from '@/components/common/AmenityIcon.vue'
@@ -39,7 +40,9 @@ const trackTranslateX = computed(() => {
   return -(scrollProgress.value * stepDistance.value * 4)
 })
 
-function handleScroll() {
+let isTicking = false
+
+function calculateScrollProgress() {
   if (!scrollContainerRef.value) return
   const rect = scrollContainerRef.value.getBoundingClientRect()
   const totalScrollDistance = rect.height - window.innerHeight
@@ -50,12 +53,27 @@ function handleScroll() {
   scrollProgress.value = progress
 }
 
+function handleScroll() {
+  if (!isTicking) {
+    requestAnimationFrame(() => {
+      calculateScrollProgress()
+      isTicking = false
+    })
+    isTicking = true
+  }
+}
+
 function selectStep(index: number) {
   if (!scrollContainerRef.value) return
   const rect = scrollContainerRef.value.getBoundingClientRect()
   const totalScrollDistance = rect.height - window.innerHeight
   const targetY = window.scrollY + rect.top + (index / 4) * totalScrollDistance
-  window.scrollTo({ top: targetY, behavior: 'smooth' })
+  const lenis = getLenis()
+  if (lenis) {
+    lenis.scrollTo(targetY, { duration: 1.0 })
+  } else {
+    window.scrollTo({ top: targetY, behavior: 'smooth' })
+  }
 }
 
 function nextStep() {
@@ -70,11 +88,14 @@ function prevStep() {
   }
 }
 
+const { onScroll } = useLenis()
+
 onMounted(() => {
   updateDimensions()
+  onScroll(handleScroll)
   window.addEventListener('resize', updateDimensions, { passive: true })
   window.addEventListener('scroll', handleScroll, { passive: true })
-  handleScroll()
+  calculateScrollProgress()
 })
 
 onUnmounted(() => {

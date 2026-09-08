@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { journeyTimeline } from '@/data/statistics'
+import { useLenis } from '@/composables/useLenis'
 
 const journeyItems = journeyTimeline.map((item, index) => ({
   ...item,
@@ -18,6 +19,8 @@ const setItemRef = (el: any, index: number) => {
     itemRefs.value[index] = el as HTMLElement
   }
 }
+
+let ticking = false
 
 const updateScrollProgress = () => {
   if (!timelineRef.value) return
@@ -47,15 +50,28 @@ const updateScrollProgress = () => {
   activeIndex.value = currentActive
 }
 
+const onScrollTick = () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      updateScrollProgress()
+      ticking = false
+    })
+    ticking = true
+  }
+}
+
+const { onScroll } = useLenis()
+
 onMounted(() => {
-  window.addEventListener('scroll', updateScrollProgress, { passive: true })
-  window.addEventListener('resize', updateScrollProgress, { passive: true })
+  onScroll(onScrollTick)
+  window.addEventListener('scroll', onScrollTick, { passive: true })
+  window.addEventListener('resize', onScrollTick, { passive: true })
   setTimeout(updateScrollProgress, 50)
 })
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', updateScrollProgress)
-  window.removeEventListener('resize', updateScrollProgress)
+  window.removeEventListener('scroll', onScrollTick)
+  window.removeEventListener('resize', onScrollTick)
 })
 </script>
 

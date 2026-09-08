@@ -4,15 +4,26 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
+import { getLenis } from '@/composables/useLenis'
 
 const customModelUrl = ref<string>('/SleepPod1.glb')
 
 type ViewMode = 'interior' | 'exterior'
 const activeView = ref<ViewMode>('exterior')
 const isFullscreen = ref(false)
+
 watch(isFullscreen, (val) => {
+  const lenis = getLenis()
   if (val) {
-    setTimeout(() => window.dispatchEvent(new Event('resize')), 50)
+    lenis?.stop()
+    startRenderLoop()
+    setTimeout(() => {
+      onResize()
+      window.dispatchEvent(new Event('resize'))
+    }, 50)
+  } else {
+    stopRenderLoop()
+    lenis?.start()
   }
 })
 // (auto-rotation removed per user request)
@@ -725,6 +736,25 @@ onMounted(() => {
 
   loadModel()
 
+  if (isFullscreen.value) {
+    startRenderLoop()
+  }
+
+  window.addEventListener('resize', onResize)
+})
+
+function onResize() {
+  if (!canvasContainer.value || !renderer || !camera) return
+  const newW = canvasContainer.value.clientWidth
+  const newH = canvasContainer.value.clientHeight
+  camera.aspect = newW / newH
+  camera.updateProjectionMatrix()
+  renderer.setSize(newW, newH)
+}
+
+function startRenderLoop() {
+  if (animationFrameId !== null) return
+
   function animate() {
     animationFrameId = requestAnimationFrame(animate)
 
@@ -761,28 +791,25 @@ onMounted(() => {
       renderer.render(scene, camera)
     }
   }
-  animate()
 
-  function onResize() {
-    if (!canvasContainer.value || !renderer || !camera) return
-    const newW = canvasContainer.value.clientWidth
-    const newH = canvasContainer.value.clientHeight
-    camera.aspect = newW / newH
-    camera.updateProjectionMatrix()
-    renderer.setSize(newW, newH)
+  animationFrameId = requestAnimationFrame(animate)
+}
+
+function stopRenderLoop() {
+  if (animationFrameId !== null) {
+    cancelAnimationFrame(animationFrameId)
+    animationFrameId = null
   }
-  window.addEventListener('resize', onResize)
-})
+}
 
 onBeforeUnmount(() => {
+  stopRenderLoop()
+  window.removeEventListener('resize', onResize)
   window.removeEventListener('pointermove', onPointerMove)
   if (canvasContainer.value) {
     canvasContainer.value.removeEventListener('click', onCanvasClick)
   }
   if (clickedLabelTimer) clearTimeout(clickedLabelTimer)
-  if (animationFrameId !== null) {
-    cancelAnimationFrame(animationFrameId)
-  }
   if (renderer && renderer.domElement && canvasContainer.value) {
     canvasContainer.value.removeChild(renderer.domElement)
   }
@@ -845,6 +872,7 @@ onBeforeUnmount(() => {
     <Teleport to="body">
       <div 
         v-show="isFullscreen" 
+        data-lenis-prevent
         class="fixed inset-0 z-[100] flex flex-col bg-[#090a10] overflow-hidden"
       >
         <!-- Top Bar -->
@@ -870,6 +898,7 @@ onBeforeUnmount(() => {
         <!-- 3D WebGL Canvas Container -->
         <div
           ref="canvasContainer"
+          data-lenis-prevent
           class="relative h-full w-full flex-1"
           :class="activeView === 'interior' ? 'cursor-pointer' : 'cursor-grab active:cursor-grabbing'"
           style="touch-action: none;"

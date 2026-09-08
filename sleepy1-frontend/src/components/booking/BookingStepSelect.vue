@@ -456,7 +456,7 @@ function proceed() {
             <div v-else-if="filteredSlots.length === 0" class="py-8 text-center text-xs text-ivory-100/50">
               No slots found for this time period. Try selecting another tab.
             </div>
-            <div v-else class="grid max-h-[320px] grid-cols-2 gap-2.5 overflow-y-auto pr-1 no-scrollbar sm:grid-cols-3 md:grid-cols-4">
+            <div v-else data-lenis-prevent class="grid max-h-[320px] grid-cols-2 gap-2.5 overflow-y-auto pr-1 no-scrollbar sm:grid-cols-3 md:grid-cols-4">
               <button
                 v-for="slot in filteredSlots"
                 :key="slot.time"

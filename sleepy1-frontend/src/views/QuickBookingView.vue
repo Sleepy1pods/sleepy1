@@ -267,7 +267,7 @@ async function submit() {
           
           <div v-if="form.checkinDate" class="animate-fade-in">
             <label class="mb-3 block text-sm font-medium text-zinc-700 dark:text-zinc-300">Available Time Slots <span class="text-zinc-400 dark:text-zinc-500">*</span></label>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-h-64 overflow-y-auto pr-2 custom-scrollbar pb-2">
+            <div data-lenis-prevent class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-h-64 overflow-y-auto pr-2 custom-scrollbar pb-2">
               <button 
                 v-for="slot in timeOptions" 
                 :key="slot.value"
