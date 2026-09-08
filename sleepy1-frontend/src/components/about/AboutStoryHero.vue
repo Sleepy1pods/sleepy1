@@ -31,17 +31,17 @@
       <div class="relative w-full max-w-[340px] sm:max-w-[380px] flex items-center justify-center select-none">
         <!-- Light Theme Real Image -->
         <img
-          src="/about-pod-light.png"
+          src="/about-pod-light.png?v=seamless"
           alt="Sleepy1 Gen-1 Rest Pod Exterior"
-          class="w-full h-auto max-h-[380px] sm:max-h-[420px] object-contain dark:hidden block transition-transform duration-500 hover:scale-[1.02]"
+          class="seamless-pod-img w-full h-auto max-h-[380px] sm:max-h-[420px] object-contain dark:hidden block transition-transform duration-500 hover:scale-[1.02]"
           loading="eager"
           decoding="async"
         />
         <!-- Dark Theme Real Image -->
         <img
-          src="/about-pod-dark.png"
+          src="/about-pod-dark.png?v=seamless"
           alt="Sleepy1 Gen-1 Rest Pod Exterior"
-          class="w-full h-auto max-h-[380px] sm:max-h-[420px] object-contain dark:block hidden transition-transform duration-500 hover:scale-[1.02]"
+          class="seamless-pod-img w-full h-auto max-h-[380px] sm:max-h-[420px] object-contain dark:block hidden transition-transform duration-500 hover:scale-[1.02]"
           loading="eager"
           decoding="async"
         />
@@ -49,3 +49,10 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+.seamless-pod-img {
+  -webkit-mask-image: radial-gradient(ellipse 72% 75% at 50% 50%, #000 48%, rgba(0, 0, 0, 0.8) 60%, transparent 88%);
+  mask-image: radial-gradient(ellipse 72% 75% at 50% 50%, #000 48%, rgba(0, 0, 0, 0.8) 60%, transparent 88%);
+}
+</style>
