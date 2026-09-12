@@ -1,4 +1,4 @@
-export type Locale = 'en' | 'kn' | 'hi'
+export type Locale = 'en' | 'kn' | 'hi' | 'te'
 
 export interface LanguageOption {
   code: Locale

@@ -3,6 +3,7 @@ import type { Locale, LanguageOption, TranslationSchema } from '@/i18n/types'
 import { en } from '@/i18n/locales/en'
 import { kn } from '@/i18n/locales/kn'
 import { hi } from '@/i18n/locales/hi'
+import { te } from '@/i18n/locales/te'
 
 const STORAGE_KEY = 'sleepy1-language'
 
@@ -10,12 +11,14 @@ export const availableLanguages: LanguageOption[] = [
   { code: 'en', label: 'English', nativeName: 'English', shortLabel: 'EN' },
   { code: 'kn', label: 'Kannada', nativeName: 'ಕನ್ನಡ', shortLabel: 'ಕನ್ನಡ' },
   { code: 'hi', label: 'Hindi', nativeName: 'हिन्दी', shortLabel: 'हिन्दी' },
+  { code: 'te', label: 'Telugu', nativeName: 'తెలుగు', shortLabel: 'తెలుగు' },
 ]
 
 const dictionaries: Record<Locale, TranslationSchema> = {
   en,
   kn,
   hi,
+  te,
 }
 
 function applyGoogleTranslate(targetLang: Locale) {
@@ -73,7 +76,7 @@ function applyGoogleTranslate(targetLang: Locale) {
 function getInitialLocale(): Locale {
   try {
     const saved = localStorage.getItem(STORAGE_KEY)
-    if (saved === 'kn' || saved === 'hi' || saved === 'en') {
+    if (saved === 'kn' || saved === 'hi' || saved === 'te' || saved === 'en') {
       return saved
     }
   } catch {
