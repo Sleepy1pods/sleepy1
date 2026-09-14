@@ -71,7 +71,7 @@
     <div class="relative">
       <!-- Actual Button -->
       <button 
-        @click="isOpen = !isOpen"
+        @click="handleToggleOpen"
         class="relative inline-flex items-center gap-2.5 px-4 py-3 bg-cta-fill hover:opacity-90 text-cta-text rounded-full shadow-2xl transition-all hover:scale-105 active:scale-95 z-10 border border-white/15"
       >
         <template v-if="!isOpen">
@@ -97,11 +97,26 @@
 
 <script setup lang="ts">
 import { ref, nextTick } from 'vue'
-import { marked } from 'marked'
-import DOMPurify from 'dompurify'
+
+let markedLib: any = null
+let purifyLib: any = null
+
+async function loadMarkdownParser() {
+  if (!markedLib) {
+    const [{ marked }, purifyModule] = await Promise.all([
+      import('marked'),
+      import('dompurify')
+    ])
+    markedLib = marked
+    purifyLib = purifyModule.default || purifyModule
+  }
+}
 
 const formatMessage = (content: string) => {
-  return DOMPurify.sanitize(marked.parse(content, { async: false }) as string)
+  if (markedLib && purifyLib) {
+    return purifyLib.sanitize(markedLib.parse(content, { async: false }) as string)
+  }
+  return content.replace(/\n/g, '<br>')
 }
 
 interface Message {
@@ -110,6 +125,13 @@ interface Message {
 }
 
 const isOpen = ref(false)
+
+async function handleToggleOpen() {
+  isOpen.value = !isOpen.value
+  if (isOpen.value) {
+    await loadMarkdownParser()
+  }
+}
 const isLoading = ref(false)
 const newMessage = ref('')
 const messagesContainer = ref<HTMLElement | null>(null)

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, computed, onMounted, nextTick, defineAsyncComponent } from 'vue'
+import { ref, watch, computed, onMounted, nextTick, defineAsyncComponent } from 'vue'
 import { useRoute } from 'vue-router'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
@@ -14,6 +14,7 @@ const route = useRoute()
 const ui = useUiStore()
 
 const isAdminRoute = computed(() => route.path.startsWith('/admin'))
+const showChatbot = ref(false)
 
 onMounted(() => {
   const lenis = initLenis()
@@ -22,6 +23,19 @@ onMounted(() => {
     lenis.scrollTo(0, { immediate: true })
   } else {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }
+
+  // Defer chatbot widget until after critical rendering
+  if (typeof window !== 'undefined') {
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(() => {
+        showChatbot.value = true
+      }, { timeout: 2500 })
+    } else {
+      setTimeout(() => {
+        showChatbot.value = true
+      }, 2000)
+    }
   }
 })
 
@@ -63,8 +77,8 @@ watch(
     </main>
     <template v-if="!isAdminRoute">
       <AppFooter class="relative z-20" />
-      <MobileMenu />
-      <ChatbotWidget />
+      <MobileMenu v-if="ui.isMobileMenuOpen" />
+      <ChatbotWidget v-if="showChatbot" />
     </template>
     <ToastNotification />
   </div>

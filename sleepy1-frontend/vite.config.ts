@@ -20,6 +20,12 @@ export default defineConfig({
           if (id.includes('node_modules/three') || id.includes('three/examples')) {
             return 'vendor-three'
           }
+          if (id.includes('node_modules/marked') || id.includes('node_modules/dompurify')) {
+            return 'vendor-markdown'
+          }
+          if (id.includes('node_modules/leaflet')) {
+            return 'vendor-leaflet'
+          }
           if (id.includes('node_modules/vue') || id.includes('node_modules/vue-router') || id.includes('node_modules/pinia')) {
             return 'vendor-vue'
           }

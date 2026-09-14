@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useScrollReveal } from '@/composables/useScrollReveal'
 
 const leftEl = useScrollReveal(0.15, 0)
@@ -11,6 +12,25 @@ function setLeftRef(el: any) {
 function setRightRef(el: any) {
   if (el) rightEl.value = el as HTMLElement
 }
+
+// Single image source to avoid dual image downloading
+const isDark = ref(typeof document !== 'undefined' && document.documentElement.classList.contains('dark'))
+const podImageSrc = computed(() => (isDark.value ? '/p3.png' : '/p4.png'))
+let themeObserver: MutationObserver | null = null
+
+onMounted(() => {
+  if (typeof document !== 'undefined') {
+    isDark.value = document.documentElement.classList.contains('dark')
+    themeObserver = new MutationObserver(() => {
+      isDark.value = document.documentElement.classList.contains('dark')
+    })
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+  }
+})
+
+onUnmounted(() => {
+  themeObserver?.disconnect()
+})
 </script>
 
 <template>
@@ -20,15 +40,10 @@ function setRightRef(el: any) {
     <!-- Full-Bleed Studio Image Backdrop with soft feathered edge mask for seamless continuity -->
     <div
       class="absolute inset-0 w-full h-full z-0 overflow-hidden flex items-center justify-center pointer-events-none pod-img-container">
-      <!-- Light Theme Image: p4.png -->
-      <img src="/p4.png" alt="Sleepy1 Smart Rest Pod"
+      <!-- Dynamic Theme Image: p4.png (light) or p3.png (dark) -->
+      <img :src="podImageSrc" alt="Sleepy1 Smart Rest Pod"
         width="1400" height="700"
-        class="w-full h-full object-contain object-center dark:hidden block transition-transform duration-700 max-w-[1400px]"
-        loading="lazy" decoding="async" />
-      <!-- Dark Theme Image: p3.png -->
-      <img src="/p3.png" alt="Sleepy1 Smart Rest Pod"
-        width="1400" height="700"
-        class="w-full h-full object-contain object-center dark:block hidden transition-transform duration-700 max-w-[1400px]"
+        class="w-full h-full object-contain object-center transition-transform duration-700 max-w-[1400px]"
         loading="lazy" decoding="async" />
 
       <!-- Atmospheric edge vignettes for seamless blend on left, right, top, bottom -->

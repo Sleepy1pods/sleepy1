@@ -1,8 +1,13 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useI18n } from '@/composables/useI18n'
 
 const { locale, t } = useI18n()
+
+// Theme detection for single image loading
+const isDark = ref(typeof document !== 'undefined' && document.documentElement.classList.contains('dark'))
+const heroImageSrc = computed(() => (isDark.value ? '/p1.png' : '/p2.jpeg'))
+let themeObserver: MutationObserver | null = null
 
 // Typing Animation
 const displayedLine1 = ref(t('hero.line1'))
@@ -31,32 +36,30 @@ function startTyping() {
   displayedLine1.value = ''
   displayedLine2.value = ''
 
-  const line1Text = t('hero.line1')
-  const line2Text = t('hero.line2')
-  const lang = locale.value || 'en'
+  const line1Full = t('hero.line1')
+  const line2Full = t('hero.line2')
 
-  const seg1 = getSegments(line1Text, lang)
-  const seg2 = getSegments(line2Text, lang)
+  const chars1 = getSegments(line1Full, locale.value)
+  const chars2 = getSegments(line2Full, locale.value)
 
-  let i = 0
-  let j = 0
-  const typeSpeed = 50
+  let idx1 = 0
+  let idx2 = 0
 
-  const typeLine1 = () => {
-    if (i < seg1.length) {
-      displayedLine1.value += seg1[i]
-      i++
-      activeTimeouts.push(setTimeout(typeLine1, typeSpeed))
+  function typeLine1() {
+    if (idx1 < chars1.length) {
+      displayedLine1.value += chars1[idx1]
+      idx1++
+      activeTimeouts.push(setTimeout(typeLine1, 60))
     } else {
       activeTimeouts.push(setTimeout(typeLine2, 120))
     }
   }
 
-  const typeLine2 = () => {
-    if (j < seg2.length) {
-      displayedLine2.value += seg2[j]
-      j++
-      activeTimeouts.push(setTimeout(typeLine2, typeSpeed))
+  function typeLine2() {
+    if (idx2 < chars2.length) {
+      displayedLine2.value += chars2[idx2]
+      idx2++
+      activeTimeouts.push(setTimeout(typeLine2, 60))
     }
   }
 
@@ -64,11 +67,18 @@ function startTyping() {
 }
 
 onMounted(() => {
-  // Initial text is already pre-filled for instant FCP/LCP
+  if (typeof document !== 'undefined') {
+    isDark.value = document.documentElement.classList.contains('dark')
+    themeObserver = new MutationObserver(() => {
+      isDark.value = document.documentElement.classList.contains('dark')
+    })
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+  }
 })
 
 onUnmounted(() => {
   clearTimeouts()
+  themeObserver?.disconnect()
 })
 
 // Re-run typing smoothly if language changes while on page
@@ -79,26 +89,14 @@ watch(locale, () => {
 
 <template>
   <section class="hero-canvas relative w-full overflow-hidden select-none min-h-[88vh] lg:min-h-[92vh] flex items-center">
-    <!-- Background Image: pure and crisp studio render for light & dark -->
+    <!-- Background Image: single dynamic image tag prevents double-downloading -->
     <div class="absolute inset-0 w-full h-full z-0 overflow-hidden">
-      <!-- Light Theme Image -->
       <img
-        src="/p2.jpeg"
+        :src="heroImageSrc"
         alt="Sleepy1 Smart Rest Pod"
         width="1920"
         height="1080"
-        class="w-full h-full object-cover object-right lg:object-[center_right] dark:hidden block"
-        fetchpriority="high"
-        loading="eager"
-        decoding="async"
-      />
-      <!-- Dark Theme Image -->
-      <img
-        src="/p1.png"
-        alt="Sleepy1 Smart Rest Pod"
-        width="1920"
-        height="1080"
-        class="w-full h-full object-cover object-right lg:object-[center_right] dark:block hidden"
+        class="w-full h-full object-cover object-right lg:object-[center_right]"
         fetchpriority="high"
         loading="eager"
         decoding="async"
