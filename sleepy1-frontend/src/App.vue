@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { watch, computed, onMounted, nextTick } from 'vue'
+import { watch, computed, onMounted, nextTick, defineAsyncComponent } from 'vue'
 import { useRoute } from 'vue-router'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
-import MobileMenu from '@/components/layout/MobileMenu.vue'
 import ToastNotification from '@/components/common/ToastNotification.vue'
-import ChatbotWidget from '@/components/common/ChatbotWidget.vue'
 import { useUiStore } from '@/stores/ui'
 import { initLenis, getLenis } from '@/composables/useLenis'
+
+const MobileMenu = defineAsyncComponent(() => import('@/components/layout/MobileMenu.vue'))
+const ChatbotWidget = defineAsyncComponent(() => import('@/components/common/ChatbotWidget.vue'))
 
 const route = useRoute()
 const ui = useUiStore()

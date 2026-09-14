@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 import type { Location } from '@/types/location'
 
 const props = withDefaults(

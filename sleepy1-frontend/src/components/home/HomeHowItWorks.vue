@@ -22,7 +22,7 @@ const steps = [
     stepNumber: '3',
     title: 'Rest, then go',
     description: 'The pod locks behind you and checks you out automatically.',
-    image: '/step3.png',
+    image: '/step3.jpeg',
     imageClass: 'object-[center_32%] brightness-105',
   },
 ]
@@ -47,6 +47,8 @@ const revealTargets = steps.map((_, i) => useScrollReveal(0.15, i * 100))
             <img
               :src="step.image"
               :alt="step.title"
+              width="288"
+              height="288"
               class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
               :class="step.imageClass"
               loading="lazy"
