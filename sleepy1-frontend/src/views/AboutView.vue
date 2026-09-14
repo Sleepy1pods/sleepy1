@@ -32,7 +32,7 @@ usePageMeta({
           <!-- Mission -->
           <div>
             <span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-400">{{ t('about.missionBadge') }}</span>
-            <h2 class="mt-2 font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl">
+            <h2 class="mt-2 font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl leading-[1.55] sm:leading-[1.5] py-1">
               {{ t('about.missionTitle') }}
             </h2>
             <p class="mt-5 text-lg font-normal leading-relaxed text-secondary sm:text-xl lg:text-2xl text-balance">
@@ -43,7 +43,7 @@ usePageMeta({
           <!-- Vision -->
           <div>
             <span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-400">{{ t('about.visionBadge') }}</span>
-            <h2 class="mt-2 font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl">
+            <h2 class="mt-2 font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl leading-[1.55] sm:leading-[1.5] py-1">
               {{ t('about.visionTitle') }}
             </h2>
             <p class="mt-5 text-lg font-normal leading-relaxed text-secondary sm:text-xl lg:text-2xl text-balance">

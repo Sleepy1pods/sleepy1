@@ -17,9 +17,15 @@ let observer: MutationObserver | null = null
 
 function toggleDropdown() {
   isOpen.value = !isOpen.value
+  if (isOpen.value && typeof window !== 'undefined' && (window as any).__ensureGoogleTranslateLoaded) {
+    (window as any).__ensureGoogleTranslateLoaded()
+  }
 }
 
 function selectLanguage(code: Locale) {
+  if (typeof window !== 'undefined' && (window as any).__ensureGoogleTranslateLoaded) {
+    (window as any).__ensureGoogleTranslateLoaded()
+  }
   setLocale(code)
   isOpen.value = false
 }

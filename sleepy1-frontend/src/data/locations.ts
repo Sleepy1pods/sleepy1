@@ -11,6 +11,12 @@ export const locations: Location[] = [
     id: 'loc-iiit-dharwad',
     slug: 'iiit-dharwad',
     name: 'IIIT Dharwad',
+    localizedName: {
+      en: 'IIIT Dharwad',
+      te: 'ఐఐఐటీ ధార్వాడ్',
+      kn: 'ಐಐಐಟಿ ಧಾರವಾಡ',
+      hi: 'आईआईआईटी धारवाड़',
+    },
     shortName: 'IIITD',
     hubType: 'institute',
     city: 'Dharwad',
@@ -39,6 +45,13 @@ export const locationMap: Record<string, Location> = Object.fromEntries(
 
 export function getLocationBySlug(slug: string): Location | undefined {
   return locationMap[slug]
+}
+
+export function getLocationName(loc: Location, locale?: string): string {
+  if (locale && loc.localizedName && loc.localizedName[locale as 'en' | 'te' | 'kn' | 'hi']) {
+    return loc.localizedName[locale as 'en' | 'te' | 'kn' | 'hi']!
+  }
+  return loc.name
 }
 
 export function getFeaturedLocations(): Location[] {

@@ -52,6 +52,8 @@ async function subscribe() {
             <img
               src="/Logo.png"
               alt="Sleepy1 Icon"
+              width="36"
+              height="36"
               class="h-9 w-9 object-contain dark:invert-0 invert transition-transform duration-300 hover:scale-105"
               loading="lazy"
               decoding="async"
@@ -59,6 +61,8 @@ async function subscribe() {
             <img
               src="/Logo-text.png"
               alt="Sleepy1"
+              width="110"
+              height="24"
               class="h-5.5 sm:h-6 object-contain dark:invert-0 invert"
               loading="lazy"
               decoding="async"

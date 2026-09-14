@@ -22,10 +22,12 @@ function setRightRef(el: any) {
       class="absolute inset-0 w-full h-full z-0 overflow-hidden flex items-center justify-center pointer-events-none pod-img-container">
       <!-- Light Theme Image: p4.png -->
       <img src="/p4.png" alt="Sleepy1 Smart Rest Pod"
+        width="1400" height="700"
         class="w-full h-full object-contain object-center dark:hidden block transition-transform duration-700 max-w-[1400px]"
         loading="lazy" decoding="async" />
       <!-- Dark Theme Image: p3.png -->
       <img src="/p3.png" alt="Sleepy1 Smart Rest Pod"
+        width="1400" height="700"
         class="w-full h-full object-contain object-center dark:block hidden transition-transform duration-700 max-w-[1400px]"
         loading="lazy" decoding="async" />
 
@@ -49,7 +51,7 @@ function setRightRef(el: any) {
       <div :ref="setLeftRef" class="col-span-4 flex flex-col justify-center text-right pr-4 lg:pr-8">
         <h2 class="pod-exp-heading font-display uppercase tracking-tight">
           <span
-            class="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-[0.95] drop-shadow-sm text-[var(--text-primary)]">
+            class="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.08] sm:leading-[1.04] drop-shadow-sm text-[var(--text-primary)]">
             STEP<br />INSIDE,
           </span>
         </h2>

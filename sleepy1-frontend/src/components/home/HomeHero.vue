@@ -5,8 +5,8 @@ import { useI18n } from '@/composables/useI18n'
 const { locale, t } = useI18n()
 
 // Typing Animation
-const displayedLine1 = ref('')
-const displayedLine2 = ref('')
+const displayedLine1 = ref(t('hero.line1'))
+const displayedLine2 = ref(t('hero.line2'))
 let activeTimeouts: ReturnType<typeof setTimeout>[] = []
 
 function clearTimeouts() {
@@ -40,7 +40,7 @@ function startTyping() {
 
   let i = 0
   let j = 0
-  const typeSpeed = 70
+  const typeSpeed = 50
 
   const typeLine1 = () => {
     if (i < seg1.length) {
@@ -48,7 +48,7 @@ function startTyping() {
       i++
       activeTimeouts.push(setTimeout(typeLine1, typeSpeed))
     } else {
-      activeTimeouts.push(setTimeout(typeLine2, 160))
+      activeTimeouts.push(setTimeout(typeLine2, 120))
     }
   }
 
@@ -60,11 +60,11 @@ function startTyping() {
     }
   }
 
-  activeTimeouts.push(setTimeout(typeLine1, 150))
+  activeTimeouts.push(setTimeout(typeLine1, 80))
 }
 
 onMounted(() => {
-  startTyping()
+  // Initial text is already pre-filled for instant FCP/LCP
 })
 
 onUnmounted(() => {
@@ -85,16 +85,22 @@ watch(locale, () => {
       <img
         src="/p2.jpeg"
         alt="Sleepy1 Smart Rest Pod"
+        width="1920"
+        height="1080"
         class="w-full h-full object-cover object-right lg:object-[center_right] dark:hidden block"
         fetchpriority="high"
+        loading="eager"
         decoding="async"
       />
       <!-- Dark Theme Image -->
       <img
         src="/p1.png"
         alt="Sleepy1 Smart Rest Pod"
+        width="1920"
+        height="1080"
         class="w-full h-full object-cover object-right lg:object-[center_right] dark:block hidden"
         fetchpriority="high"
+        loading="eager"
         decoding="async"
       />
     </div>
@@ -112,11 +118,21 @@ watch(locale, () => {
     <div class="relative z-20 max-w-7xl mx-auto w-full px-6 sm:px-10 lg:px-12 py-16 sm:py-20 lg:py-24 flex flex-col justify-center">
       <div class="max-w-2xl">
         <!-- Headline with Multilingual Typing Animation -->
-        <h1 class="hero-heading uppercase leading-[0.95] font-display notranslate select-none" translate="no">
-          <span class="hero-title-main block text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight">
+        <h1
+          class="hero-heading leading-[1.32] sm:leading-[1.26] font-display notranslate select-none py-2 overflow-visible"
+          :class="locale === 'en' ? 'uppercase' : 'normal-case'"
+          translate="no"
+        >
+          <span
+            class="hero-title-main block text-5xl sm:text-6xl lg:text-7xl font-black py-0.5 overflow-visible"
+            :class="locale === 'en' ? 'tracking-tight' : 'tracking-normal'"
+          >
             {{ displayedLine1 }}
           </span>
-          <span class="hero-title-sub block text-4xl sm:text-5xl lg:text-6xl font-light tracking-[0.16em] mt-2">
+          <span
+            class="hero-title-sub block text-4xl sm:text-5xl lg:text-6xl font-light mt-3 sm:mt-4 py-0.5 overflow-visible"
+            :class="locale === 'en' ? 'tracking-[0.16em]' : 'tracking-normal'"
+          >
             {{ displayedLine2 }}
           </span>
         </h1>

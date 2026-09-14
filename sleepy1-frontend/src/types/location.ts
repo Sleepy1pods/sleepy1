@@ -36,6 +36,7 @@ export interface Location {
   id: string
   slug: string
   name: string
+  localizedName?: Partial<Record<'en' | 'te' | 'kn' | 'hi', string>>
   shortName: string
   hubType: HubType
   city: string

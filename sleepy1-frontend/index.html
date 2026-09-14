@@ -37,6 +37,17 @@
     <meta name="twitter:description" content="Private, smart rest pods across universities, corporate parks, hospitals, and railway stations in India — book by the hour." />
     <meta name="twitter:image" content="https://www.sleepy1pods.com/icon-512.png" />
 
+    <!-- Preconnect to Google Fonts & Preload LCP Resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="image" href="/p2.jpeg" fetchpriority="high" />
+
+    <!-- Google Fonts with display=swap -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap"
+    />
+
     <!-- Structured Data JSON-LD for Google Knowledge Graph & Site Name -->
     <script type="application/ld+json">
       {
@@ -76,6 +87,7 @@
       }
     </script>
   </head>
+  <body>
     <div id="app"></div>
 
     <!-- Hidden Full-Site Auto-Translator Anchor -->
@@ -93,12 +105,29 @@
           );
         }
       }
+
+      function loadGoogleTranslate() {
+        if (document.getElementById('google-translate-script')) return;
+        var s = document.createElement('script');
+        s.id = 'google-translate-script';
+        s.type = 'text/javascript';
+        s.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        s.async = true;
+        document.body.appendChild(s);
+      }
+
+      window.__ensureGoogleTranslateLoaded = loadGoogleTranslate;
+
+      // Only load if the user already opted into a non-English language in a previous session
+      try {
+        var savedLang = localStorage.getItem('sleepy1-language');
+        if (savedLang && savedLang !== 'en') {
+          window.addEventListener('load', function() {
+            setTimeout(loadGoogleTranslate, 1200);
+          }, { once: true });
+        }
+      } catch (e) {}
     </script>
-    <script
-      type="text/javascript"
-      src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-      defer
-    ></script>
 
     <script type="module" src="/src/main.ts"></script>
   </body>

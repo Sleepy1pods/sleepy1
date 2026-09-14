@@ -16,19 +16,26 @@ export function initLenis(): Lenis | null {
   if (lenisInstance) return lenisInstance
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+
+  // On touch / mobile devices, native hardware scrolling is already 120Hz GPU-accelerated.
+  // Bypassing JS scroll interception on mobile eliminates all input lag and dropped scroll gestures.
+  if (isTouchDevice) {
+    document.documentElement.classList.add('lenis-native')
+    isInitialized.value = true
+    return null
+  }
 
   lenisInstance = new Lenis({
     autoRaf: true,
     autoResize: true,
     autoToggle: true,
     smoothWheel: !prefersReduced,
-    lerp: prefersReduced ? 1 : 0.085,
-    duration: prefersReduced ? 0 : 1.15,
-    easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    lerp: prefersReduced ? 1 : 0.16,
+    duration: prefersReduced ? 0 : 0.5,
     wheelMultiplier: 1.0,
-    touchMultiplier: 1.15,
+    syncTouch: false,
     prevent: (node: HTMLElement) => {
-      // Only prevent on Leaflet map container to allow map zooming without scrolling
       return Boolean(node.closest('.leaflet-container'))
     },
   })
@@ -46,7 +53,11 @@ export function initLenis(): Lenis | null {
         const el = document.querySelector(href)
         if (el) {
           e.preventDefault()
-          lenisInstance?.scrollTo(el as HTMLElement, { offset: -70 })
+          if (lenisInstance) {
+            lenisInstance.scrollTo(el as HTMLElement, { offset: -70 })
+          } else {
+            el.scrollIntoView({ behavior: 'smooth' })
+          }
         }
       }
     }
@@ -55,22 +66,7 @@ export function initLenis(): Lenis | null {
     globalClickListenerAttached = true
   }
 
-  // Set up continuous ResizeObserver to recalculate limit on dynamic image loads, route changes, or content growth
-  if (typeof ResizeObserver !== 'undefined') {
-    resizeObserver?.disconnect()
-    let resizeTimer: ReturnType<typeof setTimeout> | null = null
-    resizeObserver = new ResizeObserver(() => {
-      if (resizeTimer) clearTimeout(resizeTimer)
-      resizeTimer = setTimeout(() => {
-        lenisInstance?.resize()
-      }, 30)
-    })
-
-    if (document.documentElement) resizeObserver.observe(document.documentElement)
-    if (document.body) resizeObserver.observe(document.body)
-  }
-
-  // Also listen to image load / window load events to ensure full document height is registered
+  // Window load resize handler
   window.addEventListener('load', () => lenisInstance?.resize(), { passive: true })
 
   isInitialized.value = true
@@ -127,6 +123,11 @@ export function useLenis() {
     if (!lenisInstance) {
       if (typeof target === 'number') {
         window.scrollTo({ top: target, behavior: options?.immediate ? 'instant' : 'smooth' })
+      } else if (typeof target === 'string') {
+        const el = document.querySelector(target)
+        el?.scrollIntoView({ behavior: options?.immediate ? 'instant' : 'smooth' })
+      } else if (target instanceof HTMLElement) {
+        target.scrollIntoView({ behavior: options?.immediate ? 'instant' : 'smooth' })
       }
       return
     }

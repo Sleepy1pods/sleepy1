@@ -19,8 +19,6 @@ onMounted(() => {
   if (lenis) {
     lenis.start()
     lenis.scrollTo(0, { immediate: true })
-    lenis.resize()
-    ;[100, 300, 600, 1200, 2000].forEach((ms) => setTimeout(() => lenis.resize(), ms))
   } else {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }
@@ -39,7 +37,6 @@ watch(
       }
       nextTick(() => {
         lenis.resize()
-        ;[50, 150, 300, 600, 1200].forEach((ms) => setTimeout(() => lenis.resize(), ms))
       })
     } else if (!route.hash) {
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' })

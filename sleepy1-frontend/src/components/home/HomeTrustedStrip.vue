@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { locations } from '@/data/locations'
+import { locations, getLocationName } from '@/data/locations'
+import { useI18n } from '@/composables/useI18n'
+
+const { locale } = useI18n()
 
 const MIN_LOCATIONS_FOR_MARQUEE = 6
 
@@ -65,7 +68,7 @@ function handlePointerEnd(event: PointerEvent) {
             :key="`${loc.id}-${setIndex}`"
             class="whitespace-nowrap text-lg font-medium text-ivory-100/55"
           >
-            {{ loc.name }}
+            {{ getLocationName(loc, locale) }}
           </span>
         </template>
       </div>
@@ -81,6 +84,8 @@ function handlePointerEnd(event: PointerEvent) {
           <img
             :src="loc.heroImage || '/iiit_dharwad.png'"
             :alt="loc.name"
+            width="800"
+            height="340"
             class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             loading="lazy"
             decoding="async"
@@ -105,7 +110,7 @@ function handlePointerEnd(event: PointerEvent) {
                 </span>
               </div>
               <h3 class="font-display text-2xl font-bold text-white sm:text-3xl drop-shadow-md">
-                {{ loc.name }}
+                {{ getLocationName(loc, locale) }}
               </h3>
               <p class="mt-1 text-sm text-white/85 drop-shadow-sm font-medium">
                 {{ loc.city }}, {{ loc.state }}

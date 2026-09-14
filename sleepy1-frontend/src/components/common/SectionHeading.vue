@@ -1,8 +1,13 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useScrollReveal } from '@/composables/useScrollReveal'
+import { useI18n } from '@/composables/useI18n'
 
+const { locale } = useI18n()
 const revealTarget = useScrollReveal()
 void revealTarget // bound via `ref="revealTarget"` below — read here so TS doesn't flag it as unused
+
+const isNonEnglish = computed(() => locale.value && locale.value !== 'en')
 
 withDefaults(
   defineProps<{
@@ -25,11 +30,17 @@ withDefaults(
 
 <template>
   <div ref="revealTarget" class="opacity-0" :class="['max-w-2xl', align === 'center' ? 'mx-auto text-center' : '']">
-    <p v-if="eyebrow" class="eyebrow mb-4">{{ eyebrow }}</p>
+    <p
+      v-if="eyebrow"
+      class="eyebrow mb-4"
+      :class="isNonEnglish ? '!tracking-normal !normal-case' : ''"
+    >
+      {{ eyebrow }}
+    </p>
     <component
       :is="level"
       :class="[
-        'text-3xl sm:text-4xl lg:text-5xl font-semibold text-balance leading-[1.1]',
+        'text-3xl sm:text-4xl lg:text-5xl font-semibold text-balance leading-[1.6] sm:leading-[1.55] py-2',
         tone === 'light' ? 'text-ivory-50' : 'text-ink-950',
       ]"
     >

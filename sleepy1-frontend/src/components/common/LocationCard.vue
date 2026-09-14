@@ -2,10 +2,14 @@
 import { computed } from 'vue'
 import type { Location } from '@/types/location'
 import { getAmenitiesByIds } from '@/data/amenities'
+import { getLocationName } from '@/data/locations'
+import { useI18n } from '@/composables/useI18n'
 import HubVisual from './HubVisual.vue'
 import StatusBadge from './StatusBadge.vue'
 import PrimaryButton from './PrimaryButton.vue'
 import SecondaryButton from './SecondaryButton.vue'
+
+const { locale } = useI18n()
 
 const props = defineProps<{ location: Location }>()
 
@@ -30,7 +34,7 @@ const mapUrl = computed(() => {
     </div>
     <div class="flex flex-1 flex-col p-6">
       <p class="text-xs font-semibold uppercase tracking-wide text-brand-300">{{ location.city }} · {{ location.hubType.replace('-', ' ') }}</p>
-      <h3 class="mt-1.5 text-lg font-semibold text-ivory-50">{{ location.name }}</h3>
+      <h3 class="mt-1.5 text-lg font-semibold text-ivory-50">{{ getLocationName(location, locale) }}</h3>
       <p v-if="location.terminal" class="mt-0.5 text-sm text-ivory-100/50">{{ location.terminal }}</p>
 
       <div class="mt-4 flex items-center gap-4 text-sm text-ivory-100/60">

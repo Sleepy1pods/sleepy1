@@ -32,8 +32,8 @@ export default {
         },
       },
       fontFamily: {
-        display: ['"Nunito"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        sans:    ['"Nunito"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['"Nunito"', '"Noto Sans Devanagari"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans:    ['"Nunito"', '"Noto Sans Devanagari"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         soft:    '0 2px 24px -4px rgba(0,0,0,0.08)',
