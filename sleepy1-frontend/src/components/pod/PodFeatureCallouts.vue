@@ -89,6 +89,8 @@ const hoveredId = ref<string | null>(null)
 const isDark = ref(false)
 
 const containerRef = ref<HTMLElement | null>(null)
+const podContainerRef = ref<HTMLElement | null>(null)
+const podImageRef = ref<HTMLImageElement | null>(null)
 const anchorRefs = ref<Record<string, HTMLElement>>({})
 const dotRefs = ref<Record<string, HTMLElement>>({})
 const linePaths = ref<Record<string, string>>({})
@@ -108,6 +110,7 @@ function updateTheme() {
 function calculateFixedLines() {
   if (!containerRef.value) return
   const containerRect = containerRef.value.getBoundingClientRect()
+  if (containerRect.width === 0 || containerRect.height === 0) return
 
   const all = [...leftFeatures, ...rightFeatures]
   const paths: Record<string, string> = {}
@@ -120,6 +123,9 @@ function calculateFixedLines() {
     const anchorRect = anchorEl.getBoundingClientRect()
     const dotRect = dotEl.getBoundingClientRect()
 
+    // Don't calculate if element is not yet laid out
+    if (dotRect.width === 0 && dotRect.height === 0 && dotRect.top === 0) return
+
     const x1 = anchorRect.left + anchorRect.width / 2 - containerRect.left
     const y1 = anchorRect.top + anchorRect.height / 2 - containerRect.top
     const x2 = dotRect.left + dotRect.width / 2 - containerRect.left
@@ -130,36 +136,85 @@ function calculateFixedLines() {
     paths[item.id] = `M ${x1} ${y1} L ${bendX} ${y1} L ${x2} ${y2}`
   })
 
-  linePaths.value = paths
+  if (Object.keys(paths).length > 0) {
+    linePaths.value = paths
+  }
 }
 
 let resizeObserver: ResizeObserver | null = null
 let themeObserver: MutationObserver | null = null
+let intersectionObserver: IntersectionObserver | null = null
 
 onMounted(() => {
   updateTheme()
   themeObserver = new MutationObserver(updateTheme)
   themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
 
+  // Run on nextTick and sequential animation frames
   nextTick(() => {
     calculateFixedLines()
-    setTimeout(calculateFixedLines, 50)
-    setTimeout(calculateFixedLines, 150)
-    setTimeout(calculateFixedLines, 400)
+    requestAnimationFrame(() => {
+      calculateFixedLines()
+      requestAnimationFrame(() => calculateFixedLines())
+    })
   })
+
+  // Progressive timers to guarantee recalculation as fonts and layout stabilize
+  const delays = [50, 120, 250, 500, 1000]
+  delays.forEach((delay) => {
+    setTimeout(calculateFixedLines, delay)
+  })
+
+  // Direct image load listener
+  if (podImageRef.value) {
+    if (podImageRef.value.complete) {
+      calculateFixedLines()
+    } else {
+      podImageRef.value.addEventListener('load', calculateFixedLines)
+    }
+  }
+
+  // Recalculate once web fonts load
+  if (typeof document !== 'undefined' && document.fonts) {
+    document.fonts.ready.then(() => {
+      calculateFixedLines()
+    })
+  }
 
   window.addEventListener('resize', calculateFixedLines)
 
-  if (containerRef.value) {
-    resizeObserver = new ResizeObserver(() => calculateFixedLines())
-    resizeObserver.observe(containerRef.value)
+  // Observe container AND pod image container with ResizeObserver
+  if (typeof ResizeObserver !== 'undefined') {
+    resizeObserver = new ResizeObserver(() => {
+      calculateFixedLines()
+    })
+    if (containerRef.value) {
+      resizeObserver.observe(containerRef.value)
+    }
+    if (podContainerRef.value) {
+      resizeObserver.observe(podContainerRef.value)
+    }
+  }
+
+  // Recalculate as soon as the callout section scrolls into view
+  if (typeof IntersectionObserver !== 'undefined' && containerRef.value) {
+    intersectionObserver = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        calculateFixedLines()
+      }
+    })
+    intersectionObserver.observe(containerRef.value)
   }
 })
 
 onUnmounted(() => {
   window.removeEventListener('resize', calculateFixedLines)
+  if (podImageRef.value) {
+    podImageRef.value.removeEventListener('load', calculateFixedLines)
+  }
   resizeObserver?.disconnect()
   themeObserver?.disconnect()
+  intersectionObserver?.disconnect()
 })
 
 function onHover(id: string) {
@@ -306,14 +361,21 @@ function onLeave() {
         <!-- Center Pod Column (Pod image + Hotspots) -->
         <div class="relative flex-1 flex items-center justify-center max-w-[460px] mx-4 h-[530px] z-10">
           
-          <!-- Pod Image Container -->
-          <div class="relative w-full max-w-[340px] rounded-[28px] overflow-hidden border border-theme bg-surface dark:bg-zinc-950 shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.9)]">
+          <!-- Pod Image Container with aspect ratio so geometry is 100% stable instantly -->
+          <div
+            ref="podContainerRef"
+            class="relative w-full max-w-[340px] aspect-[884/1280] rounded-[28px] overflow-hidden border border-theme bg-surface dark:bg-zinc-950 shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.9)]"
+          >
             <img
+              ref="podImageRef"
               src="/pod2.png"
               alt="Sleepy1 Pod"
-              class="w-full h-auto object-cover select-none"
-              loading="lazy"
+              width="884"
+              height="1280"
+              class="w-full h-full object-cover select-none"
+              loading="eager"
               decoding="async"
+              @load="calculateFixedLines"
             />
 
             <!-- Hotspot Glowing Interactive Dots directly on the Pod Image (Z-40: On top of lines and image) -->
