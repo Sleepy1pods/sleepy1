@@ -22,7 +22,7 @@ const steps = [
     stepNumber: '3',
     title: 'Rest, then go',
     description: 'The pod locks behind you and checks you out automatically.',
-    image: '/step3.jpeg',
+    image: '/step3.png',
     imageClass: 'object-[center_32%] brightness-105',
   },
 ]
