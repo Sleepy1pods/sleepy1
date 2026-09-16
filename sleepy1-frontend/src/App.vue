@@ -53,6 +53,9 @@ watch(
       nextTick(() => {
         lenis.resize()
       })
+      setTimeout(() => lenis.resize(), 100)
+      setTimeout(() => lenis.resize(), 300)
+      setTimeout(() => lenis.resize(), 600)
     } else if (!route.hash) {
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     }

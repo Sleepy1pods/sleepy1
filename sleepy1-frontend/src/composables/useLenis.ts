@@ -66,8 +66,47 @@ export function initLenis(): Lenis | null {
     globalClickListenerAttached = true
   }
 
-  // Window load resize handler
+  // Continuous DOM and layout resize observation to prevent scroll lock on route transitions
+  if (typeof ResizeObserver !== 'undefined') {
+    let resizeRaf: number | null = null
+    const scheduleResize = () => {
+      if (resizeRaf !== null) return
+      resizeRaf = requestAnimationFrame(() => {
+        resizeRaf = null
+        lenisInstance?.resize()
+      })
+    }
+
+    resizeObserver = new ResizeObserver(() => {
+      scheduleResize()
+    })
+
+    if (document.body) {
+      resizeObserver.observe(document.body)
+    }
+    resizeObserver.observe(document.documentElement)
+  }
+
+  // MutationObserver to capture asynchronous child DOM additions and async component mounts
+  if (typeof MutationObserver !== 'undefined' && document.body) {
+    let mutRaf: number | null = null
+    mutationObserver = new MutationObserver(() => {
+      if (mutRaf !== null) return
+      mutRaf = requestAnimationFrame(() => {
+        mutRaf = null
+        lenisInstance?.resize()
+      })
+    })
+
+    mutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
+    })
+  }
+
+  // Window load and resize handlers
   window.addEventListener('load', () => lenisInstance?.resize(), { passive: true })
+  window.addEventListener('resize', () => lenisInstance?.resize(), { passive: true })
 
   isInitialized.value = true
   return lenisInstance

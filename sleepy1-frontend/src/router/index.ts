@@ -118,4 +118,13 @@ router.beforeEach((to) => {
   return true
 })
 
+router.afterEach(() => {
+  const lenis = getLenis()
+  if (lenis) {
+    lenis.start()
+    lenis.resize()
+    setTimeout(() => lenis?.resize(), 150)
+  }
+})
+
 export default router

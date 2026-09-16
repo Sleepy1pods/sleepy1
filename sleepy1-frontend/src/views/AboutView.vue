@@ -6,13 +6,24 @@ import AboutJourney from '@/components/about/AboutJourney.vue'
 import AboutStoryHero from '@/components/about/AboutStoryHero.vue'
 import AboutTeam from '@/components/about/AboutTeam.vue'
 import AboutBrandValues from '@/components/about/AboutBrandValues.vue'
+import { onMounted, nextTick } from 'vue'
 import { useI18n } from '@/composables/useI18n'
+import { useLenis } from '@/composables/useLenis'
 
 const { t } = useI18n()
+const { resize } = useLenis()
 
 usePageMeta({
   title: 'About Us',
   description: 'Meet the creators behind Sleepy1, discover how the idea came to our minds, how we engineered our rest pods, and explore our journey.',
+})
+
+onMounted(() => {
+  nextTick(() => {
+    resize()
+    setTimeout(resize, 100)
+    setTimeout(resize, 300)
+  })
 })
 </script>
 
