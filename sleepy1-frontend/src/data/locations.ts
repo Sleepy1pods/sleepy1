@@ -15,7 +15,7 @@ export const locations: Location[] = [
       en: 'IIIT Dharwad',
       te: 'ఐఐఐటీ ధార్వాడ్',
       kn: 'ಐಐಐಟಿ ಧಾರವಾಡ',
-      hi: 'आईआईआईटी धारवाड़',
+      hi: 'ट्रिपल आईटी धारवाड़',
     },
     shortName: 'IIITD',
     hubType: 'institute',
