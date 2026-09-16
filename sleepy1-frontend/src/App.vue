@@ -71,7 +71,7 @@ watch(
     <template v-if="!isAdminRoute">
       <AppHeader />
     </template>
-    <main id="main-content" class="relative z-10 flex-1">
+    <main id="main-content" class="relative z-10 flex-1 min-h-[calc(100vh-140px)]">
       <RouterView v-slot="{ Component, route: currentRoute }">
         <Transition name="page" mode="out-in">
           <component :is="Component" :key="currentRoute.matched[0]?.path || currentRoute.path" />

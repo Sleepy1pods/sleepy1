@@ -101,7 +101,26 @@
     </script>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div id="initial-app-loader" style="position: fixed; inset: 0; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #0b0d12; color: #f8fafc; font-family: ui-sans-serif, system-ui, sans-serif;">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 24px;">
+          <img src="/Logo.png" alt="Sleepy1" width="60" height="60" style="width: 60px; height: 60px; object-fit: contain; filter: drop-shadow(0 0 24px rgba(113, 130, 240, 0.4)); animation: sleepyPulse 1.8s ease-in-out infinite;" />
+          <div style="width: 140px; height: 3px; background: rgba(255, 255, 255, 0.1); border-radius: 999px; overflow: hidden; position: relative;">
+            <div style="position: absolute; top: 0; left: 0; height: 100%; width: 45%; background: linear-gradient(90deg, #7182f0, #8b9bfb); border-radius: 999px; animation: sleepySlide 1.2s ease-in-out infinite;"></div>
+          </div>
+        </div>
+        <style>
+          @keyframes sleepyPulse {
+            0%, 100% { transform: scale(1); opacity: 0.85; }
+            50% { transform: scale(1.06); opacity: 1; filter: drop-shadow(0 0 30px rgba(113, 130, 240, 0.7)); }
+          }
+          @keyframes sleepySlide {
+            0% { left: -45%; }
+            100% { left: 100%; }
+          }
+        </style>
+      </div>
+    </div>
 
     <!-- Hidden Full-Site Auto-Translator Anchor -->
     <div id="google_translate_element" style="display: none;"></div>
