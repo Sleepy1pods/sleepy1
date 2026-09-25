@@ -24,7 +24,7 @@ defineProps<{
       <div v-if="couponDiscount" class="flex justify-between text-emerald-300">
         <dt>Coupon {{ couponCode ? `(${couponCode})` : '' }}</dt><dd>-{{ formatInr(couponDiscount) }}</dd>
       </div>
-      <div v-if="creditsApplied" class="flex justify-between text-brand-300">
+      <div v-if="creditsApplied" class="flex justify-between text-zinc-300">
         <dt>Sleepy1 Credits applied</dt><dd>-{{ formatInr(creditsApplied) }}</dd>
       </div>
     </dl>

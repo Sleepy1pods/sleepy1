@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { Booking } from '@/types/booking'
-import { formatDate } from '@/utils/format'
+import { formatDate, formatTime12h } from '@/utils/format'
 import PodVisual from './PodVisual.vue'
 import StatusBadge from './StatusBadge.vue'
 import SecondaryButton from './SecondaryButton.vue'
@@ -21,7 +21,7 @@ const isPast = computed(() => props.booking.status === 'completed' || props.book
     <div class="flex-1">
       <p class="text-xs font-semibold uppercase tracking-wide text-brand-300">{{ booking.podLabel }}</p>
       <h3 class="mt-1 text-base font-semibold text-ivory-50">{{ booking.locationName }}<span v-if="booking.terminal"> · {{ booking.terminal }}</span></h3>
-      <p class="mt-1 text-sm text-ivory-100/55">{{ formatDate(booking.date) }} · {{ booking.checkIn }} · {{ booking.durationHours === 0.5 ? '30m' : booking.durationHours + 'h' }} stay</p>
+      <p class="mt-1 text-sm text-ivory-100/55">{{ formatDate(booking.date) }} · {{ formatTime12h(booking.checkIn) }} · {{ booking.durationHours === 0.5 ? '30m' : booking.durationHours + 'h' }} stay</p>
       <p class="mt-1 text-xs text-ivory-100/40">Ref: {{ booking.reference }}</p>
       <div class="mt-3"><StatusBadge :status="booking.status" /></div>
     </div>

@@ -18,14 +18,15 @@ function emptyGuest(): GuestInfo {
     emergencyContactName: '',
     emergencyContactPhone: '',
     specialRequests: '',
+    podCode: '101',
   }
 }
 
 export const useBookingFlowStore = defineStore('bookingFlow', () => {
   const currentStepIndex = ref(0)
   const draft = ref<BookingDraft>({
-    locationId: null,
-    podTypeId: null,
+    locationId: 'iiit-dharwad',
+    podTypeId: 'pod-solo-rest',
     date: null,
     checkIn: null,
     durationHours: 2,
@@ -34,6 +35,7 @@ export const useBookingFlowStore = defineStore('bookingFlow', () => {
     couponCode: null,
     paymentMethod: 'direct',
     creditsToApply: 0,
+    podCode: '101',
   })
   const confirmedBooking = ref<Booking | null>(null)
   const isSubmitting = ref(false)
@@ -157,8 +159,8 @@ export const useBookingFlowStore = defineStore('bookingFlow', () => {
   function reset() {
     currentStepIndex.value = 0
     draft.value = {
-      locationId: null,
-      podTypeId: null,
+      locationId: 'iiit-dharwad',
+      podTypeId: 'pod-solo-rest',
       date: null,
       checkIn: null,
       durationHours: 2,
@@ -167,6 +169,7 @@ export const useBookingFlowStore = defineStore('bookingFlow', () => {
       couponCode: null,
       paymentMethod: 'direct',
       creditsToApply: 0,
+      podCode: '101',
     }
     confirmedBooking.value = null
   }

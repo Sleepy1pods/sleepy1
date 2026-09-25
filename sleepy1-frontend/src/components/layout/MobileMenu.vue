@@ -135,7 +135,7 @@ async function handleLogout() {
                 </button>
               </div>
 
-              <PrimaryButton as="RouterLink" to="/quick-book" full-width @click="ui.closeMobileMenu()">
+              <PrimaryButton as="RouterLink" to="/book" full-width @click="ui.closeMobileMenu()">
                 {{ t('nav.book') }}
               </PrimaryButton>
             </div>

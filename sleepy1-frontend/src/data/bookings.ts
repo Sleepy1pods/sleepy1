@@ -11,10 +11,13 @@ export const bookingExtras: BookingExtra[] = [
 
 export function generateTimeSlots(): TimeSlot[] {
   const slots: TimeSlot[] = []
-  for (let hour = 0; hour < 24; hour++) {
+  // Operating window: 10:00 AM to 10:00 PM.
+  // With a fixed 2-hour stay, the last check-in is 8:00 PM (20:00) which ends at 10:00 PM.
+  for (let hour = 10; hour <= 20; hour++) {
     for (const minute of [0, 30]) {
+      if (hour === 20 && minute > 0) continue // Cutoff: 8:00 PM check-in ends at 10:00 PM
       const label = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`
-      const available = !((hour === 13 && minute === 30) || (hour === 14 && minute === 0) || (hour === 22 && minute === 30))
+      const available = !((hour === 13 && minute === 30) || (hour === 14 && minute === 0))
       slots.push({ time: label, available })
     }
   }
@@ -42,6 +45,7 @@ export const mockBookings: Booking[] = [
       emergencyContactName: 'Amit Kumar',
       emergencyContactPhone: '+91 91234 56789',
       specialRequests: '',
+      podCode: '101',
     },
     price: {
       basePrice: 998,
@@ -57,6 +61,7 @@ export const mockBookings: Booking[] = [
     status: 'upcoming',
     createdAt: '2026-07-20T09:12:00+05:30',
     qrValue: 'SLEEPY1-BOOKING-SLPY-91824',
+    podCode: '101',
   },
   {
     id: 'bk-2',
@@ -78,6 +83,7 @@ export const mockBookings: Booking[] = [
       emergencyContactName: 'Amit Kumar',
       emergencyContactPhone: '+91 91234 56789',
       specialRequests: 'Late check-in possible by 10 minutes.',
+      podCode: '102',
     },
     price: {
       basePrice: 1647,

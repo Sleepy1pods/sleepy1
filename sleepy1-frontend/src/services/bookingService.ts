@@ -176,7 +176,8 @@ export const bookingService = {
                 phone: dbB.phone,
                 emergencyContactName: '',
                 emergencyContactPhone: '',
-                specialRequests: ''
+                specialRequests: '',
+                podCode: (dbB as any).podCode || '101'
               },
               price: {
                 basePrice: 500,
@@ -255,7 +256,8 @@ export const bookingService = {
       paymentMethod: draft.paymentMethod,
       status: 'upcoming',
       createdAt: dbBooking.createdAt || new Date().toISOString(),
-      qrValue: `SLEEPY1-BOOKING-${dbBooking._id}`
+      qrValue: `SLEEPY1-BOOKING-${dbBooking._id}`,
+      podCode: draft.guest?.podCode || '101'
     } as Booking
   },
 

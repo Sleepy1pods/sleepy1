@@ -17,6 +17,7 @@ const form = reactive<GuestInfo>({
   emergencyContactName: flow.draft.guest?.emergencyContactName || '',
   emergencyContactPhone: flow.draft.guest?.emergencyContactPhone || '',
   specialRequests: flow.draft.guest?.specialRequests || '',
+  podCode: flow.draft.guest?.podCode || '101',
 })
 
 const errors = ref<Partial<Record<keyof GuestInfo, string>>>({})

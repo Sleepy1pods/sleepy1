@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useBookingFlowStore } from '@/stores/bookingFlow'
 import { useBookingsStore } from '@/stores/bookings'
-import { formatDateLong } from '@/utils/format'
+import { formatDateLong, formatTime12h } from '@/utils/format'
 import PaymentSuccess from '@/components/booking/PaymentSuccess.vue'
 import QRDisplay from '@/components/common/QRDisplay.vue'
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
@@ -72,10 +72,11 @@ const directionsHref = ref(
       <div class="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
         <QRDisplay :value="booking.qrValue" :reference="booking.reference" />
         <div class="flex-1 text-center sm:text-left">
-          <p class="text-xs font-semibold uppercase tracking-wide text-brand-300">Booking Confirmed</p>
+          <p class="text-xs font-semibold uppercase tracking-wide text-white">Booking Confirmed</p>
           <h3 class="mt-1 text-xl font-semibold text-ivory-50">{{ booking.locationName }}</h3>
-          <p class="mt-1 text-sm text-ivory-100/60">{{ booking.podLabel }} · {{ formatDateLong(booking.date) }} · {{ booking.checkIn }}</p>
+          <p class="mt-1 text-sm text-ivory-100/60">{{ booking.podLabel }} · {{ formatDateLong(booking.date) }} · {{ formatTime12h(booking.checkIn) }}</p>
           <p class="mt-1 text-sm text-ivory-100/60">Duration: {{ booking.durationHours }} hour(s)</p>
+          <p v-if="booking.podCode" class="mt-1 text-sm text-ivory-100/60">Pod Code: <span class="font-bold text-white">{{ booking.podCode }}</span></p>
           <p class="mt-3 text-2xl font-semibold text-ivory-50">₹{{ booking.price.totalPayable }}</p>
         </div>
       </div>
@@ -97,6 +98,6 @@ const directionsHref = ref(
   </div>
   <div v-else class="mx-auto max-w-lg text-center">
     <p class="text-ivory-100/60">No booking found in this session yet.</p>
-    <PrimaryButton as="RouterLink" to="/quick-book" class="mt-6">Start a Booking</PrimaryButton>
+    <PrimaryButton as="RouterLink" to="/book" class="mt-6">Start a Booking</PrimaryButton>
   </div>
 </template>

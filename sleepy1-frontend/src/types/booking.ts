@@ -20,6 +20,7 @@ export interface GuestInfo {
   emergencyContactName: string
   emergencyContactPhone: string
   specialRequests: string
+  podCode: string
 }
 
 export type PaymentMethod = 'direct' | 'credits' | 'hybrid' | 'razorpay'
@@ -57,6 +58,7 @@ export interface Booking {
   status: BookingStatus
   createdAt: string
   qrValue: string
+  podCode?: string
 }
 
 export interface BookingDraft {
@@ -70,4 +72,5 @@ export interface BookingDraft {
   couponCode: string | null
   paymentMethod: PaymentMethod
   creditsToApply: number
+  podCode?: string
 }

@@ -72,7 +72,12 @@ async function handleLogout() {
         role="menu"
         class="absolute left-0 sm:left-auto sm:right-0 top-full mt-2.5 w-56 overflow-hidden rounded-2xl border border-black/10 dark:border-white/10 bg-white/95 dark:bg-[#18181f]/95 py-2 shadow-2xl backdrop-blur-xl z-50"
       >
-        <router-link to="/bookings" role="menuitem" class="block px-4 py-2.5 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-black/5 dark:hover:bg-white/5" @click="isOpen = false">My Bookings</router-link>
+        <router-link to="/bookings" role="menuitem" class="block px-4 py-2.5 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-black/5 dark:hover:bg-white/5" @click="isOpen = false">
+          My Bookings
+        </router-link>
+        <router-link to="/settings" role="menuitem" class="block px-4 py-2.5 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-black/5 dark:hover:bg-white/5" @click="isOpen = false">
+          Settings
+        </router-link>
         <div class="my-2 h-px bg-black/10 dark:bg-white/10" />
         <button type="button" role="menuitem" class="block w-full px-4 py-2.5 text-left text-sm font-medium text-rose-500 dark:text-rose-400 hover:bg-black/5 dark:hover:bg-white/5" @click="handleLogout">
           Log Out

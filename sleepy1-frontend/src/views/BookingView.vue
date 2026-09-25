@@ -24,7 +24,7 @@ const ui = useUiStore()
 
 const steps = [
   { key: 'select', label: 'Select Pod' },
-  { key: 'customize', label: 'Guest & Extras' },
+  { key: 'customize', label: 'Guest Details' },
   { key: 'checkout', label: 'Payment' },
   { key: 'confirmation', label: 'Confirmed' },
 ]
@@ -53,36 +53,41 @@ onMounted(() => {
 watchEffect(() => {
   const locationSlug = route.query.location as string | undefined
   const podId = route.query.pod as string | undefined
-  const hours = route.query.hours as string | undefined
   if (locationSlug) {
     flow.setLocation(locationSlug)
   } else if (!flow.draft.locationId) {
-    flow.setLocation('iit-delhi')
+    flow.setLocation('iiit-dharwad')
   }
   if (podId) {
     flow.setPod(podId)
   } else if (!flow.draft.podTypeId) {
     flow.setPod('pod-solo-rest')
   }
-  if (hours) {
-    flow.draft.durationHours = Number(hours) || 2
-  }
+  flow.draft.durationHours = 2
   if (!flow.draft.date) {
     flow.draft.date = new Date().toISOString().slice(0, 10)
   }
-  if (!flow.draft.checkIn) {
-    flow.draft.checkIn = '14:00'
-  }
 })
+
+function onStepClick(index: number) {
+  if (index > 0 && !flow.draft.checkIn) {
+    ui.pushToast({
+      type: 'error',
+      title: 'Time Slot Required',
+      description: 'Please select a check-in time slot before proceeding.',
+    })
+    return
+  }
+  flow.currentStepIndex = index
+}
 </script>
 
 <template>
   <div class="container-page max-w-5xl py-14">
     <div v-if="flow.currentStep !== 'confirmation'" class="mb-10">
       <h1 class="text-2xl font-semibold text-ivory-50 sm:text-3xl">Book Your Sleepy1 Pod</h1>
-      <p class="mt-1 text-sm text-ivory-100/55">A guided, hospitality-grade booking experience — all data shown is for demo purposes.</p>
       <div class="mt-6">
-        <BookingStepper :steps="steps" :current-index="flow.currentStepIndex" @step-click="flow.currentStepIndex = $event" />
+        <BookingStepper :steps="steps" :current-index="flow.currentStepIndex" @step-click="onStepClick" />
       </div>
     </div>
 

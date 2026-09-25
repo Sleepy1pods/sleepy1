@@ -42,6 +42,7 @@ const router = createRouter({
     { path: '/quick-book', name: 'quick-book', component: () => import('@/views/QuickBookingView.vue'), meta: { requiresAuth: true } },
     { path: '/bookings', name: 'my-bookings', component: () => import('@/views/MyBookingsView.vue'), meta: { requiresAuth: true } },
     { path: '/bookings/:id', name: 'booking-detail', component: () => import('@/views/BookingDetailView.vue'), meta: { requiresAuth: true } },
+    { path: '/settings', name: 'settings', component: () => import('@/views/SettingsView.vue'), meta: { requiresAuth: true } },
 
     { path: '/wallet', redirect: '/' },
     { path: '/credits', redirect: '/' },

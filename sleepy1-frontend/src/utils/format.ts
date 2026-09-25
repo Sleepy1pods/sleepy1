@@ -35,3 +35,14 @@ export function generateBookingReference(): string {
   const digits = Math.floor(10000 + Math.random() * 89999)
   return `SLPY-${digits}`
 }
+
+export function formatTime12h(timeStr: string | null | undefined): string {
+  if (!timeStr) return ''
+  const parts = timeStr.trim().split(':')
+  if (parts.length < 2) return timeStr
+  let h = parseInt(parts[0], 10)
+  const m = parts[1].slice(0, 2)
+  const ampm = h >= 12 ? 'PM' : 'AM'
+  h = h % 12 || 12
+  return `${h}:${m} ${ampm}`
+}

@@ -143,7 +143,7 @@ watch(locale, () => {
         <!-- Action Buttons -->
         <div class="mt-9 flex flex-wrap items-center gap-4 sm:gap-5">
           <router-link
-            to="/quick-book"
+            to="/book"
             class="hero-book-btn group relative inline-flex items-center gap-3 px-8 py-4 rounded-full text-xs sm:text-sm font-bold tracking-[0.18em] uppercase transition-all duration-300 hover:scale-105 shadow-lg shadow-black/15 dark:shadow-black/40 notranslate"
             translate="no"
           >

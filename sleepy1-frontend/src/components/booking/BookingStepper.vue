@@ -15,10 +15,10 @@ const emit = defineEmits<{
           class="group flex items-center gap-2.5 rounded-full px-3.5 py-1.5 transition-all"
           :class="
             i < currentIndex
-              ? 'bg-brand-400/15 text-brand-300 hover:bg-brand-400/25 cursor-pointer'
+              ? 'bg-white/10 text-white hover:bg-white/15 cursor-pointer'
               : i === currentIndex
-                ? 'border border-brand-400/60 bg-brand-400/10 text-ivory-50 shadow-soft'
-                : 'text-ivory-100/40 cursor-not-allowed'
+                ? 'border border-white/40 bg-white/10 text-white shadow-soft'
+                : 'text-white/40 cursor-not-allowed'
           "
           :aria-current="i === currentIndex ? 'step' : undefined"
           @click="i <= currentIndex && emit('step-click', i)"
@@ -27,10 +27,10 @@ const emit = defineEmits<{
             class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-xs font-semibold transition-colors"
             :class="
               i < currentIndex
-                ? 'border-brand-400 bg-brand-400 text-ink-950'
+                ? 'border-white bg-white text-black'
                 : i === currentIndex
-                  ? 'border-brand-400 text-brand-300'
-                  : 'border-white/15 text-ivory-100/30'
+                  ? 'border-white text-white bg-white/10'
+                  : 'border-white/15 text-white/30'
             "
           >
             <svg v-if="i < currentIndex" class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none">
@@ -38,7 +38,7 @@ const emit = defineEmits<{
             </svg>
             <span v-else>{{ i + 1 }}</span>
           </div>
-          <span class="whitespace-nowrap text-xs font-semibold tracking-wide" :class="i === currentIndex ? 'text-ivory-50' : i < currentIndex ? 'text-brand-200' : 'text-ivory-100/40'">
+          <span class="whitespace-nowrap text-xs font-semibold tracking-wide" :class="i === currentIndex ? 'text-white font-bold' : i < currentIndex ? 'text-zinc-200' : 'text-white/40'">
             {{ step.label }}
           </span>
         </button>

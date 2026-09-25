@@ -134,7 +134,7 @@ const navStyle = computed(() => ({
               {{ t('nav.login') }}
             </router-link>
             <router-link
-              to="/quick-book"
+              to="/book"
               class="inline-flex h-[38px] min-w-[88px] flex-shrink-0 whitespace-nowrap items-center justify-center rounded-full bg-cta-fill px-6 text-sm font-bold text-cta-text transition-all duration-200 hover:scale-105 shadow-md hover:opacity-90 tracking-wide notranslate"
               translate="no"
             >

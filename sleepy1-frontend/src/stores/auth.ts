@@ -51,5 +51,14 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  return { user, isLoading, error, isAuthenticated, login, register, logout, fetchUser }
+  function updateUser(updated: Partial<User>) {
+    if (!user.value) return
+    user.value = { ...user.value, ...updated }
+    if (updated.fullName) {
+      user.value.avatarInitials = updated.fullName.charAt(0).toUpperCase()
+    }
+    localStorage.setItem('sleepy1_mock_session', JSON.stringify(user.value))
+  }
+
+  return { user, isLoading, error, isAuthenticated, login, register, logout, fetchUser, updateUser }
 })
