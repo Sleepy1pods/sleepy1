@@ -32,7 +32,6 @@ function validate() {
   if (!/^[+]?[\d\s-]{7,15}$/.test(form.phone)) next.phone = 'Enter a valid phone number.'
   if (!form.emergencyContactName.trim()) next.emergencyContactName = 'Emergency contact name is required.'
   if (!/^[+]?[\d\s-]{7,15}$/.test(form.emergencyContactPhone)) next.emergencyContactPhone = 'Enter a valid phone number.'
-  if (!form.podCode || !/^\d{3}$/.test(form.podCode.trim())) next.podCode = 'Pod code must be 3 digits (e.g. 101).'
   errors.value = next
   return Object.keys(next).length === 0
 }
@@ -94,21 +93,6 @@ function proceed() {
               required
               :error="errors.emergencyContactPhone"
               placeholder="+91 98765 00000"
-            />
-          </div>
-
-          <!-- Pod Code Row (3 digits) -->
-          <div class="sm:col-span-2">
-            <FormField
-              v-model="form.podCode"
-              label="Pod Code (3 digits)"
-              required
-              maxlength="3"
-              inputmode="numeric"
-              pattern="[0-9]{3}"
-              placeholder="e.g. 101"
-              hint="Enter the 3-digit pod code"
-              :error="errors.podCode"
             />
           </div>
 

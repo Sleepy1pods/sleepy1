@@ -85,12 +85,18 @@ async function cancelBooking() {
         <h1 class="text-2xl font-semibold text-ivory-50 sm:text-3xl">{{ booking.locationName }}</h1>
         <StatusBadge :status="booking.status" />
       </div>
-      <p class="mt-1 text-sm text-ivory-100/55">{{ booking.podLabel }} · Ref {{ booking.reference }}</p>
+      <p class="mt-1 text-sm text-ivory-100/55">
+        {{ booking.podLabel }} · Ref {{ booking.reference }} · Pod Code: <span class="font-mono font-semibold text-white">{{ booking.podCode || '101' }}</span>
+      </p>
 
       <div class="mt-8 max-w-2xl">
         <div class="card-surface p-6 sm:p-8">
           <h2 class="mb-6 text-xl font-semibold text-brand-300">Guest Information & Schedule</h2>
           <dl class="space-y-4 text-base text-ivory-100/80">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/5 pb-4">
+              <dt class="mb-1 text-sm text-ivory-100/60 sm:mb-0">Pod Access Code</dt>
+              <dd class="font-mono font-bold text-lg text-brand-300">{{ booking.podCode || '101' }}</dd>
+            </div>
             <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/5 pb-4">
               <dt class="mb-1 text-sm text-ivory-100/60 sm:mb-0">Guest Name</dt>
               <dd class="font-medium text-ivory-50">{{ booking.guest.fullName }}</dd>

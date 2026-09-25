@@ -19,7 +19,12 @@ const isPast = computed(() => props.booking.status === 'completed' || props.book
       <PodVisual :id="booking.podImage" class="h-full w-full" />
     </div>
     <div class="flex-1">
-      <p class="text-xs font-semibold uppercase tracking-wide text-brand-300">{{ booking.podLabel }}</p>
+      <div class="flex flex-wrap items-center gap-2">
+        <p class="text-xs font-semibold uppercase tracking-wide text-brand-300">{{ booking.podLabel }}</p>
+        <span class="inline-flex items-center gap-1 rounded-md border border-brand-400/30 bg-brand-500/10 px-2 py-0.5 text-xs font-medium text-brand-200">
+          Pod Code: <span class="font-mono font-bold text-white">{{ booking.podCode || '101' }}</span>
+        </span>
+      </div>
       <h3 class="mt-1 text-base font-semibold text-ivory-50">{{ booking.locationName }}<span v-if="booking.terminal"> · {{ booking.terminal }}</span></h3>
       <p class="mt-1 text-sm text-ivory-100/55">{{ formatDate(booking.date) }} · {{ formatTime12h(booking.checkIn) }} · {{ booking.durationHours === 0.5 ? '30m' : booking.durationHours + 'h' }} stay</p>
       <p class="mt-1 text-xs text-ivory-100/40">Ref: {{ booking.reference }}</p>

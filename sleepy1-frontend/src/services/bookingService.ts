@@ -114,7 +114,8 @@ export const bookingService = {
             phone: dbB.phone,
             emergencyContactName: '',
             emergencyContactPhone: '',
-            specialRequests: ''
+            specialRequests: '',
+            podCode: (dbB as any).podCode || '101'
           },
           price: {
             basePrice: 500,
@@ -129,7 +130,8 @@ export const bookingService = {
           paymentMethod: 'direct',
           status: isPast ? 'completed' : 'upcoming',
           createdAt: dbB.createdAt || new Date().toISOString(),
-          qrValue: `SLEEPY1-BOOKING-${dbB._id}`
+          qrValue: `SLEEPY1-BOOKING-${dbB._id}`,
+          podCode: (dbB as any).podCode || '101'
         }
       })
       
@@ -192,7 +194,8 @@ export const bookingService = {
               paymentMethod: 'direct',
               status: isPast ? 'completed' : 'upcoming',
               createdAt: dbB.createdAt || new Date().toISOString(),
-              qrValue: `SLEEPY1-BOOKING-${dbB._id}`
+              qrValue: `SLEEPY1-BOOKING-${dbB._id}`,
+              podCode: (dbB as any).podCode || '101'
             }
           }
         }

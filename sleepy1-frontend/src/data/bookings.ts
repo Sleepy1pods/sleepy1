@@ -83,7 +83,7 @@ export const mockBookings: Booking[] = [
       emergencyContactName: 'Amit Kumar',
       emergencyContactPhone: '+91 91234 56789',
       specialRequests: 'Late check-in possible by 10 minutes.',
-      podCode: '102',
+      podCode: '101',
     },
     price: {
       basePrice: 1647,
@@ -99,5 +99,6 @@ export const mockBookings: Booking[] = [
     status: 'completed',
     createdAt: '2026-05-01T18:40:00+05:30',
     qrValue: 'SLEEPY1-BOOKING-SLPY-77042',
+    podCode: '101',
   },
 ]
